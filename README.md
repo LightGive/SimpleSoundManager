@@ -1,0 +1,2 @@
+# AudioManager
+Unityで使えるAudioManagerです
