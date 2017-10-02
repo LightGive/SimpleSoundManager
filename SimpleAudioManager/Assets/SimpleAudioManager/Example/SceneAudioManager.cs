@@ -25,22 +25,22 @@ public class SceneAudioManager : MonoBehaviour
 
 	public void PlaySound2D()
 	{
-		AudioManager.Instance.PlaySound2D(AudioName.SE_Shutter, volume, delay, pitch);
+		//AudioManager.Instance.PlaySound2D(AudioName.SE_Shutter, volume, delay, pitch);
 	}
 
 	public void PlaySound2DLoop()
 	{
-		AudioManager.Instance.PlaySound2DLoop(AudioName.SE_Shutter, 5, volume, delay, pitch);
+		//AudioManager.Instance.PlaySound2DLoop(AudioName.SE_Shutter, 5, volume, delay, pitch);
 	}
 
 	public void PlaySound3D()
 	{
-		AudioManager.Instance.Play3DSound(AudioName.SE_Computer, soundIcon,volume,delay);
+		//AudioManager.Instance.Play3DSound(AudioName.SE_Computer, soundIcon,volume,delay);
 	}
 
 	public void PlayBGM()
 	{
-		AudioManager.Instance.PlayBGM(AudioName.BGM_Main);
+		//AudioManager.Instance.PlayBGM(AudioName.BGM_Main);
 	}
 
 	public void ChangeVolume(float sliderValue)

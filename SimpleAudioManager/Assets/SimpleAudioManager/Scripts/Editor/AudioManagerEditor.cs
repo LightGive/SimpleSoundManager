@@ -125,6 +125,8 @@ public class AudioManagerEditor : Editor
 			var audioManagerFolderPath = Directory.GetParent(audioManagerScriptPath).FullName;
 			var audioNameScriptPath = audioManagerFolderPath + "/" + AUDIO_SCRIPT_NAME;
 
+			Debug.Log("フォルダパス"+audioManagerFolderPath);
+
 			//BGMとSEのファイルパス
 			var bgmSourcePath = ConvertSystemPathToUnityPath( audioManagerFolderPath + BGM_FOLDER_PATH);
 			var seSourcePath = ConvertSystemPathToUnityPath( audioManagerFolderPath + SE_FOLDER_PATH);
