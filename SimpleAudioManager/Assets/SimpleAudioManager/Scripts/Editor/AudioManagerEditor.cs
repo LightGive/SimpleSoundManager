@@ -122,10 +122,10 @@ public class AudioManagerEditor : Editor
 			//スクリプトのパスを取得する
 			thisScript = MonoScript.FromMonoBehaviour((AudioManager)target);
 			var audioManagerScriptPath = AssetDatabase.GetAssetPath(thisScript);
-			var audioManagerFolderPath = Directory.GetParent(audioManagerScriptPath).FullName;
-			var audioNameScriptPath = audioManagerFolderPath + "/" + AUDIO_SCRIPT_NAME;
+			var audioManagerScriptFolderPath = Directory.GetParent(audioManagerScriptPath).FullName;
+			var audioManagerFolderPath = Directory.GetParent(audioManagerScriptFolderPath).FullName;
+			var audioNameScriptPath = audioManagerFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
 
-			Debug.Log("フォルダパス"+audioManagerFolderPath);
 
 			//BGMとSEのファイルパス
 			var bgmSourcePath = ConvertSystemPathToUnityPath( audioManagerFolderPath + BGM_FOLDER_PATH);
@@ -224,7 +224,7 @@ public class AudioManagerEditor : Editor
 			foreach (AudioClip se in seObjList)
 				strBuilder.Append("\t").AppendFormat(@"public const string SE_{0} = ""{1}"";", se.name, se.name).AppendLine();
 			strBuilder.AppendLine("}");
-			string directoryName = Path.GetDirectoryName(audioNameScriptPath);
+			string directoryName = Path.GetDirectoryName(audioNameScriptPath) + "\\Scripts";
 			if (!Directory.Exists(directoryName))
 			{
 				Directory.CreateDirectory(directoryName);
