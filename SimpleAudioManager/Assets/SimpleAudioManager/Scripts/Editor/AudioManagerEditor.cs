@@ -224,7 +224,7 @@ public class AudioManagerEditor : Editor
 			foreach (AudioClip se in seObjList)
 				strBuilder.Append("\t").AppendFormat(@"public const string SE_{0} = ""{1}"";", se.name, se.name).AppendLine();
 			strBuilder.AppendLine("}");
-			string directoryName = Path.GetDirectoryName(audioNameScriptPath) + "\\Scripts";
+			string directoryName = Path.GetDirectoryName(audioNameScriptPath);
 			if (!Directory.Exists(directoryName))
 			{
 				Directory.CreateDirectory(directoryName);
