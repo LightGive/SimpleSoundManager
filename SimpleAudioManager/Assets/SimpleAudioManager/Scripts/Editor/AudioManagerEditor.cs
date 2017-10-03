@@ -224,6 +224,15 @@ public class AudioManagerEditor : Editor
 			foreach (AudioClip se in seObjList)
 				strBuilder.Append("\t").AppendFormat(@"public const string SE_{0} = ""{1}"";", se.name, se.name).AppendLine();
 			strBuilder.AppendLine("}");
+
+			strBuilder.AppendLine("\t");
+			strBuilder.AppendFormat("public enum {0}Enum", audioFileNameExtension).AppendLine();
+			strBuilder.AppendLine("{");
+			foreach (AudioClip bgm in bgmObjList) 
+				strBuilder.Append("\t").AppendFormat(@"BGM_{0},", bgm.name).AppendLine();
+			strBuilder.AppendLine("}");
+
+
 			string directoryName = Path.GetDirectoryName(audioNameScriptPath);
 			if (!Directory.Exists(directoryName))
 			{
