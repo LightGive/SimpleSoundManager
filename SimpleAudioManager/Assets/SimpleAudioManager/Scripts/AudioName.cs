@@ -9,12 +9,12 @@
 	
 public enum AudioNameBGM
 {
-	BGM_Example2,
-	BGM_Main,
+	Example2,
+	Main,
 }
 	
 public enum AudioNameSE
 {
-	SE_Computer,
-	SE_Shutter,
+	Computer,
+	Shutter,
 }

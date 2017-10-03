@@ -240,7 +240,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 	{
 		if (!seDictionary.ContainsKey(_audioName))
 		{
-			Debug.Log("そんな名前のSEはねーよ");
+			Debug.Log("そんな名前のSEはねーよ：" + _audioName);
 			return;
 		}
 		var clipInfo = seDictionary[_audioName];
@@ -280,7 +280,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 	/// SEを停止させる
 	/// </summary>
 	/// <param name="_audioName"></param>
-	public void StopSE(string _audioName)
+	public void StopSe(string _audioName)
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
@@ -288,6 +288,19 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 				continue;
 			if (sePlayerList[i].audioSource.clip.name == _audioName)
 				sePlayerList[i].audioSource.Stop();
+		}
+	}
+
+	/// <summary>
+	/// 全てのSEを停止させる
+	/// </summary>
+	public void StopSeAll()
+	{
+		for (int i = 0; i < sePlayerList.Count; i++)
+		{
+			if (!sePlayerList[i].isActive)
+				continue;
+			sePlayerList[i].audioSource.Stop();
 		}
 	}
 

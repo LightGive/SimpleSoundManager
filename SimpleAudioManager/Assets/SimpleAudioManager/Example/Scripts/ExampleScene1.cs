@@ -35,12 +35,19 @@ public class ExampleScene1 : MonoBehaviour {
 
 	public void PlaySound2D()
 	{
-		AudioManager.Instance.PlaySound2D(AudioName.SE_Shutter, volume, delay, pitch);
+		var idx = seNameDropDown.value;
+		var itemName = seNameDropDown.options[idx];
+		AudioManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch);
 	}
 
 	public void PlaySound2DLoop()
 	{
-		AudioManager.Instance.PlaySound2DLoop(AudioName.SE_Shutter, 5, volume, delay, pitch);
+		AudioManager.Instance.PlaySound2DLoop(seNameDropDown.itemText.text, 5, volume, delay, pitch);
+	}
+
+	public void StopSE()
+	{
+		AudioManager.Instance.StopSeAll();
 	}
 
 	public void PlayBGM()

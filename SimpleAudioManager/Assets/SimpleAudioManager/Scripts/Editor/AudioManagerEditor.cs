@@ -229,14 +229,14 @@ public class AudioManagerEditor : Editor
 			strBuilder.AppendFormat("public enum AudioNameBGM").AppendLine();
 			strBuilder.AppendLine("{");
 			foreach (AudioClip bgm in bgmObjList)
-				strBuilder.Append("\t").AppendFormat(@"BGM_{0},", bgm.name).AppendLine();
+				strBuilder.Append("\t").AppendFormat(@"{0},", bgm.name).AppendLine();
 			strBuilder.AppendLine("}");
 			strBuilder.AppendLine("\t");
 
 			strBuilder.AppendFormat("public enum AudioNameSE").AppendLine();
 			strBuilder.AppendLine("{");
 			foreach (AudioClip se in seObjList)
-				strBuilder.Append("\t").AppendFormat(@"SE_{0},", se.name).AppendLine();
+				strBuilder.Append("\t").AppendFormat(@"{0},", se.name).AppendLine();
 			strBuilder.AppendLine("}");
 
 		
