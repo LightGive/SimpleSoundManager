@@ -7,8 +7,14 @@
 	public const string SE_Shutter = "Shutter";
 }
 	
-public enum AudioNameEnum
+public enum AudioNameBGM
 {
 	BGM_Example2,
 	BGM_Main,
+}
+	
+public enum AudioNameSE
+{
+	SE_Computer,
+	SE_Shutter,
 }

@@ -14,10 +14,19 @@ public class ExampleScene1 : MonoBehaviour {
 	private Text delayText;
 	[SerializeField]
 	private Text pitchText;
+	[SerializeField]
+	private Dropdown seNameDropDown;
 
 	private float volume = 1.0f;
 	private float delay = 0.0f;
 	private float pitch = 1.0f;
+
+	void Start()
+	{
+		string[] enumNames = System.Enum.GetNames(typeof(AudioNameSE));
+		List<string> names = new List<string>(enumNames);
+		seNameDropDown.AddOptions(names);
+	}
 
 	void Update()
 	{
