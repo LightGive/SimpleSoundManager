@@ -18,14 +18,17 @@ public class ButtonAudioSetting : MonoBehaviour,
 	private UnityEvent eventPointerEnter;
 	private UnityEvent eventPointerExit;
 
-	public AudioNameSE audioNameSE;
 
-
+	public AudioNameSE m_EnterAudioName;
+	public AudioNameSE m_ExitAudioName;
+	public AudioNameSE m_ClickAudioName;
+	
 	void Awake()
 	{
 		var b = this.gameObject.GetComponent<Button>();
 		if (!b) { return; }
 
+		
 		b.onClick.AddListener(OnPointerEnter);
 
 	}
@@ -33,7 +36,7 @@ public class ButtonAudioSetting : MonoBehaviour,
 
 	void OnPointerEnter()
 	{
-		AudioManager.Instance.PlaySound2D(audioNameSE.ToString());
+		//AudioManager.Instance.PlaySound2D(audioNameSE.ToString());
 	}
 
 	void Start()
@@ -48,23 +51,27 @@ public class ButtonAudioSetting : MonoBehaviour,
 
 	public void OnBeginDrag(PointerEventData ped)
 	{
-		eventBeginDrag.Invoke();
+		if (eventBeginDrag != null)
+			eventBeginDrag.Invoke();
 	}
 	public void OnDrag(PointerEventData ped)
 	{
-		eventDrag.Invoke();
+		if (eventDrag != null)
+			eventDrag.Invoke();
 	}
 	public void OnEndDrag(PointerEventData ped)
 	{
-		eventEndDrag.Invoke();
+		if (eventEndDrag != null)
+			eventEndDrag.Invoke();
 	}
 	public void OnPointerEnter(PointerEventData ped)
 	{
-		eventPointerEnter.Invoke();
+		if (eventPointerEnter != null)
+			eventPointerEnter.Invoke();
 	}
 	public void OnPointerExit(PointerEventData ped)
 	{
-		eventPointerExit.Invoke();
+		if (eventPointerExit != null)
+			eventPointerExit.Invoke();
 	}
-	
 }

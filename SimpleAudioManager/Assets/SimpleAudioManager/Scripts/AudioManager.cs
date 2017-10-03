@@ -112,7 +112,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		//AudioPlayerのGameObjectを作成
 		for (int i = 0; i < sePlayerNum; i++)
 		{
-			GameObject sePlayerObj = new GameObject("AudioObj" + i.ToString());
+			GameObject sePlayerObj = new GameObject("SEPlayerObj" + i.ToString());
 			sePlayerObj.transform.SetParent(this.gameObject.transform);
 			sePlayerObj.SetActive(false);
 
@@ -175,7 +175,10 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		bgmPlayer.Play();
 	}
 
-
+	public void PlaySound2D(AudioNameSE _audioName)
+	{
+		
+	}
 
 	/// <summary>
 	/// ２DのSEを再生する

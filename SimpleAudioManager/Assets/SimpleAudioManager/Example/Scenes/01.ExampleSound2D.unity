@@ -2589,7 +2589,13 @@ MonoBehaviour:
   - isUse: 1
     audioNo: 2
     audioClip: {fileID: 8300000, guid: ebaf248c6118e0a4e9b55834511bb1f2, type: 3}
-  seAudioClipList: []
+  seAudioClipList:
+  - isUse: 1
+    audioNo: 1
+    audioClip: {fileID: 8300000, guid: 78f82aa1194b98344a0b4cfe1953177e, type: 3}
+  - isUse: 1
+    audioNo: 2
+    audioClip: {fileID: 8300000, guid: 281999c50ca9855458d20567f434b58f, type: 3}
   sePlayerList: []
   bgmAudioMixerGroup: {fileID: 0}
   seAudioMixerGroup: {fileID: 0}

@@ -3,7 +3,6 @@ using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 
@@ -13,26 +12,18 @@ using UnityEngine;
 public class AudioNameCreator : AssetPostprocessor
 {
 	private const string AUDIO_SCRIPT_NAME = "AudioName.cs";
-	private const string BGM_FOLDER_PATH = "\\\\Source\\BGM";
-	private const string SE_FOLDER_PATH = "\\\\Source\\SE";
+	private const string BGM_FOLDER_PATH = "\\Source\\BGM";
+	private const string SE_FOLDER_PATH = "\\Source\\SE";
 	private const string COMMAND_NAME = "Tools/AudioManager/Create AudioName"; // コマンド名
 
 	//オーディオファイルが編集または追加されたら自動でAUDIO.csを作成する
 	private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{
 		List<string[]> assetsList = new List<string[]>(){
-	  importedAssets, deletedAssets, movedAssets, movedFromAssetPaths};
-
-		//	List<string> targetDirectoryNameList = new List<string>(){
-		//  DirectoryPath.TOP_RESOURCES + DirectoryPath.BGM,
-		//  DirectoryPath.TOP_RESOURCES + DirectoryPath.SE
-		//};
+			importedAssets, deletedAssets, movedAssets, movedFromAssetPaths
+		};
+		
 		Create();
-
-		//if (ExistsDirectoryInAssets(assetsList, targetDirectoryNameList))
-		//{
-		//}
-
 	}
 
 	//スクリプトを作成します
@@ -42,11 +33,10 @@ public class AudioNameCreator : AssetPostprocessor
 		string[] res = System.IO.Directory.GetFiles(Application.dataPath, "AudioNameCreator.cs", SearchOption.AllDirectories);
 
 		//スクリプトのパスを取得する
-		var audioManagerScriptPath = res[0];
-		var audioManagerScriptFolderPath = Directory.GetParent(audioManagerScriptPath).FullName;
-		var audioManagerFolderPath = Directory.GetParent(audioManagerScriptFolderPath).FullName;
+		var audioManagerScriptFolderPath = Directory.GetParent(res[0]).FullName;
+		var audioNameCreatorFolderPath = Directory.GetParent(audioManagerScriptFolderPath).FullName;
+		var audioManagerFolderPath = Directory.GetParent(audioNameCreatorFolderPath).FullName;
 		var audioNameScriptPath = audioManagerFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
-
 
 		//BGMとSEのファイルパス
 		var bgmSourcePath = ConvertSystemPathToUnityPath(audioManagerFolderPath + BGM_FOLDER_PATH);
@@ -149,6 +139,7 @@ public class AudioNameCreator : AssetPostprocessor
 
 		strBuilder.AppendFormat("public enum AudioNameBGM").AppendLine();
 		strBuilder.AppendLine("{");
+		strBuilder.Append("\t").AppendFormat(@"None,").AppendLine();
 		foreach (AudioClip bgm in bgmObjList)
 			strBuilder.Append("\t").AppendFormat(@"{0},", bgm.name).AppendLine();
 		strBuilder.AppendLine("}");
@@ -156,13 +147,10 @@ public class AudioNameCreator : AssetPostprocessor
 
 		strBuilder.AppendFormat("public enum AudioNameSE").AppendLine();
 		strBuilder.AppendLine("{");
+		strBuilder.Append("\t").AppendFormat(@"None,").AppendLine();
 		foreach (AudioClip se in seObjList)
 			strBuilder.Append("\t").AppendFormat(@"{0},", se.name).AppendLine();
 		strBuilder.AppendLine("}");
-
-
-
-
 
 		string directoryName = Path.GetDirectoryName(audioNameScriptPath);
 		if (!Directory.Exists(directoryName))

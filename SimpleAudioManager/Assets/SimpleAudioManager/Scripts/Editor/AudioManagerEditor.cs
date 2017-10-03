@@ -215,46 +215,6 @@ namespace LightGive
 					}
 				}
 
-				//AudioNameを作成
-				//Sourceフォルダに入っている音楽ファイルのファイル名の変数が入ったAudioNameファイル作成
-				string audioFileNameExtension = Path.GetFileNameWithoutExtension(audioNameScriptPath);
-				StringBuilder strBuilder = new StringBuilder();
-				strBuilder.AppendFormat("public static class {0}", audioFileNameExtension).AppendLine();
-				strBuilder.AppendLine("{");
-				foreach (AudioClip bgm in bgmObjList)
-					strBuilder.Append("\t").AppendFormat(@"public const string BGM_{0} = ""{1}"";", bgm.name, bgm.name).AppendLine();
-				strBuilder.AppendLine("\t");
-				foreach (AudioClip se in seObjList)
-					strBuilder.Append("\t").AppendFormat(@"public const string SE_{0} = ""{1}"";", se.name, se.name).AppendLine();
-				strBuilder.AppendLine("}");
-				strBuilder.AppendLine("\t");
-
-				strBuilder.AppendFormat("public enum AudioNameBGM").AppendLine();
-				strBuilder.AppendLine("{");
-				foreach (AudioClip bgm in bgmObjList)
-					strBuilder.Append("\t").AppendFormat(@"{0},", bgm.name).AppendLine();
-				strBuilder.AppendLine("}");
-				strBuilder.AppendLine("\t");
-
-				strBuilder.AppendFormat("public enum AudioNameSE").AppendLine();
-				strBuilder.AppendLine("{");
-				foreach (AudioClip se in seObjList)
-					strBuilder.Append("\t").AppendFormat(@"{0},", se.name).AppendLine();
-				strBuilder.AppendLine("}");
-
-
-
-
-
-				string directoryName = Path.GetDirectoryName(audioNameScriptPath);
-				if (!Directory.Exists(directoryName))
-				{
-					Directory.CreateDirectory(directoryName);
-				}
-				File.WriteAllText(audioNameScriptPath, strBuilder.ToString(), Encoding.UTF8);
-				AssetDatabase.Refresh(ImportAssetOptions.ImportRecursive);
-				//AudioNameの作成終了
-
 				OnEnable();
 				Repaint();
 			}
