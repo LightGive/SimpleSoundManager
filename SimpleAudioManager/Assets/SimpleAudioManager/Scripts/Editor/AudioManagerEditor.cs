@@ -42,12 +42,12 @@ namespace LightGive
 		{
 			serializedObject.Update();
 
-			EditorGUILayout.LabelField("Volume Setting");
-			EditorGUILayout.Slider(totalVolumeProp, 0.0f, 1.0f, "Total");
-			EditorGUILayout.Slider(bgmVolumeProp, 0.0f, 1.0f, "BGM");
-			EditorGUILayout.Slider(seVolumeProp, 0.0f, 1.0f, "SE");
+			EditorGUILayout.LabelField("Audio Setting");
+			EditorGUILayout.Slider(totalVolumeProp, 0.0f, 1.0f, "Vol Total");
+			EditorGUILayout.Slider(bgmVolumeProp, 0.0f, 1.0f, "Default Vol BGM");
+			EditorGUILayout.Slider(seVolumeProp, 0.0f, 1.0f, "Default Vol SE");
 			EditorGUILayout.Space();
-			sePlayerNumProp.intValue = EditorGUILayout.IntField("オーディオの数", sePlayerNumProp.intValue);
+			sePlayerNumProp.intValue = EditorGUILayout.IntField("Create Player Num", sePlayerNumProp.intValue);
 			EditorGUILayout.Space();
 
 			EditorGUILayout.LabelField("AudioMixer");

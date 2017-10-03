@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4924586343473374}
-  - component: {fileID: 114031909755622532}
+  - component: {fileID: 114325403542823730}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114031909755622532
+--- !u!114 &114325403542823730
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -61,9 +61,15 @@ MonoBehaviour:
   seAudioClipList:
   - isUse: 1
     audioNo: 1
-    audioClip: {fileID: 8300000, guid: 78f82aa1194b98344a0b4cfe1953177e, type: 3}
+    audioClip: {fileID: 8300000, guid: 2a61e405db42c014c86b11a3aa229c6a, type: 3}
   - isUse: 1
     audioNo: 2
+    audioClip: {fileID: 8300000, guid: 789a174ef1795b4439242e5b009ae00f, type: 3}
+  - isUse: 1
+    audioNo: 3
+    audioClip: {fileID: 8300000, guid: 78f82aa1194b98344a0b4cfe1953177e, type: 3}
+  - isUse: 1
+    audioNo: 4
     audioClip: {fileID: 8300000, guid: 281999c50ca9855458d20567f434b58f, type: 3}
   sePlayerList: []
   bgmAudioMixerGroup: {fileID: 0}

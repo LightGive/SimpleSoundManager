@@ -177,7 +177,9 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 
 	public void PlaySound2D(AudioNameSE _audioName)
 	{
-		
+		if (_audioName == AudioNameSE.None)
+			return;
+		PlaySound2D(_audioName.ToString());
 	}
 
 	/// <summary>
