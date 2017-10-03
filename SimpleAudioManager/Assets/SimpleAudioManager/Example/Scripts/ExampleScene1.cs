@@ -55,6 +55,11 @@ public class ExampleScene1 : MonoBehaviour {
 		AudioManager.Instance.PlayBGM(AudioName.BGM_Main);
 	}
 
+	public void ChangeTotalVolume(float sliderValue)
+	{
+		AudioManager.Instance.TotalVolume = sliderValue;
+	}
+
 	public void ChangeVolume(float sliderValue)
 	{
 		volume = sliderValue;

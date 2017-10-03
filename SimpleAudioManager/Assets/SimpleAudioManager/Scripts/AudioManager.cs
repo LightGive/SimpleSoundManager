@@ -76,6 +76,18 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 	[SerializeField]
 	public int sePlayerNum = DefaultSePlayerNum;
 
+
+	public float TotalVolume
+	{
+		get { return totalVolume; }
+		set
+		{
+			totalVolume = value;
+			ChangeAllVolume();
+		}
+	}
+
+
 	protected override void Awake()
 	{
 		base.Awake();
@@ -254,10 +266,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 		//オーディオプレイヤーを取得
 		SoundPlayer sePlayer = GetSoundPlayer(_is3dSound);
 		sePlayer.audioSource.clip = clipInfo.audioClip;
-		sePlayer.audioSource.volume = _volume * totalVolume;
 		sePlayer.audioSource.pitch = _pitch;
 		sePlayer.audioSource.spatialBlend = spatialBlend;
 		sePlayer.parentObj = _parentObj;
+		sePlayer.volume = _volume;
 		sePlayer.loopCnt = _loopCount;
 		sePlayer.delay = _delay;
 		sePlayer.callBackAct = _onComplete;
@@ -301,6 +313,20 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 			if (!sePlayerList[i].isActive)
 				continue;
 			sePlayerList[i].audioSource.Stop();
+		}
+	}
+
+	/// <summary>
+	/// 全ての音の大きさを変更する
+	/// </summary>
+	/// <param name="_val"></param>
+	public void ChangeAllVolume()
+	{
+		for (int i = 0; i < sePlayerList.Count; i++)
+		{
+			if (!sePlayerList[i].isActive)
+				continue;
+			sePlayerList[i].ChangeTotalVolume(totalVolume);
 		}
 	}
 

@@ -13,6 +13,8 @@ public class SoundPlayer : MonoBehaviour
 	[SerializeField]
 	public float delay;
 	[SerializeField]
+	public float volume;
+	[SerializeField]
 	public int loopCnt;
 	[SerializeField]
 	public bool isActive;
@@ -24,6 +26,7 @@ public class SoundPlayer : MonoBehaviour
 	{
 		this.gameObject.SetActive(true);
 		isActive = true;
+		audioSource.volume = AudioManager.Instance.TotalVolume * volume;
 		audioSource.PlayDelayed(delay);
 		Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch) + delay);
     }
@@ -61,5 +64,10 @@ public class SoundPlayer : MonoBehaviour
 	{
 		audioSource = new AudioSource();
 		audioSource.clip = _audioClip;
+	}
+
+	public void ChangeTotalVolume(float _val)
+	{
+		audioSource.volume = AudioManager.Instance.TotalVolume * volume;
 	}
 }
