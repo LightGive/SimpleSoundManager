@@ -43,6 +43,11 @@ namespace LightGive
 			loopCnt = 0;
 		}
 
+		public void Pause()
+		{
+			audioSource.Pause();
+		}
+
 		void AudioPlayCheck()
 		{
 			loopCnt--;

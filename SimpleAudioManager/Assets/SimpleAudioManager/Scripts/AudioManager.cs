@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using LightGive;
 
 [System.Serializable]
-public class AudioManager : SingletonMonoBehaviour<AudioManager>
+public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 {
 	private const int DefaultSePlayerNum = 10;
 	private const float DefaultVolume = 1.0f;
