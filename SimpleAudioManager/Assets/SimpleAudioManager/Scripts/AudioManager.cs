@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
+using LightGive;
 
 [System.Serializable]
 public class AudioManager : SingletonMonoBehaviour<AudioManager>
@@ -32,8 +33,6 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 	/// </summary>
 	[AudioClipInfo, SerializeField]
 	public List<AudioClipInfo> seAudioClipList = new List<AudioClipInfo>();
-
-
 	/// <summary>
 	/// 使用するBGMのDictionary
 	/// </summary>
@@ -111,7 +110,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
 
 		//AudioPlayerのGameObjectを作成
-		for (int i = 0; i < sePlayerNum ; i++)
+		for (int i = 0; i < sePlayerNum; i++)
 		{
 			GameObject sePlayerObj = new GameObject("AudioObj" + i.ToString());
 			sePlayerObj.transform.SetParent(this.gameObject.transform);
@@ -124,9 +123,9 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 			audioInfo.audioSource.outputAudioMixerGroup = seAudioMixerGroup;
 			sePlayerList.Add(audioInfo);
 		}
-	
-		
-		for(int i = 0; i < bgmAudioClipList.Count; i++)
+
+
+		for (int i = 0; i < bgmAudioClipList.Count; i++)
 		{
 			bgmDictionary.Add(bgmAudioClipList[i].audioName, bgmAudioClipList[i]);
 		}
@@ -299,7 +298,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 			if (!sePlayerList[i].isActive)
 				continue;
 			if (sePlayerList[i].audioSource.clip.name == _audioName)
-				sePlayerList[i].audioSource.Stop();
+				sePlayerList[i].Stop();
 		}
 	}
 
@@ -312,7 +311,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 		{
 			if (!sePlayerList[i].isActive)
 				continue;
-			sePlayerList[i].audioSource.Stop();
+			sePlayerList[i].Stop();
 		}
 	}
 
@@ -337,7 +336,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 	/// <returns></returns>
 	private SoundPlayer GetSoundPlayer(bool _is3dSound)
 	{
-		for(int i = 0; i < sePlayerList.Count; i++)
+		for (int i = 0; i < sePlayerList.Count; i++)
 		{
 			if (sePlayerList[i].audioSource.isPlaying)
 				continue;

@@ -3,71 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable]
-public class SoundPlayer : MonoBehaviour
+namespace LightGive
 {
-	[SerializeField]
-	public AudioSource audioSource;
-	[SerializeField]
-	public GameObject parentObj;
-	[SerializeField]
-	public float delay;
-	[SerializeField]
-	public float volume;
-	[SerializeField]
-	public int loopCnt;
-	[SerializeField]
-	public bool isActive;
-
-	[SerializeField]
-	public UnityAction callBackAct;
-
-	public void Play()
+	[System.Serializable]
+	public class SoundPlayer : MonoBehaviour
 	{
-		this.gameObject.SetActive(true);
-		isActive = true;
-		audioSource.volume = AudioManager.Instance.TotalVolume * volume;
-		audioSource.PlayDelayed(delay);
-		Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch) + delay);
-    }
+		[SerializeField]
+		public AudioSource audioSource;
+		[SerializeField]
+		public GameObject parentObj;
+		[SerializeField]
+		public float delay;
+		[SerializeField]
+		public float volume;
+		[SerializeField]
+		public int loopCnt;
+		[SerializeField]
+		public bool isActive;
 
+		[SerializeField]
+		public UnityAction callBackAct;
 
-	void AudioPlayCheck()
-	{
-		loopCnt--;
-		
-		if (loopCnt > 0)
+		public void Play()
 		{
-			audioSource.Play();
-			Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch));
-			return;
+			isActive = true;
+			this.gameObject.SetActive(true);
+			audioSource.volume = AudioManager.Instance.TotalVolume * volume;
+			audioSource.PlayDelayed(delay);
+			Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch) + delay);
+
 		}
 
-		if (callBackAct != null)
+		public void Stop()
 		{
-			callBackAct.Invoke();
+			audioSource.Stop();
+			this.gameObject.SetActive(false);
+			CancelInvoke();
+			isActive = false;
+			loopCnt = 0;
 		}
-		this.gameObject.SetActive(false);
-	}
 
+		void AudioPlayCheck()
+		{
+			loopCnt--;
 
-	public SoundPlayer()
-	{
-		isActive = false;
-		audioSource = null;
-		parentObj = null;
-		delay = 0.0f;
-		loopCnt = 0;
-	}
+			if (loopCnt > 0)
+			{
+				audioSource.Play();
+				Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch));
+				return;
+			}
 
-	public SoundPlayer(AudioClip _audioClip)
-	{
-		audioSource = new AudioSource();
-		audioSource.clip = _audioClip;
-	}
+			if (callBackAct != null)
+			{
+				callBackAct.Invoke();
+			}
+			this.gameObject.SetActive(false);
+		}
 
-	public void ChangeTotalVolume(float _val)
-	{
-		audioSource.volume = AudioManager.Instance.TotalVolume * volume;
+		public SoundPlayer()
+		{
+			isActive = false;
+			audioSource = null;
+			parentObj = null;
+			delay = 0.0f;
+			loopCnt = 0;
+		}
+
+		public SoundPlayer(AudioClip _audioClip)
+		{
+			audioSource = new AudioSource();
+			audioSource.clip = _audioClip;
+		}
+
+		public void ChangeTotalVolume(float _val)
+		{
+			audioSource.volume = AudioManager.Instance.TotalVolume * volume;
+		}
 	}
 }

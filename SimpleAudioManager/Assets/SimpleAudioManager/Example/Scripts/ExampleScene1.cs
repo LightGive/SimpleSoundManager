@@ -9,6 +9,10 @@ using UnityEngine.UI;
 public class ExampleScene1 : MonoBehaviour {
 
 	[SerializeField]
+	private Toggle isLoopToggle;
+	[SerializeField]
+	private InputField loopCountInput;
+	[SerializeField]
 	private Text volumeText;
 	[SerializeField]
 	private Text delayText;
@@ -37,7 +41,19 @@ public class ExampleScene1 : MonoBehaviour {
 	{
 		var idx = seNameDropDown.value;
 		var itemName = seNameDropDown.options[idx];
-		AudioManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch);
+
+		if (isLoopToggle.isOn)
+		{
+			if (loopCountInput.text == "")
+				return;
+
+			var loopCnt = int.Parse(loopCountInput.text);
+			AudioManager.Instance.PlaySound2DLoop(itemName.text, loopCnt, volume, delay, pitch);
+		}
+		else
+		{
+			AudioManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch);
+		}
 	}
 
 	public void PlaySound2DLoop()
