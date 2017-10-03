@@ -4355,6 +4355,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114325403542823730, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
+        type: 2}
+      propertyPath: seAudioClipList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114325403542823730, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
+        type: 2}
+      propertyPath: bgmAudioClipList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4924586343473374, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0

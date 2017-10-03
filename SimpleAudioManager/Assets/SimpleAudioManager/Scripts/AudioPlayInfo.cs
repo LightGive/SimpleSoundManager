@@ -13,6 +13,8 @@ namespace LightGive
 		[SerializeField]
 		public GameObject parentObj;
 		[SerializeField]
+		public AnimationCurve animationCurve;
+		[SerializeField]
 		public float delay;
 		[SerializeField]
 		public float volume;

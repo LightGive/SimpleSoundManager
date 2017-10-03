@@ -13,15 +13,15 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	private const float DefaultSePitch = 1.0f;
 	private const float DefaultSeDelay = 0.0f;
 
-	private readonly float DefaultMinDistance = 1.0f;
-	private readonly float DefaultMaxDistance = 500.0f;
-
-	private readonly Vector3 DefaultPos = Vector3.zero;
 	private const float PitchMin = 0.0f;
 	private const float PitchMax = 3.0f;
 	private const float DelayMin = 0.0f;
 	private const float DelayMax = 10.0f;
 
+	private readonly float DefaultMinDistance = 1.0f;
+	private readonly float DefaultMaxDistance = 500.0f;
+
+	private readonly Vector3 DefaultPos = Vector3.zero;
 
 	/// <summary>
 	/// 全てのBGM音声ファイルのリスト
@@ -286,7 +286,6 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		}
 		else
 		{
-
 		}
 
 		sePlayer.Play();
