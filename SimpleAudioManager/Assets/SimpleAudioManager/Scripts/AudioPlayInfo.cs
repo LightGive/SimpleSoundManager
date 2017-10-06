@@ -33,7 +33,6 @@ namespace LightGive
 			audioSource.volume = AudioManager.Instance.TotalVolume * volume;
 			audioSource.PlayDelayed(delay);
 			Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch) + delay);
-
 		}
 
 		public void Stop()
@@ -44,6 +43,7 @@ namespace LightGive
 			isActive = false;
 			loopCnt = 0;
 		}
+
 
 		public void Pause()
 		{

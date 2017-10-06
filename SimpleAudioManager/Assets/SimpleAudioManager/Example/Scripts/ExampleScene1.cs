@@ -27,6 +27,7 @@ public class ExampleScene1 : MonoBehaviour {
 
 	void Start()
 	{
+		Application.targetFrameRate = 60;
 		string[] enumNames = System.Enum.GetNames(typeof(AudioNameSE));
 		List<string> names = new List<string>(enumNames);
 		seNameDropDown.AddOptions(names);
