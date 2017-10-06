@@ -1217,6 +1217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   callTime: 5
+  isPause: 0
 --- !u!4 &382297904
 Transform:
   m_ObjectHideFlags: 0
@@ -1735,9 +1736,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLoopToggle: {fileID: 1744876201}
+  isStartCallBack: {fileID: 1758231935}
+  isEndCallBack: {fileID: 1053396722}
   loopCountInput: {fileID: 1978912663}
   fadeInTimeInput: {fileID: 1570231164}
   fadeOutTimeInput: {fileID: 1886911810}
+  totalVolumeText: {fileID: 727969844}
   volumeText: {fileID: 320194928}
   delayText: {fileID: 2072586063}
   pitchText: {fileID: 1713027833}
@@ -2677,7 +2681,7 @@ GameObject:
   - component: {fileID: 1053396721}
   - component: {fileID: 1053396722}
   m_Layer: 5
-  m_Name: ToggleIsStartCallBack
+  m_Name: ToggleIsEndCallBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4890,7 +4894,7 @@ GameObject:
   - component: {fileID: 1758231934}
   - component: {fileID: 1758231935}
   m_Layer: 5
-  m_Name: ToggleIsEndCallBack
+  m_Name: ToggleIsStartCallBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

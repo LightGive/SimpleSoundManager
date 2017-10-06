@@ -69,11 +69,11 @@ public class ExampleScene1 : MonoBehaviour {
 				return;
 
 			var loopCnt = int.Parse(loopCountInput.text);
-			AudioManager.Instance.PlaySound2DLoop(itemName.text, loopCnt, volume, delay, pitch);
+			AudioManager.Instance.PlaySound2DLoop(itemName.text, loopCnt, volume, delay, pitch, callBackStart, callBackEnd);
 		}
 		else
 		{
-			AudioManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch, fadeInTime, fadeOutTime);
+			AudioManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch, fadeInTime, fadeOutTime, callBackStart, callBackEnd);
 		}
 	}
 

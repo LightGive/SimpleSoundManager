@@ -11,7 +11,7 @@ namespace LightGive
 		[SerializeField]
 		public AudioSource audioSource;
 		[SerializeField]
-		public GameObject parentObj;
+		public GameObject chaseObj;
 		[SerializeField]
 		public AnimationCurve animationCurve;
 		[SerializeField]
@@ -35,7 +35,9 @@ namespace LightGive
 			isActive = true;
 			this.gameObject.SetActive(true);
 			audioSource.volume = AudioManager.Instance.TotalVolume * volume;
-			audioSource.PlayDelayed(delay);			
+			audioSource.PlayDelayed(delay);
+			if (callbackOnStart != null)
+				callbackOnStart.Invoke();	
 			Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch) + delay);
 		}
 
@@ -76,15 +78,15 @@ namespace LightGive
 		{
 			isActive = false;
 			audioSource = null;
-			parentObj = null;
+			chaseObj = null;
 			delay = 0.0f;
 			loopCnt = 0;
 		}
 
 		public void PlayerUpdate()
 		{
-			if (parentObj != null)
-				transform.position = parentObj.transform.position;
+			if (chaseObj != null)
+				transform.position = chaseObj.transform.position;
 
 			if (isFade)
 			{

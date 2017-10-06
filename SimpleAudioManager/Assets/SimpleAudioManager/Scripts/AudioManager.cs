@@ -132,7 +132,6 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		}
 		for (int i = 0; i < seAudioClipList.Count; i++)
 		{
-			Debug.Log(seAudioClipList[i].audioName);
 			seDictionary.Add(seAudioClipList[i].audioName, seAudioClipList[i]);
 		}
 	}
@@ -279,12 +278,13 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		sePlayer.audioSource.clip = clipInfo.audioClip;
 		sePlayer.audioSource.pitch = _pitch;
 		sePlayer.audioSource.spatialBlend = spatialBlend;
-		sePlayer.parentObj = _parentObj;
+		sePlayer.chaseObj = _parentObj;
 		sePlayer.volume = _volume;
 		sePlayer.loopCnt = _loopCount;
 		sePlayer.delay = _delay;
 		sePlayer.isFade = (_fadeInTime != 0.0f || _fadeOutTime != 0.0f);
 		sePlayer.callbackOnComplete = _onComplete;
+		sePlayer.callbackOnStart = _onStart;
 
 		if (sePlayer.isFade)
 		{
@@ -363,7 +363,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		{
 			if (sePlayerList[i].audioSource.isPlaying)
 				continue;
-			Debug.Log(i.ToString() + "番のPlayerを使います");
+			//Debug.Log(i.ToString() + "番のPlayerを使います");
 			return sePlayerList[i];
 		}
 
