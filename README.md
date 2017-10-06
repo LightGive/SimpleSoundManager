@@ -2,9 +2,9 @@
 Unityで使えるシンプルなAudioManager<br>
 <br>
 ### 実装済み機能<br>
-BGM
+BGM<br>
 <br>
-SE
+SE<br>
 ・遅延<br>
 ・音量<br>
 ・ピッチ<br>
@@ -15,6 +15,7 @@ SE
 ### 未実装、今後追加する機能<br>
 BGM<br>
 ・<br>
+<br>
 SE<br>
 ・フェードイン・フェードアウト<br>
 ・<br>
