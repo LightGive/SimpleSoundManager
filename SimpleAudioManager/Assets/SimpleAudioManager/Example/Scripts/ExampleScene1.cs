@@ -13,6 +13,10 @@ public class ExampleScene1 : MonoBehaviour {
 	[SerializeField]
 	private InputField loopCountInput;
 	[SerializeField]
+	private InputField fadeInTimeInput;
+	[SerializeField]
+	private InputField fadeOutTimeInput;
+	[SerializeField]
 	private Text volumeText;
 	[SerializeField]
 	private Text delayText;
@@ -42,6 +46,8 @@ public class ExampleScene1 : MonoBehaviour {
 	{
 		var idx = seNameDropDown.value;
 		var itemName = seNameDropDown.options[idx];
+		var fadeInTime = float.Parse(fadeInTimeInput.text);
+		var fadeOutTime = float.Parse(fadeOutTimeInput.text);
 
 		if (isLoopToggle.isOn)
 		{
@@ -53,7 +59,7 @@ public class ExampleScene1 : MonoBehaviour {
 		}
 		else
 		{
-			AudioManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch);
+			AudioManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch, fadeInTime, fadeOutTime);
 		}
 	}
 

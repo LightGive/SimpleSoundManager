@@ -12,6 +12,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	private const float DefaultVolume = 1.0f;
 	private const float DefaultSePitch = 1.0f;
 	private const float DefaultSeDelay = 0.0f;
+	private const float DefaultSeFadeTime = 0.0f;
 
 	private const float PitchMin = 0.0f;
 	private const float PitchMax = 3.0f;
@@ -143,10 +144,8 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 			var player = sePlayerList[i];
 			if (!player.audioSource.isPlaying)
 				continue;
-			if (!player.parentObj)
-				continue;
 
-			player.gameObject.transform.position = player.parentObj.transform.position;
+			player.PlayerUpdate();
 		}
 	}
 
@@ -199,10 +198,11 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	/// <param name="_delay">遅延時間</param>
 	/// <param name="_pitch">ピッチ</param>
 	/// <param name="_onComplete"></param>
-	public void PlaySound2D(string _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, UnityAction _onComplete = null)
+	public void PlaySound2D(string _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onComplete = null)
 	{
-		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onComplete);
+		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onComplete);
 	}
+
 	/// <summary>
 	/// ２DのSEをループ再生する
 	/// </summary>
@@ -215,6 +215,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _callBackAct);
 	}
+
 	/// <summary>
 	/// ２DのSEを止めるまでループ再生する
 	/// </summary>
@@ -226,6 +227,10 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	{
 		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null);
 	}
+
+
+
+
 
 	public void Play3DSound(string _audioName, Vector3 _soundPos)
 	{
@@ -266,6 +271,8 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		_volume = Mathf.Clamp01(_volume);
 		_delay = Mathf.Clamp(_delay, DelayMin, DelayMax);
 		_pitch = Mathf.Clamp(_pitch, PitchMin, PitchMax);
+		_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clipInfo.audioClip.length);
+		_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clipInfo.audioClip.length);
 
 		//オーディオプレイヤーを取得
 		SoundEffectPlayer sePlayer = GetSoundPlayer(_is3dSound);
@@ -276,7 +283,19 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		sePlayer.volume = _volume;
 		sePlayer.loopCnt = _loopCount;
 		sePlayer.delay = _delay;
-		sePlayer.callBackAct = _onComplete;
+		sePlayer.isFade = (_fadeInTime != 0.0f || _fadeOutTime != 0.0f);
+		sePlayer.callbackOnComplete = _onComplete;
+
+		if (sePlayer.isFade)
+		{
+			Keyframe key1 = new Keyframe(0.0f, 0.0f, 0.0f, 1.0f);
+			Keyframe key2 = new Keyframe(_fadeInTime, 1.0f, 0.0f, 0.0f);
+			Keyframe key3 = new Keyframe(clipInfo.audioClip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
+			Keyframe key4 = new Keyframe(clipInfo.audioClip.length, 0.0f, 0.0f, 1.0f);
+
+			AnimationCurve animCurve = new AnimationCurve(key1, key2, key3, key4);
+			sePlayer.animationCurve = animCurve;
+		}
 
 
 		if (_is3dSound)

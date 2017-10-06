@@ -22,9 +22,11 @@ namespace LightGive
 		public int loopCnt;
 		[SerializeField]
 		public bool isActive;
+		[SerializeField]
+		public bool isFade;
 
 		[SerializeField]
-		public UnityAction callBackAct;
+		public UnityAction callbackOnComplete;
 
 		public void Play()
 		{
@@ -61,9 +63,9 @@ namespace LightGive
 				return;
 			}
 
-			if (callBackAct != null)
+			if (callbackOnComplete != null)
 			{
-				callBackAct.Invoke();
+				callbackOnComplete.Invoke();
 			}
 			this.gameObject.SetActive(false);
 		}
@@ -75,6 +77,20 @@ namespace LightGive
 			parentObj = null;
 			delay = 0.0f;
 			loopCnt = 0;
+		}
+
+		public void PlayerUpdate()
+		{
+			if (parentObj != null)
+				transform.position = parentObj.transform.position;
+
+			if (isFade)
+			{
+				audioSource.volume =
+					AudioManager.Instance.TotalVolume *
+					animationCurve.Evaluate(audioSource.time) *
+					volume;
+			}
 		}
 
 		public SoundEffectPlayer(AudioClip _audioClip)
