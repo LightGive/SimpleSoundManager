@@ -187,7 +187,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	/// <param name="_audioName">SEの名前</param>
 	public void PlaySound2D(string _audioName)
 	{
-		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null);
+		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 
 	/// <summary>
@@ -198,9 +198,9 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	/// <param name="_delay">遅延時間</param>
 	/// <param name="_pitch">ピッチ</param>
 	/// <param name="_onComplete"></param>
-	public void PlaySound2D(string _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onComplete = null)
+	public void PlaySound2D(string _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
-		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onComplete);
+		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
 	}
 
 	/// <summary>
@@ -211,9 +211,9 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	/// <param name="_seVolume">ボリューム</param>
 	/// <param name="_delay">遅延時間</param>
 	/// <param name="_pitch">ピッチ</param>
-	public void PlaySound2DLoop(string _audioName, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, UnityAction _callBackAct = null)
+	public void PlaySound2DLoop(string _audioName, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
-		PlaySE(_audioName, _seVolume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _callBackAct);
+		PlaySE(_audioName, _seVolume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
 	}
 
 	/// <summary>
@@ -225,7 +225,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	/// <param name="_pitch">ピッチ</param>
 	public void PlaySound2DLoopInfinity(string _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch)
 	{
-		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null);
+		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 
 
@@ -234,30 +234,30 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 
 	public void Play3DSound(string _audioName, Vector3 _soundPos)
 	{
-		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null);
+		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 	public void Play3DSound(string _audioName, Vector3 _soundPos, float _seVolume)
 	{
-		PlaySE(_audioName, _seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null);
+		PlaySE(_audioName, _seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 	public void Play3DSound(string _audioName, Vector3 _soundPos, float _seVolume, float _delay)
 	{
-		PlaySE(_audioName, seVolume, _delay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null);
+		PlaySE(_audioName, seVolume, _delay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 	public void Play3DSound(string _audioName, GameObject _parentObj)
 	{
-		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, DefaultPos, _parentObj, DefaultMinDistance, DefaultMaxDistance, null);
+		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, DefaultPos, _parentObj, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 	public void Play3DSound(string _audioName, GameObject _parentObj, float _seVolume)
 	{
-		PlaySE(_audioName, _seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, DefaultPos, _parentObj, DefaultMinDistance, DefaultMaxDistance, null);
+		PlaySE(_audioName, _seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, DefaultPos, _parentObj, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 	public void Play3DSound(string _audioName, GameObject _parentObj, float _seVolume, float _seDelay)
 	{
-		PlaySE(_audioName, _seVolume, _seDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, DefaultPos, _parentObj, DefaultMinDistance, DefaultMaxDistance, null);
+		PlaySE(_audioName, _seVolume, _seDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, DefaultPos, _parentObj, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 
-	private void PlaySE(string _audioName, float _volume, float _delay, float _pitch, bool _isLoop, int _loopCount, float _fadeInTime, float _fadeOutTime, bool _is3dSound, Vector3 _soundPos, GameObject _parentObj, float _minDistance, float _maxDistance, UnityAction _onComplete)
+	private void PlaySE(string _audioName, float _volume, float _delay, float _pitch, bool _isLoop, int _loopCount, float _fadeInTime, float _fadeOutTime, bool _is3dSound, Vector3 _soundPos, GameObject _parentObj, float _minDistance, float _maxDistance, UnityAction _onStart, UnityAction _onComplete)
 	{
 		if (!seDictionary.ContainsKey(_audioName))
 		{

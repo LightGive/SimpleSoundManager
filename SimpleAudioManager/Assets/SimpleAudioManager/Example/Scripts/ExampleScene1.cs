@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 /// <summary>
 /// ExampleScene1
@@ -11,11 +12,17 @@ public class ExampleScene1 : MonoBehaviour {
 	[SerializeField]
 	private Toggle isLoopToggle;
 	[SerializeField]
+	private Toggle isStartCallBack;
+	[SerializeField]
+	private Toggle isEndCallBack;
+	[SerializeField]
 	private InputField loopCountInput;
 	[SerializeField]
 	private InputField fadeInTimeInput;
 	[SerializeField]
 	private InputField fadeOutTimeInput;
+	[SerializeField]
+	private Text totalVolumeText;
 	[SerializeField]
 	private Text volumeText;
 	[SerializeField]
@@ -48,6 +55,13 @@ public class ExampleScene1 : MonoBehaviour {
 		var itemName = seNameDropDown.options[idx];
 		var fadeInTime = float.Parse(fadeInTimeInput.text);
 		var fadeOutTime = float.Parse(fadeOutTimeInput.text);
+		UnityAction callBackStart = null;
+		UnityAction callBackEnd = null;
+
+		if (isStartCallBack.isOn)
+			callBackStart = DebugStartCallback;
+		if (isEndCallBack.isOn)
+			callBackEnd = DebugEndCallback;
 
 		if (isLoopToggle.isOn)
 		{
@@ -63,10 +77,8 @@ public class ExampleScene1 : MonoBehaviour {
 		}
 	}
 
-	public void PlaySound2DLoop()
-	{
-		AudioManager.Instance.PlaySound2DLoop(seNameDropDown.itemText.text, 5, volume, delay, pitch);
-	}
+	public void DebugStartCallback(){ Debug.Log("Start Call Back"); }
+	public void DebugEndCallback()	{ Debug.Log("End Call Back"); }
 
 	public void StopSE()
 	{
@@ -76,6 +88,7 @@ public class ExampleScene1 : MonoBehaviour {
 	public void ChangeTotalVolume(float sliderValue)
 	{
 		AudioManager.Instance.TotalVolume = sliderValue;
+		totalVolumeText.text = (sliderValue * 100).ToString("f1") + "%";
 	}
 
 	public void ChangeVolume(float sliderValue)

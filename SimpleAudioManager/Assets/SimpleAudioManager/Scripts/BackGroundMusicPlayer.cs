@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackGroundMusicPlayer : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+public class BackGroundMusicPlayer : MonoBehaviour
+{
+	void Start ()
+	{
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		
 	}
 }

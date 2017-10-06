@@ -27,13 +27,15 @@ namespace LightGive
 
 		[SerializeField]
 		public UnityAction callbackOnComplete;
+		[SerializeField]
+		public UnityAction callbackOnStart;
 
 		public void Play()
 		{
 			isActive = true;
 			this.gameObject.SetActive(true);
 			audioSource.volume = AudioManager.Instance.TotalVolume * volume;
-			audioSource.PlayDelayed(delay);
+			audioSource.PlayDelayed(delay);			
 			Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch) + delay);
 		}
 
