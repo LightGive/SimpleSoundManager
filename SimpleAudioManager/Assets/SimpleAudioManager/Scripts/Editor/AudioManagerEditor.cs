@@ -283,10 +283,10 @@ namespace LightGive
 	}
 
 
-	[CustomPropertyDrawer(typeof(SoundPlayer))]
+	[CustomPropertyDrawer(typeof(SoundEffectPlayer))]
 	public class AudioSourceInfoDrawer : PropertyDrawer
 	{
-		private SoundPlayer audioSourceInfo;
+		private SoundEffectPlayer audioSourceInfo;
 
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{

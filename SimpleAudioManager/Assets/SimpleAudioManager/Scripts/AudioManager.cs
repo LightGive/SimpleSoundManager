@@ -42,7 +42,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	/// </summary>
 	public Dictionary<string, AudioClipInfo> seDictionary;
 
-	public List<SoundPlayer> sePlayerList = new List<SoundPlayer>();
+	public List<SoundEffectPlayer> sePlayerList = new List<SoundEffectPlayer>();
 	/// <summary>
 	/// オーディオミキサー
 	/// </summary>
@@ -52,7 +52,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	public AudioMixerGroup seAudioMixerGroup;
 
 
-	public SoundPlayer bgmPlayer;
+	public SoundEffectPlayer bgmPlayer;
 
 	/// <summary>
 	/// 全体の音量
@@ -101,7 +101,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		bgmPlayerObj.transform.SetParent(this.gameObject.transform);
 		bgmPlayerObj.SetActive(false);
 
-		bgmPlayer = bgmPlayerObj.AddComponent<SoundPlayer>();
+		bgmPlayer = bgmPlayerObj.AddComponent<SoundEffectPlayer>();
 		bgmPlayer.audioSource = bgmPlayerObj.AddComponent<AudioSource>();
 		bgmPlayer.audioSource.playOnAwake = false;
 		bgmPlayer.audioSource.loop = true;
@@ -116,7 +116,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 			sePlayerObj.transform.SetParent(this.gameObject.transform);
 			sePlayerObj.SetActive(false);
 
-			SoundPlayer audioInfo = sePlayerObj.AddComponent<SoundPlayer>();
+			SoundEffectPlayer audioInfo = sePlayerObj.AddComponent<SoundEffectPlayer>();
 			audioInfo.audioSource = sePlayerObj.AddComponent<AudioSource>();
 			audioInfo.audioSource.playOnAwake = false;
 			audioInfo.audioSource.loop = false;
@@ -268,7 +268,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 		_pitch = Mathf.Clamp(_pitch, PitchMin, PitchMax);
 
 		//オーディオプレイヤーを取得
-		SoundPlayer sePlayer = GetSoundPlayer(_is3dSound);
+		SoundEffectPlayer sePlayer = GetSoundPlayer(_is3dSound);
 		sePlayer.audioSource.clip = clipInfo.audioClip;
 		sePlayer.audioSource.pitch = _pitch;
 		sePlayer.audioSource.spatialBlend = spatialBlend;
@@ -338,7 +338,7 @@ public class AudioManager : LightGive.SingletonMonoBehaviour<AudioManager>
 	/// </summary>
 	/// <param name="_is3dSound">3Dサウンドかどうか</param>
 	/// <returns></returns>
-	private SoundPlayer GetSoundPlayer(bool _is3dSound)
+	private SoundEffectPlayer GetSoundPlayer(bool _is3dSound)
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{

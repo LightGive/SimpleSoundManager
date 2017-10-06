@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace LightGive
 {
 	[System.Serializable]
-	public class SoundPlayer : MonoBehaviour
+	public class SoundEffectPlayer : MonoBehaviour
 	{
 		[SerializeField]
 		public AudioSource audioSource;
@@ -68,7 +68,7 @@ namespace LightGive
 			this.gameObject.SetActive(false);
 		}
 
-		public SoundPlayer()
+		public SoundEffectPlayer()
 		{
 			isActive = false;
 			audioSource = null;
@@ -77,7 +77,7 @@ namespace LightGive
 			loopCnt = 0;
 		}
 
-		public SoundPlayer(AudioClip _audioClip)
+		public SoundEffectPlayer(AudioClip _audioClip)
 		{
 			audioSource = new AudioSource();
 			audioSource.clip = _audioClip;
