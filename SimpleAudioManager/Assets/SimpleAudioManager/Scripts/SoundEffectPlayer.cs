@@ -34,7 +34,7 @@ namespace LightGive
 		{
 			isActive = true;
 			this.gameObject.SetActive(true);
-			audioSource.volume = AudioManager.Instance.TotalVolume * volume;
+			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * volume;
 			audioSource.PlayDelayed(delay);
 			if (callbackOnStart != null)
 				callbackOnStart.Invoke();	
@@ -91,7 +91,7 @@ namespace LightGive
 			if (isFade)
 			{
 				audioSource.volume =
-					AudioManager.Instance.TotalVolume *
+					SimpleSoundManager.Instance.TotalVolume *
 					animationCurve.Evaluate(audioSource.time) *
 					volume;
 			}
@@ -105,7 +105,7 @@ namespace LightGive
 
 		public void ChangeTotalVolume(float _val)
 		{
-			audioSource.volume = AudioManager.Instance.TotalVolume * volume;
+			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * volume;
 		}
 	}
 }

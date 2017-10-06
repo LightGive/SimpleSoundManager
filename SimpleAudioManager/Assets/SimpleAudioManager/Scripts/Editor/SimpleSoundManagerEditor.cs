@@ -12,8 +12,8 @@ namespace LightGive
 	/// <summary>
 	/// AudioManagerのインスペクタの操作
 	/// </summary>
-	[CustomEditor(typeof(AudioManager))]
-	public class AudioManagerEditor : Editor
+	[CustomEditor(typeof(SimpleSoundManager))]
+	public class SimpleSoundManagerEditor : Editor
 	{
 		private const string AUDIO_SCRIPT_NAME = "AudioName.cs";
 		private const string BGM_FOLDER_PATH = "\\Source\\BGM";
@@ -123,7 +123,7 @@ namespace LightGive
 				ResetAudioClipInfo();
 
 				//スクリプトのパスを取得する
-				thisScript = MonoScript.FromMonoBehaviour((AudioManager)target);
+				thisScript = MonoScript.FromMonoBehaviour((SimpleSoundManager)target);
 				var audioManagerScriptPath = AssetDatabase.GetAssetPath(thisScript);
 				var audioManagerScriptFolderPath = Directory.GetParent(audioManagerScriptPath).FullName;
 				var audioManagerFolderPath = Directory.GetParent(audioManagerScriptFolderPath).FullName;
@@ -182,7 +182,7 @@ namespace LightGive
 
 						var bgmInfo = new AudioClipInfo(idx, audio);
 						bgmAudioClipListProp.arraySize++;
-						foreach (AudioManager t in targets)
+						foreach (SimpleSoundManager t in targets)
 						{
 							t.bgmAudioClipList.Add(bgmInfo);
 							serializedObject.ApplyModifiedProperties();
@@ -210,7 +210,7 @@ namespace LightGive
 
 						var seInfo = new AudioClipInfo(idx, audio);
 						seAudioClipListProp.arraySize++;
-						foreach (AudioManager t in targets)
+						foreach (SimpleSoundManager t in targets)
 							t.seAudioClipList.Add(seInfo);
 					}
 				}
@@ -228,7 +228,7 @@ namespace LightGive
 		{
 			serializedObj.Update();
 
-			foreach (AudioManager t in targets)
+			foreach (SimpleSoundManager t in targets)
 			{
 				t.bgmAudioClipList.Clear();
 				t.seAudioClipList.Clear();

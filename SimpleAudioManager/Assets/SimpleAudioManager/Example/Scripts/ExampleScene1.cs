@@ -69,11 +69,11 @@ public class ExampleScene1 : MonoBehaviour {
 				return;
 
 			var loopCnt = int.Parse(loopCountInput.text);
-			AudioManager.Instance.PlaySound2DLoop(itemName.text, loopCnt, volume, delay, pitch, callBackStart, callBackEnd);
+			SimpleSoundManager.Instance.PlaySound2DLoop(itemName.text, loopCnt, volume, delay, pitch, callBackStart, callBackEnd);
 		}
 		else
 		{
-			AudioManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch, fadeInTime, fadeOutTime, callBackStart, callBackEnd);
+			SimpleSoundManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch, fadeInTime, fadeOutTime, callBackStart, callBackEnd);
 		}
 	}
 
@@ -82,12 +82,12 @@ public class ExampleScene1 : MonoBehaviour {
 
 	public void StopSE()
 	{
-		AudioManager.Instance.StopSeAll();
+		SimpleSoundManager.Instance.StopSeAll();
 	}
 
 	public void ChangeTotalVolume(float sliderValue)
 	{
-		AudioManager.Instance.TotalVolume = sliderValue;
+		SimpleSoundManager.Instance.TotalVolume = sliderValue;
 		totalVolumeText.text = (sliderValue * 100).ToString("f1") + "%";
 	}
 

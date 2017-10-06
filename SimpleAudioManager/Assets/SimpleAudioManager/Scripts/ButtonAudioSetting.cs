@@ -25,11 +25,11 @@ namespace LightGive
 			if (!b) { return; }
 
 			if (m_EnterAudioName != AudioNameSE.None)
-				eventPointerEnter.AddListener(() => AudioManager.Instance.PlaySound2D(m_EnterAudioName));
+				eventPointerEnter.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_EnterAudioName));
 			if (m_ExitAudioName != AudioNameSE.None)
-				eventPointerExit.AddListener(() => AudioManager.Instance.PlaySound2D(m_ExitAudioName));
+				eventPointerExit.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_ExitAudioName));
 			if (m_ClickAudioName != AudioNameSE.None)
-				b.onClick.AddListener(() => AudioManager.Instance.PlaySound2D(m_ClickAudioName));
+				b.onClick.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_ClickAudioName));
 		}
 
 		public void OnPointerEnter(PointerEventData ped)
