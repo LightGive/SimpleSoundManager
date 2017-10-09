@@ -1,11 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class AudioClipList : ScriptableObject
 {
 	[SerializeField]
 	private List<AudioClipInfo> data = new List<AudioClipInfo>();
+
+	public AudioClipList(List<AudioClipInfo> _clipList,string _path)
+	{
+		var clipListAsset = CreateInstance<AudioClipList>();
+		clipListAsset.data = _clipList;
+		AssetDatabase.CreateAsset(clipListAsset, _path);
+		AssetDatabase.Refresh();
+	}
 
 	public AudioClipInfo GetAudioClipInfo(string clipName)
 	{

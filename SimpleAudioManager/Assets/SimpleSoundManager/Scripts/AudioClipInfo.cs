@@ -21,9 +21,6 @@ public class AudioClipInfo
 	/// </summary>
 	[SerializeField]
 	public AudioClip audioClip;
-
-	[SerializeField]
-	private string id;
 	[SerializeField]
 	private AudioClip clip;
 	[SerializeField]
@@ -31,7 +28,6 @@ public class AudioClipInfo
 	[SerializeField]
 	private float pitch;
 
-	public string Id		{ get { return id; } }
 	public AudioClip Clip	{ get { return clip; } }
 	public float Volume		{ get { return volume; } }
 	public float Picth		{ get { return pitch; } }

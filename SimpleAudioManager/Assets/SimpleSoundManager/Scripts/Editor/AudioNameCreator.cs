@@ -14,7 +14,9 @@ public class AudioNameCreator : AssetPostprocessor
 	private const string AUDIO_SCRIPT_NAME = "AudioName.cs";
 	private const string BGM_FOLDER_PATH = "\\Source\\BGM";
 	private const string SE_FOLDER_PATH = "\\Source\\SE";
-	private const string COMMAND_NAME = "Tools/AudioManager/Create AudioName"; // コマンド名
+	private const string BGM_CLIPLIST_PATH = "\\Data\\BGM\\BGM_ClipInfoList.asset";
+	private const string SE_CLIPLIST_PATH = "\\Data\\SE\\BGM_ClipInfoList.asset";
+    private const string COMMAND_NAME = "Tools/AudioManager/Create AudioName"; // コマンド名
 
 
 	/// <summary>
@@ -40,7 +42,6 @@ public class AudioNameCreator : AssetPostprocessor
 			return ConvertSystemPathToUnityPath(ManagerRootFolderPath + BGM_FOLDER_PATH);
 		}
 	}
-
 	/// <summary>
 	/// SourceFolderPath(SE)
 	/// </summary>
@@ -52,6 +53,21 @@ public class AudioNameCreator : AssetPostprocessor
 		}
 	}
 
+	private static string ListDataPathBGM
+	{
+		get
+		{
+			return ConvertSystemPathToUnityPath(ManagerRootFolderPath + BGM_CLIPLIST_PATH);
+		}
+	}
+
+	private static string ListDataPathSE
+	{
+		get
+		{
+			return ConvertSystemPathToUnityPath(ManagerRootFolderPath + SE_CLIPLIST_PATH);
+		}
+	}
 
 	/// <summary>
 	/// if add sound file in project, Create file "AudioName.cs". 
@@ -96,8 +112,12 @@ public class AudioNameCreator : AssetPostprocessor
 
 		string[] fileEntriesBgm = Directory.GetFiles(SourceFolderPathBGM, "*", SearchOption.AllDirectories);
 		string[] fileEntriesSe = Directory.GetFiles(SourceFolderPathSE, "*", SearchOption.AllDirectories);
+
 		List<Object> bgmObjList = new List<Object>();
 		List<Object> seObjList = new List<Object>();
+
+		List<AudioClipInfo> bgmClipList = new List<AudioClipInfo>();
+		List<AudioClipInfo> seClipList = new List<AudioClipInfo>();
 
 		int idx = 0;
 
@@ -115,7 +135,8 @@ public class AudioNameCreator : AssetPostprocessor
 				AudioClip audio = (AudioClip)obj;
 				bgmObjList.Add(obj);
 
-				//var bgmInfo = new AudioClipInfo(idx, audio);
+				var bgmInfo = new AudioClipInfo(idx, audio);
+				bgmClipList.Add(bgmInfo);
 				//bgmAudioClipListProp.arraySize++;
 				//foreach (AudioManager t in targets)
 				//{
@@ -143,12 +164,17 @@ public class AudioNameCreator : AssetPostprocessor
 				AudioClip audio = (AudioClip)obj;
 				seObjList.Add(obj);
 
-				//var seInfo = new AudioClipInfo(idx, audio);
+				var seInfo = new AudioClipInfo(idx, audio);
+				
+				
 				//seAudioClipListProp.arraySize++;
 				//foreach (AudioManager t in targets)
 				//	t.seAudioClipList.Add(seInfo);
 			}
 		}
+
+		new AudioClipList(bgmClipList, ListDataPathBGM);
+		
 
 		//スクリプトのパスを取得する
 		var audioNameScriptPath = ManagerRootFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
