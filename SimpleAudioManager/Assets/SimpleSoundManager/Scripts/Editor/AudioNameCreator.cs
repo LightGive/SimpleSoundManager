@@ -22,7 +22,15 @@ public class AudioNameCreator : AssetPostprocessor
 		List<string[]> assetsList = new List<string[]>(){
 			importedAssets, deletedAssets, movedAssets, movedFromAssetPaths
 		};
-		
+
+		//for (int i = 0; i < assetsList.Count; i++)
+		//{
+		//	for (int ii = 0; ii < assetsList[i].Length; ii++)
+		//	{
+		//		Debug.Log(assetsList[i][ii].ToString());
+		//	}
+		//}
+
 		Create();
 	}
 

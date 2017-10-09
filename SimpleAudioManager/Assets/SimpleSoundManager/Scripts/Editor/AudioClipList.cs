@@ -7,7 +7,6 @@ public class AudioClipList : ScriptableObject
 	[SerializeField]
 	private List<AudioClipInfo> data = new List<AudioClipInfo>();
 
-
 	public AudioClipInfo GetAudioClipInfo(string clipName)
 	{
 		AudioClipInfo clipInfo;
@@ -22,7 +21,8 @@ public class AudioClipList : ScriptableObject
 	{
 		foreach (var clipInfo in data)
 		{
-			if (clipInfo.Clip.name != clipName) continue;
+			if (clipInfo.Clip.name != clipName)
+				continue;
 			info = clipInfo;
 			return true;
 		}
