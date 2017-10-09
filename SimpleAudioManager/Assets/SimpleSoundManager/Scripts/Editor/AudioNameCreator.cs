@@ -16,73 +16,92 @@ public class AudioNameCreator : AssetPostprocessor
 	private const string SE_FOLDER_PATH = "\\Source\\SE";
 	private const string COMMAND_NAME = "Tools/AudioManager/Create AudioName"; // コマンド名
 
-	//オーディオファイルが編集または追加されたら自動でAUDIO.csを作成する
+
+	/// <summary>
+	/// Get root folder path
+	/// </summary>
+	private static string ManagerRootFolderPath
+	{
+		get
+		{
+			//Find "AudioNameCreator.cs" Path
+			string[] res = System.IO.Directory.GetFiles(Application.dataPath, "AudioNameCreator.cs", SearchOption.AllDirectories);
+			return Directory.GetParent(Directory.GetParent(Directory.GetParent(res[0]).FullName).FullName).FullName;
+		}
+	}
+
+	/// <summary>
+	/// SourceFolderPath(BGM)
+	/// </summary>
+	private static string SourceFolderPathBGM
+	{
+		get
+		{
+			return ConvertSystemPathToUnityPath(ManagerRootFolderPath + BGM_FOLDER_PATH);
+		}
+	}
+
+	/// <summary>
+	/// SourceFolderPath(SE)
+	/// </summary>
+	private static string SourceFolderPathSE
+	{
+		get
+		{
+			return ConvertSystemPathToUnityPath(ManagerRootFolderPath + SE_FOLDER_PATH);
+		}
+	}
+
+
+	/// <summary>
+	/// if add sound file in project, Create file "AudioName.cs". 
+	/// </summary>
+	/// <param name="importedAssets"></param>
+	/// <param name="deletedAssets"></param>
+	/// <param name="movedAssets"></param>
+	/// <param name="movedFromAssetPaths"></param>
 	private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 	{
-		List<string[]> assetsList = new List<string[]>(){
-			importedAssets, deletedAssets, movedAssets, movedFromAssetPaths
-		};
-
-		//for (int i = 0; i < assetsList.Count; i++)
-		//{
-		//	for (int ii = 0; ii < assetsList[i].Length; ii++)
-		//	{
-		//		Debug.Log(assetsList[i][ii].ToString());
-		//	}
-		//}
-
 		Create();
 	}
 
-	//スクリプトを作成します
+	/// <summary>
+	/// Create audio name file
+	/// </summary>
 	[MenuItem(COMMAND_NAME)]
 	private static void Create()
 	{
-		string[] res = System.IO.Directory.GetFiles(Application.dataPath, "AudioNameCreator.cs", SearchOption.AllDirectories);
-
-		//スクリプトのパスを取得する
-		var audioManagerScriptFolderPath = Directory.GetParent(res[0]).FullName;
-		var audioNameCreatorFolderPath = Directory.GetParent(audioManagerScriptFolderPath).FullName;
-		var audioManagerFolderPath = Directory.GetParent(audioNameCreatorFolderPath).FullName;
-		var audioNameScriptPath = audioManagerFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
-
-		//BGMとSEのファイルパス
-		var bgmSourcePath = ConvertSystemPathToUnityPath(audioManagerFolderPath + BGM_FOLDER_PATH);
-		var seSourcePath = ConvertSystemPathToUnityPath(audioManagerFolderPath + SE_FOLDER_PATH);
-
-		//SEとBGMのフォルダを読み込む
 		try
 		{
-			//フォルダがあるか確認
-			if (!Directory.Exists(bgmSourcePath))
+			if (!Directory.Exists(SourceFolderPathBGM))
 			{
-				//BGMフォルダが無いとき、フォルダを新しく作成
-				Directory.CreateDirectory(bgmSourcePath);
-				Debug.Log("BGMフォルダが存在しないため作成しました。\nPath:" + bgmSourcePath);
+				// If there is no BGM folder, create it.
+				Directory.CreateDirectory(SourceFolderPathBGM);
+				Debug.Log("I did not have the BGM folder, so I created it. \nPath:" + SourceFolderPathBGM);
 			}
-			if (!Directory.Exists(seSourcePath))
+
+			if (!Directory.Exists(SourceFolderPathSE))
 			{
-				//SEフォルダが無いとき、フォルダを新しく作成
-				Directory.CreateDirectory(seSourcePath);
-				Debug.Log("SEフォルダが存在しないため作成しました。\nPath:" + seSourcePath);
+				//If there is no SE folder, create it.
+				Directory.CreateDirectory(SourceFolderPathSE);
+				Debug.Log("I did not have the SE folder, so I created it. \nPath:" + SourceFolderPathSE);
 			}
 		}
 
-		//エラーの時、デバッグを出す
+		//When an error occurs, a log is output
 		catch (IOException ex)
 		{
 			Debug.Log(ex.Message);
 		}
 
-		string[] fileEntriesBgm = Directory.GetFiles(bgmSourcePath, "*", SearchOption.AllDirectories);
-		string[] fileEntriesSe = Directory.GetFiles(seSourcePath, "*", SearchOption.AllDirectories);
+		string[] fileEntriesBgm = Directory.GetFiles(SourceFolderPathBGM, "*", SearchOption.AllDirectories);
+		string[] fileEntriesSe = Directory.GetFiles(SourceFolderPathSE, "*", SearchOption.AllDirectories);
 		List<Object> bgmObjList = new List<Object>();
 		List<Object> seObjList = new List<Object>();
 
-		//番号を表示する用の変数
 		int idx = 0;
 
-		//BGMのフォルダ内ファイル1つずつ検索
+		//Search files in BGM folder one by one
 		for (int i = 0; i < fileEntriesBgm.Length; i++)
 		{
 			var filePath = fileEntriesBgm[i];
@@ -130,6 +149,9 @@ public class AudioNameCreator : AssetPostprocessor
 				//	t.seAudioClipList.Add(seInfo);
 			}
 		}
+
+		//スクリプトのパスを取得する
+		var audioNameScriptPath = ManagerRootFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
 
 		//AudioNameを作成
 		//Sourceフォルダに入っている音楽ファイルのファイル名の変数が入ったAudioNameファイル作成
