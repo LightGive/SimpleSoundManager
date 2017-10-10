@@ -12,9 +12,11 @@ using UnityEngine;
 public class AudioNameCreator : AssetPostprocessor
 {
 	private const string AUDIO_SCRIPT_NAME = "AudioName.cs";
+	private const string BGM_CLIPLIST_DATA_NAME = "ClipInfoListBGM.asset";
+	private const string SE_CLIPLIST_DATA_NAME = "ClipInfoListSE.asset";
 	private const string BGM_FOLDER_PATH = "\\Source\\BGM";
 	private const string SE_FOLDER_PATH = "\\Source\\SE";
-	private const string BGM_CLIPLIST_PATH = "\\Data\\BGM\\ClipInfoListBGM.asset";
+	private const string BGM_CLIPLIST_PATH = "\\Data\\BGM";
 	private const string SE_CLIPLIST_PATH = "\\Data\\SE\\ClipInfoListSE.asset";
     private const string COMMAND_NAME = "Tools/AudioManager/Create AudioName"; // コマンド名
 

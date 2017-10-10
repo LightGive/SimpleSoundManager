@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 11500000, guid: 4c44223d5976f52479e13f563f322fdc, type: 3}
-  m_Name: BGM_ClipInfoList
+  m_Name: BGM
   m_EditorClassIdentifier: 
   data:
   - isUse: 1
