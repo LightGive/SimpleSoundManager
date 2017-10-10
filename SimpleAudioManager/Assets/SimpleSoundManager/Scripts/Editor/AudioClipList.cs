@@ -27,7 +27,7 @@ public class AudioClipList : ScriptableObject
 	{
 		foreach (var clipInfo in data)
 		{
-			if (clipInfo.Clip.name != clipName)
+			if (clipInfo.AudioCilp.name != clipName)
 				continue;
 			info = clipInfo;
 			return true;

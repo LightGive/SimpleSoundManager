@@ -254,27 +254,40 @@ namespace LightGive
 
 			bgmClipList = AudioNameCreator.BgmClipList;
 			seClipList = AudioNameCreator.SeClipList;
-			Debug.Log(bgmClipList.data[0].clip.name);
 
-			bgmAudioClipListProp.arraySize = 0;
-			seAudioClipListProp.arraySize = 0;
-			foreach (SimpleSoundManager t in targets)
+			ResetAudioClipInfo();
+
+
+			seAudioClipListProp.arraySize = seClipList.data.Count;
+			bgmAudioClipListProp.arraySize = bgmClipList.data.Count;
+
+			Debug.Log("追加するデータ数 " + bgmClipList.data.Count);
+			for (int i = 0; i < bgmClipList.data.Count; i++)
 			{
-				for (int i = 0; i < bgmClipList.data.Count; i++)
+				//bgmAudioClipListProp.arraySize++;
+				Debug.Log("追加データ" + bgmClipList.data[i].clip.name);
+				foreach (SimpleSoundManager t in targets)
 				{
-					bgmAudioClipListProp.arraySize++;
 					t.bgmAudioClipList.Add(bgmClipList.data[i]);
 					serializedObject.ApplyModifiedProperties();
 				}
-
-				for (int i = 0; i < seClipList.data.Count; i++)
+			}
+			
+			for (int i = 0; i < seClipList.data.Count; i++)
+			{
+				//seAudioClipListProp.arraySize++;
+				foreach (SimpleSoundManager t in targets)
 				{
-					seAudioClipListProp.arraySize++;
 					t.seAudioClipList.Add(seClipList.data[i]);
 					serializedObject.ApplyModifiedProperties();
 				}
 			}
+			serializedObj.Update();
 
+			EditorUtility.SetDirty(target);
+			serializedObject.ApplyModifiedProperties();
+
+			Repaint();
 
 		}
 

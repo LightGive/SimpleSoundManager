@@ -26,7 +26,7 @@ public class AudioClipInfo
 	[SerializeField]
 	private float pitch;
 
-	public AudioClip Clip	{ get { return clip; } }
+	public AudioClip AudioCilp	{ get { return clip; } }
 	public float Volume		{ get { return volume; } }
 	public float Picth		{ get { return pitch; } }
 

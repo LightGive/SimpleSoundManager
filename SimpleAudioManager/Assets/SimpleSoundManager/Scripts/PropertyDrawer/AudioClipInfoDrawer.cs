@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomPropertyDrawer(typeof(AudioClipInfoAttribute))]
-public class AudioClipInfoDrawer : PropertyDrawer
+internal sealed class AudioClipInfoDrawer : PropertyDrawer
 {
 	/// <summary>
 	/// 描画処理
@@ -56,23 +56,29 @@ public class AudioClipInfoDrawer : PropertyDrawer
 			var isUseProp = property.FindPropertyRelative("isUse");
 			var clipProp = property.FindPropertyRelative("clip");
 
-			//番号＋AudioClipの名前を表示
-			EditorGUI.LabelField(audioNoRect, audioNoProp.intValue.ToString("00") + ".");
-			EditorGUI.ObjectField(audioClipRect, "", clipProp.objectReferenceValue, typeof(AudioClip), false);
-			var t = ((AudioClip)clipProp.objectReferenceValue).length;
-			EditorGUI.LabelField(audioTimeRect, Mathf.FloorToInt(t / 60.0f).ToString("00") + ":" + (t % 60).ToString("00"));
-			Debug.Log(((AudioClip)clipProp.objectReferenceValue).name);
 
-			if (GUI.Button(audioTestPlayRect, "P"))
+			if (clipProp.objectReferenceValue == null)
 			{
-				if ((AudioClip)clipProp.objectReferenceValue == null)
-				{
-					Debug.Log("AudioClipに追加して下さい");
-					return;
-				}
+				EditorGUI.LabelField(position, "Missing");
+			}
+			else
+			{
+				EditorGUI.LabelField(audioNoRect, audioNoProp.intValue.ToString("00") + ".");
+				EditorGUI.ObjectField(audioClipRect, "", clipProp.objectReferenceValue, typeof(AudioClip), false);
+				var t = ((AudioClip)clipProp.objectReferenceValue).length;
+				EditorGUI.LabelField(audioTimeRect, Mathf.FloorToInt(t / 60.0f).ToString("00") + ":" + (t % 60).ToString("00"));
 
-				StopAllClips();
-				PlayClip((AudioClip)clipProp.objectReferenceValue);
+				if (GUI.Button(audioTestPlayRect, ""))
+				{
+					if ((AudioClip)clipProp.objectReferenceValue == null)
+					{
+						Debug.Log("AudioClipに追加して下さい");
+						return;
+					}
+
+					StopAllClips();
+					PlayClip((AudioClip)clipProp.objectReferenceValue);
+				}
 			}
 		}
 	}
