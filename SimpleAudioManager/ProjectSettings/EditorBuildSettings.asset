@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/SimpleSoundManager/Example/Scenes/01.ExampleSound2D.unity
+    guid: 3ba4e3773bec498439567344a76a18f0

@@ -8,7 +8,6 @@ using UnityEditor;
 
 namespace LightGive
 {
-
 	/// <summary>
 	/// AudioManagerのインスペクタの操作
 	/// </summary>
@@ -34,6 +33,8 @@ namespace LightGive
 		private SerializedProperty bgmAudioMixerProp;
 		private SerializedProperty seAudioMixerProp;
 
+		private AudioClipList bgmClipList;
+		private AudioClipList seClipList;
 
 		/// <summary>
 		/// Inspector拡張
@@ -251,20 +252,28 @@ namespace LightGive
 			bgmAudioClipListProp = serializedObj.FindProperty("bgmAudioClipList");
 			seAudioClipListProp = serializedObj.FindProperty("seAudioClipList");
 
-			//bgmReorderableList = new ReorderableList(serializedObj, bgmSourceInfoListProp);
-			//bgmReorderableList.drawElementCallback = (rect, index, isActive, isFocused) => {
-			//	var element = bgmSourceInfoListProp.GetArrayElementAtIndex(index);
-			//	rect.height -= 10;
-			//	rect.y += 10;
-			//	EditorGUI.PropertyField(rect, element);
-			//};
-			//seReorderableList = new ReorderableList(serializedObj, seSourceInfoListProp);
-			//seReorderableList.drawElementCallback = (rect, index, isActive, isFocused) => {
-			//	var element = seSourceInfoListProp.GetArrayElementAtIndex(index);
-			//	rect.height -= 10;
-			//	rect.y += 10;
-			//	EditorGUI.PropertyField(rect, element);
-			//};
+			bgmClipList = AudioNameCreator.BgmClipList;
+			seClipList = AudioNameCreator.SeClipList;
+			Debug.Log(bgmClipList.data[0].clip.name);
+
+			foreach (SimpleSoundManager t in targets)
+			{
+				bgmAudioClipListProp.arraySize = 0;
+				seAudioClipListProp.arraySize = 0;
+				for (int i = 0; i < bgmClipList.data.Count; i++)
+				{
+					bgmAudioClipListProp.arraySize++;
+					t.bgmAudioClipList.Add(bgmClipList.data[i]);
+					serializedObject.ApplyModifiedProperties();
+				}
+
+				for (int i = 0; i < seClipList.data.Count; i++)
+				{
+					seAudioClipListProp.arraySize++;
+					t.seAudioClipList.Add(seClipList.data[i]);
+					serializedObject.ApplyModifiedProperties();
+				}
+			}
 
 
 		}

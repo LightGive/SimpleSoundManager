@@ -20,9 +20,7 @@ public class AudioClipInfo
 	/// オーディオクリップ
 	/// </summary>
 	[SerializeField]
-	public AudioClip audioClip;
-	[SerializeField]
-	private AudioClip clip;
+	public AudioClip clip;
 	[SerializeField]
 	private float volume;
 	[SerializeField]
@@ -38,18 +36,18 @@ public class AudioClipInfo
 	/// </summary>
 	public string audioName
 	{
-		get { return audioClip.name; }
+		get { return clip.name; }
 	}
 
 	/// <summary>
 	/// コンストラクタ
 	/// オーディオクリップを新しく設定
 	/// </summary>
-	/// <param name="_audioClip">オーディオクリップ</param>
-	public AudioClipInfo(AudioClip _audioClip)
+	/// <param name="_clip">オーディオクリップ</param>
+	public AudioClipInfo(AudioClip _clip)
 	{
 		audioNo = 0;
-		audioClip = _audioClip;
+		clip = _clip;
 	}
 
 	/// <summary>
@@ -57,10 +55,10 @@ public class AudioClipInfo
 	/// 番号とオーディオクリップを設定
 	/// </summary>
 	/// <param name="_audioNo">番号</param>
-	/// <param name="_audioClip">オーディオクリップ</param>
-	public AudioClipInfo(int _audioNo, AudioClip _audioClip)
+	/// <param name="_clip">オーディオクリップ</param>
+	public AudioClipInfo(int _audioNo, AudioClip _clip)
 	{
 		audioNo = _audioNo;
-		audioClip = _audioClip;
+		clip = _clip;
 	}
 }

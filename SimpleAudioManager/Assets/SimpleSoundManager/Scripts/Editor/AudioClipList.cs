@@ -6,7 +6,7 @@ using UnityEditor;
 public class AudioClipList : ScriptableObject
 {
 	[SerializeField]
-	private List<AudioClipInfo> data = new List<AudioClipInfo>();
+	public List<AudioClipInfo> data = new List<AudioClipInfo>();
 
 	public AudioClipList(List<AudioClipInfo> _clipList)
 	{

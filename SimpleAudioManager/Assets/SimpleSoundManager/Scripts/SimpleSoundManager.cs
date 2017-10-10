@@ -167,7 +167,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		var clipInfo = bgmDictionary[_audioName];
 
 		_volume = Mathf.Clamp01(_volume);
-		bgmPlayer.audioSource.clip = clipInfo.audioClip;
+		bgmPlayer.audioSource.clip = clipInfo.clip;
 		bgmPlayer.audioSource.volume = _volume;
 		bgmPlayer.audioSource.spatialBlend = 0.0f;
 		bgmPlayer.Play();
@@ -270,12 +270,12 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		_volume = Mathf.Clamp01(_volume);
 		_delay = Mathf.Clamp(_delay, DelayMin, DelayMax);
 		_pitch = Mathf.Clamp(_pitch, PitchMin, PitchMax);
-		_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clipInfo.audioClip.length);
-		_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clipInfo.audioClip.length);
+		_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clipInfo.clip.length);
+		_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clipInfo.clip.length);
 
 		//オーディオプレイヤーを取得
 		SoundEffectPlayer sePlayer = GetSoundPlayer(_is3dSound);
-		sePlayer.audioSource.clip = clipInfo.audioClip;
+		sePlayer.audioSource.clip = clipInfo.clip;
 		sePlayer.audioSource.pitch = _pitch;
 		sePlayer.audioSource.spatialBlend = spatialBlend;
 		sePlayer.chaseObj = _parentObj;
@@ -290,8 +290,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			Keyframe key1 = new Keyframe(0.0f, 0.0f, 0.0f, 1.0f);
 			Keyframe key2 = new Keyframe(_fadeInTime, 1.0f, 0.0f, 0.0f);
-			Keyframe key3 = new Keyframe(clipInfo.audioClip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
-			Keyframe key4 = new Keyframe(clipInfo.audioClip.length, 0.0f, 0.0f, 1.0f);
+			Keyframe key3 = new Keyframe(clipInfo.clip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
+			Keyframe key4 = new Keyframe(clipInfo.clip.length, 0.0f, 0.0f, 1.0f);
 
 			AnimationCurve animCurve = new AnimationCurve(key1, key2, key3, key4);
 			sePlayer.animationCurve = animCurve;
