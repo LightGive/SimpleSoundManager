@@ -14,8 +14,8 @@ public class AudioNameCreator : AssetPostprocessor
 	private const string AUDIO_SCRIPT_NAME = "AudioName.cs";
 	private const string BGM_FOLDER_PATH = "\\Source\\BGM";
 	private const string SE_FOLDER_PATH = "\\Source\\SE";
-	private const string BGM_CLIPLIST_PATH = "\\Data\\BGM\\BGM_ClipInfoList.asset";
-	private const string SE_CLIPLIST_PATH = "\\Data\\SE\\BGM_ClipInfoList.asset";
+	private const string BGM_CLIPLIST_PATH = "\\Data\\BGM\\ClipInfoListBGM.asset";
+	private const string SE_CLIPLIST_PATH = "\\Data\\SE\\ClipInfoListSE.asset";
     private const string COMMAND_NAME = "Tools/AudioManager/Create AudioName"; // コマンド名
 
 
@@ -87,28 +87,12 @@ public class AudioNameCreator : AssetPostprocessor
 	[MenuItem(COMMAND_NAME)]
 	private static void Create()
 	{
-		try
-		{
-			if (!Directory.Exists(SourceFolderPathBGM))
-			{
-				// If there is no BGM folder, create it.
-				Directory.CreateDirectory(SourceFolderPathBGM);
-				Debug.Log("I did not have the BGM folder, so I created it. \nPath:" + SourceFolderPathBGM);
-			}
 
-			if (!Directory.Exists(SourceFolderPathSE))
-			{
-				//If there is no SE folder, create it.
-				Directory.CreateDirectory(SourceFolderPathSE);
-				Debug.Log("I did not have the SE folder, so I created it. \nPath:" + SourceFolderPathSE);
-			}
-		}
 
-		//When an error occurs, a log is output
-		catch (IOException ex)
-		{
-			Debug.Log(ex.Message);
-		}
+		CreateFolder(SourceFolderPathBGM, "BGM source folder");
+		CreateFolder(SourceFolderPathSE, "SE source folder");
+		CreateFolder(ListDataPathBGM, "BGM list data folder");
+		CreateFolder(ListDataPathSE, "SE list data folder");
 
 		string[] fileEntriesBgm = Directory.GetFiles(SourceFolderPathBGM, "*", SearchOption.AllDirectories);
 		string[] fileEntriesSe = Directory.GetFiles(SourceFolderPathSE, "*", SearchOption.AllDirectories);
@@ -173,8 +157,11 @@ public class AudioNameCreator : AssetPostprocessor
 			}
 		}
 
-		new AudioClipList(bgmClipList, ListDataPathBGM);
-		
+		var instance = Editor.CreateInstance<AudioClipList>();
+		instance = new AudioClipList(bgmClipList);
+		Debug.Log(ListDataPathBGM);
+		AssetDatabase.CreateAsset(instance, ListDataPathBGM);
+		AssetDatabase.Refresh();
 
 		//スクリプトのパスを取得する
 		var audioNameScriptPath = ManagerRootFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
@@ -239,5 +226,24 @@ public class AudioNameCreator : AssetPostprocessor
 		}
 		_path.Replace("\\", "/");
 		return _path;
+	}
+
+	static void CreateFolder(string _createFolderPath,string _folderName = "")
+	{
+		try
+		{
+			if (!Directory.Exists(_createFolderPath))
+			{
+				// If there is no BGM folder, create it.
+				Directory.CreateDirectory(_createFolderPath);
+				Debug.Log("I did not have the " + _folderName + ", so I created it. \nPath:" + _createFolderPath);
+			}
+		}
+
+		//When an error occurs, a log is output
+		catch (IOException ex)
+		{
+			Debug.Log(ex.Message);
+		}
 	}
 }

@@ -8,12 +8,9 @@ public class AudioClipList : ScriptableObject
 	[SerializeField]
 	private List<AudioClipInfo> data = new List<AudioClipInfo>();
 
-	public AudioClipList(List<AudioClipInfo> _clipList,string _path)
+	public AudioClipList(List<AudioClipInfo> _clipList)
 	{
-		var clipListAsset = CreateInstance<AudioClipList>();
-		clipListAsset.data = _clipList;
-		AssetDatabase.CreateAsset(clipListAsset, _path);
-		AssetDatabase.Refresh();
+		data = _clipList;
 	}
 
 	public AudioClipInfo GetAudioClipInfo(string clipName)
