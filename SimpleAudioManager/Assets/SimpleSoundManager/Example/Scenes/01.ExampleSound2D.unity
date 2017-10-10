@@ -3658,6 +3658,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114725426874503150, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
+        type: 2}
+      propertyPath: seAudioClipList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114725426874503150, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
+        type: 2}
+      propertyPath: bgmAudioClipList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4924586343473374, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3690,38 +3700,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114325403542823730, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: bgmAudioClipList.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: e38c1ab875adbb245b1ae2f15daf798a, type: 3}
-    - target: {fileID: 114325403542823730, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: bgmAudioClipList.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: ebaf248c6118e0a4e9b55834511bb1f2, type: 3}
-    - target: {fileID: 114325403542823730, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: seAudioClipList.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 2a61e405db42c014c86b11a3aa229c6a, type: 3}
-    - target: {fileID: 114325403542823730, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: seAudioClipList.Array.data[1].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 789a174ef1795b4439242e5b009ae00f, type: 3}
-    - target: {fileID: 114325403542823730, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: seAudioClipList.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 78f82aa1194b98344a0b4cfe1953177e, type: 3}
-    - target: {fileID: 114325403542823730, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: seAudioClipList.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 281999c50ca9855458d20567f434b58f, type: 3}
     m_RemovedComponents:
-    - {fileID: 114325403542823730, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a, type: 2}
+    - {fileID: 114725426874503150, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1344347908 stripped

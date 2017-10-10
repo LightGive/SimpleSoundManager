@@ -68,6 +68,9 @@ internal sealed class AudioClipInfoDrawer : PropertyDrawer
 				var t = ((AudioClip)clipProp.objectReferenceValue).length;
 				EditorGUI.LabelField(audioTimeRect, Mathf.FloorToInt(t / 60.0f).ToString("00") + ":" + (t % 60).ToString("00"));
 
+	
+				//GUI.skin.GetStyle("button").normal.background = guiNewTempSkin.GetStyle("button").normal.background;
+
 				if (GUI.Button(audioTestPlayRect, ""))
 				{
 					if ((AudioClip)clipProp.objectReferenceValue == null)
