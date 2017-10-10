@@ -11,15 +11,14 @@ using UnityEngine;
 /// </summary>
 public class AudioNameCreator : AssetPostprocessor
 {
-	private const string AUDIO_SCRIPT_NAME = "AudioName.cs";
-	private const string BGM_CLIPLIST_DATA_NAME = "ClipInfoListBGM.asset";
-	private const string SE_CLIPLIST_DATA_NAME = "ClipInfoListSE.asset";
-	private const string BGM_FOLDER_PATH = "\\Source\\BGM";
-	private const string SE_FOLDER_PATH = "\\Source\\SE";
-	private const string BGM_CLIPLIST_PATH = "\\Data\\BGM";
-	private const string SE_CLIPLIST_PATH = "\\Data\\SE\\ClipInfoListSE.asset";
-    private const string COMMAND_NAME = "Tools/AudioManager/Create AudioName"; // コマンド名
-
+	private const string AUDIO_SCRIPT_NAME			= "AudioName.cs";
+	private const string BGM_CLIPLIST_DATA_NAME		= "ClipInfoListBGM.asset";
+	private const string SE_CLIPLIST_DATA_NAME		= "ClipInfoListSE.asset";
+	private const string BGM_FOLDER_PATH			= "\\Source\\BGM";
+	private const string SE_FOLDER_PATH				= "\\Source\\SE";
+	private const string BGM_CLIPLIST_FOLDER_PATH	= "\\Data\\BGM";
+	private const string SE_CLIPLIST_FOLDER_PATH	= "\\Data\\SE";
+    private const string COMMAND_NAME				= "Tools/AudioManager/Create AudioName";
 
 	/// <summary>
 	/// Get root folder path
@@ -37,39 +36,27 @@ public class AudioNameCreator : AssetPostprocessor
 	/// <summary>
 	/// SourceFolderPath(BGM)
 	/// </summary>
-	private static string SourceFolderPathBGM
-	{
-		get
-		{
-			return ConvertSystemPathToUnityPath(ManagerRootFolderPath + BGM_FOLDER_PATH);
-		}
-	}
+	private static string SourceFolderPathBGM { get { return ConvertSystemPathToUnityPath(ManagerRootFolderPath + BGM_FOLDER_PATH); } }
 	/// <summary>
 	/// SourceFolderPath(SE)
 	/// </summary>
-	private static string SourceFolderPathSE
-	{
-		get
-		{
-			return ConvertSystemPathToUnityPath(ManagerRootFolderPath + SE_FOLDER_PATH);
-		}
-	}
-
-	private static string ListDataPathBGM
-	{
-		get
-		{
-			return ConvertSystemPathToUnityPath(ManagerRootFolderPath + BGM_CLIPLIST_PATH);
-		}
-	}
-
-	private static string ListDataPathSE
-	{
-		get
-		{
-			return ConvertSystemPathToUnityPath(ManagerRootFolderPath + SE_CLIPLIST_PATH);
-		}
-	}
+	private static string SourceFolderPathSE { get { return ConvertSystemPathToUnityPath(ManagerRootFolderPath + SE_FOLDER_PATH); } }
+	/// <summary>
+	/// ClipListFolderPath(BGM)
+	/// </summary>
+	private static string CliplistFolderPathBGM { get { return ConvertSystemPathToUnityPath(ManagerRootFolderPath + BGM_CLIPLIST_FOLDER_PATH); } }
+	/// <summary>
+	/// ClipListFolderPath(SE)
+	/// </summary>
+	private static string CliplistFolderPathSE { get { return ConvertSystemPathToUnityPath(ManagerRootFolderPath + SE_CLIPLIST_FOLDER_PATH); } }
+	/// <summary>
+	/// ClipListDataPath(BGM)
+	/// </summary>
+	private static string CliplistDataPathBGM { get { return CliplistFolderPathBGM + "/" + BGM_CLIPLIST_DATA_NAME; } }
+	/// <summary>
+	/// ClipListDataPath(SE)
+	/// </summary>
+	private static string CliplistDataPathSE { get { return CliplistFolderPathSE + "/" + SE_CLIPLIST_DATA_NAME; } }
 
 	/// <summary>
 	/// if add sound file in project, Create file "AudioName.cs". 
@@ -89,12 +76,11 @@ public class AudioNameCreator : AssetPostprocessor
 	[MenuItem(COMMAND_NAME)]
 	private static void Create()
 	{
-
-
+		//Create SourceFolder, ClipListFolder
 		CreateFolder(SourceFolderPathBGM, "BGM source folder");
 		CreateFolder(SourceFolderPathSE, "SE source folder");
-		CreateFolder(ListDataPathBGM, "BGM list data folder");
-		CreateFolder(ListDataPathSE, "SE list data folder");
+		CreateFolder(CliplistFolderPathBGM, "BGM list data folder");
+		CreateFolder(CliplistFolderPathSE, "SE list data folder");
 
 		string[] fileEntriesBgm = Directory.GetFiles(SourceFolderPathBGM, "*", SearchOption.AllDirectories);
 		string[] fileEntriesSe = Directory.GetFiles(SourceFolderPathSE, "*", SearchOption.AllDirectories);
@@ -161,8 +147,8 @@ public class AudioNameCreator : AssetPostprocessor
 
 		var instance = Editor.CreateInstance<AudioClipList>();
 		instance = new AudioClipList(bgmClipList);
-		Debug.Log(ListDataPathBGM);
-		AssetDatabase.CreateAsset(instance, ListDataPathBGM);
+		Debug.Log(CliplistFolderPathBGM + "/" + BGM_CLIPLIST_DATA_NAME);
+		AssetDatabase.CreateAsset(instance, CliplistFolderPathBGM + "/" + BGM_CLIPLIST_DATA_NAME);
 		AssetDatabase.Refresh();
 
 		//スクリプトのパスを取得する
