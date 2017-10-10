@@ -256,10 +256,10 @@ namespace LightGive
 			seClipList = AudioNameCreator.SeClipList;
 			Debug.Log(bgmClipList.data[0].clip.name);
 
+			bgmAudioClipListProp.arraySize = 0;
+			seAudioClipListProp.arraySize = 0;
 			foreach (SimpleSoundManager t in targets)
 			{
-				bgmAudioClipListProp.arraySize = 0;
-				seAudioClipListProp.arraySize = 0;
 				for (int i = 0; i < bgmClipList.data.Count; i++)
 				{
 					bgmAudioClipListProp.arraySize++;
