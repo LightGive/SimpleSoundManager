@@ -18,3 +18,9 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 0
     pitch: 0
+  - isUse: 1
+    audioNo: 2
+    audioClip: {fileID: 8300000, guid: ebaf248c6118e0a4e9b55834511bb1f2, type: 3}
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0

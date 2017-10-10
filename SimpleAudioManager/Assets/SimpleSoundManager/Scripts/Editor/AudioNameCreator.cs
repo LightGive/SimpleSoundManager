@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-
 /// <summary>
 /// オーディオのファイル名を定数で管理するクラスを自動で作成するスクリプト
 /// </summary>
@@ -131,13 +130,11 @@ public class AudioNameCreator : AssetPostprocessor
 			{
 				if (obj.GetType() != typeof(AudioClip))
 					continue;
-
 				idx++;
 				AudioClip audio = (AudioClip)obj;
-				seObjList.Add(obj);
-
 				var seInfo = new AudioClipInfo(idx, audio);
-				
+				seObjList.Add(obj);
+				seClipList.Add(seInfo);
 				
 				//seAudioClipListProp.arraySize++;
 				//foreach (AudioManager t in targets)
@@ -145,10 +142,26 @@ public class AudioNameCreator : AssetPostprocessor
 			}
 		}
 
-		var instance = Editor.CreateInstance<AudioClipList>();
-		instance = new AudioClipList(bgmClipList);
-		Debug.Log(CliplistFolderPathBGM + "/" + BGM_CLIPLIST_DATA_NAME);
-		AssetDatabase.CreateAsset(instance, CliplistFolderPathBGM + "/" + BGM_CLIPLIST_DATA_NAME);
+		//CreateClipListAsset
+		var bgmClipListInstance = Editor.CreateInstance<AudioClipList>();
+		var seClipListInstance = Editor.CreateInstance<AudioClipList>();
+		bgmClipListInstance = new AudioClipList(bgmClipList);
+		seClipListInstance = new AudioClipList(seClipList);
+
+
+		var bgmClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathBGM, typeof(AudioClipList));
+		var seClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathSE, typeof(AudioClipList));
+
+		//*********************************************要修正*********************************************
+		//現状作ったものともともと作ってあったものとの比較
+		if (bgmClipListOld == bgmClipListInstance && seClipListOld == seClipListInstance)
+			return;
+		//******************************************************************************************
+
+
+		Debug.Log("CreateAsset");
+		AssetDatabase.CreateAsset(bgmClipListInstance, CliplistDataPathBGM);
+		AssetDatabase.CreateAsset(seClipListInstance, CliplistDataPathSE);
 		AssetDatabase.Refresh();
 
 		//スクリプトのパスを取得する
