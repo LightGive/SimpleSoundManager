@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class AudioClipInfoAttribute : PropertyAttribute
@@ -8,7 +6,8 @@ public class AudioClipInfoAttribute : PropertyAttribute
 	[SerializeField]
 	public bool isRoute;
 
-	public bool isLoop;
+	public string clip = string.Empty;
+	public string loop = string.Empty;
 
 	public AudioClipInfoAttribute()
 	{

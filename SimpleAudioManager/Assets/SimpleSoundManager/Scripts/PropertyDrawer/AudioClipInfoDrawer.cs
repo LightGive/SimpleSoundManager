@@ -1,9 +1,7 @@
-﻿using System.Reflection;
-using System;
-using System.IO;
-using UnityEngine;
+﻿using System;
+using System.Reflection;
 using UnityEditor;
-using LightGive;
+using UnityEngine;
 
 namespace LightGive
 {
@@ -61,7 +59,7 @@ namespace LightGive
 
 				var audioTextLoopRect = new Rect(position)
 				{
-					x = position.width - (oneEighthWid / 1.5f)- (oneEighthWid / 1.5f) + 20,
+					x = position.width - (oneEighthWid / 1.5f) - (oneEighthWid / 1.5f) + 20,
 					width = (oneEighthWid / 1.5f)
 				};
 
@@ -94,24 +92,29 @@ namespace LightGive
 					var clip = (AudioClip)clipProp.objectReferenceValue;
 					var t = (clip).length;
 					EditorGUI.LabelField(audioTimeRect, Mathf.FloorToInt(t / 60.0f).ToString("00") + ":" + (t % 60).ToString("00"));
-
-					if (GUI.Toggle(audioTextLoopRect, att.isLoop, LoopOffIconTexture, GUI.skin.button))
+					EditorGUI.BeginChangeCheck();
+					var toggle = GUI.Toggle(audioTextLoopRect, att.loop == property.propertyPath, LoopOffIconTexture, GUI.skin.button);
+					if (EditorGUI.EndChangeCheck())
 					{
-						att.isLoop = true;
-						Debug.Log("押された" + clip.name);
-					}
-					else
-					{
-						att.isLoop = false;
+						if (toggle)
+						{
+							att.loop = property.propertyPath;
+						}
+						else
+						{
+							att.loop = string.Empty;
+						}
 					}
 
-					var isPlaying = IsPlayClip(clip);
+
+					var isPlaying = (att.clip == property.propertyPath) || IsPlayClip(clip);
 					var tex = (isPlaying) ? PlayOnIconTexture : PlayOffIconTexture;
 					if (GUI.Button(audioTestPlayRect, tex))
 					{
 						if (isPlaying)
 						{
 							StopClip(clip);
+							att.clip = string.Empty;
 						}
 						else
 						{
@@ -121,6 +124,7 @@ namespace LightGive
 								return;
 							}
 							PlayClip(clip);
+							att.clip = property.propertyPath;
 						}
 
 					}
@@ -154,7 +158,7 @@ namespace LightGive
 			Assembly unityEditorAssembly = typeof(AudioImporter).Assembly;
 			Type audioUtilClass = unityEditorAssembly.GetType("UnityEditor.AudioUtil");
 			MethodInfo method = audioUtilClass.GetMethod("StopClip", BindingFlags.Static | BindingFlags.Public, null, new System.Type[] { typeof(AudioClip) }, null);
-			method.Invoke(null, new object[] { clip});
+			method.Invoke(null, new object[] { clip });
 		}
 
 		/// <summary>
