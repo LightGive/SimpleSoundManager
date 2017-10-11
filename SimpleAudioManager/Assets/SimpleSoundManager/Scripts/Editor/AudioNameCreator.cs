@@ -62,6 +62,8 @@ namespace LightGive
 		public static AudioClipList BgmClipList { get { return (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathBGM, typeof(AudioClipList)); } }
 		public static AudioClipList SeClipList { get { return (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathSE, typeof(AudioClipList)); } }
 
+		public static string IconPlayTexture { get { return ManagerRootFolderPath + "/EditorIcons/IconPlay.png"; } }
+
 		/// <summary>
 		/// if add sound file in project, Create file "AudioName.cs". 
 		/// </summary>

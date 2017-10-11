@@ -5,5 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class AudioClipInfoAttribute : PropertyAttribute
 {
-	public AudioClipInfoAttribute() { }
+	public bool isRoute;
+
+	public AudioClipInfoAttribute()
+	{
+
+	}
 }
