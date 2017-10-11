@@ -90,11 +90,20 @@ namespace LightGive
 						EditorGUI.ObjectField(audioClipRect, "", clipProp.objectReferenceValue, typeof(AudioClip), false);
 					}
 					EditorGUI.EndDisabledGroup();
+
 					var clip = (AudioClip)clipProp.objectReferenceValue;
 					var t = (clip).length;
 					EditorGUI.LabelField(audioTimeRect, Mathf.FloorToInt(t / 60.0f).ToString("00") + ":" + (t % 60).ToString("00"));
 
-					att.isLoop = GUI.Toggle(audioTextLoopRect, att.isLoop, LoopOffIconTexture, GUI.skin.button);
+					if (GUI.Toggle(audioTextLoopRect, att.isLoop, LoopOffIconTexture, GUI.skin.button))
+					{
+						att.isLoop = true;
+						Debug.Log("押された" + clip.name);
+					}
+					else
+					{
+						att.isLoop = false;
+					}
 
 					var isPlaying = IsPlayClip(clip);
 					var tex = (isPlaying) ? PlayOnIconTexture : PlayOffIconTexture;

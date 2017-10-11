@@ -7,7 +7,7 @@ public class AudioClipInfoAttribute : PropertyAttribute
 {
 	[SerializeField]
 	public bool isRoute;
-	[SerializeField]
+
 	public bool isLoop;
 
 	public AudioClipInfoAttribute()

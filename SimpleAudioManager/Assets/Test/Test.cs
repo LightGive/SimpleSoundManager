@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-	[SerializeField]
-	private Piyo piyo;
+	[SerializeField, Piyo]
+	private List<Piyo> piyo = new List<Piyo>();
 }
