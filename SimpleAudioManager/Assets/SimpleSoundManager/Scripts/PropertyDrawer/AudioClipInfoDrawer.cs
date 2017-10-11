@@ -107,7 +107,7 @@ namespace LightGive
 					}
 
 
-					var isPlaying = (att.clip == property.propertyPath) || IsPlayClip(clip);
+					var isPlaying = (att.clip == property.propertyPath) && IsPlayClip(clip);
 					var tex = (isPlaying) ? PlayOnIconTexture : PlayOffIconTexture;
 					if (GUI.Button(audioTestPlayRect, tex))
 					{
