@@ -61,7 +61,7 @@ namespace LightGive
 
 				var audioTextLoopRect = new Rect(position)
 				{
-					x = position.width - (oneEighthWid / 1.5f),
+					x = position.width - (oneEighthWid / 1.5f)- (oneEighthWid / 1.5f) + 20,
 					width = (oneEighthWid / 1.5f)
 				};
 
@@ -86,7 +86,9 @@ namespace LightGive
 				{
 					EditorGUI.LabelField(audioNoRect, audioNoProp.intValue.ToString("00") + ".");
 					EditorGUI.BeginDisabledGroup(false);
-					EditorGUI.ObjectField(audioClipRect, "", clipProp.objectReferenceValue, typeof(AudioClip), false);
+					{
+						EditorGUI.ObjectField(audioClipRect, "", clipProp.objectReferenceValue, typeof(AudioClip), false);
+					}
 					EditorGUI.EndDisabledGroup();
 					var clip = (AudioClip)clipProp.objectReferenceValue;
 					var t = (clip).length;
