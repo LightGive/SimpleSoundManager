@@ -94,10 +94,7 @@ namespace LightGive
 					var t = (clip).length;
 					EditorGUI.LabelField(audioTimeRect, Mathf.FloorToInt(t / 60.0f).ToString("00") + ":" + (t % 60).ToString("00"));
 
-					if (GUI.Button(audioTextLoopRect, LoopOffIconTexture))
-					{
-
-					}
+					att.isLoop = GUI.Toggle(audioTextLoopRect, att.isLoop, LoopOffIconTexture, GUI.skin.button);
 
 					var isPlaying = IsPlayClip(clip);
 					var tex = (isPlaying) ? PlayOnIconTexture : PlayOffIconTexture;
