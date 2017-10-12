@@ -84,10 +84,12 @@ namespace LightGive
 					var clip = (AudioClip)clipProp.objectReferenceValue;
 					var t = (clip).length;
 
-					if (!AudioUtility.IsClipPlaying(clip) && 
-						att.playList.Contains(key))
+					if (!AudioUtility.IsClipPlaying(clip) && att.playList.Contains(key))
 					{
-						att.playList.Remove(key);
+						if (att.loopList.Contains(key))
+							AudioUtility.PlayClip(clip);
+						else
+							att.playList.Remove(key);
 					}
 
 					EditorGUI.LabelField(audioNoRect, audioNoProp.intValue.ToString("00") + ".");
@@ -104,7 +106,6 @@ namespace LightGive
 					if (EditorGUI.EndChangeCheck())
 					{
 						Debug.Log(clip.name + "のループ状態を" + toggle + "にしました");
-						AudioUtility.LoopClip(clip, toggle);
 						if (toggle)
 						{
 							att.loopList.Add(property.propertyPath);
@@ -117,16 +118,18 @@ namespace LightGive
 					}
 
 					var isPlaying = (att.playList.Contains(property.propertyPath));
-					var tex = (isPlaying) ? PlayOnIconTexture : PlayOffIconTexture;
+					var tex = att.playList.Contains(property.propertyPath) ? PlayOnIconTexture : PlayOffIconTexture;
 					if (GUI.Button(audioTestPlayRect, tex))
 					{
 						if (isPlaying)
 						{
+							Debug.Log(clip.name + "の音を停止させました");
 							AudioUtility.StopClip(clip);
 							att.playList.Remove(property.propertyPath);
 						}
 						else
 						{
+							Debug.Log(clip.name + "の音を再生させました");
 
 							AudioUtility.PlayClip(clip);
 							att.playList.Add(property.propertyPath);

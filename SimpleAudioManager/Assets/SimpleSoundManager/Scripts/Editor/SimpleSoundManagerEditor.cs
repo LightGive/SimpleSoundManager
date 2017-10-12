@@ -220,6 +220,12 @@ namespace LightGive
 				Repaint();
 			}
 
+			if (GUILayout.Button("StopAllClip"))
+			{
+				Debug.Log("とめる");
+				AudioUtility.StopAllClips();
+			}
+
 			EditorUtility.SetDirty(target);
 			serializedObject.ApplyModifiedProperties();
 
