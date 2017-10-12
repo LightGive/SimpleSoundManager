@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using UnityEditor;
+using UnityEditor.Audio;
 using UnityEngine;
+using LightGive;
 
 namespace LightGive
 {
@@ -12,10 +14,6 @@ namespace LightGive
 		public Texture PlayOnIconTexture { get { return EditorGUIUtility.FindTexture("d_preAudioPlayOn"); } }
 		public Texture LoopOffIconTexture { get { return EditorGUIUtility.FindTexture("d_preAudioLoopOff"); } }
 		public Texture LoopOnIconTexture { get { return EditorGUIUtility.FindTexture("d_preAudioLoopOn"); } }
-
-
-		private float timeCnt;
-		private bool isRoute;
 
 		/// <summary>
 		/// 描画処理
@@ -82,6 +80,11 @@ namespace LightGive
 				}
 				else
 				{
+					var key = property.propertyPath;
+					var clip = (AudioClip)clipProp.objectReferenceValue;
+
+					att.audioStateCheckDic.ContainsKey(key);
+
 					EditorGUI.LabelField(audioNoRect, audioNoProp.intValue.ToString("00") + ".");
 					EditorGUI.BeginDisabledGroup(false);
 					{
@@ -89,32 +92,32 @@ namespace LightGive
 					}
 					EditorGUI.EndDisabledGroup();
 
-					var clip = (AudioClip)clipProp.objectReferenceValue;
 					var t = (clip).length;
 					EditorGUI.LabelField(audioTimeRect, Mathf.FloorToInt(t / 60.0f).ToString("00") + ":" + (t % 60).ToString("00"));
+
 					EditorGUI.BeginChangeCheck();
-					var toggle = GUI.Toggle(audioTextLoopRect, att.loop == property.propertyPath, LoopOffIconTexture, GUI.skin.button);
+					var toggle = GUI.Toggle(audioTextLoopRect, att.loopList.Contains(property.propertyPath), LoopOffIconTexture, GUI.skin.button);
 					if (EditorGUI.EndChangeCheck())
 					{
 						if (toggle)
 						{
-							att.loop = property.propertyPath;
+							att.loopList.Add(property.propertyPath);
 						}
 						else
 						{
-							att.loop = string.Empty;
+							att.loopList.Remove(property.propertyPath);
 						}
 					}
 
-
-					var isPlaying = (att.clip == property.propertyPath) && IsPlayClip(clip);
+					var isPlaying = (att.clipList.Contains(property.propertyPath));// && IsPlayClip(clip);
 					var tex = (isPlaying) ? PlayOnIconTexture : PlayOffIconTexture;
 					if (GUI.Button(audioTestPlayRect, tex))
 					{
 						if (isPlaying)
 						{
-							StopClip(clip);
-							att.clip = string.Empty;
+							
+						   //StopClip(clip);
+							att.clipList.Remove(property.propertyPath);
 						}
 						else
 						{
@@ -123,53 +126,14 @@ namespace LightGive
 								Debug.Log("AudioClipに追加して下さい");
 								return;
 							}
-							PlayClip(clip);
-							att.clip = property.propertyPath;
+							//PlayClip(clip);
+							att.clipList.Add(property.propertyPath);
 						}
-
 					}
 				}
 			}
 		}
 
-		/// <summary>
-		/// オーディオを再生する
-		/// </summary>
-		/// <param name="clip">再生するAudioClip</param>
-		public static void PlayClip(AudioClip clip)
-		{
-			System.Reflection.Assembly unityEditorAssembly = typeof(AudioImporter).Assembly;
-			System.Type audioUtilClass = unityEditorAssembly.GetType("UnityEditor.AudioUtil");
-			MethodInfo method = audioUtilClass.GetMethod("PlayClip", BindingFlags.Static | BindingFlags.Public, null, new System.Type[] { typeof(AudioClip) }, null);
-			method.Invoke(null, new object[] { clip });
-		}
 
-
-		public static bool IsPlayClip(AudioClip _clip)
-		{
-			Assembly unityEditorAssembly = typeof(AudioImporter).Assembly;
-			Type audioUtilClass = unityEditorAssembly.GetType("UnityEditor.AudioUtil");
-			MethodInfo method = audioUtilClass.GetMethod("IsClipPlaying", BindingFlags.Static | BindingFlags.Public, null, new System.Type[] { typeof(AudioClip) }, null);
-			return (bool)method.Invoke(null, new object[] { _clip });
-		}
-
-		public static void StopClip(AudioClip clip)
-		{
-			Assembly unityEditorAssembly = typeof(AudioImporter).Assembly;
-			Type audioUtilClass = unityEditorAssembly.GetType("UnityEditor.AudioUtil");
-			MethodInfo method = audioUtilClass.GetMethod("StopClip", BindingFlags.Static | BindingFlags.Public, null, new System.Type[] { typeof(AudioClip) }, null);
-			method.Invoke(null, new object[] { clip });
-		}
-
-		/// <summary>
-		/// 再生中のオーディオを止める
-		/// </summary>
-		public static void StopAllClips()
-		{
-			Assembly unityEditorAssembly = typeof(AudioImporter).Assembly;
-			Type audioUtilClass = unityEditorAssembly.GetType("UnityEditor.AudioUtil");
-			MethodInfo method = audioUtilClass.GetMethod("StopAllClips", BindingFlags.Static | BindingFlags.Public, null, new System.Type[] { }, null);
-			method.Invoke(null, new object[] { });
-		}
 	}
 }
