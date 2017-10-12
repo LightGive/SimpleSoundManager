@@ -82,23 +82,29 @@ namespace LightGive
 				{
 					var key = property.propertyPath;
 					var clip = (AudioClip)clipProp.objectReferenceValue;
+					var t = (clip).length;
 
-					att.audioStateCheckDic.ContainsKey(key);
+					if (!AudioUtility.IsClipPlaying(clip) && 
+						att.playList.Contains(key))
+					{
+						att.playList.Remove(key);
+					}
 
 					EditorGUI.LabelField(audioNoRect, audioNoProp.intValue.ToString("00") + ".");
-					EditorGUI.BeginDisabledGroup(false);
+					EditorGUI.BeginDisabledGroup(true);
 					{
 						EditorGUI.ObjectField(audioClipRect, "", clipProp.objectReferenceValue, typeof(AudioClip), false);
 					}
 					EditorGUI.EndDisabledGroup();
 
-					var t = (clip).length;
 					EditorGUI.LabelField(audioTimeRect, Mathf.FloorToInt(t / 60.0f).ToString("00") + ":" + (t % 60).ToString("00"));
 
 					EditorGUI.BeginChangeCheck();
-					var toggle = GUI.Toggle(audioTextLoopRect, att.loopList.Contains(property.propertyPath), LoopOffIconTexture, GUI.skin.button);
+					var toggle = GUI.Toggle(audioTextLoopRect, att.loopList.Contains(key), LoopOffIconTexture, GUI.skin.button);
 					if (EditorGUI.EndChangeCheck())
 					{
+						Debug.Log(clip.name + "のループ状態を" + toggle + "にしました");
+						AudioUtility.LoopClip(clip, toggle);
 						if (toggle)
 						{
 							att.loopList.Add(property.propertyPath);
@@ -107,27 +113,23 @@ namespace LightGive
 						{
 							att.loopList.Remove(property.propertyPath);
 						}
+
 					}
 
-					var isPlaying = (att.clipList.Contains(property.propertyPath));// && IsPlayClip(clip);
+					var isPlaying = (att.playList.Contains(property.propertyPath));
 					var tex = (isPlaying) ? PlayOnIconTexture : PlayOffIconTexture;
 					if (GUI.Button(audioTestPlayRect, tex))
 					{
 						if (isPlaying)
 						{
-							
-						   //StopClip(clip);
-							att.clipList.Remove(property.propertyPath);
+							AudioUtility.StopClip(clip);
+							att.playList.Remove(property.propertyPath);
 						}
 						else
 						{
-							if (clip == null)
-							{
-								Debug.Log("AudioClipに追加して下さい");
-								return;
-							}
-							//PlayClip(clip);
-							att.clipList.Add(property.propertyPath);
+
+							AudioUtility.PlayClip(clip);
+							att.playList.Add(property.propertyPath);
 						}
 					}
 				}
