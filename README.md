@@ -4,7 +4,6 @@ Unityで使えるシンプルなAudioManager<br>
 ### 実装済み機能<br>
 #### BGM<br>
 ・通常再生<br>
-
 <br>
 #### SE<br>
 ・遅延再生<br>
