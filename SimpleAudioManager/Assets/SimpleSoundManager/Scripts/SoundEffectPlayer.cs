@@ -30,11 +30,21 @@ namespace LightGive
 		[SerializeField]
 		public UnityAction callbackOnStart;
 
+		private bool isPause;
 		private IEnumerator coroutineMethod;
+
+		/// <summary>
+		/// ポーズしているか
+		/// </summary>
+		public bool IsPause
+		{
+			get { return isPause; }
+		}
 
 
 		public SoundEffectPlayer()
 		{
+			isPause = false;
 			isActive = false;
 			audioSource = null;
 			chaseObj = null;
@@ -52,7 +62,6 @@ namespace LightGive
 				callbackOnStart.Invoke();
 
 			var waitTime = (audioSource.clip.length / audioSource.pitch) + delay;
-			coroutineMethod.Reset();
 			coroutineMethod = AudioPlayCheck(waitTime);
 			StartCoroutine(coroutineMethod);
 		}
@@ -71,11 +80,15 @@ namespace LightGive
 		{
 			audioSource.Pause();
 			StopCoroutine(coroutineMethod);
+			isPause = true;
 		}
 
 		public void Resume()
 		{
 			audioSource.Play();
+			isPause = false;
+			Debug.Log(this.gameObject.name);
+			StartCoroutine(coroutineMethod);
 		}
 
 		private IEnumerator AudioPlayCheck(float _waitTime)

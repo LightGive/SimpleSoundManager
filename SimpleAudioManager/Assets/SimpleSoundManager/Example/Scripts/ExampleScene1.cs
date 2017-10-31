@@ -22,6 +22,10 @@ public class ExampleScene1 : MonoBehaviour {
 	[SerializeField]
 	private InputField fadeOutTimeInput;
 	[SerializeField]
+	private GameObject playButtonObj;
+	[SerializeField]
+	private GameObject pauseButtonObj;
+	[SerializeField]
 	private Text totalVolumeText;
 	[SerializeField]
 	private Text volumeText;
@@ -58,6 +62,12 @@ public class ExampleScene1 : MonoBehaviour {
 		UnityAction callBackStart = null;
 		UnityAction callBackEnd = null;
 
+		if (SimpleSoundManager.Instance.IsPause(itemName.text))
+		{
+			SimpleSoundManager.Instance.Resume(itemName.text);
+			return;
+		}
+
 		if (isStartCallBack.isOn)
 			callBackStart = DebugStartCallback;
 		if (isEndCallBack.isOn)
@@ -73,8 +83,17 @@ public class ExampleScene1 : MonoBehaviour {
 		}
 		else
 		{
+			Debug.Log("ここ");
 			SimpleSoundManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch, fadeInTime, fadeOutTime, callBackStart, callBackEnd);
 		}
+	}
+
+
+	public void PauseSound2D()
+	{
+		var idx = seNameDropDown.value;
+		var itemName = seNameDropDown.options[idx];
+		SimpleSoundManager.Instance.PauseSe(itemName.text);
 	}
 
 	public void DebugStartCallback(){ Debug.Log("Start Call Back"); }
