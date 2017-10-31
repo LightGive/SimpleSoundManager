@@ -30,6 +30,18 @@ namespace LightGive
 		[SerializeField]
 		public UnityAction callbackOnStart;
 
+		private IEnumerator coroutineMethod;
+
+
+		public SoundEffectPlayer()
+		{
+			isActive = false;
+			audioSource = null;
+			chaseObj = null;
+			delay = 0.0f;
+			loopCnt = 0;
+		}
+
 		public void Play()
 		{
 			isActive = true;
@@ -37,8 +49,12 @@ namespace LightGive
 			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * volume;
 			audioSource.PlayDelayed(delay);
 			if (callbackOnStart != null)
-				callbackOnStart.Invoke();	
-			Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch) + delay);
+				callbackOnStart.Invoke();
+
+			var waitTime = (audioSource.clip.length / audioSource.pitch) + delay;
+			coroutineMethod.Reset();
+			coroutineMethod = AudioPlayCheck(waitTime);
+			StartCoroutine(coroutineMethod);
 		}
 
 		public void Stop()
@@ -54,17 +70,26 @@ namespace LightGive
 		public void Pause()
 		{
 			audioSource.Pause();
+			StopCoroutine(coroutineMethod);
 		}
 
-		void AudioPlayCheck()
+		public void Resume()
 		{
+			audioSource.Play();
+		}
+
+		private IEnumerator AudioPlayCheck(float _waitTime)
+		{
+			yield return new WaitForSeconds(_waitTime);
+
 			loopCnt--;
 
 			if (loopCnt > 0)
 			{
 				audioSource.Play();
-				Invoke("AudioPlayCheck", (audioSource.clip.length / audioSource.pitch));
-				return;
+				coroutineMethod.Reset();
+				coroutineMethod = AudioPlayCheck(_waitTime);
+				yield break ;
 			}
 
 			if (callbackOnComplete != null)
@@ -74,14 +99,6 @@ namespace LightGive
 			this.gameObject.SetActive(false);
 		}
 
-		public SoundEffectPlayer()
-		{
-			isActive = false;
-			audioSource = null;
-			chaseObj = null;
-			delay = 0.0f;
-			loopCnt = 0;
-		}
 
 		public void PlayerUpdate()
 		{

@@ -1303,11 +1303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc166387c1d942944a261db6619d1063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piyo:
-  - isButton: 0
-  - isButton: 0
-  - isButton: 0
-  - isButton: 0
 --- !u!1 &419832594
 GameObject:
   m_ObjectHideFlags: 0
@@ -4006,7 +4001,6 @@ GameObject:
   - component: {fileID: 1419287295}
   - component: {fileID: 1419287294}
   - component: {fileID: 1419287293}
-  - component: {fileID: 1419287296}
   m_Layer: 5
   m_Name: ButtonStop
   m_TagString: Untagged
@@ -4118,20 +4112,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1419287291}
---- !u!114 &1419287296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1419287291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1742c50ba6c9d847bb3709e9c049118, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EnterAudioName: 2
-  m_ExitAudioName: 0
-  m_ClickAudioName: 1
 --- !u!1 &1442634222
 GameObject:
   m_ObjectHideFlags: 0

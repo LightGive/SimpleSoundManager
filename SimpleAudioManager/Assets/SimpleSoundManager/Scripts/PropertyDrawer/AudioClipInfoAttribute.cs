@@ -9,7 +9,7 @@ namespace LightGive
 	public class AudioClipInfoAttribute : PropertyAttribute
 	{
 		public List<string> loopList = new List<string>();
-		public List<string> playList = new List<string>();
+		public string playPropPath;
 
 		public AudioClipInfoAttribute()
 		{

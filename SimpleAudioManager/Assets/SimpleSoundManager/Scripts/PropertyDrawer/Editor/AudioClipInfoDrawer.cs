@@ -73,23 +73,26 @@ namespace LightGive
 				var isUseProp = property.FindPropertyRelative("isUse");
 				var clipProp = property.FindPropertyRelative("clip");
 
-
 				if (clipProp.objectReferenceValue == null)
 				{
 					EditorGUI.LabelField(position, "Missing");
 				}
 				else
 				{
-					var key = property.propertyPath;
 					var clip = (AudioClip)clipProp.objectReferenceValue;
 					var t = (clip).length;
 
-					if (!AudioUtility.IsClipPlaying(clip) && att.playList.Contains(key))
+					//Debug.Log(key);
+					if (!AudioUtility.IsClipPlaying(clip) && att.playPropPath == property.propertyPath)
 					{
-						if (att.loopList.Contains(key))
-							AudioUtility.PlayClip(clip);
+						if (att.loopList.Contains(property.propertyPath))
+						{
+							AudioUtility.PlayClip((AudioClip)clipProp.objectReferenceValue);
+						}
 						else
-							att.playList.Remove(key);
+						{
+							att.playPropPath = "";
+						}
 					}
 
 					EditorGUI.LabelField(audioNoRect, audioNoProp.intValue.ToString("00") + ".");
@@ -98,11 +101,10 @@ namespace LightGive
 						EditorGUI.ObjectField(audioClipRect, "", clipProp.objectReferenceValue, typeof(AudioClip), false);
 					}
 					EditorGUI.EndDisabledGroup();
-
 					EditorGUI.LabelField(audioTimeRect, Mathf.FloorToInt(t / 60.0f).ToString("00") + ":" + (t % 60).ToString("00"));
 
 					EditorGUI.BeginChangeCheck();
-					var toggle = GUI.Toggle(audioTextLoopRect, att.loopList.Contains(key), LoopOffIconTexture, GUI.skin.button);
+					var toggle = GUI.Toggle(audioTextLoopRect, att.loopList.Contains(property.propertyPath), LoopOffIconTexture, GUI.skin.button);
 					if (EditorGUI.EndChangeCheck())
 					{
 						Debug.Log(clip.name + "のループ状態を" + toggle + "にしました");
@@ -117,22 +119,22 @@ namespace LightGive
 
 					}
 
-					var isPlaying = (att.playList.Contains(property.propertyPath));
-					var tex = att.playList.Contains(property.propertyPath) ? PlayOnIconTexture : PlayOffIconTexture;
+					var isPlaying = (att.playPropPath == property.propertyPath);
+					var tex = isPlaying ? PlayOnIconTexture : PlayOffIconTexture;
 					if (GUI.Button(audioTestPlayRect, tex))
 					{
 						if (isPlaying)
 						{
 							Debug.Log(clip.name + "の音を停止させました");
-							AudioUtility.StopClip(clip);
-							att.playList.Remove(property.propertyPath);
+							AudioUtility.StopClip((AudioClip)clipProp.objectReferenceValue);
+							att.playPropPath = "";
 						}
 						else
 						{
-							Debug.Log(clip.name + "の音を再生させました");
-
-							AudioUtility.PlayClip(clip);
-							att.playList.Add(property.propertyPath);
+							//Debug.Log(clip.name + "の音を再生させました");
+							AudioUtility.StopAllClips();
+							AudioUtility.PlayClip((AudioClip)clipProp.objectReferenceValue);
+							att.playPropPath = property.propertyPath;
 						}
 					}
 				}
