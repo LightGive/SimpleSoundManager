@@ -73,7 +73,7 @@ namespace LightGive
 		/// <param name="movedFromAssetPaths"></param>
 		private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 		{
-			Create();
+			//Create();
 		}
 
 		/// <summary>

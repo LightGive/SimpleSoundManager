@@ -33,15 +33,8 @@ namespace LightGive
 		private bool isPause;
 		private IEnumerator coroutineMethod;
 
-		/// <summary>
-		/// ポーズしているか
-		/// </summary>
-		public bool IsPause
-		{
-			get { return isPause; }
-		}
-
-
+		public bool IsPause { get { return isPause; } }
+		
 		public SoundEffectPlayer()
 		{
 			isPause = false;
@@ -60,9 +53,8 @@ namespace LightGive
 			audioSource.PlayDelayed(delay);
 			if (callbackOnStart != null)
 				callbackOnStart.Invoke();
-
-			var waitTime = (audioSource.clip.length / audioSource.pitch) + delay;
-			coroutineMethod = AudioPlayCheck(waitTime);
+			
+			coroutineMethod = AudioPlayCheck();
 			StartCoroutine(coroutineMethod);
 		}
 
@@ -75,7 +67,6 @@ namespace LightGive
 			loopCnt = 0;
 		}
 
-
 		public void Pause()
 		{
 			audioSource.Pause();
@@ -87,31 +78,37 @@ namespace LightGive
 		{
 			audioSource.Play();
 			isPause = false;
-			Debug.Log(this.gameObject.name);
 			StartCoroutine(coroutineMethod);
 		}
 
-		private IEnumerator AudioPlayCheck(float _waitTime)
+		private IEnumerator AudioPlayCheck()
 		{
-			yield return new WaitForSeconds(_waitTime);
+			float timeCnt = 0.0f;
+			float waitTime = (audioSource.clip.length / audioSource.pitch) + delay;
+            while (timeCnt < waitTime)
+			{
+				timeCnt += Time.deltaTime;
+				yield return new WaitForEndOfFrame();
+			}
 
+			Debug.Log("どのタイミングで通ってるの？？");
 			loopCnt--;
 
 			if (loopCnt > 0)
 			{
 				audioSource.Play();
-				coroutineMethod.Reset();
-				coroutineMethod = AudioPlayCheck(_waitTime);
-				yield break ;
+				//coroutineMethod.Reset();
+				coroutineMethod = AudioPlayCheck();
+				yield break;
 			}
 
 			if (callbackOnComplete != null)
 			{
 				callbackOnComplete.Invoke();
 			}
+			Debug.Log("Activeを切ります");
 			this.gameObject.SetActive(false);
 		}
-
 
 		public void PlayerUpdate()
 		{

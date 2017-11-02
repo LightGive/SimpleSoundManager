@@ -310,13 +310,37 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		sePlayer.Play();
 	}
 
-	public bool IsPause(string _audioName)
+	public bool IsPauseSE(string _audioName)
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
 			if (!sePlayerList[i].isActive)
 				continue;
 			if (sePlayerList[i].audioSource.clip.name == _audioName && sePlayerList[i].IsPause)
+				return true;
+		}
+		return false;
+	}
+
+	public bool IsPlayingSE()
+	{
+		for (int i = 0; i < sePlayerList.Count; i++)
+		{
+			if (!sePlayerList[i].isActive)
+				continue;
+			if (sePlayerList[i].audioSource.isPlaying )
+				return true;
+		}
+		return false;
+	}
+
+	public bool IsPlayingSE(string _audioName)
+	{
+		for (int i = 0; i < sePlayerList.Count; i++)
+		{
+			if (!sePlayerList[i].isActive)
+				continue;
+			if (sePlayerList[i].audioSource.isPlaying && sePlayerList[i].audioSource.clip.name == _audioName)
 				return true;
 		}
 		return false;
