@@ -21,8 +21,6 @@ namespace LightGive
 		[SerializeField]
 		public int loopCnt;
 		[SerializeField]
-		public bool isActive;
-		[SerializeField]
 		public bool isFade;
 
 		[SerializeField]
@@ -30,15 +28,30 @@ namespace LightGive
 		[SerializeField]
 		public UnityAction callbackOnStart;
 
+		private bool isActive;
 		private bool isPause;
+		private bool isPlaying;
 		private IEnumerator coroutineMethod;
 
-		public bool IsPause { get { return isPause; } }
-		
+		public bool IsPause
+		{
+			get { return isPause; }
+		}
+		public bool IsPlaying
+		{
+			get { return isPlaying; }
+		}
+		public bool IsActive
+		{
+			get { return isActive; }
+		}
+
 		public SoundEffectPlayer()
 		{
+			isPlaying = false;
 			isPause = false;
 			isActive = false;
+
 			audioSource = null;
 			chaseObj = null;
 			delay = 0.0f;
@@ -47,10 +60,12 @@ namespace LightGive
 
 		public void Play()
 		{
+			isPlaying = true;
 			isActive = true;
 			this.gameObject.SetActive(true);
+
 			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * volume;
-			audioSource.PlayDelayed(delay);
+			audioSource.Play();
 			if (callbackOnStart != null)
 				callbackOnStart.Invoke();
 			
@@ -61,23 +76,28 @@ namespace LightGive
 		public void Stop()
 		{
 			audioSource.Stop();
-			this.gameObject.SetActive(false);
 			CancelInvoke();
-			isActive = false;
 			loopCnt = 0;
+
+			isPlaying = false;
+			isActive = false;
+			this.gameObject.SetActive(false);
 		}
 
 		public void Pause()
 		{
+			isPause = true;
+			isPlaying = false;
 			audioSource.Pause();
 			StopCoroutine(coroutineMethod);
-			isPause = true;
+
 		}
 
 		public void Resume()
 		{
-			audioSource.Play();
 			isPause = false;
+			isPlaying = true;
+			audioSource.Play();
 			StartCoroutine(coroutineMethod);
 		}
 
@@ -91,14 +111,13 @@ namespace LightGive
 				yield return new WaitForEndOfFrame();
 			}
 
-			Debug.Log("どのタイミングで通ってるの？？");
 			loopCnt--;
 
 			if (loopCnt > 0)
 			{
 				audioSource.Play();
-				//coroutineMethod.Reset();
 				coroutineMethod = AudioPlayCheck();
+				StartCoroutine(coroutineMethod);
 				yield break;
 			}
 
@@ -106,8 +125,11 @@ namespace LightGive
 			{
 				callbackOnComplete.Invoke();
 			}
-			Debug.Log("Activeを切ります");
+
+			isActive = false;
+			isPlaying = false;
 			this.gameObject.SetActive(false);
+
 		}
 
 		public void PlayerUpdate()

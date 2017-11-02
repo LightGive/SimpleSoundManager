@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace LightGive
 {
-	public class ButtonAudioSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+	public class ButtonSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		[SerializeField]
 		private AudioNameSE m_EnterAudioName;

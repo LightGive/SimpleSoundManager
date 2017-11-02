@@ -141,7 +141,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
 			var player = sePlayerList[i];
-			if (!player.audioSource.isPlaying)
+			if (!player.IsPlaying)
 				continue;
 
 			player.PlayerUpdate();
@@ -227,10 +227,11 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 
-
-
-
-
+	
+	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos)
+	{
+		PlaySE(_audioName.ToString(), seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+	}
 	public void Play3DSound(string _audioName, Vector3 _soundPos)
 	{
 		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
@@ -305,6 +306,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 		else
 		{
+			
 		}
 
 		sePlayer.Play();
@@ -314,7 +316,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].isActive)
+			if (!sePlayerList[i].IsActive)
 				continue;
 			if (sePlayerList[i].audioSource.clip.name == _audioName && sePlayerList[i].IsPause)
 				return true;
@@ -326,9 +328,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].isActive)
+			if (!sePlayerList[i].IsActive)
 				continue;
-			if (sePlayerList[i].audioSource.isPlaying )
+			if (sePlayerList[i].IsPlaying )
 				return true;
 		}
 		return false;
@@ -338,9 +340,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].isActive)
+			if (!sePlayerList[i].IsActive)
 				continue;
-			if (sePlayerList[i].audioSource.isPlaying && sePlayerList[i].audioSource.clip.name == _audioName)
+			if (sePlayerList[i].IsPlaying && sePlayerList[i].audioSource.clip.name == _audioName)
 				return true;
 		}
 		return false;
@@ -354,7 +356,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].isActive)
+			if (!sePlayerList[i].IsActive)
 				continue;
 			if (sePlayerList[i].audioSource.clip.name == _audioName && !sePlayerList[i].IsPause)
 				sePlayerList[i].Pause();
@@ -370,7 +372,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].isActive)
+			if (!sePlayerList[i].IsActive)
 				continue;
 			if (sePlayerList[i].audioSource.clip.name == _audioName && sePlayerList[i].IsPause)
 				sePlayerList[i].Resume();
@@ -385,7 +387,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].isActive)
+			if (!sePlayerList[i].IsActive)
 				continue;
 			if (sePlayerList[i].audioSource.clip.name == _audioName)
 				sePlayerList[i].Stop();
@@ -399,7 +401,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].isActive)
+			if (!sePlayerList[i].IsActive)
 				continue;
 			sePlayerList[i].Stop();
 		}
@@ -413,7 +415,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].isActive)
+			if (!sePlayerList[i].IsActive)
 				continue;
 			sePlayerList[i].ChangeTotalVolume(totalVolume);
 		}
@@ -428,7 +430,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (sePlayerList[i].audioSource.isPlaying)
+			if (sePlayerList[i].IsPlaying)
 				continue;
 			//Debug.Log(i.ToString() + "番のPlayerを使います");
 			return sePlayerList[i];

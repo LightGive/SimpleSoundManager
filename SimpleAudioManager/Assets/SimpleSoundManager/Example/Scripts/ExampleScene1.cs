@@ -36,7 +36,7 @@ public class ExampleScene1 : MonoBehaviour
 	[SerializeField]
 	private Dropdown seNameDropDown;
 
-	private bool isPlaying;
+	private bool isPlayingSE;
 	private float volume = 1.0f;
 	private float delay = 0.0f;
 	private float pitch = 1.0f;
@@ -51,35 +51,34 @@ public class ExampleScene1 : MonoBehaviour
 
 	void Update()
 	{
-		if (!isPlay)
+		if (!isPlayingSE)
 			return;
 
 		var idx = seNameDropDown.value;
 		var itemName = seNameDropDown.options[idx];
 		if (!SimpleSoundManager.Instance.IsPlayingSE(itemName.text))
 		{
-			isPlaying = false;
-			isplay
-		}
-			
+			isPlayingSE = false;
+			playButtonImage.gameObject.SetActive(true);
+			pauseButtonImage.gameObject.SetActive(false);
+		}			
 	}
 
 	public void PlaySound2D()
 	{
-		isPlay = true;
+		isPlayingSE = true;
 		var idx = seNameDropDown.value;
 		var itemName = seNameDropDown.options[idx];
 		var fadeInTime = float.Parse(fadeInTimeInput.text);
 		var fadeOutTime = float.Parse(fadeOutTimeInput.text);
 		UnityAction callBackStart = null;
 		UnityAction callBackEnd = null;
-		playButtonObj.SetActive(false);
-		pauseButtonObj.SetActive(true);
+		playButtonImage.gameObject.SetActive(false);
+		pauseButtonImage.gameObject.SetActive(true);
 
 		//ポーズ中
 		if (SimpleSoundManager.Instance.IsPauseSE(itemName.text))
 		{
-
 			SimpleSoundManager.Instance.Resume(itemName.text);
 			return;
 		}
@@ -109,8 +108,8 @@ public class ExampleScene1 : MonoBehaviour
 	{
 		var idx = seNameDropDown.value;
 		var itemName = seNameDropDown.options[idx];
-		playButtonObj.SetActive(true);
-		pauseButtonObj.SetActive(false);
+		playButtonImage.gameObject.SetActive(true);
+		pauseButtonImage.gameObject.SetActive(false);
 		SimpleSoundManager.Instance.PauseSe(itemName.text);
 	}
 

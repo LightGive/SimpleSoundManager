@@ -116,7 +116,6 @@ namespace LightGive
 						{
 							att.loopList.Remove(property.propertyPath);
 						}
-
 					}
 
 					var isPlaying = (att.playPropPath == property.propertyPath);
