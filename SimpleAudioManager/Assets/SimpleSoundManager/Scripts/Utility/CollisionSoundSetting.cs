@@ -9,6 +9,10 @@ public class CollisionSoundSetting : MonoBehaviour
 	private float velocityMag = 1.0f;
 	[SerializeField]
 	private AudioNameSE playAudioName;
+	[SerializeField]
+	private float minDistance;
+	[SerializeField]
+	private float maxDistance;
 
 	void OnCollisionEnter(Collision _col)
 	{

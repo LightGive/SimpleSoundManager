@@ -6,6 +6,7 @@
 	public const string SE_ButtonClick = "ButtonClick";
 	public const string SE_ButtonCursor = "ButtonCursor";
 	public const string SE_Computer = "Computer";
+	public const string SE_Metal = "Metal";
 	public const string SE_Shutter = "Shutter";
 }
 	
@@ -22,5 +23,6 @@ public enum AudioNameSE
 	ButtonClick,
 	ButtonCursor,
 	Computer,
+	Metal,
 	Shutter,
 }
