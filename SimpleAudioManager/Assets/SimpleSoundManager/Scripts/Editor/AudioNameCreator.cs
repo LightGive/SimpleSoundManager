@@ -115,12 +115,7 @@ namespace LightGive
 
 					var bgmInfo = new AudioClipInfo(idx, audio);
 					bgmClipList.Add(bgmInfo);
-					//bgmAudioClipListProp.arraySize++;
-					//foreach (AudioManager t in targets)
-					//{
-					//	t.bgmAudioClipList.Add(bgmInfo);
-					//	serializedObject.ApplyModifiedProperties();
-					//}
+
 				}
 			}
 

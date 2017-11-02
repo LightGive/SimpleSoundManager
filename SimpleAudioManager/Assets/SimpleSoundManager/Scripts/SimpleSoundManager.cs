@@ -228,17 +228,14 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	}
 	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos)
 	{
-		if (_audioName == AudioNameSE.None) { return; }
 		PlaySE(_audioName.ToString(), seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos, float _seVolume)
 	{
-		if (_audioName == AudioNameSE.None) { return; }
 		PlaySE(_audioName.ToString(), _seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos, float _seVolume, float _delay)
 	{
-		if (_audioName == AudioNameSE.None) { return; }
 		PlaySE(_audioName.ToString(), seVolume, _delay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 	public void Play3DSound(string _audioName, Vector3 _soundPos)
