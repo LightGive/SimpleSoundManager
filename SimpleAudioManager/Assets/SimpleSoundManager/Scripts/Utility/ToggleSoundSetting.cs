@@ -7,32 +7,33 @@ using UnityEngine.UI;
 
 namespace LightGive
 {
-	[RequireComponent(typeof(Button))]
-	public class ButtonSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+	[RequireComponent(typeof(Toggle))]
+	public class ToggleSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
-		[SerializeField, Range(0.0f, 1.0f)]
-		private float volume;
 		[SerializeField]
 		private AudioNameSE m_EnterAudioName;
 		[SerializeField]
 		private AudioNameSE m_ExitAudioName;
 		[SerializeField]
-		private AudioNameSE m_ClickAudioName;
+		private AudioNameSE m_ClickOnAudioName;
+		[SerializeField]
+		private AudioNameSE m_ClickOffAudioName;
 
 		private UnityEvent eventPointerEnter = new UnityEvent();
 		private UnityEvent eventPointerExit = new UnityEvent();
+		private UnityEvent eventPointerDown = new UnityEvent();
+		private Toggle toggle;
 
 		void Awake()
 		{
-			var b = this.gameObject.GetComponent<Button>();
-			if (!b) { return; }
+			toggle = this.gameObject.GetComponent<Toggle>();
 
 			if (m_EnterAudioName != AudioNameSE.None)
 				eventPointerEnter.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_EnterAudioName));
 			if (m_ExitAudioName != AudioNameSE.None)
 				eventPointerExit.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_ExitAudioName));
-			if (m_ClickAudioName != AudioNameSE.None)
-				b.onClick.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_ClickAudioName));
+			if (m_ClickOffAudioName != AudioNameSE.None && m_ClickOnAudioName != AudioNameSE.None)
+				toggle.onValueChanged.AddListener(OnToggleChanged);
 		}
 
 		public void OnPointerEnter(PointerEventData ped)
@@ -44,6 +45,13 @@ namespace LightGive
 		{
 			if (eventPointerExit != null)
 				eventPointerExit.Invoke();
+		}
+		public void OnToggleChanged(bool _val)
+		{
+			if (_val)
+				SimpleSoundManager.Instance.PlaySound2D(m_ClickOnAudioName);
+			else
+				SimpleSoundManager.Instance.PlaySound2D(m_ClickOffAudioName);
 		}
 	}
 }
