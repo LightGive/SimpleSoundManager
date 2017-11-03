@@ -286,6 +286,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		sePlayer.audioSource.pitch = _pitch;
 		sePlayer.audioSource.spatialBlend = spatialBlend;
 		sePlayer.chaseObj = _parentObj;
+		sePlayer.transform.position = _soundPos;
 		sePlayer.volume = _volume;
 		sePlayer.loopCnt = _loopCount;
 		sePlayer.delay = _delay;

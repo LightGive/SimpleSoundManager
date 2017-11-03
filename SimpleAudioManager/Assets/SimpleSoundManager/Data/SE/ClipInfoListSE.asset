@@ -34,11 +34,16 @@ MonoBehaviour:
     pitch: 0
   - isUse: 1
     audioNo: 5
-    clip: {fileID: 8300000, guid: ccb4596fa3993c346ab902769fcb0bd1, type: 3}
+    clip: {fileID: 8300000, guid: 562198941f098f7449c1ec94c9ee5674, type: 3}
     volume: 0
     pitch: 0
   - isUse: 1
     audioNo: 6
+    clip: {fileID: 8300000, guid: ccb4596fa3993c346ab902769fcb0bd1, type: 3}
+    volume: 0
+    pitch: 0
+  - isUse: 1
+    audioNo: 7
     clip: {fileID: 8300000, guid: 281999c50ca9855458d20567f434b58f, type: 3}
     volume: 0
     pitch: 0
