@@ -18,9 +18,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	private const float PitchMax = 3.0f;
 	private const float DelayMin = 0.0f;
 	private const float DelayMax = 10.0f;
-
-	private readonly float DefaultMinDistance = 1.0f;
-	private readonly float DefaultMaxDistance = 500.0f;
+	private const float DefaultMinDistance = 1.0f;
+	private const float DefaultMaxDistance = 500.0f;
 
 	private readonly Vector3 DefaultPos = Vector3.zero;
 
@@ -156,7 +155,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		PlayBGM(_audioName, bgmVolume, true, 0.0f, 1.0f);
 	}
-
 	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _loopStartTime, float _loopEndTime)
 	{
 		if (!bgmDictionary.ContainsKey(_audioName))
@@ -179,7 +177,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			return;
 		PlaySound2D(_audioName.ToString());
 	}
-
 	/// <summary>
 	/// ２DのSEを再生する
 	/// </summary>
@@ -188,7 +185,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
-
 	/// <summary>
 	/// ２DのSEを再生する
 	/// </summary>
@@ -201,7 +197,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
 	}
-
 	/// <summary>
 	/// ２DのSEをループ再生する
 	/// </summary>
@@ -214,7 +209,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
 	}
-
 	/// <summary>
 	/// ２DのSEを止めるまでループ再生する
 	/// </summary>
@@ -226,44 +220,37 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
-	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos)
+
+
+
+
+	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
-		PlaySE(_audioName.ToString(), seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
-	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos, float _seVolume)
+	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos, float _minDistance = DefaultMinDistance, float _maxDistance = DefaultMaxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
-		PlaySE(_audioName.ToString(), _seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, _minDistance, _maxDistance, null, null);
 	}
-	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos, float _seVolume, float _delay)
+	public void Play3DSound(AudioNameSE _audioName, GameObject _chaseObj, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
-		PlaySE(_audioName.ToString(), seVolume, _delay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _chaseObj.transform.position, _chaseObj, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
-	public void Play3DSound(string _audioName, Vector3 _soundPos)
+	public void Play3DSound(string _audioName, Vector3 _soundPos, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
-		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
-	public void Play3DSound(string _audioName, Vector3 _soundPos, float _seVolume)
+	public void Play3DSound(string _audioName, Vector3 _soundPos, float _minDistance = DefaultMinDistance, float _maxDistance = DefaultMaxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
-		PlaySE(_audioName, _seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, _minDistance, _maxDistance, null, null);
 	}
-	public void Play3DSound(string _audioName, Vector3 _soundPos, float _seVolume, float _delay)
+	public void Play3DSound(string _audioName, GameObject _chaseObj, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
-		PlaySE(_audioName, seVolume, _delay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
-	}
-	public void Play3DSound(string _audioName, GameObject _parentObj)
-	{
-		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, DefaultPos, _parentObj, DefaultMinDistance, DefaultMaxDistance, null, null);
-	}
-	public void Play3DSound(string _audioName, GameObject _parentObj, float _seVolume)
-	{
-		PlaySE(_audioName, _seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, DefaultPos, _parentObj, DefaultMinDistance, DefaultMaxDistance, null, null);
-	}
-	public void Play3DSound(string _audioName, GameObject _parentObj, float _seVolume, float _seDelay)
-	{
-		PlaySE(_audioName, _seVolume, _seDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, true, DefaultPos, _parentObj, DefaultMinDistance, DefaultMaxDistance, null, null);
+		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _chaseObj.transform.position, _chaseObj, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 
-	private void PlaySE(string _audioName, float _volume, float _delay, float _pitch, bool _isLoop, int _loopCount, float _fadeInTime, float _fadeOutTime, bool _is3dSound, Vector3 _soundPos, GameObject _parentObj, float _minDistance, float _maxDistance, UnityAction _onStart, UnityAction _onComplete)
+
+	private void PlaySE(string _audioName, float _volume, float _delay, float _pitch, bool _isLoop, int _loopCount, float _fadeInTime, float _fadeOutTime, bool _is3dSound, Vector3 _soundPos, GameObject _chaseObj, float _minDistance, float _maxDistance, UnityAction _onStart, UnityAction _onComplete)
 	{
 		if (!seDictionary.ContainsKey(_audioName))
 		{
@@ -284,9 +271,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		SoundEffectPlayer sePlayer = GetSoundPlayer(_is3dSound);
 		sePlayer.audioSource.clip = clipInfo.clip;
 		sePlayer.audioSource.pitch = _pitch;
-		sePlayer.audioSource.spatialBlend = spatialBlend;
-		sePlayer.chaseObj = _parentObj;
 		sePlayer.transform.position = _soundPos;
+		sePlayer.audioSource.spatialBlend = spatialBlend;
+		sePlayer.chaseObj = _chaseObj;
 		sePlayer.volume = _volume;
 		sePlayer.loopCnt = _loopCount;
 		sePlayer.delay = _delay;
@@ -310,10 +297,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			sePlayer.audioSource.minDistance = _minDistance;
 			sePlayer.audioSource.maxDistance = _maxDistance;
-		}
-		else
-		{
-			
 		}
 
 		sePlayer.Play();

@@ -135,7 +135,9 @@ namespace LightGive
 		public void PlayerUpdate()
 		{
 			if (chaseObj != null)
+			{
 				transform.position = chaseObj.transform.position;
+			}
 
 			if (isFade)
 			{

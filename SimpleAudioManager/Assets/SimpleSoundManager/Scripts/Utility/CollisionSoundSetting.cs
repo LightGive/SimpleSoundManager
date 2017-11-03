@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class CollisionSoundSetting : MonoBehaviour
+public class CollisionEnterSoundSetting : MonoBehaviour
 {
 	[Header("AudioSetting")]
 	[SerializeField]

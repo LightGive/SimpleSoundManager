@@ -3,6 +3,7 @@
 	public const string BGM_Example2 = "Example2";
 	public const string BGM_Main = "Main";
 	
+	public const string SE_bird = "bird";
 	public const string SE_Bound = "Bound";
 	public const string SE_ButtonClick = "ButtonClick";
 	public const string SE_ButtonCursor = "ButtonCursor";
@@ -22,6 +23,7 @@ public enum AudioNameBGM
 public enum AudioNameSE
 {
 	None,
+	bird,
 	Bound,
 	ButtonClick,
 	ButtonCursor,
