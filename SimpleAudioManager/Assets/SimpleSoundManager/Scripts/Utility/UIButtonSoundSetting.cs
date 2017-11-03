@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace LightGive
 {
 	[RequireComponent(typeof(Button))]
-	public class ButtonSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+	public class UIButtonSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		[SerializeField, Range(0.0f, 1.0f)]
 		private float volume;

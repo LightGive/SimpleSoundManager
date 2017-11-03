@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace LightGive
 {
 	[RequireComponent(typeof(Toggle))]
-	public class ToggleSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+	public class UIToggleSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		[SerializeField]
 		private AudioNameSE m_EnterAudioName;

@@ -137,10 +137,6 @@ namespace LightGive
 					var seInfo = new AudioClipInfo(idx, audio);
 					seObjList.Add(obj);
 					seClipList.Add(seInfo);
-
-					//seAudioClipListProp.arraySize++;
-					//foreach (AudioManager t in targets)
-					//	t.seAudioClipList.Add(seInfo);
 				}
 			}
 
