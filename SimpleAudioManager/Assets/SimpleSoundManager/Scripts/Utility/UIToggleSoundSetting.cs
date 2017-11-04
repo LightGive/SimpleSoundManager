@@ -10,14 +10,16 @@ namespace LightGive
 	[RequireComponent(typeof(Toggle))]
 	public class UIToggleSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
+		[SerializeField, Range(0.0f, 1.0f)]
+		private float volume = 1.0f;
 		[SerializeField]
-		private AudioNameSE m_EnterAudioName;
+		private AudioNameSE cursorEnterAudioName;
 		[SerializeField]
-		private AudioNameSE m_ExitAudioName;
+		private AudioNameSE cursorExitAudioName;
 		[SerializeField]
-		private AudioNameSE m_ClickOnAudioName;
+		private AudioNameSE checkOnAudioName;
 		[SerializeField]
-		private AudioNameSE m_ClickOffAudioName;
+		private AudioNameSE checkOffAudioName;
 
 		private UnityEvent eventPointerEnter = new UnityEvent();
 		private UnityEvent eventPointerExit = new UnityEvent();
@@ -28,30 +30,34 @@ namespace LightGive
 		{
 			toggle = this.gameObject.GetComponent<Toggle>();
 
-			if (m_EnterAudioName != AudioNameSE.None)
-				eventPointerEnter.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_EnterAudioName));
-			if (m_ExitAudioName != AudioNameSE.None)
-				eventPointerExit.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_ExitAudioName));
-			if (m_ClickOffAudioName != AudioNameSE.None && m_ClickOnAudioName != AudioNameSE.None)
+			if (cursorEnterAudioName != AudioNameSE.None)
+				eventPointerEnter.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(cursorEnterAudioName));
+			if (cursorExitAudioName != AudioNameSE.None)
+				eventPointerExit.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(cursorExitAudioName));
+			if (checkOffAudioName != AudioNameSE.None && checkOnAudioName != AudioNameSE.None)
 				toggle.onValueChanged.AddListener(OnToggleChanged);
 		}
 
-		public void OnPointerEnter(PointerEventData ped)
+		public void OnPointerEnter(PointerEventData _ped)
 		{
 			if (eventPointerEnter != null)
 				eventPointerEnter.Invoke();
 		}
-		public void OnPointerExit(PointerEventData ped)
+		public void OnPointerExit(PointerEventData _ped)
 		{
 			if (eventPointerExit != null)
 				eventPointerExit.Invoke();
 		}
-		public void OnToggleChanged(bool _val)
+		public void OnToggleChanged(bool _isToggle)
 		{
-			if (_val)
-				SimpleSoundManager.Instance.PlaySound2D(m_ClickOnAudioName);
+			if (_isToggle)
+			{
+				SimpleSoundManager.Instance.PlaySound2D(checkOnAudioName, volume);
+			}
 			else
-				SimpleSoundManager.Instance.PlaySound2D(m_ClickOffAudioName);
+			{
+				SimpleSoundManager.Instance.PlaySound2D(checkOffAudioName, volume);
+			}
 		}
 	}
 }

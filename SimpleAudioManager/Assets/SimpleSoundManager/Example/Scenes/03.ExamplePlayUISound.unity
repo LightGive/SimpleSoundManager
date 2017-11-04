@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.6544118, b: 0.6544118, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -194,7 +194,18 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1179173868}
+        m_MethodName: ChangeSliderValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1024012
@@ -208,7 +219,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68888be91e3b6be4bad299413de3b9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1
   changeValue: 0.1
+  sliderStartAudioName: 3
+  sliderEndAudioName: 4
+  sliderChangeAudioName: 2
 --- !u!1 &115066626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1397,47 @@ MonoBehaviour:
   m_EnterAudioName: 2
   m_ExitAudioName: 2
   m_ClickAudioName: 2
+--- !u!1 &1179173867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1179173869}
+  - component: {fileID: 1179173868}
+  m_Layer: 0
+  m_Name: Example3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1179173868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1179173867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 140f1e35bfdc24d41a5858221699b6db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textPercent: {fileID: 2058011876}
+--- !u!4 &1179173869
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1179173867}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1180771607
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,10 +2066,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd63751f6f8e21d42bf917a5bfb89121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnterAudioName: 2
-  m_ExitAudioName: 2
-  m_ClickOnAudioName: 3
-  m_ClickOffAudioName: 4
+  volume: 1
+  cursorEnterAudioName: 0
+  cursorExitAudioName: 0
+  checkOnAudioName: 0
+  checkOffAudioName: 0
 --- !u!1 &1489375558
 GameObject:
   m_ObjectHideFlags: 0

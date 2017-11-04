@@ -107,8 +107,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		bgmPlayer.audioSource.loop = true;
 		bgmPlayer.audioSource.outputAudioMixerGroup = bgmAudioMixerGroup;
 
-
-
 		//AudioPlayerのGameObjectを作成
 		for (int i = 0; i < sePlayerNum; i++)
 		{
@@ -171,58 +169,22 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		bgmPlayer.Play();
 	}
 
-	public void PlaySound2D(AudioNameSE _audioName)
+	public void PlaySound2D(AudioNameSE _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
-		if (_audioName == AudioNameSE.None)
-			return;
-		PlaySound2D(_audioName.ToString());
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
 	}
-	/// <summary>
-	/// ２DのSEを再生する
-	/// </summary>
-	/// <param name="_audioName">SEの名前</param>
-	public void PlaySound2D(string _audioName)
-	{
-		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
-	}
-	/// <summary>
-	/// ２DのSEを再生する
-	/// </summary>
-	/// <param name="_audioName">SEの名前</param>
-	/// <param name="_seVolume">ボリューム</param>
-	/// <param name="_delay">遅延時間</param>
-	/// <param name="_pitch">ピッチ</param>
-	/// <param name="_onComplete"></param>
 	public void PlaySound2D(string _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
 	}
-	/// <summary>
-	/// ２DのSEをループ再生する
-	/// </summary>
-	/// <param name="_audioName">SEの名前</param>
-	/// <param name="_loopCount">ループ回数</param>
-	/// <param name="_seVolume">ボリューム</param>
-	/// <param name="_delay">遅延時間</param>
-	/// <param name="_pitch">ピッチ</param>
 	public void PlaySound2DLoop(string _audioName, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
 	}
-	/// <summary>
-	/// ２DのSEを止めるまでループ再生する
-	/// </summary>
-	/// <param name="_audioName">SEの名前</param>
-	/// <param name="_seVolume">ボリューム</param>
-	/// <param name="_delay">遅延時間</param>
-	/// <param name="_pitch">ピッチ</param>
 	public void PlaySound2DLoopInfinity(string _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch)
 	{
 		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
-
-
-
 
 	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
@@ -254,7 +216,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		if (!seDictionary.ContainsKey(_audioName))
 		{
-			Debug.Log("そんな名前のSEはねーよ：" + _audioName);
+			Debug.Log("その名前のSEは存在しません：" + _audioName);
 			return;
 		}
 		var clipInfo = seDictionary[_audioName];
