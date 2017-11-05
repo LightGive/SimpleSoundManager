@@ -2,7 +2,6 @@
 using UnityEngine;
 using LightGive;
 
-
 namespace LightGive
 {
 	[System.Serializable]

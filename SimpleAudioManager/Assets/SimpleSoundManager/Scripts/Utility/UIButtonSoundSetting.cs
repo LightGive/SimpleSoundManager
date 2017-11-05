@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -11,39 +8,28 @@ namespace LightGive
 	public class UIButtonSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	{
 		[SerializeField, Range(0.0f, 1.0f)]
-		private float volume;
+		private float volume = 1.0f;
 		[SerializeField]
-		private AudioNameSE m_EnterAudioName;
+		private AudioNameSE onPointEnterAudio;
 		[SerializeField]
-		private AudioNameSE m_ExitAudioName;
+		private AudioNameSE onPointExitAudio;
 		[SerializeField]
-		private AudioNameSE m_ClickAudioName;
+		private AudioNameSE onPointerClickAudio;
 
-		private UnityEvent eventPointerEnter = new UnityEvent();
-		private UnityEvent eventPointerExit = new UnityEvent();
+		private Button button;
 
 		void Awake()
 		{
-			var b = this.gameObject.GetComponent<Button>();
-			if (!b) { return; }
-
-			if (m_EnterAudioName != AudioNameSE.None)
-				eventPointerEnter.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_EnterAudioName));
-			if (m_ExitAudioName != AudioNameSE.None)
-				eventPointerExit.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_ExitAudioName));
-			if (m_ClickAudioName != AudioNameSE.None)
-				b.onClick.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(m_ClickAudioName));
+			button = this.gameObject.GetComponent<Button>();
+			button.onClick.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(onPointerClickAudio, volume));
 		}
-
 		public void OnPointerEnter(PointerEventData ped)
 		{
-			if (eventPointerEnter != null)
-				eventPointerEnter.Invoke();
-		}
+			SimpleSoundManager.Instance.PlaySound2D(onPointEnterAudio, volume);
+        }
 		public void OnPointerExit(PointerEventData ped)
 		{
-			if (eventPointerExit != null)
-				eventPointerExit.Invoke();
+			SimpleSoundManager.Instance.PlaySound2D(onPointExitAudio, volume);
 		}
 	}
 }

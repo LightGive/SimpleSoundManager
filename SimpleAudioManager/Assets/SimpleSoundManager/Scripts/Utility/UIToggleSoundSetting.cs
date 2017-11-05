@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -13,50 +10,39 @@ namespace LightGive
 		[SerializeField, Range(0.0f, 1.0f)]
 		private float volume = 1.0f;
 		[SerializeField]
-		private AudioNameSE cursorEnterAudioName;
+		private AudioNameSE onPointerEnterAudio;
 		[SerializeField]
-		private AudioNameSE cursorExitAudioName;
+		private AudioNameSE onPointerExitAudio;
 		[SerializeField]
-		private AudioNameSE checkOnAudioName;
+		private AudioNameSE onValueChangedOnAudio;
 		[SerializeField]
-		private AudioNameSE checkOffAudioName;
+		private AudioNameSE onValueChangedOffAudio;
 
-		private UnityEvent eventPointerEnter = new UnityEvent();
-		private UnityEvent eventPointerExit = new UnityEvent();
-		private UnityEvent eventPointerDown = new UnityEvent();
 		private Toggle toggle;
 
 		void Awake()
 		{
 			toggle = this.gameObject.GetComponent<Toggle>();
-
-			if (cursorEnterAudioName != AudioNameSE.None)
-				eventPointerEnter.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(cursorEnterAudioName));
-			if (cursorExitAudioName != AudioNameSE.None)
-				eventPointerExit.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(cursorExitAudioName));
-			if (checkOffAudioName != AudioNameSE.None && checkOnAudioName != AudioNameSE.None)
-				toggle.onValueChanged.AddListener(OnToggleChanged);
+			toggle.onValueChanged.AddListener(OnToggleChanged);
 		}
 
 		public void OnPointerEnter(PointerEventData _ped)
 		{
-			if (eventPointerEnter != null)
-				eventPointerEnter.Invoke();
+			SimpleSoundManager.Instance.PlaySound2D(onPointerEnterAudio, volume);
 		}
 		public void OnPointerExit(PointerEventData _ped)
 		{
-			if (eventPointerExit != null)
-				eventPointerExit.Invoke();
+			SimpleSoundManager.Instance.PlaySound2D(onPointerExitAudio, volume);
 		}
 		public void OnToggleChanged(bool _isToggle)
 		{
 			if (_isToggle)
 			{
-				SimpleSoundManager.Instance.PlaySound2D(checkOnAudioName, volume);
+				SimpleSoundManager.Instance.PlaySound2D(onValueChangedOnAudio, volume);
 			}
 			else
 			{
-				SimpleSoundManager.Instance.PlaySound2D(checkOffAudioName, volume);
+				SimpleSoundManager.Instance.PlaySound2D(onValueChangedOffAudio, volume);
 			}
 		}
 	}

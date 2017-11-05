@@ -221,9 +221,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: 1
   changeValue: 0.1
-  sliderStartAudioName: 3
-  sliderEndAudioName: 4
-  sliderChangeAudioName: 2
+  sliderStartAudio: 0
+  sliderEndAudio: 0
+  onValueChangedAudio: 0
 --- !u!1 &115066626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,10 +1393,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1742c50ba6c9d847bb3709e9c049118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: 0
-  m_EnterAudioName: 2
-  m_ExitAudioName: 2
-  m_ClickAudioName: 2
+  volume: 1
+  onPointEnterAudio: 4
+  onPointExitAudio: 4
+  onPointerClickAudio: 3
 --- !u!1 &1179173867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,6 +1640,7 @@ GameObject:
   - component: {fileID: 1374161257}
   - component: {fileID: 1374161256}
   - component: {fileID: 1374161255}
+  - component: {fileID: 1374161259}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -1763,6 +1764,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1374161253}
+--- !u!114 &1374161259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1374161253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bdf3d32e55eb9742bed3a2326f27127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 1
+  onPointEnterAudio: 0
+  onPointExitAudio: 0
+  onPointerClickAudio: 0
+  onValueChangedAudio: 0
+  onEndEditAudio: 0
 --- !u!1 &1390549983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,10 +2085,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: 1
-  cursorEnterAudioName: 0
-  cursorExitAudioName: 0
-  checkOnAudioName: 0
-  checkOffAudioName: 0
+  onPointerEnterAudio: 0
+  onPointerExitAudio: 0
+  onValueChangedOnAudio: 0
+  onValueChangedOffAudio: 0
 --- !u!1 &1489375558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2778,6 +2796,7 @@ GameObject:
   - component: {fileID: 2121953394}
   - component: {fileID: 2121953393}
   - component: {fileID: 2121953392}
+  - component: {fileID: 2121953395}
   m_Layer: 5
   m_Name: Dropdown
   m_TagString: Untagged
@@ -2894,6 +2913,22 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2121953390}
+--- !u!114 &2121953395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2121953390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab5fdaedbccf9c4aaca418e30c3aa05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 1
+  onPointEnterAudio: 0
+  onPointExitAudio: 0
+  onPointClickAudio: 0
+  onValueChangedAudio: 0
 --- !u!1 &2137796214
 GameObject:
   m_ObjectHideFlags: 0
@@ -2905,6 +2940,7 @@ GameObject:
   - component: {fileID: 2137796218}
   - component: {fileID: 2137796217}
   - component: {fileID: 2137796216}
+  - component: {fileID: 2137796219}
   m_Layer: 5
   m_Name: Scrollbar
   m_TagString: Untagged
@@ -2969,9 +3005,9 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 937275341}
   m_HandleRect: {fileID: 937275340}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 0.2
-  m_NumberOfSteps: 0
+  m_Value: 0.472
+  m_Size: 0.375
+  m_NumberOfSteps: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3010,6 +3046,22 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2137796214}
+--- !u!114 &2137796219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2137796214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bb7a621997f8a94e9b124a5229dc8c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 1
+  changeValue: 0
+  scrollStartAudio: 0
+  scrollEndAudio: 0
+  onValueChangedAudio: 0
 --- !u!1 &2146400441
 GameObject:
   m_ObjectHideFlags: 0
