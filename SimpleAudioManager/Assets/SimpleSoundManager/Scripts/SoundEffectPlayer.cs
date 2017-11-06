@@ -159,9 +159,10 @@ namespace LightGive
 			audioSource.clip = _audioClip;
 		}
 
+
 		public void ChangeTotalVolume(float _val)
 		{
-			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * volume;
+			audioSource.volume = SimpleSoundManager.Instance.SEVolume * volume;
 		}
 	}
 }

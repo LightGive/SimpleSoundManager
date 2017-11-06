@@ -7,29 +7,39 @@ namespace LightGive
 	[System.Serializable]
 	public class BackGroundMusicPlayer : MonoBehaviour
 	{
-		private const int AUDIO_SOURCE_NUM = 2;
-
 		[SerializeField]
-		private AudioSource[] audioSource = new AudioSource[2];
+		private AudioSource audioSource;
 
-		private int playerIndex;
-		
+		private bool isPlaying = false;
+
 		public BackGroundMusicPlayer()
 		{
-			playerIndex = 0;
-			for (int i = 0; i < AUDIO_SOURCE_NUM; i++)
-			{
-				audioSource[i] = this.gameObject.AddComponent<AudioSource>();
-				audioSource[i].playOnAwake = false;
-				audioSource[i].loop = true;
-				audioSource[i].outputAudioMixerGroup = SimpleSoundManager.Instance.bgmAudioMixerGroup;
-				audioSource[i].volume = SimpleSoundManager.Instance.BGMVolume;
-			}
+			isPlaying = false;
+
+			audioSource = this.gameObject.AddComponent<AudioSource>();
+			audioSource.playOnAwake = false;
+			audioSource.loop = true;
+			audioSource.spatialBlend = 0.0f;
+			audioSource.outputAudioMixerGroup = SimpleSoundManager.Instance.bgmAudioMixerGroup;
+			audioSource.volume = SimpleSoundManager.Instance.BGMVolume;
 		}
 
-		public void Play(float _fadeOutTime, float _fadeInTime)
+		public void Play(AudioClip _clip, bool _isLoop, float _volume, float _fadeInTime, float _fadeOutTime, float _loopStartTime, float _loopEndTime)
 		{
-			audioSource[playerIndex].Play();
+			isPlaying = true;
+
+			if (_fadeOutTime == 0.0f && _fadeInTime == 0.0f)
+			{
+				audioSource.Stop();
+				audioSource.volume = _volume;
+				audioSource.clip = _clip;
+				audioSource.Play();
+			}
+			else
+			{
+
+			}
+
 		}
 	}
 }

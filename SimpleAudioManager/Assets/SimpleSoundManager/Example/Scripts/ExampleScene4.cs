@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ExampleScene4 : MonoBehaviour
 {
+	[SerializeField]
 	private Dropdown bgmNameDropDown;
 
 	void Start ()

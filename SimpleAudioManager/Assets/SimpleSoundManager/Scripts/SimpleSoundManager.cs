@@ -85,6 +85,16 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
+	public float SEVolume
+	{
+		get { return seVolume; }
+		set
+		{
+			seVolume = value;
+			ChangeAllVolume();
+		}
+	}
+
 	public float BGMVolume
 	{
 		get { return bgmVolume;}
@@ -144,9 +154,10 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// <param name="_audioName">SEの名前</param>
 	public void PlayBGM(string _audioName)
 	{
-		PlayBGM(_audioName, bgmVolume, true, 0.0f, 1.0f);
+		PlayBGM(_audioName, bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, 0.0f);
 	}
-	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _loopStartTime, float _crossFadeOutTime, float _crossFadeInTime)
+
+	private void PlayBGM(string _audioName, float _volume, bool _isLoop,float _crossFadeOutTime, float _crossFadeInTime, float _loopStartTime, float _loopEndTime)
 	{
 		if (!bgmDictionary.ContainsKey(_audioName))
 		{
@@ -157,10 +168,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		_volume = Mathf.Clamp01(_volume);
 		var clipInfo = bgmDictionary[_audioName];
 
-		bgmPlayer.audioSource.clip = clipInfo.clip;
-		bgmPlayer.audioSource.volume = _volume;
-		bgmPlayer.audioSource.spatialBlend = 0.0f;
-		bgmPlayer.Play();
+		bgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _crossFadeInTime, _crossFadeOutTime, _loopStartTime, _loopEndTime);
 	}
 
 	public void PlaySound2D(AudioNameSE _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
