@@ -43,6 +43,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	public Dictionary<string, AudioClipInfo> seDictionary;
 
 	public List<SoundEffectPlayer> sePlayerList = new List<SoundEffectPlayer>();
+	public BackGroundMusicPlayer bgmPlayer;
+
 	/// <summary>
 	/// オーディオミキサー
 	/// </summary>
@@ -50,9 +52,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	public AudioMixerGroup bgmAudioMixerGroup;
 	[SerializeField]
 	public AudioMixerGroup seAudioMixerGroup;
-
-
-	public SoundEffectPlayer bgmPlayer;
 
 	/// <summary>
 	/// 全体の音量
@@ -86,26 +85,27 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
+	public float BGMVolume
+	{
+		get { return bgmVolume;}
+		set
+		{
+			bgmVolume = value;
+			ChangeAllVolume();
+		}
+	}
+
 
 	protected override void Awake()
 	{
 		base.Awake();
-
-		//Dictionaryを初期化
-		bgmDictionary = new Dictionary<string, AudioClipInfo>();
-		seDictionary = new Dictionary<string, AudioClipInfo>();
-		sePlayerList.Clear();
-
+		
 		//BGMのAudioPlayerの初期化
 		GameObject bgmPlayerObj = new GameObject("BGMPlayerObj");
 		bgmPlayerObj.transform.SetParent(this.gameObject.transform);
 		bgmPlayerObj.SetActive(false);
-
-		bgmPlayer = bgmPlayerObj.AddComponent<SoundEffectPlayer>();
-		bgmPlayer.audioSource = bgmPlayerObj.AddComponent<AudioSource>();
-		bgmPlayer.audioSource.playOnAwake = false;
-		bgmPlayer.audioSource.loop = true;
-		bgmPlayer.audioSource.outputAudioMixerGroup = bgmAudioMixerGroup;
+		bgmPlayer = bgmPlayerObj.AddComponent<BackGroundMusicPlayer>();
+		sePlayerList.Clear();
 
 		//AudioPlayerのGameObjectを作成
 		for (int i = 0; i < sePlayerNum; i++)
@@ -113,24 +113,17 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			GameObject sePlayerObj = new GameObject("SEPlayerObj" + i.ToString());
 			sePlayerObj.transform.SetParent(this.gameObject.transform);
 			sePlayerObj.SetActive(false);
-
 			SoundEffectPlayer audioInfo = sePlayerObj.AddComponent<SoundEffectPlayer>();
-			audioInfo.audioSource = sePlayerObj.AddComponent<AudioSource>();
-			audioInfo.audioSource.playOnAwake = false;
-			audioInfo.audioSource.loop = false;
-			audioInfo.audioSource.outputAudioMixerGroup = seAudioMixerGroup;
 			sePlayerList.Add(audioInfo);
 		}
 
-
+		//Dictionaryを初期化
+		bgmDictionary = new Dictionary<string, AudioClipInfo>();
+		seDictionary = new Dictionary<string, AudioClipInfo>();
 		for (int i = 0; i < bgmAudioClipList.Count; i++)
-		{
 			bgmDictionary.Add(bgmAudioClipList[i].audioName, bgmAudioClipList[i]);
-		}
 		for (int i = 0; i < seAudioClipList.Count; i++)
-		{
 			seDictionary.Add(seAudioClipList[i].audioName, seAudioClipList[i]);
-		}
 	}
 
 	private void Update()
@@ -153,16 +146,17 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		PlayBGM(_audioName, bgmVolume, true, 0.0f, 1.0f);
 	}
-	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _loopStartTime, float _loopEndTime)
+	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _loopStartTime, float _crossFadeOutTime, float _crossFadeInTime)
 	{
 		if (!bgmDictionary.ContainsKey(_audioName))
 		{
 			Debug.Log("そんな名前のBGMはねーよ");
 			return;
 		}
-		var clipInfo = bgmDictionary[_audioName];
 
 		_volume = Mathf.Clamp01(_volume);
+		var clipInfo = bgmDictionary[_audioName];
+
 		bgmPlayer.audioSource.clip = clipInfo.clip;
 		bgmPlayer.audioSource.volume = _volume;
 		bgmPlayer.audioSource.spatialBlend = 0.0f;

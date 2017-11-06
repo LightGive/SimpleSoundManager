@@ -56,6 +56,11 @@ namespace LightGive
 			chaseObj = null;
 			delay = 0.0f;
 			loopCnt = 0;
+
+			audioSource = this.gameObject.AddComponent<AudioSource>();
+			audioSource.playOnAwake = false;
+			audioSource.loop = false;
+			audioSource.outputAudioMixerGroup = SimpleSoundManager.Instance.seAudioMixerGroup;
 		}
 
 		public void Play()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1981,13 +1981,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playAudioName: 2
   volume: 1
-  changeVolumeMag: 1
-  minVelocityMag: 0.1
-  maxVelocityMag: 2
-  minDistance: 10
-  maxDistance: 20
-  ignoreTagName:
-  - 
+  changeVolumeMag: 0
+  minVelocityMag: 1
+  maxVelocityMag: 10
+  minDistance: 1
+  maxDistance: 10
+  ignoreTagName: []
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 0
