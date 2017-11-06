@@ -76,18 +76,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	private int bgmPlayerIndex = 0;
 
-	private BackGroundMusicPlayer MainBgmPlayer
-	{
-		get
-		{
-			return (bgmPlayer2.IsPlaying) ? bgmPlayer1 : bgmPlayer2;
-		}
-	}
-
-	private BackGroundMusicPlayer SubBgmPlayer
-	{
-
-	}
+	private BackGroundMusicPlayer NonActiveBgmPlayer { get { return (bgmPlayer2.IsPlaying) ? bgmPlayer1 : bgmPlayer2; } }
+	private BackGroundMusicPlayer ActiveBgmPlayer  { get { return (bgmPlayer2.IsPlaying) ? bgmPlayer2 : bgmPlayer1; } }
 
 	public float TotalVolume
 	{
@@ -119,7 +109,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
-	public bool IsPlayingBGM { get { return (bgmPlayer1.IsPlaying || bgmPlayer2); } }
+	public bool IsPlayingBGM { get { return (bgmPlayer1.IsPlaying || bgmPlayer2.IsPlaying); } }
 
 
 	protected override void Awake()
@@ -200,23 +190,24 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		_volume = Mathf.Clamp01(_volume);
 		_crossFadeRate = Mathf.Clamp01(_crossFadeRate);
 
+		var nonActiveBgmPlayer = NonActiveBgmPlayer;
+		var activeBgmPlayer = ActiveBgmPlayer;
 		var clipInfo = bgmDictionary[_audioName];
-		BackGroundMusicPlayer bgmPlayer = GetMainBgmPlayer();
-		bgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _loopStartTime, _loopEndTime);
+
+		activeBgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _loopStartTime, _loopEndTime);
 
 		if (_fadeInTime == 0.0f && _fadeOutTime == 0.0f)
 		{
-			if (IsPlayingBGM)
-			{
-				GetPlayingPlayer().Stop();
-			}
+			if (nonActiveBgmPlayer.IsPlaying) { nonActiveBgmPlayer.Stop(); }
+			if (activeBgmPlayer.IsPlaying) { activeBgmPlayer.Stop(); }
 		}
-		if (_fadeInTime != 0.0f)
-			bgmPlayer.FadeIn(_fadeInTime, (_crossFadeRate * _fadeOutTime));
-		if (_fadeOutTime != 0.0f)
-			bgmPlayer.FadeOut(_fadeOutTime);
-
-
+		else
+		{
+			if (_fadeInTime != 0.0f )
+				nonActiveBgmPlayer.FadeIn(_fadeInTime, (_crossFadeRate * _fadeOutTime));
+			if (_fadeOutTime != 0.0f && activeBgmPlayer.IsPlaying)
+				activeBgmPlayer.FadeOut(_fadeOutTime);
+		}
 	}
 
 	public void PlaySound2D(AudioNameSE _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
