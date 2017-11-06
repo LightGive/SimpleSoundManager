@@ -14,41 +14,16 @@ MonoBehaviour:
   data:
   - isUse: 1
     audioNo: 1
-    clip: {fileID: 8300000, guid: 807701f51288382479691172ebeb3618, type: 3}
+    clip: {fileID: 8300000, guid: 00a75a2da939f48468ae48a77ddb5d84, type: 3}
     volume: 0
     pitch: 0
   - isUse: 1
     audioNo: 2
-    clip: {fileID: 8300000, guid: b17badce024bf1b4c9dca85ab0fa102f, type: 3}
+    clip: {fileID: 8300000, guid: 9b4553685b753f04984cb7cbd06fdbdb, type: 3}
     volume: 0
     pitch: 0
   - isUse: 1
     audioNo: 3
-    clip: {fileID: 8300000, guid: 2a61e405db42c014c86b11a3aa229c6a, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 4
-    clip: {fileID: 8300000, guid: 789a174ef1795b4439242e5b009ae00f, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 5
-    clip: {fileID: 8300000, guid: 78f82aa1194b98344a0b4cfe1953177e, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 6
-    clip: {fileID: 8300000, guid: 562198941f098f7449c1ec94c9ee5674, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 7
-    clip: {fileID: 8300000, guid: ccb4596fa3993c346ab902769fcb0bd1, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 8
-    clip: {fileID: 8300000, guid: 281999c50ca9855458d20567f434b58f, type: 3}
+    clip: {fileID: 8300000, guid: 62b350cc26c0f4945856f7b36fc8b49e, type: 3}
     volume: 0
     pitch: 0

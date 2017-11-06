@@ -15,11 +15,11 @@ public class ExampleScene2 : MonoBehaviour
 	{
 		var randomPos = cameraAnchor.position;
 		randomPos.x += Random.Range(-width, width) ;
-		SimpleSoundManager.Instance.Play3DSound(AudioNameSE.DoorKnock, randomPos);
+		//SimpleSoundManager.Instance.Play3DSound(AudioNameSE.DoorKnock, randomPos);
 	}
 
 	public void ChasePlaySound()
 	{
-		SimpleSoundManager.Instance.Play3DSound(AudioNameSE.bird, chaseObject);
+		//SimpleSoundManager.Instance.Play3DSound(AudioNameSE.bird, chaseObject);
 	}
 }

@@ -194,7 +194,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		var activeBgmPlayer = ActiveBgmPlayer;
 		var clipInfo = bgmDictionary[_audioName];
 
-		activeBgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _loopStartTime, _loopEndTime);
+		nonActiveBgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _loopStartTime, _loopEndTime);
 
 		if (_fadeInTime == 0.0f && _fadeOutTime == 0.0f)
 		{
@@ -203,7 +203,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 		else
 		{
-			if (_fadeInTime != 0.0f )
+			if (_fadeInTime != 0.0f && nonActiveBgmPlayer.IsPlaying)
 				nonActiveBgmPlayer.FadeIn(_fadeInTime, (_crossFadeRate * _fadeOutTime));
 			if (_fadeOutTime != 0.0f && activeBgmPlayer.IsPlaying)
 				activeBgmPlayer.FadeOut(_fadeOutTime);

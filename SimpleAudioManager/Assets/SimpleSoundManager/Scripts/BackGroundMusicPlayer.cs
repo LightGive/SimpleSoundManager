@@ -66,6 +66,7 @@ namespace LightGive
 		public void Stop()
 		{
 			audioSource.Stop();
+			isPlaying = false;
 		}
 
 		private IEnumerator _FadeIn(float _fadeTime, float _waitTime)
@@ -86,10 +87,11 @@ namespace LightGive
 			while (timeCnt < _fadeTime)
 			{
 				timeCnt += Time.deltaTime;
-				fadeVolume = Mathf.Clamp01(timeCnt / _fadeTime);
+				fadeVolume = 1.0f - Mathf.Clamp01(timeCnt / _fadeTime);
 				ChangeVolume();
 				yield return new WaitForEndOfFrame();
 			}
+			Stop();
 		}
 
 		public void ChangeVolume()

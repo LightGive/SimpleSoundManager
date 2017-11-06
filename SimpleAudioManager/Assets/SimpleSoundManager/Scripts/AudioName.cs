@@ -1,34 +1,24 @@
 ﻿public static class AudioName
 {
+	public const string BGM_Example1 = "Example1";
 	public const string BGM_Example2 = "Example2";
-	public const string BGM_Main = "Main";
 	
-	public const string SE_bird = "bird";
-	public const string SE_Bound = "Bound";
-	public const string SE_ButtonClick = "ButtonClick";
-	public const string SE_ButtonCursor = "ButtonCursor";
-	public const string SE_Computer = "Computer";
-	public const string SE_DoorKnock = "DoorKnock";
-	public const string SE_Metal = "Metal";
-	public const string SE_Shutter = "Shutter";
+	public const string SE_Button1 = "Button1";
+	public const string SE_Button2 = "Button2";
+	public const string SE_Button3 = "Button3";
 }
 	
 public enum AudioNameBGM
 {
 	None,
+	Example1,
 	Example2,
-	Main,
 }
 	
 public enum AudioNameSE
 {
 	None,
-	bird,
-	Bound,
-	ButtonClick,
-	ButtonCursor,
-	Computer,
-	DoorKnock,
-	Metal,
-	Shutter,
+	Button1,
+	Button2,
+	Button3,
 }
