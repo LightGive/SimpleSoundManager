@@ -46,6 +46,17 @@ namespace LightGive
 			get { return isActive; }
 		}
 
+		private float Volume
+		{
+			get
+			{
+				return
+					volume *
+					SimpleSoundManager.Instance.SEVolume *
+					SimpleSoundManager.Instance.TotalVolume;
+			}
+		}
+
 		public SoundEffectPlayer()
 		{
 			isPlaying = false;
@@ -56,7 +67,10 @@ namespace LightGive
 			chaseObj = null;
 			delay = 0.0f;
 			loopCnt = 0;
+		}
 
+		void Awake()
+		{
 			audioSource = this.gameObject.AddComponent<AudioSource>();
 			audioSource.playOnAwake = false;
 			audioSource.loop = false;
@@ -69,7 +83,7 @@ namespace LightGive
 			isActive = true;
 			this.gameObject.SetActive(true);
 
-			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * volume;
+			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * SimpleSoundManager.Instance.SEVolume * volume;
 			audioSource.Play();
 			if (callbackOnStart != null)
 				callbackOnStart.Invoke();
@@ -146,10 +160,7 @@ namespace LightGive
 
 			if (isFade)
 			{
-				audioSource.volume =
-					SimpleSoundManager.Instance.TotalVolume *
-					animationCurve.Evaluate(audioSource.time) *
-					volume;
+				ChangeVolume();
 			}
 		}
 
@@ -160,9 +171,14 @@ namespace LightGive
 		}
 
 
-		public void ChangeTotalVolume(float _val)
+		public void ChangeVolume()
 		{
-			audioSource.volume = SimpleSoundManager.Instance.SEVolume * volume;
+			var fadeVolume = (isFade) ? animationCurve.Evaluate(audioSource.time) : 1.0f;
+            audioSource.volume =
+				volume *
+				fadeVolume *
+				SimpleSoundManager.Instance.SEVolume *
+				SimpleSoundManager.Instance.TotalVolume;
 		}
 	}
 }

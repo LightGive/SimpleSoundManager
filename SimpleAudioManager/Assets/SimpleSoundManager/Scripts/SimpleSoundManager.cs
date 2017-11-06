@@ -42,7 +42,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	public Dictionary<string, AudioClipInfo> seDictionary;
 
 	public List<SoundEffectPlayer> sePlayerList = new List<SoundEffectPlayer>();
-	public BackGroundMusicPlayer bgmPlayer;
+	public BackGroundMusicPlayer bgmPlayer1;
+	public BackGroundMusicPlayer bgmPlayer2;
 
 	/// <summary>
 	/// オーディオミキサー
@@ -73,6 +74,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	[SerializeField]
 	public int sePlayerNum = DefaultSePlayerNum;
 
+	private int bgmPlayerIndex = 0;
 
 	public float TotalVolume
 	{
@@ -104,16 +106,22 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
+	public bool IsPlayingBGM { get { return (bgmPlayer1.IsPlaying || bgmPlayer2); } }
+
 
 	protected override void Awake()
 	{
 		base.Awake();
 
 		//BGMのAudioPlayerの初期化
-		GameObject bgmPlayerObj = new GameObject("BGMPlayerObj");
-		bgmPlayerObj.transform.SetParent(this.gameObject.transform);
-		bgmPlayerObj.SetActive(false);
-		bgmPlayer = bgmPlayerObj.AddComponent<BackGroundMusicPlayer>();
+		GameObject bgmPlayerObj1 = new GameObject("BGMPlayerObj1");
+		GameObject bgmPlayerObj2 = new GameObject("BGMPlayerObj2");
+		bgmPlayer1 = bgmPlayerObj1.AddComponent<BackGroundMusicPlayer>();
+		bgmPlayer2 = bgmPlayerObj2.AddComponent<BackGroundMusicPlayer>();
+		bgmPlayerObj1.transform.SetParent(this.gameObject.transform);
+		bgmPlayerObj2.transform.SetParent(this.gameObject.transform);
+		bgmPlayerObj1.SetActive(false);
+		bgmPlayerObj2.SetActive(false);
 		sePlayerList.Clear();
 
 		//AudioPlayerのGameObjectを作成
@@ -156,7 +164,17 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		PlayBGM(_audioName, bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, 0.0f);
 	}
 
-	private void PlayBGM(string _audioName, float _volume, bool _isLoop,float _crossFadeOutTime, float _crossFadeInTime, float _loopStartTime, float _loopEndTime)
+	public void PlayCrossFadeBGM(string _audioName, float _fadeTime)
+	{
+		PlayBGM(_audioName, bgmVolume * totalVolume, true, _fadeTime, _fadeTime, 0.0f, 0.0f);
+	}
+
+	public void PlayCrossFadeBGM(string _audioName, float _fadeInTime, float _fadeOutTime)
+	{
+		PlayBGM(_audioName, bgmVolume * totalVolume, true, _fadeInTime, _fadeOutTime, 0.0f, 0.0f);
+	}
+
+	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _loopStartTime, float _loopEndTime)
 	{
 		if (!bgmDictionary.ContainsKey(_audioName))
 		{
@@ -167,7 +185,21 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		_volume = Mathf.Clamp01(_volume);
 		var clipInfo = bgmDictionary[_audioName];
 
-		bgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _crossFadeInTime, _crossFadeOutTime, _loopStartTime, _loopEndTime);
+		BackGroundMusicPlayer bgmPlayer = GetMainBgmPlayer();
+		if (_fadeInTime == 0.0f && _fadeOutTime == 0.0f)
+		{
+			if (IsPlayingBGM)
+			{
+				GetPlayingPlayer().Stop();
+			}
+		}
+		else
+		{
+
+		}
+
+
+		bgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _fadeInTime, _fadeOutTime, _loopStartTime, _loopEndTime);
 	}
 
 	public void PlaySound2D(AudioNameSE _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
@@ -233,7 +265,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clipInfo.clip.length);
 
 		//オーディオプレイヤーを取得
-		SoundEffectPlayer sePlayer = GetSoundPlayer(_is3dSound);
+		SoundEffectPlayer sePlayer = GetSoundPlayer();
 		sePlayer.audioSource.clip = clipInfo.clip;
 		sePlayer.audioSource.pitch = _pitch;
 		sePlayer.transform.position = _soundPos;
@@ -372,7 +404,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			if (!sePlayerList[i].IsActive)
 				continue;
-			sePlayerList[i].ChangeTotalVolume(totalVolume);
+			sePlayerList[i].ChangeVolume();
 		}
 	}
 
@@ -381,7 +413,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// </summary>
 	/// <param name="_is3dSound">3Dサウンドかどうか</param>
 	/// <returns></returns>
-	private SoundEffectPlayer GetSoundPlayer(bool _is3dSound)
+	private SoundEffectPlayer GetSoundPlayer()
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
@@ -394,4 +426,23 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		Debug.Log("AudioSourceのリストの全てが再生中");
 		return sePlayerList[0];
 	}
+
+
+
+	private BackGroundMusicPlayer GetPlayingPlayer()
+	{
+		return (bgmPlayer1.IsPlaying) ? bgmPlayer1 : bgmPlayer2;
+	}
+
+	private BackGroundMusicPlayer GetMainBgmPlayer()
+	{
+		if (bgmPlayer1.IsPlaying)
+		{
+			return bgmPlayer2;
+		}
+		else
+		{
+			return bgmPlayer1;
+		}
+    }
 }

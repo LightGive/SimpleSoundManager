@@ -7,6 +7,10 @@ public class ExampleScene4 : MonoBehaviour
 {
 	[SerializeField]
 	private Dropdown bgmNameDropDown;
+	[SerializeField]
+	private InputField fadeOutTimeInputField;
+	[SerializeField]
+	private InputField fadeInTimeInputField;
 
 	private string selectAudioName
 	{
@@ -34,5 +38,13 @@ public class ExampleScene4 : MonoBehaviour
 	public void OnPlayButtonDown()
 	{
 		SimpleSoundManager.Instance.PlayBGM(selectAudioName);
+	}
+
+	public void OnPlayFadeButtonDown()
+	{
+		SimpleSoundManager.Instance.PlayCrossFadeBGM(
+			selectAudioName,
+			float.Parse(fadeInTimeInputField.text),
+			float.Parse(fadeOutTimeInputField.text));
 	}
 }
