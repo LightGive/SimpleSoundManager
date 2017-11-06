@@ -76,6 +76,19 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	private int bgmPlayerIndex = 0;
 
+	private BackGroundMusicPlayer MainBgmPlayer
+	{
+		get
+		{
+			return (bgmPlayer2.IsPlaying) ? bgmPlayer1 : bgmPlayer2;
+		}
+	}
+
+	private BackGroundMusicPlayer SubBgmPlayer
+	{
+
+	}
+
 	public float TotalVolume
 	{
 		get { return totalVolume; }
@@ -153,6 +166,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 			player.PlayerUpdate();
 		}
+
+		//bgmPlayer1
 	}
 
 	/// <summary>
@@ -161,20 +176,20 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// <param name="_audioName">SEの名前</param>
 	public void PlayBGM(string _audioName)
 	{
-		PlayBGM(_audioName, bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, 0.0f);
+		PlayBGM(_audioName, bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 	}
 
-	public void PlayCrossFadeBGM(string _audioName, float _fadeTime)
+	public void PlayCrossFadeBGM(string _audioName, float _volume, bool _isLoop, float _fadeTime, float _crossFadeRate = 1.0f)
 	{
-		PlayBGM(_audioName, bgmVolume * totalVolume, true, _fadeTime, _fadeTime, 0.0f, 0.0f);
+		PlayBGM(_audioName, bgmVolume * totalVolume * _volume, _isLoop, _fadeTime, _fadeTime, _crossFadeRate, 0.0f, 0.0f);
 	}
 
-	public void PlayCrossFadeBGM(string _audioName, float _fadeInTime, float _fadeOutTime)
+	public void PlayCrossFadeBGM(string _audioName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate)
 	{
-		PlayBGM(_audioName, bgmVolume * totalVolume, true, _fadeInTime, _fadeOutTime, 0.0f, 0.0f);
+		PlayBGM(_audioName, bgmVolume * totalVolume * _volume, _isLoop, _fadeInTime, _fadeOutTime, _crossFadeRate, 0.0f, 0.0f);
 	}
 
-	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _loopStartTime, float _loopEndTime)
+	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, float _loopStartTime, float _loopEndTime)
 	{
 		if (!bgmDictionary.ContainsKey(_audioName))
 		{
@@ -183,9 +198,12 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 
 		_volume = Mathf.Clamp01(_volume);
-		var clipInfo = bgmDictionary[_audioName];
+		_crossFadeRate = Mathf.Clamp01(_crossFadeRate);
 
+		var clipInfo = bgmDictionary[_audioName];
 		BackGroundMusicPlayer bgmPlayer = GetMainBgmPlayer();
+		bgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _loopStartTime, _loopEndTime);
+
 		if (_fadeInTime == 0.0f && _fadeOutTime == 0.0f)
 		{
 			if (IsPlayingBGM)
@@ -193,18 +211,12 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				GetPlayingPlayer().Stop();
 			}
 		}
-		else if (_fadeOutTime != 0.0f)
-		{
+		if (_fadeInTime != 0.0f)
+			bgmPlayer.FadeIn(_fadeInTime, (_crossFadeRate * _fadeOutTime));
+		if (_fadeOutTime != 0.0f)
 			bgmPlayer.FadeOut(_fadeOutTime);
-		}
-		else if (_fadeInTime != 0.0f)
-		{
-			bgmPlayer.FadeIn(_fadeInTime);
-
-		}
 
 
-		bgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _loopStartTime, _loopEndTime);
 	}
 
 	public void PlaySound2D(AudioNameSE _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
@@ -449,5 +461,5 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			return bgmPlayer1;
 		}
-    }
+	}
 }

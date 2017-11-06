@@ -40,7 +40,7 @@ namespace LightGive
 			this.gameObject.SetActive(true);
 			isPlaying = true;
 			fadeVolume = 1.0f;
-
+			volume = _volume;
 
 			if (audioSource.isPlaying)
 				audioSource.Stop();
@@ -52,9 +52,9 @@ namespace LightGive
 
 		}
 
-		public void FadeIn(float _fadeTime)
+		public void FadeIn(float _fadeTime,float _waitTime)
 		{
-			fadeInMethod = _FadeIn(_fadeTime);
+			fadeInMethod = _FadeIn(_fadeTime, _waitTime);
 			StartCoroutine(fadeInMethod);
 		}
 		public void FadeOut(float _fadeTime)
@@ -68,7 +68,7 @@ namespace LightGive
 			audioSource.Stop();
 		}
 
-		private IEnumerator _FadeIn(float _fadeTime)
+		private IEnumerator _FadeIn(float _fadeTime, float _waitTime)
 		{
 			var timeCnt = 0.0f;
 			while (timeCnt < _fadeTime)
@@ -94,11 +94,13 @@ namespace LightGive
 
 		public void ChangeVolume()
 		{
-			audioSource.volume = 
-				volume * 
-				fadeVolume * 
-				SimpleSoundManager.Instance.BGMVolume * 
+			var v = volume *
+				fadeVolume *
+				SimpleSoundManager.Instance.BGMVolume *
 				SimpleSoundManager.Instance.TotalVolume;
+			Debug.Log("VolumeChange" + v);
+			audioSource.volume = v;
+				
 		}
 	}
 }

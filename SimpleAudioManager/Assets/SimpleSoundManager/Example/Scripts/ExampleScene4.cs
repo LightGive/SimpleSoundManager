@@ -11,6 +11,14 @@ public class ExampleScene4 : MonoBehaviour
 	private InputField fadeOutTimeInputField;
 	[SerializeField]
 	private InputField fadeInTimeInputField;
+	[SerializeField]
+	private Slider volumeSlider;
+	[SerializeField]
+	private Slider crossFadeRateSlider;
+	[SerializeField]
+	private Text volumeText;
+	[SerializeField]
+	private Text crossFadeRateText;
 
 	private string selectAudioName
 	{
@@ -44,7 +52,19 @@ public class ExampleScene4 : MonoBehaviour
 	{
 		SimpleSoundManager.Instance.PlayCrossFadeBGM(
 			selectAudioName,
+			volumeSlider.value,
+			true,
 			float.Parse(fadeInTimeInputField.text),
-			float.Parse(fadeOutTimeInputField.text));
+			float.Parse(fadeOutTimeInputField.text),
+			crossFadeRateSlider.value);
+	}
+
+	public void OnCrossFadeRateSliderValueChange(float _val)
+	{
+		crossFadeRateText.text = (_val * 100.0f).ToString("0") + "%";
+	}
+	public void OnVolumeSliderValueChange(float _val)
+	{
+		volumeText.text = (_val * 100.0f).ToString("0") + "%";
 	}
 }
