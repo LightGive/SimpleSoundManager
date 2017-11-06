@@ -5,7 +5,6 @@ using UnityEngine.Audio;
 using UnityEngine.Events;
 using LightGive;
 
-[System.Serializable]
 public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundManager>
 {
 	private const int DefaultSePlayerNum = 10;
@@ -109,7 +108,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	protected override void Awake()
 	{
 		base.Awake();
-		
+
 		//BGMのAudioPlayerの初期化
 		GameObject bgmPlayerObj = new GameObject("BGMPlayerObj");
 		bgmPlayerObj.transform.SetParent(this.gameObject.transform);

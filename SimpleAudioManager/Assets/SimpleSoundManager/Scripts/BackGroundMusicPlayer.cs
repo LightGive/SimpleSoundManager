@@ -7,7 +7,6 @@ namespace LightGive
 	[System.Serializable]
 	public class BackGroundMusicPlayer : MonoBehaviour
 	{
-		[SerializeField]
 		private AudioSource audioSource;
 
 		private bool isPlaying = false;
