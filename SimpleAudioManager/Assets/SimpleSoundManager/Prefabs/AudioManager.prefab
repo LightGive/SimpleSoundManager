@@ -70,12 +70,12 @@ MonoBehaviour:
     pitch: 0
   - isUse: 1
     audioNo: 2
-    clip: {fileID: 8300000, guid: 9b4553685b753f04984cb7cbd06fdbdb, type: 3}
+    clip: {fileID: 8300000, guid: 62b350cc26c0f4945856f7b36fc8b49e, type: 3}
     volume: 0
     pitch: 0
   - isUse: 1
     audioNo: 3
-    clip: {fileID: 8300000, guid: 62b350cc26c0f4945856f7b36fc8b49e, type: 3}
+    clip: {fileID: 8300000, guid: 9b4553685b753f04984cb7cbd06fdbdb, type: 3}
     volume: 0
     pitch: 0
   sePlayerList: []

@@ -132,9 +132,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			GameObject sePlayerObj = new GameObject("SEPlayerObj" + i.ToString());
 			sePlayerObj.transform.SetParent(this.gameObject.transform);
-			sePlayerObj.SetActive(false);
 			SoundEffectPlayer audioInfo = sePlayerObj.AddComponent<SoundEffectPlayer>();
 			sePlayerList.Add(audioInfo);
+			sePlayerObj.SetActive(false);
 		}
 
 		//Dictionaryを初期化
@@ -427,7 +427,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			if (sePlayerList[i].IsPlaying)
 				continue;
-			//Debug.Log(i.ToString() + "番のPlayerを使います");
 			return sePlayerList[i];
 		}
 
