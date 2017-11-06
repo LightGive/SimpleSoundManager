@@ -193,13 +193,18 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				GetPlayingPlayer().Stop();
 			}
 		}
-		else
+		else if (_fadeOutTime != 0.0f)
 		{
+			bgmPlayer.FadeOut(_fadeOutTime);
+		}
+		else if (_fadeInTime != 0.0f)
+		{
+			bgmPlayer.FadeIn(_fadeInTime);
 
 		}
 
 
-		bgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _fadeInTime, _fadeOutTime, _loopStartTime, _loopEndTime);
+		bgmPlayer.Play(clipInfo.clip, _isLoop, _volume, _loopStartTime, _loopEndTime);
 	}
 
 	public void PlaySound2D(AudioNameSE _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)

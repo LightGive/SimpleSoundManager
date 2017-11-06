@@ -35,26 +35,21 @@ namespace LightGive
 			audioSource.volume = SimpleSoundManager.Instance.BGMVolume;
 		}
 
-		public void Play(AudioClip _clip, bool _isLoop, float _volume, float _fadeInTime, float _fadeOutTime, float _loopStartTime, float _loopEndTime)
+		public void Play(AudioClip _clip, bool _isLoop, float _volume, float _loopStartTime, float _loopEndTime)
 		{
 			this.gameObject.SetActive(true);
 			isPlaying = true;
 			fadeVolume = 1.0f;
 
-			if (_fadeOutTime == 0.0f && _fadeInTime == 0.0f)
-			{
-				if (audioSource.isPlaying)
-					audioSource.Stop();
-				
-				audioSource.time = 0.0f;
-				audioSource.volume = _volume;
-				audioSource.clip = _clip;
-				audioSource.Play();
-			}
-			else
-			{
 
-			}
+			if (audioSource.isPlaying)
+				audioSource.Stop();
+
+			audioSource.time = 0.0f;
+			audioSource.volume = _volume;
+			audioSource.clip = _clip;
+			audioSource.Play();
+
 		}
 
 		public void FadeIn(float _fadeTime)
@@ -80,6 +75,7 @@ namespace LightGive
 			{
 				timeCnt += Time.deltaTime;
 				fadeVolume = Mathf.Clamp01(timeCnt / _fadeTime);
+				ChangeVolume();
 				yield return new WaitForEndOfFrame();
 			}
 		}
@@ -91,6 +87,7 @@ namespace LightGive
 			{
 				timeCnt += Time.deltaTime;
 				fadeVolume = Mathf.Clamp01(timeCnt / _fadeTime);
+				ChangeVolume();
 				yield return new WaitForEndOfFrame();
 			}
 		}
