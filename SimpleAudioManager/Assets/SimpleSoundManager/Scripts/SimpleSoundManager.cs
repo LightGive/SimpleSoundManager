@@ -20,6 +20,11 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	private const float DefaultMinDistance = 1.0f;
 	private const float DefaultMaxDistance = 500.0f;
 
+	//セーブキー
+	private const string SaveKeyVolumeTotal = "SaveKeyVolumeTotal";
+	private const string SaveKeyVolumeBgm = "SaveKeyVolumeBgm";
+	private const string SaveKeyVolumeSe = "SaveKeyVolumeSe";
+
 	private readonly Vector3 DefaultPos = Vector3.zero;
 
 	/// <summary>
@@ -45,6 +50,11 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	public BackGroundMusicPlayer bgmPlayer1;
 	public BackGroundMusicPlayer bgmPlayer2;
 
+	[SerializeField]
+	private float bgmDefaultVolume = DefaultVolume;
+	[SerializeField]
+	private float seDefaultVolume;
+	
 	/// <summary>
 	/// オーディオミキサー
 	/// </summary>
@@ -73,12 +83,17 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// </summary>
 	[SerializeField]
 	public int sePlayerNum = DefaultSePlayerNum;
-
+	/// <summary>
+	/// Volumeを変更した時に保存するか
+	/// </summary>
+	[SerializeField]
+	public bool volumeChangeToSave = false;
+	
 	private int bgmPlayerIndex = 0;
 
 	private BackGroundMusicPlayer NonActiveBgmPlayer { get { return (bgmPlayer2.IsPlaying) ? bgmPlayer1 : bgmPlayer2; } }
-	private BackGroundMusicPlayer ActiveBgmPlayer  { get { return (bgmPlayer2.IsPlaying) ? bgmPlayer2 : bgmPlayer1; } }
-
+	private BackGroundMusicPlayer ActiveBgmPlayer { get { return (bgmPlayer2.IsPlaying) ? bgmPlayer2 : bgmPlayer1; } }
+	
 	public float TotalVolume
 	{
 		get { return totalVolume; }
@@ -86,6 +101,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			totalVolume = value;
 			ChangeAllVolume();
+
+			if (volumeChangeToSave)
+				SaveVolume();
 		}
 	}
 
@@ -96,21 +114,26 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			seVolume = value;
 			ChangeAllVolume();
+
+			if (volumeChangeToSave)
+				SaveVolume();
 		}
 	}
 
 	public float BGMVolume
 	{
-		get { return bgmVolume;}
+		get { return bgmVolume; }
 		set
 		{
 			bgmVolume = value;
 			ChangeAllVolume();
+
+			if (volumeChangeToSave)
+				SaveVolume();
 		}
 	}
 
 	public bool IsPlayingBGM { get { return (bgmPlayer1.IsPlaying || bgmPlayer2.IsPlaying); } }
-
 
 	protected override void Awake()
 	{
@@ -125,6 +148,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		bgmPlayerObj2.transform.SetParent(this.gameObject.transform);
 		bgmPlayerObj1.SetActive(false);
 		bgmPlayerObj2.SetActive(false);
+
 		sePlayerList.Clear();
 
 		//AudioPlayerのGameObjectを作成
@@ -144,6 +168,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			bgmDictionary.Add(bgmAudioClipList[i].audioName, bgmAudioClipList[i]);
 		for (int i = 0; i < seAudioClipList.Count; i++)
 			seDictionary.Add(seAudioClipList[i].audioName, seAudioClipList[i]);
+
+		LoadVolume();
 	}
 
 	private void Update()
@@ -157,7 +183,15 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			player.PlayerUpdate();
 		}
 
-		//bgmPlayer1
+		if (bgmPlayer1.IsPlaying)
+		{
+			bgmPlayer1.PlayerUpdate();
+		}
+
+		if (bgmPlayer2.IsPlaying)
+		{
+			bgmPlayer2.PlayerUpdate();
+		}
 	}
 
 	/// <summary>
@@ -169,6 +203,14 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		PlayBGM(_audioName, bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 	}
 
+	/// <summary>
+	/// クロスフェードしながらBGMを再生する
+	/// </summary>
+	/// <param name="_audioName">流すBGMの名前</param>
+	/// <param name="_volume"></param>
+	/// <param name="_isLoop"></param>
+	/// <param name="_fadeTime"></param>
+	/// <param name="_crossFadeRate"></param>
 	public void PlayCrossFadeBGM(string _audioName, float _volume, bool _isLoop, float _fadeTime, float _crossFadeRate = 1.0f)
 	{
 		PlayBGM(_audioName, bgmVolume * totalVolume * _volume, _isLoop, _fadeTime, _fadeTime, _crossFadeRate, 0.0f, 0.0f);
@@ -183,7 +225,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		if (!bgmDictionary.ContainsKey(_audioName))
 		{
-			Debug.Log("そんな名前のBGMはねーよ");
+			Debug.Log("その名前のBGMは見つかりませんでした。");
 			return;
 		}
 
@@ -210,12 +252,21 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
-	public void PlaySound2D(AudioNameSE _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	public void PlaySound2D	(
+		AudioNameSE _audioName,
+		float _seVolume = DefaultVolume,
+		float _delay = DefaultSeDelay,
+		float _pitch = DefaultSePitch,
+		float _fadeInTime = DefaultSeFadeTime,
+		float _fadeOutTime = DefaultSeFadeTime,
+		UnityAction _onStart = null,
+		UnityAction _onComplete = null)
 	{
 		if (_audioName == AudioNameSE.None)
 			return;
 		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
 	}
+
 	public void PlaySound2D(string _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
@@ -434,7 +485,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		return sePlayerList[0];
 	}
 
-
+	
 
 	private BackGroundMusicPlayer GetPlayingPlayer()
 	{
@@ -451,5 +502,25 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			return bgmPlayer1;
 		}
+	}
+
+	/// <summary>
+	/// 音量を保存しておく。
+	/// </summary>
+	public void SaveVolume()
+	{
+		PlayerPrefs.SetFloat(SaveKeyVolumeTotal, TotalVolume);
+		PlayerPrefs.SetFloat(SaveKeyVolumeBgm, BGMVolume);
+		PlayerPrefs.SetFloat(SaveKeyVolumeSe, SEVolume);
+	}
+
+	/// <summary>
+	/// Volumeをロードする
+	/// </summary>
+	public void LoadVolume()
+	{
+		totalVolume = PlayerPrefs.GetFloat(SaveKeyVolumeTotal, DefaultVolume);
+		bgmVolume = PlayerPrefs.GetFloat(SaveKeyVolumeBgm, DefaultVolume);
+		seVolume = PlayerPrefs.GetFloat(SaveKeyVolumeSe,DefaultVolume);
 	}
 }

@@ -21,17 +21,21 @@ namespace LightGive
 		private int listSize;
 		private Object thisScript;
 		private SerializedObject serializedObj;
-
 		private SerializedProperty totalVolumeProp;
-		private SerializedProperty sePlayerNumProp;
 		private SerializedProperty bgmVolumeProp;
 		private SerializedProperty seVolumeProp;
+		private SerializedProperty bgmDefaultVolumeProp;
+		private SerializedProperty seDefaultVolumeProp;
+		private SerializedProperty volumeChangeToSaveProp;
+
+		private SerializedProperty sePlayerNumProp;
 		private SerializedProperty bgmAudioClipListProp;
 		private SerializedProperty seAudioClipListProp;
 		private SerializedProperty bgmSourceInfoListProp;
 		private SerializedProperty seSourceInfoListProp;
 		private SerializedProperty bgmAudioMixerProp;
 		private SerializedProperty seAudioMixerProp;
+
 
 		private AudioClipList bgmClipList;
 		private AudioClipList seClipList;
@@ -42,26 +46,40 @@ namespace LightGive
 		public override void OnInspectorGUI()
 		{
 			serializedObject.Update();
-
-			EditorGUILayout.LabelField("Audio Setting");
-			EditorGUILayout.Slider(totalVolumeProp, 0.0f, 1.0f, "Vol Total");
-			EditorGUILayout.Slider(bgmVolumeProp, 0.0f, 1.0f, "Default Vol BGM");
-			EditorGUILayout.Slider(seVolumeProp, 0.0f, 1.0f, "Default Vol SE");
 			EditorGUILayout.Space();
+			EditorGUILayout.LabelField("Volume", EditorStyles.boldLabel);
+
+
+			EditorGUILayout.Slider(totalVolumeProp, 0.0f, 1.0f,"VolumeAll");
+			EditorGUILayout.Slider(bgmVolumeProp, 0.0f, 1.0f, "Volume BGM");
+			EditorGUILayout.Slider(seVolumeProp, 0.0f, 1.0f, "Volume SE");
+			volumeChangeToSaveProp.boolValue = EditorGUILayout.Toggle("Change to Save", volumeChangeToSaveProp.boolValue);
+			EditorGUILayout.Space();
+
+			EditorGUILayout.LabelField("DefaultSetting", EditorStyles.boldLabel);
+			EditorGUILayout.Slider(bgmDefaultVolumeProp, 0.0f, 1.0f, "Default Volume BGM");
+			EditorGUILayout.Slider(seDefaultVolumeProp, 0.0f, 1.0f, "Default Volume BGM");
+
+			EditorGUILayout.Space();
+
+			EditorGUILayout.LabelField("Other", EditorStyles.boldLabel);
 			sePlayerNumProp.intValue = EditorGUILayout.IntField("Create Player Num", sePlayerNumProp.intValue);
 			EditorGUILayout.Space();
+			
+			EditorGUILayout.LabelField("AudioMixer", EditorStyles.boldLabel);
 
-			EditorGUILayout.LabelField("AudioMixer");
+
 			EditorGUILayout.BeginVertical(GUI.skin.box);
 			{
 				bgmAudioMixerProp.objectReferenceValue = EditorGUILayout.ObjectField("BGM", bgmAudioMixerProp.objectReferenceValue, typeof(AudioMixerGroup), false);
 				seAudioMixerProp.objectReferenceValue = EditorGUILayout.ObjectField("SE", seAudioMixerProp.objectReferenceValue, typeof(AudioMixerGroup), false);
+
 			}
 			EditorGUILayout.EndVertical();
 
 			EditorGUILayout.Space();
 			//オーディオクリップのリストを表示する
-			EditorGUILayout.LabelField("AudioClipList");
+			EditorGUILayout.LabelField("AudioClipList", EditorStyles.boldLabel);
 			EditorGUILayout.BeginVertical(GUI.skin.box);
 			{
 				EditorGUILayout.LabelField("BGM");
@@ -219,12 +237,7 @@ namespace LightGive
 				OnEnable();
 				Repaint();
 			}
-
-			if (GUILayout.Button("StopAllClip"))
-			{
-				Debug.Log("とめる");
-				AudioUtility.StopAllClips();
-			}
+			
 
 			EditorUtility.SetDirty(target);
 			serializedObject.ApplyModifiedProperties();
@@ -250,6 +263,10 @@ namespace LightGive
 			totalVolumeProp = serializedObj.FindProperty("totalVolume");
 			bgmVolumeProp = serializedObj.FindProperty("bgmVolume");
 			seVolumeProp = serializedObj.FindProperty("seVolume");
+			bgmDefaultVolumeProp = serializedObj.FindProperty("bgmDefaultVolume");
+			seDefaultVolumeProp = serializedObj.FindProperty("seDefaultVolume");
+
+			volumeChangeToSaveProp = serializedObj.FindProperty("volumeChangeToSave");
 			bgmAudioMixerProp = serializedObj.FindProperty("bgmAudioMixerGroup");
 			seAudioMixerProp = serializedObj.FindProperty("seAudioMixerGroup");
 			sePlayerNumProp = serializedObj.FindProperty("sePlayerNum");

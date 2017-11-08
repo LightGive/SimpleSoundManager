@@ -6,6 +6,7 @@
 	public const string SE_ButtonDown = "ButtonDown";
 	public const string SE_ButtonEnter = "ButtonEnter";
 	public const string SE_ButtonExit = "ButtonExit";
+	public const string SE_SliderValueChange = "SliderValueChange";
 	public const string SE_ToggleDown = "ToggleDown";
 }
 	
@@ -22,5 +23,6 @@ public enum AudioNameSE
 	ButtonDown,
 	ButtonEnter,
 	ButtonExit,
+	SliderValueChange,
 	ToggleDown,
 }

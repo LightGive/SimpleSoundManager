@@ -174,7 +174,7 @@ namespace LightGive
 		public void ChangeVolume()
 		{
 			var fadeVolume = (isFade) ? animationCurve.Evaluate(audioSource.time) : 1.0f;
-            audioSource.volume =
+			audioSource.volume =
 				volume *
 				fadeVolume *
 				SimpleSoundManager.Instance.SEVolume *

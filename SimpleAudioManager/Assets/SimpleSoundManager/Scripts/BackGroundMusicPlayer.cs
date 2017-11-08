@@ -9,19 +9,27 @@ namespace LightGive
 	{
 		public AudioSource audioSource;
 
-
 		private IEnumerator fadeInMethod;
 		private IEnumerator fadeOutMethod;
 		private float volume;
 		private float fadeVolume;
-		private bool isFade = false;
-		private bool isPlaying = false;
-		
+		private float loopStartTime;
+		private float loopEndTime;
+		private bool isFade;
+		private bool isPlaying;
+		private bool isCheckLoopPoint;
+
+
 		public bool IsPlaying { get { return isPlaying; } }
 
 		public BackGroundMusicPlayer()
 		{
+			loopStartTime = 0.0f;
+			loopEndTime = 0.0f;
+
 			isPlaying = false;
+			isFade = false;
+			isCheckLoopPoint = false;
 		}
 
 		void Awake()
@@ -50,6 +58,27 @@ namespace LightGive
 			audioSource.clip = _clip;
 			audioSource.Play();
 
+			
+			//ループ再生で、かつループ開始・終了位置の指定があった時
+			if (_isLoop && (_loopStartTime != 0.0f || _loopEndTime != 1.0f))
+			{
+				isCheckLoopPoint = true;
+			}
+			else
+			{
+				isCheckLoopPoint = false;
+			}
+
+		}
+
+		public void PlayerUpdate()
+		{
+			if (isCheckLoopPoint) {
+				if (audioSource.time >= loopEndTime)
+				{
+					audioSource.time = loopStartTime;
+				}
+			}
 		}
 
 		public void FadeIn(float _fadeTime,float _waitTime)
@@ -101,8 +130,7 @@ namespace LightGive
 				SimpleSoundManager.Instance.BGMVolume *
 				SimpleSoundManager.Instance.TotalVolume;
 			Debug.Log("VolumeChange" + v);
-			audioSource.volume = v;
-				
+			audioSource.volume = v;		
 		}
 	}
 }

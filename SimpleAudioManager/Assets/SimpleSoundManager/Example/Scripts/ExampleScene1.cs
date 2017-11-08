@@ -87,18 +87,18 @@ public class ExampleScene1 : MonoBehaviour
 			callBackStart = DebugStartCallback;
 		if (isEndCallBack.isOn)
 			callBackEnd = DebugEndCallback;
-
+		
 		if (isLoopToggle.isOn)
 		{
 			if (loopCountInput.text == "")
 				return;
 
+			//ループ回数
 			var loopCnt = int.Parse(loopCountInput.text);
 			SimpleSoundManager.Instance.PlaySound2DLoop(itemName.text, loopCnt, volume, delay, pitch, callBackStart, callBackEnd);
 		}
 		else
 		{
-			Debug.Log("ここ");
 			SimpleSoundManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch, fadeInTime, fadeOutTime, callBackStart, callBackEnd);
 		}
 	}
@@ -113,8 +113,16 @@ public class ExampleScene1 : MonoBehaviour
 		SimpleSoundManager.Instance.PauseSe(itemName.text);
 	}
 
-	public void DebugStartCallback(){ Debug.Log("Start Call Back"); }
-	public void DebugEndCallback()	{ Debug.Log("End Call Back"); }
+	public void DebugStartCallback()
+	{
+		//デバッグのコールバック
+		Debug.Log("Start Call Back");
+	}
+	public void DebugEndCallback()
+	{
+		//デバッグのコールバック
+		Debug.Log("End Call Back");
+	}
 
 	public void StopSE()
 	{
