@@ -221,9 +221,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: 1
   changeValue: 0.1
-  sliderStartAudio: 0
-  sliderEndAudio: 0
-  onValueChangedAudio: 0
+  sliderStartAudio: 2
+  sliderEndAudio: 2
+  onValueChangedAudio: 4
 --- !u!1 &115066626
 GameObject:
   m_ObjectHideFlags: 0
@@ -2940,9 +2940,9 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 937275341}
   m_HandleRect: {fileID: 937275340}
   m_Direction: 0
-  m_Value: 0.472
-  m_Size: 0.375
-  m_NumberOfSteps: 2
+  m_Value: 0
+  m_Size: 1
+  m_NumberOfSteps: 10
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2993,10 +2993,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: 1
-  changeValue: 0
+  changeValue: 0.1
   scrollStartAudio: 0
   scrollEndAudio: 0
-  onValueChangedAudio: 0
+  onValueChangedAudio: 4
 --- !u!1 &2146400441
 GameObject:
   m_ObjectHideFlags: 0

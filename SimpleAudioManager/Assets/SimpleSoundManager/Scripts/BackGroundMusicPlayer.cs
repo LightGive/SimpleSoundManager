@@ -19,7 +19,6 @@ namespace LightGive
 		private bool isPlaying;
 		private bool isCheckLoopPoint;
 
-
 		public bool IsPlaying { get { return isPlaying; } }
 
 		public BackGroundMusicPlayer()
@@ -43,22 +42,24 @@ namespace LightGive
 			audioSource.volume = SimpleSoundManager.Instance.BGMVolume;
 		}
 
-		public void Play(AudioClip _clip, bool _isLoop, float _volume, float _loopStartTime, float _loopEndTime)
+		public void Play(AudioClip _clip, bool _isLoop, bool _isFade, bool _isCheckLoopPoint, float _volume, float _loopStartTime, float _loopEndTime)
 		{
-			this.gameObject.SetActive(true);
 			isPlaying = true;
-			fadeVolume = 1.0f;
+			this.gameObject.SetActive(true);
+			fadeVolume = (_isFade) ? 0.0f : 1.0f;
 			volume = _volume;
 
 			if (audioSource.isPlaying)
 				audioSource.Stop();
 
 			audioSource.time = 0.0f;
-			audioSource.volume = _volume;
 			audioSource.clip = _clip;
+			ChangeVolume();
 			audioSource.Play();
 
-			
+			fadeVolume = 1.0f;
+
+
 			//ループ再生で、かつループ開始・終了位置の指定があった時
 			if (_isLoop && (_loopStartTime != 0.0f || _loopEndTime != 1.0f))
 			{
@@ -68,12 +69,12 @@ namespace LightGive
 			{
 				isCheckLoopPoint = false;
 			}
-
 		}
 
 		public void PlayerUpdate()
 		{
-			if (isCheckLoopPoint) {
+			if (isCheckLoopPoint)
+			{
 				if (audioSource.time >= loopEndTime)
 				{
 					audioSource.time = loopStartTime;
@@ -83,24 +84,46 @@ namespace LightGive
 
 		public void FadeIn(float _fadeTime,float _waitTime)
 		{
+			this.gameObject.SetActive(true);
+
 			fadeInMethod = _FadeIn(_fadeTime, _waitTime);
 			StartCoroutine(fadeInMethod);
 		}
 		public void FadeOut(float _fadeTime)
 		{
+			if (!IsPlaying)
+				return;
+			if (fadeInMethod != null)
+				StopCoroutine(fadeInMethod);
+
+			isPlaying = false;
 			fadeOutMethod = _FadeOut(_fadeTime);
 			StartCoroutine(fadeOutMethod);
 		}
 
 		public void Stop()
 		{
-			audioSource.Stop();
 			isPlaying = false;
+			audioSource.Stop();
+			this.gameObject.SetActive(false);
+		}
+
+		public void Pause()
+		{
+			isPlaying = false;
+			audioSource.Pause();		
 		}
 
 		private IEnumerator _FadeIn(float _fadeTime, float _waitTime)
 		{
 			var timeCnt = 0.0f;
+			while (timeCnt < _waitTime)
+			{
+				timeCnt += Time.deltaTime;
+				yield return new WaitForEndOfFrame();
+			}
+
+			timeCnt = 0.0f;
 			while (timeCnt < _fadeTime)
 			{
 				timeCnt += Time.deltaTime;
@@ -120,16 +143,17 @@ namespace LightGive
 				ChangeVolume();
 				yield return new WaitForEndOfFrame();
 			}
+
 			Stop();
 		}
 
 		public void ChangeVolume()
 		{
-			var v = volume *
+			var v = 
+				volume *
 				fadeVolume *
 				SimpleSoundManager.Instance.BGMVolume *
 				SimpleSoundManager.Instance.TotalVolume;
-			Debug.Log("VolumeChange" + v);
 			audioSource.volume = v;		
 		}
 	}

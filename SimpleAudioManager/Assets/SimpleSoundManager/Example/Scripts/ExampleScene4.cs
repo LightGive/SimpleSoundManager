@@ -45,6 +45,7 @@ public class ExampleScene4 : MonoBehaviour
 
 	public void OnPlayButtonDown()
 	{
+		Debug.Log(selectAudioName);
 		SimpleSoundManager.Instance.PlayBGM(selectAudioName);
 	}
 

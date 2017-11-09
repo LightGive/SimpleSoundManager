@@ -77,6 +77,8 @@ namespace LightGive
 			audioSource.outputAudioMixerGroup = SimpleSoundManager.Instance.seAudioMixerGroup;
 		}
 
+		
+
 		public void Play()
 		{
 			isPlaying = true;
@@ -84,7 +86,7 @@ namespace LightGive
 			this.gameObject.SetActive(true);
 
 			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * SimpleSoundManager.Instance.SEVolume * volume;
-			audioSource.Play();
+			//audioSource.Play();
 			if (callbackOnStart != null)
 				callbackOnStart.Invoke();
 			
@@ -120,6 +122,13 @@ namespace LightGive
 			StartCoroutine(coroutineMethod);
 		}
 
+		public void AudioPlayCheckStart()
+		{
+			this.gameObject.SetActive(true);
+			coroutineMethod = AudioPlayCheck();
+			StartCoroutine(coroutineMethod);
+		}
+
 		private IEnumerator AudioPlayCheck()
 		{
 			float timeCnt = 0.0f;
@@ -130,10 +139,10 @@ namespace LightGive
 				yield return new WaitForEndOfFrame();
 			}
 
-			loopCnt--;
 
 			if (loopCnt > 0)
 			{
+				loopCnt--;
 				audioSource.Play();
 				coroutineMethod = AudioPlayCheck();
 				StartCoroutine(coroutineMethod);
