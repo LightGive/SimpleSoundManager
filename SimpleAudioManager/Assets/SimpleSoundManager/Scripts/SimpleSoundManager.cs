@@ -197,7 +197,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	public void PlayBGM(AudioNameBGM _audioName)
 	{
-		PlayBGM(_audioName.ToString(), bgmVolume * totalVolume, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+		PlayBGM(_audioName.ToString(), bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 	}
 	
 

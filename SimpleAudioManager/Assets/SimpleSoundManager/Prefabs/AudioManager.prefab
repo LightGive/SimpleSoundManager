@@ -89,14 +89,14 @@ MonoBehaviour:
     volume: 0
     pitch: 0
   sePlayerList: []
-  bgmPlayer1: {fileID: 0}
-  bgmPlayer2: {fileID: 0}
-  bgmDefaultVolume: 0
-  seDefaultVolume: 0
+  bgmPlayerList: []
+  bgmDefaultVolume: 1
+  seDefaultVolume: 1
   bgmAudioMixerGroup: {fileID: 0}
   seAudioMixerGroup: {fileID: 0}
   totalVolume: 1
   bgmVolume: 1
   seVolume: 1
   sePlayerNum: 10
+  bgmPlayerNum: 10
   volumeChangeToSave: 0
