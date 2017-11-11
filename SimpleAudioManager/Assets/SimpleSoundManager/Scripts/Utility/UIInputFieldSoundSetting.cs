@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace LightGive
 {
+	[RequireComponent(typeof(InputField))]
 	public class UIInputFieldSoundSetting : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 	{
 		[SerializeField, Range(0.0f, 1.0f)]

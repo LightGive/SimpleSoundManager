@@ -69,6 +69,13 @@ namespace LightGive
 			loopCnt = 0;
 		}
 
+
+		public SoundEffectPlayer(AudioClip _audioClip)
+		{
+			audioSource = new AudioSource();
+			audioSource.clip = _audioClip;
+		}
+
 		void Awake()
 		{
 			audioSource = this.gameObject.AddComponent<AudioSource>();
@@ -132,18 +139,27 @@ namespace LightGive
 		private IEnumerator AudioPlayCheck()
 		{
 			float timeCnt = 0.0f;
-			float waitTime = (audioSource.clip.length / audioSource.pitch) + delay;
+			while (timeCnt < delay)
+			{
+				timeCnt += Time.deltaTime;
+				Debug.Log("Delayの待ち状態 " + delay.ToString());
+				yield return 0;
+			}
+
+			audioSource.Play();
+			loopCnt--;
+			timeCnt = 0.0f;
+
+			float waitTime = (audioSource.clip.length / audioSource.pitch);
             while (timeCnt < waitTime)
 			{
 				timeCnt += Time.deltaTime;
-				yield return new WaitForEndOfFrame();
+				Debug.Log("再生中の待ち状態  "+ (audioSource.clip.length / audioSource.pitch));
+				yield return 0;
 			}
-
 
 			if (loopCnt > 0)
 			{
-				loopCnt--;
-				audioSource.Play();
 				coroutineMethod = AudioPlayCheck();
 				StartCoroutine(coroutineMethod);
 				yield break;
@@ -157,7 +173,6 @@ namespace LightGive
 			isActive = false;
 			isPlaying = false;
 			this.gameObject.SetActive(false);
-
 		}
 
 		public void PlayerUpdate()
@@ -173,11 +188,6 @@ namespace LightGive
 			}
 		}
 
-		public SoundEffectPlayer(AudioClip _audioClip)
-		{
-			audioSource = new AudioSource();
-			audioSource.clip = _audioClip;
-		}
 
 
 		public void ChangeVolume()

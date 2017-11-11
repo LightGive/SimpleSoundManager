@@ -109,6 +109,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &1024009
 GameObject:
@@ -222,7 +224,7 @@ MonoBehaviour:
   volume: 1
   changeValue: 0.1
   sliderStartAudio: 2
-  sliderEndAudio: 2
+  sliderEndAudio: 3
   onValueChangedAudio: 4
 --- !u!1 &115066626
 GameObject:
@@ -730,11 +732,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114725426874503150, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: seAudioClipList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4924586343473374, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -767,21 +764,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114725426874503150, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: seAudioClipList.Array.data[3].isUse
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114725426874503150, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: seAudioClipList.Array.data[3].audioNo
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114725426874503150, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a,
-        type: 2}
-      propertyPath: seAudioClipList.Array.data[3].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: dc1963a7b7daeb742988a76dced17c5e, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d32a2c0fe7b0f6428bbff4d574b1b4a, type: 2}
   m_IsPrefabParent: 0
@@ -1482,7 +1464,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &1204104592
 Transform:
   m_ObjectHideFlags: 0
@@ -2860,7 +2841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: 1
-  onPointEnterAudio: 0
+  onPointEnterAudio: 2
   onPointExitAudio: 0
   onPointClickAudio: 0
   onValueChangedAudio: 0
@@ -2941,8 +2922,8 @@ MonoBehaviour:
   m_HandleRect: {fileID: 937275340}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
-  m_NumberOfSteps: 10
+  m_Size: 0.107
+  m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2993,7 +2974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volume: 1
-  changeValue: 0.1
+  changeValue: 0
   scrollStartAudio: 0
   scrollEndAudio: 0
   onValueChangedAudio: 4
