@@ -69,7 +69,6 @@ namespace LightGive
 			loopCnt = 0;
 		}
 
-
 		public SoundEffectPlayer(AudioClip _audioClip)
 		{
 			audioSource = new AudioSource();
@@ -93,7 +92,6 @@ namespace LightGive
 			this.gameObject.SetActive(true);
 
 			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * SimpleSoundManager.Instance.SEVolume * volume;
-			//audioSource.Play();
 			if (callbackOnStart != null)
 				callbackOnStart.Invoke();
 			
@@ -103,8 +101,8 @@ namespace LightGive
 
 		public void Stop()
 		{
+			if(audioSource.isPlaying)
 			audioSource.Stop();
-			CancelInvoke();
 			loopCnt = 0;
 
 			isPlaying = false;
@@ -126,13 +124,6 @@ namespace LightGive
 			isPause = false;
 			isPlaying = true;
 			audioSource.Play();
-			StartCoroutine(coroutineMethod);
-		}
-
-		public void AudioPlayCheckStart()
-		{
-			this.gameObject.SetActive(true);
-			coroutineMethod = AudioPlayCheck();
 			StartCoroutine(coroutineMethod);
 		}
 
