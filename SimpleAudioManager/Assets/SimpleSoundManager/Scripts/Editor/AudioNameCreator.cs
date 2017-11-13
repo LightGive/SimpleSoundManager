@@ -177,7 +177,7 @@ namespace LightGive
 			strBuilder.AppendLine("}");
 			strBuilder.AppendLine("\t");
 
-			strBuilder.AppendFormat("[System.Serialize]").AppendLine();
+			strBuilder.AppendFormat("[System.Serializable]").AppendLine();
 			strBuilder.AppendFormat("public enum AudioNameBGM").AppendLine();
 			strBuilder.AppendLine("{");
 			strBuilder.Append("\t").AppendFormat(@"None,").AppendLine();
@@ -186,7 +186,7 @@ namespace LightGive
 			strBuilder.AppendLine("}");
 			strBuilder.AppendLine("\t");
 
-			strBuilder.AppendFormat("[System.Serialize]").AppendLine();
+			strBuilder.AppendFormat("[System.Serializable]").AppendLine();
 			strBuilder.AppendFormat("public enum AudioNameSE").AppendLine();
 			strBuilder.AppendLine("{");
 			strBuilder.Append("\t").AppendFormat(@"None,").AppendLine();

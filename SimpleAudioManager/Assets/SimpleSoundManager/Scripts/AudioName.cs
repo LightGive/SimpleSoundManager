@@ -10,6 +10,7 @@
 	public const string SE_ToggleDown = "ToggleDown";
 }
 	
+[System.Serializable]
 public enum AudioNameBGM
 {
 	None,
@@ -17,6 +18,7 @@ public enum AudioNameBGM
 	Example2,
 }
 	
+[System.Serializable]
 public enum AudioNameSE
 {
 	None,
