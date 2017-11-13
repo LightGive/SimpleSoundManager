@@ -8,71 +8,98 @@ namespace LightGive
 	[System.Serializable]
 	public class SoundEffectPlayer : MonoBehaviour
 	{
+		private const float DelayMin = 0.0f;
+		private const float DelayMax = 10.0f;
+		private const float PitchMin = 0.0f;
+		private const float PitchMax = 3.0f;
+
 		[SerializeField]
 		public AudioSource audioSource;
 		[SerializeField]
 		public GameObject chaseObj;
 		[SerializeField]
 		public AnimationCurve animationCurve;
-		[SerializeField]
-		public float delay;
-		[SerializeField]
-		public float volume;
-		[SerializeField]
-		public int loopCnt;
-		[SerializeField]
-		public bool isFade;
-
+		
 		[SerializeField]
 		public UnityAction callbackOnComplete;
 		[SerializeField]
 		public UnityAction callbackOnStart;
 
+		private float volume;
+		private float delay;
+		private float pitch;
+		private int loopCount;
 		private bool isActive;
 		private bool isPause;
 		private bool isPlaying;
+		private bool isFade;
+		private bool isLoopInfinity;
+
 		private IEnumerator coroutineMethod;
 
 		public bool IsPause
 		{
 			get { return isPause; }
+			set { isPause = value; }
 		}
 		public bool IsPlaying
 		{
 			get { return isPlaying; }
+			set { isPlaying = value; }
 		}
 		public bool IsActive
 		{
 			get { return isActive; }
+			set { isActive = value; }
 		}
-
-		private float Volume
+		public int LoopCount
+		{
+			get { return loopCount; }
+			set { loopCount = value; }
+		}
+		public bool IsLoopInfinity
+		{
+			get { return isLoopInfinity; }
+            set { isLoopInfinity = value; }
+		}
+		public bool IsFade
+		{
+			get { return isFade; }
+            set { isFade = value; }
+		}
+		public float Delay
+		{
+			get { return delay; }
+			set { delay = Mathf.Clamp(value, DelayMin, DelayMax); }
+		}
+		public float Pitch
+		{
+			get { return pitch; }
+			set { pitch = Mathf.Clamp(value, PitchMin, PitchMax); }
+		}
+		public float Volume
 		{
 			get
 			{
-				return
-					volume *
-					SimpleSoundManager.Instance.SEVolume *
-					SimpleSoundManager.Instance.TotalVolume;
+				var v = volume * SimpleSoundManager.Instance.SEVolume * SimpleSoundManager.Instance.TotalVolume;
+				if (IsFade) { v *= animationCurve.Evaluate(audioSource.time); }
+				return v;
+			}
+			set
+			{
+				volume = Mathf.Clamp01(value);
 			}
 		}
 
 		public SoundEffectPlayer()
 		{
-			isPlaying = false;
-			isPause = false;
+			IsPlaying = false;
+			IsPause = false;
 			isActive = false;
-
 			audioSource = null;
 			chaseObj = null;
 			delay = 0.0f;
-			loopCnt = 0;
-		}
-
-		public SoundEffectPlayer(AudioClip _audioClip)
-		{
-			audioSource = new AudioSource();
-			audioSource.clip = _audioClip;
+			loopCount = 0;
 		}
 
 		void Awake()
@@ -83,15 +110,15 @@ namespace LightGive
 			audioSource.outputAudioMixerGroup = SimpleSoundManager.Instance.seAudioMixerGroup;
 		}
 
-		
-
 		public void Play()
 		{
 			isPlaying = true;
 			isActive = true;
 			this.gameObject.SetActive(true);
+			audioSource.time = 0.0f;
+			audioSource.pitch = Pitch;
+			audioSource.volume = Volume;
 
-			audioSource.volume = SimpleSoundManager.Instance.TotalVolume * SimpleSoundManager.Instance.SEVolume * volume;
 			if (callbackOnStart != null)
 				callbackOnStart.Invoke();
 			
@@ -103,17 +130,18 @@ namespace LightGive
 		{
 			if(audioSource.isPlaying)
 			audioSource.Stop();
-			loopCnt = 0;
-
-			isPlaying = false;
+			loopCount = 0;
+			IsPause = false;
+			IsFade = false;
+			IsPlaying = false;
 			isActive = false;
 			this.gameObject.SetActive(false);
 		}
 
 		public void Pause()
 		{
-			isPause = true;
-			isPlaying = false;
+			IsPause = true;
+			IsPlaying = false;
 			audioSource.Pause();
 			StopCoroutine(coroutineMethod);
 
@@ -121,48 +149,52 @@ namespace LightGive
 
 		public void Resume()
 		{
-			isPause = false;
-			isPlaying = true;
+			IsPause = false;
+			IsPlaying = true;
 			audioSource.Play();
 			StartCoroutine(coroutineMethod);
 		}
 
 		private IEnumerator AudioPlayCheck()
 		{
+			if (LoopCount <= 0)
+				AudioPlayEnd();
+
 			float timeCnt = 0.0f;
 			while (timeCnt < delay)
 			{
 				timeCnt += Time.deltaTime;
-				Debug.Log("Delayの待ち状態 " + delay.ToString());
 				yield return 0;
 			}
 
 			audioSource.Play();
-			loopCnt--;
+			loopCount--;
 			timeCnt = 0.0f;
 
 			float waitTime = (audioSource.clip.length / audioSource.pitch);
-            while (timeCnt < waitTime)
+			while (timeCnt < waitTime)
 			{
 				timeCnt += Time.deltaTime;
-				Debug.Log("再生中の待ち状態  "+ (audioSource.clip.length / audioSource.pitch));
 				yield return 0;
 			}
 
-			if (loopCnt > 0)
-			{
-				coroutineMethod = AudioPlayCheck();
-				StartCoroutine(coroutineMethod);
-				yield break;
-			}
+			coroutineMethod = AudioPlayCheck();
+			StartCoroutine(coroutineMethod);
+			if (IsLoopInfinity)
+				LoopCount = 1;
+			yield break;
+		}
 
+		private void AudioPlayEnd()
+		{
 			if (callbackOnComplete != null)
 			{
 				callbackOnComplete.Invoke();
 			}
 
-			isActive = false;
-			isPlaying = false;
+			IsActive = false;
+			IsPlaying = false;
+			IsPause = false;
 			this.gameObject.SetActive(false);
 		}
 
@@ -179,16 +211,9 @@ namespace LightGive
 			}
 		}
 
-
-
 		public void ChangeVolume()
 		{
-			var fadeVolume = (isFade) ? animationCurve.Evaluate(audioSource.time) : 1.0f;
-			audioSource.volume =
-				volume *
-				fadeVolume *
-				SimpleSoundManager.Instance.SEVolume *
-				SimpleSoundManager.Instance.TotalVolume;
+			audioSource.volume = Volume;
 		}
 	}
 }

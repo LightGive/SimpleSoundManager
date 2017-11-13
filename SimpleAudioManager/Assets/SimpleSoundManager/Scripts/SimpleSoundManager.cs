@@ -16,11 +16,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	private const float DefaultSePitch = 1.0f;
 	private const float DefaultSeDelay = 0.0f;
 	private const float DefaultSeFadeTime = 0.0f;
-
-	private const float PitchMin = 0.0f;
-	private const float PitchMax = 3.0f;
-	private const float DelayMin = 0.0f;
-	private const float DelayMax = 10.0f;
 	private const float DefaultMinDistance = 1.0f;
 	private const float DefaultMaxDistance = 500.0f;
 
@@ -306,14 +301,16 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, _onStart, _onComplete);
 	}
+
 	public void PlaySound2DLoopInfinity(AudioNameSE _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch)
 	{
-		PlaySE(_audioName.ToString(), seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+		PlaySE(_audioName.ToString(), seVolume, DefaultSeDelay, DefaultSePitch, true, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 	public void PlaySound2DLoopInfinity(string _audioName, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch)
 	{
-		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+		PlaySE(_audioName, seVolume, DefaultSeDelay, DefaultSePitch, true, 1, 0.0f, 0.0f, false, Vector3.zero, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
+
 	public void Play3DSound(AudioNameSE _audioName, Vector3 _soundPos, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
 		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
@@ -340,39 +337,34 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	}
 
 
-	private void PlaySE(string _audioName, float _volume, float _delay, float _pitch, bool _isLoop, int _loopCount, float _fadeInTime, float _fadeOutTime, bool _is3dSound, Vector3 _soundPos, GameObject _chaseObj, float _minDistance, float _maxDistance, UnityAction _onStart, UnityAction _onComplete)
+	private void PlaySE(string _audioName, float _volume, float _delay, float _pitch, bool _isLoopInfinity, int _loopCount, float _fadeInTime, float _fadeOutTime, bool _is3dSound, Vector3 _soundPos, GameObject _chaseObj, float _minDistance, float _maxDistance, UnityAction _onStart, UnityAction _onComplete)
 	{
 		if (!seDictionary.ContainsKey(_audioName))
 		{
-			Debug.Log("その名前のSEは存在しません：" + _audioName);
+			Debug.Log("SE with that name does not exist :" + _audioName);
 			return;
 		}
 		var clipInfo = seDictionary[_audioName];
 		var spatialBlend = (_is3dSound) ? 1.0f : 0.0f;
-
-		//値に制限をかける
-		_volume = Mathf.Clamp01(_volume);
-		_delay = Mathf.Clamp(_delay, DelayMin, DelayMax);
-		_pitch = Mathf.Clamp(_pitch, PitchMin, PitchMax);
-		_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clipInfo.clip.length);
-		_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clipInfo.clip.length);
-
-		//オーディオプレイヤーを取得
+		
 		SoundEffectPlayer sePlayer = GetSePlayer();
 		sePlayer.audioSource.clip = clipInfo.clip;
-		sePlayer.audioSource.pitch = _pitch;
+		sePlayer.Pitch = _pitch;
 		sePlayer.transform.position = _soundPos;
 		sePlayer.audioSource.spatialBlend = spatialBlend;
 		sePlayer.chaseObj = _chaseObj;
-		sePlayer.volume = _volume;
-		sePlayer.loopCnt = _loopCount;
-		sePlayer.delay = _delay;
-		sePlayer.isFade = (_fadeInTime != 0.0f || _fadeOutTime != 0.0f);
+		sePlayer.LoopCount = _loopCount;
+		sePlayer.Volume = _volume;
+		sePlayer.Delay = _delay;
 		sePlayer.callbackOnComplete = _onComplete;
 		sePlayer.callbackOnStart = _onStart;
+		sePlayer.IsFade = (_fadeInTime != 0.0f || _fadeOutTime != 0.0f);
 
-		if (sePlayer.isFade)
+		if (sePlayer.IsFade)
 		{
+			_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clipInfo.clip.length);
+			_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clipInfo.clip.length);
+
 			Keyframe key1 = new Keyframe(0.0f, 0.0f, 0.0f, 1.0f);
 			Keyframe key2 = new Keyframe(_fadeInTime, 1.0f, 0.0f, 0.0f);
 			Keyframe key3 = new Keyframe(clipInfo.clip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
@@ -382,33 +374,20 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			sePlayer.animationCurve = animCurve;
 		}
 
-
 		if (_is3dSound)
 		{
 			sePlayer.audioSource.minDistance = _minDistance;
 			sePlayer.audioSource.maxDistance = _maxDistance;
 		}
 
-		//sePlayer.AudioPlayCheckStart();
 		sePlayer.Play();
 	}
 	
-	/// <summary>
-	/// SEがポーズしているかどうか、
-	/// </summary>
-	/// <param name="_audioName"></param>
-	/// <returns></returns>
+
 	public bool IsPauseSE(AudioNameSE _audioName)
 	{
 		return IsPauseSE(_audioName.ToString());
 	}
-
-
-	/// <summary>
-	/// SEがポーズしているかどうか。
-	/// </summary>
-	/// <param name="_audioName"></param>
-	/// <returns></returns>
 	public bool IsPauseSE(string _audioName)
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
@@ -421,25 +400,10 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		return false;
 	}
 
-	public bool IsPlayingSE()
-	{
-		for (int i = 0; i < sePlayerList.Count; i++)
-		{
-			if (!sePlayerList[i].IsActive)
-				continue;
-			if (sePlayerList[i].IsPlaying )
-				return true;
-		}
-		return false;
-	}
-
-
-
 	public bool IsPlayingSE(AudioNameSE _audioName)
 	{
 		return IsPlayingSE(_audioName.ToString());
 	}
-
 	public bool IsPlayingSE(string _audioName)
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
@@ -454,29 +418,23 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	public void PauseSE(AudioNameSE _audioName)
 	{
-
+		PauseSE(_audioName.ToString());
 	}
-
-	/// <summary>
-	/// SEをポーズさせる
-	/// </summary>
-	/// <param name="_audioName"></param>
-	public void PauseSe(string _audioName)
+	public void PauseSE(string _audioName)
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].IsActive)
+			if (!sePlayerList[i].IsActive || !sePlayerList[i].IsPlaying)
 				continue;
 			if (sePlayerList[i].audioSource.clip.name == _audioName && !sePlayerList[i].IsPause)
 				sePlayerList[i].Pause();
 		}
 	}
 
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="_audioName"></param>
+	public void Resume(AudioNameSE _audioName)
+	{
+		Resume(_audioName.ToString());
+	}
 	public void Resume(string _audioName)
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
@@ -488,11 +446,11 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
-	/// <summary>
-	/// SEを停止させる
-	/// </summary>
-	/// <param name="_audioName"></param>
-	public void StopSe(string _audioName)
+	public void StopSE(AudioNameSE _audioName)
+	{
+		StopSE(_audioName.ToString());
+	}
+	public void StopSE(string _audioName)
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
@@ -503,23 +461,16 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
-	/// <summary>
-	/// 全てのSEを停止させる
-	/// </summary>
-	public void StopSeAll()
+	public void StopAllSE()
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
 		{
-			if (!sePlayerList[i].IsActive)
+			if (!sePlayerList[i].IsActive || !sePlayerList[i].IsPlaying)
 				continue;
 			sePlayerList[i].Stop();
 		}
 	}
 
-	/// <summary>
-	/// 全ての音の大きさを変更する
-	/// </summary>
-	/// <param name="_val"></param>
 	public void ChangeAllVolume()
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
@@ -538,16 +489,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				continue;
 			return bgmPlayerList[i];
 		}
-
-		Debug.Log("AudioSourceのリストの全てが再生中");
 		return bgmPlayerList[0];
 	}
 
-	/// <summary>
-	/// Playerを検索する
-	/// </summary>
-	/// <param name="_is3dSound">3Dサウンドかどうか</param>
-	/// <returns></returns>
 	private SoundEffectPlayer GetSePlayer()
 	{
 		for (int i = 0; i < sePlayerList.Count; i++)
@@ -556,27 +500,15 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				continue;
 			return sePlayerList[i];
 		}
-
-		Debug.Log("AudioSourceのリストの全てが再生中");
 		return sePlayerList[0];
 	}
-
-
-
-
-	/// <summary>
-	/// 音量を保存しておく。
-	/// </summary>
+	
 	public void SaveVolume()
 	{
 		PlayerPrefs.SetFloat(SaveKeyVolumeTotal, TotalVolume);
 		PlayerPrefs.SetFloat(SaveKeyVolumeBgm, BGMVolume);
 		PlayerPrefs.SetFloat(SaveKeyVolumeSe, SEVolume);
 	}
-
-	/// <summary>
-	/// Volumeをロードする
-	/// </summary>
 	public void LoadVolume()
 	{
 		totalVolume = PlayerPrefs.GetFloat(SaveKeyVolumeTotal, DefaultVolume);

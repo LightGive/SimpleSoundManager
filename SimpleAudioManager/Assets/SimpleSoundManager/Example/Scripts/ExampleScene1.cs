@@ -92,8 +92,6 @@ public class ExampleScene1 : MonoBehaviour
 		{
 			if (loopCountInput.text == "")
 				return;
-
-			//ループ回数
 			var loopCnt = int.Parse(loopCountInput.text);
 			SimpleSoundManager.Instance.PlaySound2DLoop(itemName.text, loopCnt, volume, delay, pitch, callBackStart, callBackEnd);
 		}
@@ -110,7 +108,7 @@ public class ExampleScene1 : MonoBehaviour
 		var itemName = seNameDropDown.options[idx];
 		playButtonImage.gameObject.SetActive(true);
 		pauseButtonImage.gameObject.SetActive(false);
-		SimpleSoundManager.Instance.PauseSe(itemName.text);
+		SimpleSoundManager.Instance.PauseSE(itemName.text);
 	}
 
 	public void DebugStartCallback()
@@ -126,7 +124,7 @@ public class ExampleScene1 : MonoBehaviour
 
 	public void StopSE()
 	{
-		SimpleSoundManager.Instance.StopSeAll();
+		SimpleSoundManager.Instance.StopAllSE();
 	}
 
 	public void ChangeTotalVolume(float sliderValue)

@@ -30,7 +30,6 @@ namespace LightGive
 		}
 		void OnValueChanged(string _val)
 		{
-			Debug.Log(_val);
 			SimpleSoundManager.Instance.PlaySound2D(onValueChangedAudio, volume);
 		}
 		void OnEndEdit(string _val)

@@ -61,14 +61,12 @@ namespace LightGive
 					width = (oneEighthWid / 1.5f)
 				};
 
-				//Playボタンを表示する範囲
 				var audioTestPlayRect = new Rect(position)
 				{
 					x = position.width - (oneEighthWid / 1.5f) + 22,
 					width = (oneEighthWid / 1.5f)
 				};
 
-				//プロパティ取得
 				var audioNoProp = property.FindPropertyRelative("audioNo");
 				var isUseProp = property.FindPropertyRelative("isUse");
 				var clipProp = property.FindPropertyRelative("clip");
@@ -82,7 +80,6 @@ namespace LightGive
 					var clip = (AudioClip)clipProp.objectReferenceValue;
 					var t = (clip).length;
 
-					//Debug.Log(key);
 					if (!AudioUtility.IsClipPlaying(clip) && att.playPropPath == property.propertyPath)
 					{
 						if (att.loopList.Contains(property.propertyPath))
@@ -107,7 +104,6 @@ namespace LightGive
 					var toggle = GUI.Toggle(audioTextLoopRect, att.loopList.Contains(property.propertyPath), LoopOffIconTexture, GUI.skin.button);
 					if (EditorGUI.EndChangeCheck())
 					{
-						Debug.Log(clip.name + "のループ状態を" + toggle + "にしました");
 						if (toggle)
 						{
 							att.loopList.Add(property.propertyPath);
@@ -124,13 +120,11 @@ namespace LightGive
 					{
 						if (isPlaying)
 						{
-							Debug.Log(clip.name + "の音を停止させました");
 							AudioUtility.StopClip((AudioClip)clipProp.objectReferenceValue);
 							att.playPropPath = "";
 						}
 						else
 						{
-							//Debug.Log(clip.name + "の音を再生させました");
 							AudioUtility.StopAllClips();
 							AudioUtility.PlayClip((AudioClip)clipProp.objectReferenceValue);
 							att.playPropPath = property.propertyPath;
