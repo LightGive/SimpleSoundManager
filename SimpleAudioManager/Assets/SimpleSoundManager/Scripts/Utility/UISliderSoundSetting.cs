@@ -18,11 +18,10 @@ namespace LightGive
 		[SerializeField]
 		private AudioNameSE onValueChangedAudio;
 
+		private Slider slider;
+		private float offset = 0.0f;
 		private int preValue;
 		private int splitCount;
-		private float offset = 0.0f;
-
-		private Slider slider;
 
 		void Start()
 		{
@@ -39,6 +38,8 @@ namespace LightGive
 
 		void ValueChange(float _value)
 		{
+			if (onValueChangedAudio == AudioNameSE.None)
+				return;
 			if (changeValue == 0.0f)
 				return;
 
@@ -49,12 +50,18 @@ namespace LightGive
 				preValue = index;
 			}
 		}
+
 		public void OnPointerDown(PointerEventData eventData)
 		{
+			if (sliderStartAudio == AudioNameSE.None)
+				return;
 			SimpleSoundManager.Instance.PlaySound2D(sliderStartAudio, volume);
 		}
+
 		public void OnPointerUp(PointerEventData eventData)
 		{
+			if (sliderEndAudio == AudioNameSE.None)
+				return;
 			SimpleSoundManager.Instance.PlaySound2D(sliderEndAudio, volume);
 		}
 	}

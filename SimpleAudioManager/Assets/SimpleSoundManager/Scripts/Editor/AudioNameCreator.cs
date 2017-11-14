@@ -7,9 +7,6 @@ using UnityEngine;
 
 namespace LightGive
 {
-	/// <summary>
-	/// オーディオのファイル名を定数で管理するクラスを自動で作成するスクリプト
-	/// </summary>
 	public class AudioNameCreator : AssetPostprocessor
 	{
 		private const string AUDIO_SCRIPT_NAME = "AudioName.cs";
@@ -33,7 +30,6 @@ namespace LightGive
 				return Directory.GetParent(Directory.GetParent(Directory.GetParent(res[0]).FullName).FullName).FullName;
 			}
 		}
-
 		/// <summary>
 		/// SourceFolderPath(BGM)
 		/// </summary>
@@ -73,7 +69,37 @@ namespace LightGive
 		/// <param name="movedFromAssetPaths"></param>
 		private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
 		{
-			//Create();
+			var isChange = false;
+			var directryPath = "";
+			for (int i = 0; i < importedAssets.Length && !isChange; i++)
+			{
+				directryPath = ConvertSystemPathToUnityPath(Path.GetDirectoryName(Path.GetFullPath(importedAssets[i])));
+				if (directryPath == SourceFolderPathBGM || directryPath == SourceFolderPathSE)
+					isChange = true;
+			}
+			for (int i = 0; i < deletedAssets.Length && !isChange; i++)
+			{
+				directryPath = ConvertSystemPathToUnityPath(Path.GetDirectoryName(Path.GetFullPath(deletedAssets[i])));
+				if (directryPath == SourceFolderPathBGM || directryPath == SourceFolderPathSE)
+					isChange = true;
+			}
+			for (int i = 0; i < movedAssets.Length && !isChange; i++)
+			{
+				directryPath = ConvertSystemPathToUnityPath(Path.GetDirectoryName(Path.GetFullPath(movedAssets[i])));
+				if (directryPath == SourceFolderPathBGM || directryPath == SourceFolderPathSE)
+					isChange = true;
+			}
+			for (int i = 0; i < movedFromAssetPaths.Length && !isChange; i++)
+			{
+				directryPath = ConvertSystemPathToUnityPath(Path.GetDirectoryName(Path.GetFullPath(movedFromAssetPaths[i])));
+				if (directryPath == SourceFolderPathBGM || directryPath == SourceFolderPathSE)
+					isChange = true;
+			}
+
+			if (isChange)
+			{
+				Create();
+			}
 		}
 
 		/// <summary>
@@ -115,14 +141,14 @@ namespace LightGive
 
 					var bgmInfo = new AudioClipInfo(idx, audio);
 					bgmClipList.Add(bgmInfo);
-
 				}
 			}
 
 			//Init
 			idx = 0;
 
-			//SEのフォルダ内ファイル1つずつ検索
+
+			//Find "SE" folder file
 			for (int i = 0; i < fileEntriesSe.Length; i++)
 			{
 				var filePath = fileEntriesSe[i];
@@ -149,22 +175,15 @@ namespace LightGive
 
 			var bgmClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathBGM, typeof(AudioClipList));
 			var seClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathSE, typeof(AudioClipList));
-
-			//*********************************************要修正*********************************************
-			//現状作ったものともともと作ってあったものとの比較、同じなら処理しない
-			if (bgmClipListOld == bgmClipListInstance && seClipListOld == seClipListInstance)
-				return;
-			//******************************************************************************************
-
 			AssetDatabase.CreateAsset(bgmClipListInstance, CliplistDataPathBGM);
 			AssetDatabase.CreateAsset(seClipListInstance, CliplistDataPathSE);
 			AssetDatabase.Refresh();
 
-			//スクリプトのパスを取得する
+
+			//Get script path
 			var audioNameScriptPath = ManagerRootFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
 
-			//AudioNameを作成
-			//Sourceフォルダに入っている音楽ファイルのファイル名の変数が入ったAudioNameファイル作成
+			//Create "AudioName.cs"
 			string audioFileNameExtension = Path.GetFileNameWithoutExtension(audioNameScriptPath);
 			StringBuilder strBuilder = new StringBuilder();
 			strBuilder.AppendFormat("public static class {0}", audioFileNameExtension).AppendLine();
@@ -177,7 +196,6 @@ namespace LightGive
 			strBuilder.AppendLine("}");
 			strBuilder.AppendLine("\t");
 
-			strBuilder.AppendFormat("[System.Serializable]").AppendLine();
 			strBuilder.AppendFormat("public enum AudioNameBGM").AppendLine();
 			strBuilder.AppendLine("{");
 			strBuilder.Append("\t").AppendFormat(@"None,").AppendLine();
@@ -186,7 +204,6 @@ namespace LightGive
 			strBuilder.AppendLine("}");
 			strBuilder.AppendLine("\t");
 
-			strBuilder.AppendFormat("[System.Serializable]").AppendLine();
 			strBuilder.AppendFormat("public enum AudioNameSE").AppendLine();
 			strBuilder.AppendLine("{");
 			strBuilder.Append("\t").AppendFormat(@"None,").AppendLine();
@@ -202,18 +219,6 @@ namespace LightGive
 			File.WriteAllText(audioNameScriptPath, strBuilder.ToString(), Encoding.UTF8);
 			AssetDatabase.Refresh(ImportAssetOptions.ImportRecursive);
 
-		}
-
-		/// <summary>
-		/// 入力されたassetsの中に、ディレクトリのパスがdirectoryNameの物はあるか
-		/// </summary>
-		static bool ExistsDirectoryInAssets(List<string[]> assetsList, List<string> targetDirectoryNameList)
-		{
-			return assetsList
-				.Any(assets => assets
-				 .Select(asset => System.IO.Path.GetDirectoryName(asset))
-				 .Intersect(targetDirectoryNameList)
-				 .Count() > 0);
 		}
 
 		static string ConvertSystemPathToUnityPath(string _path)

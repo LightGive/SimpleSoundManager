@@ -18,24 +18,25 @@ namespace LightGive
 		[SerializeField]
 		private AudioNameSE onValueChangedAudio;
 
+		private Scrollbar scrollbar;
+		private float offset = 0.0f;
 		private int preValue;
 		private int splitCount;
-		private float offset = 0.0f;
-
-		private Scrollbar scrollbar;
 
 		void Start()
 		{
 			scrollbar = this.gameObject.GetComponent<Scrollbar>();
-			scrollbar.onValueChanged.AddListener(ValueChange);
+			scrollbar.onValueChanged.AddListener(OnValueChange);
 			splitCount = Mathf.FloorToInt(1.0f / changeValue);
 
 			if (scrollbar.numberOfSteps != 0)
 				splitCount = scrollbar.numberOfSteps;
 		}
 
-		void ValueChange(float _value)
+		void OnValueChange(float _value)
 		{
+			if (onValueChangedAudio == AudioNameSE.None)
+				return;
 			int index = Mathf.FloorToInt(_value / changeValue);
 			if (index != preValue)
 			{
@@ -45,10 +46,14 @@ namespace LightGive
 		}
 		public void OnPointerDown(PointerEventData eventData)
 		{
+			if (scrollStartAudio == AudioNameSE.None)
+				return;
 			SimpleSoundManager.Instance.PlaySound2D(scrollStartAudio, volume);
 		}
 		public void OnPointerUp(PointerEventData eventData)
 		{
+			if (scrollEndAudio == AudioNameSE.None)
+				return;
 			SimpleSoundManager.Instance.PlaySound2D(scrollEndAudio, volume);
 		}
 	}

@@ -10,9 +10,9 @@ namespace LightGive
 		[SerializeField, Range(0.0f, 1.0f)]
 		private float volume = 1.0f;
 		[SerializeField]
-		private AudioNameSE onPointEnterAudio;
+		private AudioNameSE onPointerEnterAudio;
 		[SerializeField]
-		private AudioNameSE onPointExitAudio;
+		private AudioNameSE onPointerExitAudio;
 		[SerializeField]
 		private AudioNameSE onPointerClickAudio;
 
@@ -21,15 +21,25 @@ namespace LightGive
 		void Awake()
 		{
 			button = this.gameObject.GetComponent<Button>();
-			button.onClick.AddListener(() => SimpleSoundManager.Instance.PlaySound2D(onPointerClickAudio, volume));
+			button.onClick.AddListener(OnPointerClick);
+		}
+		public void OnPointerClick()
+		{
+			if (onPointerClickAudio == AudioNameSE.None)
+				return;
+			SimpleSoundManager.Instance.PlaySound2D(onPointerClickAudio, volume);
 		}
 		public void OnPointerEnter(PointerEventData ped)
 		{
-			SimpleSoundManager.Instance.PlaySound2D(onPointEnterAudio, volume);
+			if (onPointerEnterAudio == AudioNameSE.None)
+				return;
+			SimpleSoundManager.Instance.PlaySound2D(onPointerEnterAudio, volume);
         }
 		public void OnPointerExit(PointerEventData ped)
 		{
-			SimpleSoundManager.Instance.PlaySound2D(onPointExitAudio, volume);
+			if (onPointerExitAudio == AudioNameSE.None)
+				return;
+			SimpleSoundManager.Instance.PlaySound2D(onPointerExitAudio, volume);
 		}
 	}
 }

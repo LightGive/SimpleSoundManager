@@ -28,20 +28,31 @@ namespace LightGive
 
 		public void OnPointerEnter(PointerEventData _ped)
 		{
+			if (onPointerEnterAudio == AudioNameSE.None)
+				return;
 			SimpleSoundManager.Instance.PlaySound2D(onPointerEnterAudio, volume);
 		}
 		public void OnPointerExit(PointerEventData _ped)
 		{
+			if (onPointerExitAudio == AudioNameSE.None)
+				return;
 			SimpleSoundManager.Instance.PlaySound2D(onPointerExitAudio, volume);
 		}
 		public void OnToggleChanged(bool _isToggle)
 		{
+			if (onValueChangedOffAudio == AudioNameSE.None & onValueChangedOnAudio == AudioNameSE.None)
+				return;
+
 			if (_isToggle)
 			{
+				if (onValueChangedOnAudio == AudioNameSE.None)
+					return;
 				SimpleSoundManager.Instance.PlaySound2D(onValueChangedOnAudio, volume);
 			}
 			else
 			{
+				if (onValueChangedOffAudio == AudioNameSE.None)
+					return;
 				SimpleSoundManager.Instance.PlaySound2D(onValueChangedOffAudio, volume);
 			}
 		}
