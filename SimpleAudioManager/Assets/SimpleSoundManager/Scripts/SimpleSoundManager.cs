@@ -481,6 +481,41 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
+
+	public void SaveVolume()
+	{
+		PlayerPrefs.SetFloat(SaveKeyVolumeTotal, TotalVolume);
+		PlayerPrefs.SetFloat(SaveKeyVolumeBgm, BGMVolume);
+		PlayerPrefs.SetFloat(SaveKeyVolumeSe, SEVolume);
+	}
+	public void LoadVolume()
+	{
+		totalVolume = PlayerPrefs.GetFloat(SaveKeyVolumeTotal, DefaultVolume);
+		bgmVolume = PlayerPrefs.GetFloat(SaveKeyVolumeBgm, DefaultVolume);
+		seVolume = PlayerPrefs.GetFloat(SaveKeyVolumeSe, DefaultVolume);
+	}
+
+	public AudioClip GetAudioClip(AudioNameBGM _audioName)
+	{
+		for (int i = 0; i < bgmAudioClipList.Count; i++)
+		{
+			if (bgmAudioClipList[i].clip.name == _audioName.ToString())
+				return bgmAudioClipList[i].clip;
+		}
+		return null;
+	}
+
+	public AudioClip GetAudioClip(AudioNameSE _audioName)
+	{
+		for (int i = 0; i < seAudioClipList.Count; i++)
+		{
+			if (seAudioClipList[i].clip.name == _audioName.ToString())
+				return seAudioClipList[i].clip;
+		}
+		return null;
+	}
+
+
 	private BackGroundMusicPlayer GetBgmPlayer()
 	{
 		for (int i = 0; i < bgmPlayerList.Count; i++)
@@ -502,17 +537,4 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 		return sePlayerList[0];
 	}
-	
-	public void SaveVolume()
-	{
-		PlayerPrefs.SetFloat(SaveKeyVolumeTotal, TotalVolume);
-		PlayerPrefs.SetFloat(SaveKeyVolumeBgm, BGMVolume);
-		PlayerPrefs.SetFloat(SaveKeyVolumeSe, SEVolume);
 	}
-	public void LoadVolume()
-	{
-		totalVolume = PlayerPrefs.GetFloat(SaveKeyVolumeTotal, DefaultVolume);
-		bgmVolume = PlayerPrefs.GetFloat(SaveKeyVolumeBgm, DefaultVolume);
-		seVolume = PlayerPrefs.GetFloat(SaveKeyVolumeSe,DefaultVolume);
-	}
-}

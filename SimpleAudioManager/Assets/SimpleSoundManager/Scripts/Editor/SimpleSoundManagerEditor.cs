@@ -49,7 +49,6 @@ namespace LightGive
 			EditorGUILayout.Space();
 			EditorGUILayout.LabelField("Volume", EditorStyles.boldLabel);
 
-
 			EditorGUILayout.Slider(totalVolumeProp, 0.0f, 1.0f,"VolumeAll");
 			EditorGUILayout.Slider(bgmVolumeProp, 0.0f, 1.0f, "Volume BGM");
 			EditorGUILayout.Slider(seVolumeProp, 0.0f, 1.0f, "Volume SE");
@@ -147,7 +146,6 @@ namespace LightGive
 				var audioManagerScriptFolderPath = Directory.GetParent(audioManagerScriptPath).FullName;
 				var audioManagerFolderPath = Directory.GetParent(audioManagerScriptFolderPath).FullName;
 				var audioNameScriptPath = audioManagerFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
-
 
 				//BGMとSEのファイルパス
 				var bgmSourcePath = ConvertSystemPathToUnityPath(audioManagerFolderPath + BGM_FOLDER_PATH);
