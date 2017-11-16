@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExampleScene5 : MonoBehaviour
+public class ExampleScene3 : MonoBehaviour
 {
 	[SerializeField]
 	private ParticleSystem effect;
