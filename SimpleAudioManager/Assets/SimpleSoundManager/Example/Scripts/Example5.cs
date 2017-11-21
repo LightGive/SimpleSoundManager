@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExampleScene2 : MonoBehaviour
+public class Example5: MonoBehaviour
 {
 	[SerializeField]
 	private Transform cameraAnchor;

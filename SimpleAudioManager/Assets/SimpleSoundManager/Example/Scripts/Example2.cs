@@ -93,11 +93,11 @@ public class ExampleScene1 : MonoBehaviour
 			if (loopCountInput.text == "")
 				return;
 			var loopCnt = int.Parse(loopCountInput.text);
-			SimpleSoundManager.Instance.PlaySound2DLoop(itemName.text, loopCnt, volume, delay, pitch, callBackStart, callBackEnd);
+			SimpleSoundManager.Instance.PlaySE2DLoop(itemName.text, loopCnt, volume, delay, pitch, callBackStart, callBackEnd);
 		}
 		else
 		{
-			SimpleSoundManager.Instance.PlaySound2D(itemName.text, volume, delay, pitch, fadeInTime, fadeOutTime, callBackStart, callBackEnd);
+			SimpleSoundManager.Instance.PlaySE2D(itemName.text, volume, delay, pitch, fadeInTime, fadeOutTime, callBackStart, callBackEnd);
 		}
 	}
 

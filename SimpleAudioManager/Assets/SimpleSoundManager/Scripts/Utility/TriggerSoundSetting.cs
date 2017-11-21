@@ -53,6 +53,6 @@ public class TriggerSoundSetting : MonoBehaviour
 		{
 			vol = Mathf.Clamp01(vec.magnitude / (minVelocityMag + maxVelocityMag)) * vol;
 		}
-		SimpleSoundManager.Instance.Play3DSound(playAudioName, pos, vol);
+		SimpleSoundManager.Instance.PlaySE3D(playAudioName, pos, vol);
 	}
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExampleScene3 : MonoBehaviour
+public class Example3 : MonoBehaviour
 {
 	[SerializeField]
 	private ParticleSystem effect;
@@ -21,7 +21,7 @@ public class ExampleScene3 : MonoBehaviour
 			{
 				effect.transform.position = hit.point;
 				effect.Play();
-				SimpleSoundManager.Instance.Play3DSound(AudioNameSE.BallBound, hit.point);
+				//SimpleSoundManager.Instance.Play3DSound(AudioNameSE.BallBound, hit.point);
 			}
 		}
 	}

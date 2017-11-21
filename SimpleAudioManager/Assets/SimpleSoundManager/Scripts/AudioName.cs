@@ -1,7 +1,7 @@
 ﻿public static class AudioName
 {
-	public const string BGM_Example1 = "Example1";
-	public const string BGM_Example2 = "Example2";
+	public const string BGM_DemoExample1 = "DemoExample1";
+	public const string BGM_DemoExample2 = "DemoExample2";
 	
 	public const string SE_BallBound = "BallBound";
 	public const string SE_BallWaterIn = "BallWaterIn";
@@ -16,8 +16,8 @@
 public enum AudioNameBGM
 {
 	None,
-	Example1,
-	Example2,
+	DemoExample1,
+	DemoExample2,
 }
 	
 public enum AudioNameSE

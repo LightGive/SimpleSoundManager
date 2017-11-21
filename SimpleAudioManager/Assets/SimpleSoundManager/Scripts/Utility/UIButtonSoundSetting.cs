@@ -27,19 +27,19 @@ namespace LightGive
 		{
 			if (onPointerClickAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onPointerClickAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onPointerClickAudio, volume);
 		}
 		public void OnPointerEnter(PointerEventData ped)
 		{
 			if (onPointerEnterAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onPointerEnterAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onPointerEnterAudio, volume);
         }
 		public void OnPointerExit(PointerEventData ped)
 		{
 			if (onPointerExitAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onPointerExitAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onPointerExitAudio, volume);
 		}
 	}
 }

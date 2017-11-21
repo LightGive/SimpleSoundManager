@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExampleScene3 : MonoBehaviour
+public class Example4 : MonoBehaviour
 {
 	[SerializeField]
 	private Text textPercent;

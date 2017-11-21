@@ -30,13 +30,13 @@ namespace LightGive
 		{
 			if (onPointerEnterAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onPointerEnterAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onPointerEnterAudio, volume);
 		}
 		public void OnPointerExit(PointerEventData _ped)
 		{
 			if (onPointerExitAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onPointerExitAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onPointerExitAudio, volume);
 		}
 		public void OnToggleChanged(bool _isToggle)
 		{
@@ -47,13 +47,13 @@ namespace LightGive
 			{
 				if (onValueChangedOnAudio == AudioNameSE.None)
 					return;
-				SimpleSoundManager.Instance.PlaySound2D(onValueChangedOnAudio, volume);
+				SimpleSoundManager.Instance.PlaySE2D(onValueChangedOnAudio, volume);
 			}
 			else
 			{
 				if (onValueChangedOffAudio == AudioNameSE.None)
 					return;
-				SimpleSoundManager.Instance.PlaySound2D(onValueChangedOffAudio, volume);
+				SimpleSoundManager.Instance.PlaySE2D(onValueChangedOffAudio, volume);
 			}
 		}
 	}

@@ -32,31 +32,31 @@ namespace LightGive
 		{
 			if (onValueChangedAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onValueChangedAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onValueChangedAudio, volume);
 		}
 		void OnEndEdit(string _val)
 		{
 			if (onEndEditAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onEndEditAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onEndEditAudio, volume);
 		}
 		public void OnPointerEnter(PointerEventData ped)
 		{
 			if (onPointEnterAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onPointEnterAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onPointEnterAudio, volume);
 		}
 		public void OnPointerExit(PointerEventData ped)
 		{
 			if (onPointExitAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onPointExitAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onPointExitAudio, volume);
 		}
 		public void OnPointerClick(PointerEventData ped)
 		{
 			if (onPointerClickAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(onPointerClickAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(onPointerClickAudio, volume);
 		}
 	}
 }

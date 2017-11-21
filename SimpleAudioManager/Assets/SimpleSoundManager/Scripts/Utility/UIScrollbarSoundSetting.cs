@@ -40,7 +40,7 @@ namespace LightGive
 			int index = Mathf.FloorToInt(_value / changeValue);
 			if (index != preValue)
 			{
-				SimpleSoundManager.Instance.PlaySound2D(onValueChangedAudio, volume);
+				SimpleSoundManager.Instance.PlaySE2D(onValueChangedAudio, volume);
 				preValue = index;
 			}
 		}
@@ -48,13 +48,13 @@ namespace LightGive
 		{
 			if (scrollStartAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(scrollStartAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(scrollStartAudio, volume);
 		}
 		public void OnPointerUp(PointerEventData eventData)
 		{
 			if (scrollEndAudio == AudioNameSE.None)
 				return;
-			SimpleSoundManager.Instance.PlaySound2D(scrollEndAudio, volume);
+			SimpleSoundManager.Instance.PlaySE2D(scrollEndAudio, volume);
 		}
 	}
 }

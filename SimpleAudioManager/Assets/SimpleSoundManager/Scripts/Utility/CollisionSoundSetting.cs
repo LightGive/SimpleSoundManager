@@ -55,6 +55,6 @@ public class CollisionSoundSetting : MonoBehaviour
 		{
 			vol = Mathf.Clamp01(vec.magnitude / (minVelocityMag + maxVelocityMag)) * vol;
         }
-		SimpleSoundManager.Instance.Play3DSound(playAudioName, _col.contacts[0].point, vol);
+		SimpleSoundManager.Instance.PlaySE3D(playAudioName, _col.contacts[0].point, vol);
 	}
 }

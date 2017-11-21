@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExampleScene4 : MonoBehaviour
+public class Example1: MonoBehaviour
 {
 	[SerializeField]
 	private Dropdown bgmNameDropDown;
@@ -53,11 +53,11 @@ public class ExampleScene4 : MonoBehaviour
 	{
 		SimpleSoundManager.Instance.PlayCrossFadeBGM(
 			selectAudioName,
-			volumeSlider.value,
-			true,
 			float.Parse(fadeInTimeInputField.text),
 			float.Parse(fadeOutTimeInputField.text),
-			crossFadeRateSlider.value);
+			crossFadeRateSlider.value,
+			volumeSlider.value,
+			true);
 	}
 
 	public void OnCrossFadeRateSliderValueChange(float _val)
