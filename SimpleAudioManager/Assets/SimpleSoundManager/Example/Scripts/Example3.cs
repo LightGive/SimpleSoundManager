@@ -7,6 +7,9 @@ public class Example3 : MonoBehaviour
 	[SerializeField]
 	private ParticleSystem effect;
 
+	[SerializeField]
+	private AudioNameSE audioName;
+
 	void Start ()
 	{
 		
@@ -21,7 +24,7 @@ public class Example3 : MonoBehaviour
 			{
 				effect.transform.position = hit.point;
 				effect.Play();
-				SimpleSoundManager.Instance.PlaySE3D(AudioNameSE.BallBound, hit.point);
+				SimpleSoundManager.Instance.PlaySE3D(audioName, hit.point);
 			}
 		}
 	}
