@@ -5,6 +5,8 @@ Simple Sound Manager
 [Version]
 1.0.0
 
+[Update contents]
+- First release
 
 [How to use]
 
@@ -21,8 +23,14 @@ Simple BGM playback method
 SimpleSoundManager.Instance.PlayBGM(AudioName);
 
 BGM cross fade playback
-SimpleSoundManager.Instance.PlayCrossFadeBGM(AudioName.BGM_ExampleBGM , 1.0f , 0.5f);
+SimpleSoundManager.Instance.PlayCrossFadeBGM(AudioName, FadeTime, CrossRate);
 
 Simple SE playback method
 SimpleSoundManager.Instance.PlaySE2D(AudioName);
 
+For detailed playback methods and other playback methods, see ExampleScene.
+
+
+[Support]
+Bug reports and requests for extended functions are supported by Twitter DM.
+Twitter : @roi_akase

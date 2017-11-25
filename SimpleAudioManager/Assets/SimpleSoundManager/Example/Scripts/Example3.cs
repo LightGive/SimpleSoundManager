@@ -16,12 +16,12 @@ public class Example3 : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			var hit = new RaycastHit();
+			RaycastHit hit = new RaycastHit();
 			if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
 			{
 				effect.transform.position = hit.point;
 				effect.Play();
-				//SimpleSoundManager.Instance.Play3DSound(AudioNameSE.BallBound, hit.point);
+				SimpleSoundManager.Instance.PlaySE3D(AudioNameSE.BallBound, hit.point);
 			}
 		}
 	}

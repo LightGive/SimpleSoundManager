@@ -218,7 +218,6 @@ namespace LightGive
 			}
 			File.WriteAllText(audioNameScriptPath, strBuilder.ToString(), Encoding.UTF8);
 			AssetDatabase.Refresh(ImportAssetOptions.ImportRecursive);
-
 		}
 
 		static string ConvertSystemPathToUnityPath(string _path)

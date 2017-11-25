@@ -24,8 +24,6 @@ namespace LightGive
 		private SerializedProperty totalVolumeProp;
 		private SerializedProperty bgmVolumeProp;
 		private SerializedProperty seVolumeProp;
-		private SerializedProperty bgmDefaultVolumeProp;
-		private SerializedProperty seDefaultVolumeProp;
 		private SerializedProperty volumeChangeToSaveProp;
 
 		private SerializedProperty sePlayerNumProp;
@@ -45,28 +43,21 @@ namespace LightGive
 		/// </summary>
 		public override void OnInspectorGUI()
 		{
-			serializedObject.Update();
+			serializedObj.Update();
 			EditorGUILayout.Space();
 			EditorGUILayout.LabelField("Volume", EditorStyles.boldLabel);
 
-			EditorGUILayout.Slider(totalVolumeProp, 0.0f, 1.0f,"VolumeAll");
-			EditorGUILayout.Slider(bgmVolumeProp, 0.0f, 1.0f, "Volume BGM");
-			EditorGUILayout.Slider(seVolumeProp, 0.0f, 1.0f, "Volume SE");
+			totalVolumeProp.floatValue = EditorGUILayout.Slider("Total", totalVolumeProp.floatValue, 0.0f, 1.0f);
+			EditorGUILayout.Slider(bgmVolumeProp, 0.0f, 1.0f, "BGM");
+			EditorGUILayout.Slider(seVolumeProp, 0.0f, 1.0f, "SE");
 			volumeChangeToSaveProp.boolValue = EditorGUILayout.Toggle("Change to Save", volumeChangeToSaveProp.boolValue);
 			EditorGUILayout.Space();
 
-			EditorGUILayout.LabelField("DefaultSetting", EditorStyles.boldLabel);
-			EditorGUILayout.Slider(bgmDefaultVolumeProp, 0.0f, 1.0f, "Default Volume BGM");
-			EditorGUILayout.Slider(seDefaultVolumeProp, 0.0f, 1.0f, "Default Volume BGM");
-
-			EditorGUILayout.Space();
-
 			EditorGUILayout.LabelField("Other", EditorStyles.boldLabel);
-			sePlayerNumProp.intValue = EditorGUILayout.IntField("Create Player Num", sePlayerNumProp.intValue);
+			sePlayerNumProp.intValue = EditorGUILayout.IntField("Create SE Player Num", sePlayerNumProp.intValue);
 			EditorGUILayout.Space();
-			
-			EditorGUILayout.LabelField("AudioMixer", EditorStyles.boldLabel);
 
+			EditorGUILayout.LabelField("AudioMixer", EditorStyles.boldLabel);
 
 			EditorGUILayout.BeginVertical(GUI.skin.box);
 			{
@@ -120,126 +111,8 @@ namespace LightGive
 			}
 			EditorGUILayout.EndVertical();
 
-			//プレイ中
-			//BGMのリストを作成する
-			EditorGUILayout.LabelField("BGMList");
-			//リセットボタンを押したとき
-			if (GUILayout.Button("Reset"))
-			{
-				ResetAudioClipInfo();
-				OnEnable();
-				Repaint();
-			}
-
-			//Sourceフォルダにある音ファイルをインポートする
-			if (GUILayout.Button("Import Audio Source"))
-			{
-				//Undoに登録
-				Undo.RecordObjects(targets, "Import Audio");
-
-				//一度現在のAudioClipのリストを消す
-				ResetAudioClipInfo();
-
-				//スクリプトのパスを取得する
-				thisScript = MonoScript.FromMonoBehaviour((SimpleSoundManager)target);
-				var audioManagerScriptPath = AssetDatabase.GetAssetPath(thisScript);
-				var audioManagerScriptFolderPath = Directory.GetParent(audioManagerScriptPath).FullName;
-				var audioManagerFolderPath = Directory.GetParent(audioManagerScriptFolderPath).FullName;
-				var audioNameScriptPath = audioManagerFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
-
-				//BGMとSEのファイルパス
-				var bgmSourcePath = ConvertSystemPathToUnityPath(audioManagerFolderPath + BGM_FOLDER_PATH);
-				var seSourcePath = ConvertSystemPathToUnityPath(audioManagerFolderPath + SE_FOLDER_PATH);
-
-				//SEとBGMのフォルダを読み込む
-				try
-				{
-					//フォルダがあるか確認
-					if (!Directory.Exists(bgmSourcePath))
-					{
-						//BGMフォルダが無いとき、フォルダを新しく作成
-						Directory.CreateDirectory(bgmSourcePath);
-						Debug.Log("BGMフォルダが存在しないため作成しました。\nPath:" + bgmSourcePath);
-					}
-					if (!Directory.Exists(seSourcePath))
-					{
-						//SEフォルダが無いとき、フォルダを新しく作成
-						Directory.CreateDirectory(seSourcePath);
-						Debug.Log("SEフォルダが存在しないため作成しました。\nPath:" + seSourcePath);
-					}
-				}
-
-				//エラーの時、デバッグを出す
-				catch (IOException ex)
-				{
-					Debug.Log(ex.Message);
-				}
-
-				string[] fileEntriesBgm = Directory.GetFiles(bgmSourcePath, "*", SearchOption.AllDirectories);
-				string[] fileEntriesSe = Directory.GetFiles(seSourcePath, "*", SearchOption.AllDirectories);
-				List<Object> bgmObjList = new List<Object>();
-				List<Object> seObjList = new List<Object>();
-
-				//番号を表示する用の変数
-				int idx = 0;
-
-				//BGMのフォルダ内ファイル1つずつ検索
-				for (int i = 0; i < fileEntriesBgm.Length; i++)
-				{
-					var filePath = fileEntriesBgm[i];
-					filePath = ConvertSystemPathToUnityPath(filePath);
-					var obj = AssetDatabase.LoadAssetAtPath(filePath, typeof(object));
-					if (obj != null)
-					{
-						if (obj.GetType() != typeof(AudioClip))
-							continue;
-						idx++;
-						AudioClip audio = (AudioClip)obj;
-						bgmObjList.Add(obj);
-
-						var bgmInfo = new AudioClipInfo(idx, audio);
-						bgmAudioClipListProp.arraySize++;
-						foreach (SimpleSoundManager t in targets)
-						{
-							t.bgmAudioClipList.Add(bgmInfo);
-							serializedObject.ApplyModifiedProperties();
-						}
-					}
-				}
-
-				//番号を初期化
-				idx = 0;
-
-				//SEのフォルダ内ファイル1つずつ検索
-				for (int i = 0; i < fileEntriesSe.Length; i++)
-				{
-					var filePath = fileEntriesSe[i];
-					filePath = ConvertSystemPathToUnityPath(filePath);
-					var obj = AssetDatabase.LoadAssetAtPath(filePath, typeof(object));
-					if (obj != null)
-					{
-						if (obj.GetType() != typeof(AudioClip))
-							continue;
-
-						idx++;
-						AudioClip audio = (AudioClip)obj;
-						seObjList.Add(obj);
-
-						var seInfo = new AudioClipInfo(idx, audio);
-						seAudioClipListProp.arraySize++;
-						foreach (SimpleSoundManager t in targets)
-							t.seAudioClipList.Add(seInfo);
-					}
-				}
-
-				OnEnable();
-				Repaint();
-			}
-			
-
 			EditorUtility.SetDirty(target);
-			serializedObject.ApplyModifiedProperties();
-
+			serializedObj.ApplyModifiedProperties();
 		}
 
 		void ResetAudioClipInfo()
@@ -261,8 +134,6 @@ namespace LightGive
 			totalVolumeProp = serializedObj.FindProperty("totalVolume");
 			bgmVolumeProp = serializedObj.FindProperty("bgmVolume");
 			seVolumeProp = serializedObj.FindProperty("seVolume");
-			bgmDefaultVolumeProp = serializedObj.FindProperty("bgmDefaultVolume");
-			seDefaultVolumeProp = serializedObj.FindProperty("seDefaultVolume");
 
 			volumeChangeToSaveProp = serializedObj.FindProperty("volumeChangeToSave");
 			bgmAudioMixerProp = serializedObj.FindProperty("bgmAudioMixerGroup");

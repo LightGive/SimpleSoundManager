@@ -5,6 +5,8 @@ Simple Sound Manager
 [バージョン]
 1.0.0
 
+[アップデート内容]
+-SimpleSoundManager作成
 
 [使用方法]
 
@@ -18,10 +20,14 @@ Simple Sound Manager
 例2：AudioNameSE.SE_ExamplesE(enum型)
 
 一番シンプルなBGMの再生方法
-SimpleSoundManager.Instance.PlayBGM(AudioName.SE_ExampleSE); or SimpleSoundManager.Instance.PlayBGM(AudioNameSE.SE_ExamplesE);
+SimpleSoundManager.Instance.PlayBGM(AudioName.SE_ExampleSE);
 
 一番シンプルなSEの再生方法
-SimpleSoundManager.Instance.PlaySE2D(AudioName.SE_ExampleSE); or SimpleSoundManager.Instance.PlaySE2D(AudioNameSE.SE_ExamplesE)
+SimpleSoundManager.Instance.PlaySE2D(AudioName.SE_ExampleSE);
 
-BGMのクロスフェード再生
-SimpleSoundManager.Instance.PlayCrossFadeBGM(AudioName.BGM_ExampleBGM)
+詳しい再生方法や他の再生方法は、"ExampleScene"を見てください。
+
+
+[サポート]
+バグ報告や、拡張機能の要望はツイッターのDMにて対応致します。
+Twitter : @roi_akase
