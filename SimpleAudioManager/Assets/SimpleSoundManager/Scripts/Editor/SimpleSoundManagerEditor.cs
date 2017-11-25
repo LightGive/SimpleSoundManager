@@ -25,6 +25,7 @@ namespace LightGive
 		private SerializedProperty bgmVolumeProp;
 		private SerializedProperty seVolumeProp;
 		private SerializedProperty volumeChangeToSaveProp;
+		private SerializedProperty volumeLoadAwakeProp;
 
 		private SerializedProperty sePlayerNumProp;
 		private SerializedProperty bgmAudioClipListProp;
@@ -51,6 +52,7 @@ namespace LightGive
 			EditorGUILayout.Slider(bgmVolumeProp, 0.0f, 1.0f, "BGM");
 			EditorGUILayout.Slider(seVolumeProp, 0.0f, 1.0f, "SE");
 			volumeChangeToSaveProp.boolValue = EditorGUILayout.Toggle("Change to Save", volumeChangeToSaveProp.boolValue);
+			volumeLoadAwakeProp.boolValue = EditorGUILayout.Toggle("Awake load volume ", volumeLoadAwakeProp.boolValue);
 			EditorGUILayout.Space();
 
 			EditorGUILayout.LabelField("Other", EditorStyles.boldLabel);
@@ -136,6 +138,7 @@ namespace LightGive
 			seVolumeProp = serializedObj.FindProperty("seVolume");
 
 			volumeChangeToSaveProp = serializedObj.FindProperty("volumeChangeToSave");
+			volumeLoadAwakeProp = serializedObj.FindProperty("volumeLoadAwake");
 			bgmAudioMixerProp = serializedObj.FindProperty("bgmAudioMixerGroup");
 			seAudioMixerProp = serializedObj.FindProperty("seAudioMixerGroup");
 			sePlayerNumProp = serializedObj.FindProperty("sePlayerNum");

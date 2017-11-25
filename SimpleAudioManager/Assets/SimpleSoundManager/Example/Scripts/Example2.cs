@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// <summary>
 /// ExampleScene1
 /// </summary>
-public class ExampleScene1 : MonoBehaviour
+public class Example2 : MonoBehaviour
 {
 	[SerializeField]
 	private Toggle isLoopToggle;

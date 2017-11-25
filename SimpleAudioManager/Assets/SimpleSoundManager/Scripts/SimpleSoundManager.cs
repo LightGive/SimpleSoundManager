@@ -87,6 +87,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// </summary>
 	[SerializeField]
 	public bool volumeChangeToSave = false;
+	[SerializeField]
+	public bool volumeLoadAwake = false;
+
 
 	private int bgmPlayerIndex = 0;
 
@@ -162,7 +165,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		for (int i = 0; i < seAudioClipList.Count; i++)
 			seDictionary.Add(seAudioClipList[i].audioName, seAudioClipList[i]);
 
-		LoadVolume();
+		if (volumeLoadAwake)
+			LoadVolume();
 	}
 
 	private void Update()
@@ -186,7 +190,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	public void PlayBGM(AudioNameBGM _audioName)
 	{
-		PlayBGM(_audioName.ToString(), bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+		PlayBGM(_audioName.ToString(), bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, false, 0.0f, 1.0f);
 	}
 
 
@@ -196,7 +200,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// <param name="_audioName">SEの名前</param>
 	public void PlayBGM(string _audioName)
 	{
-		PlayBGM(_audioName, bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+		PlayBGM(_audioName, bgmVolume * totalVolume, true, 0.0f, 0.0f, 0.0f, false, 0.0f, 1.0f);
 	}
 
 	public void StopBGM()
@@ -219,15 +223,15 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// <param name="_crossFadeRate"></param>
 	public void PlayCrossFadeBGM(string _audioName, float _fadeTime, float _crossFadeRate, float _volume = DefaultVolume, bool _isLoop = true)
 	{
-		PlayBGM(_audioName, bgmVolume * totalVolume * _volume, _isLoop, _fadeTime, _fadeTime, _crossFadeRate, 0.0f, 0.0f);
+		PlayBGM(_audioName, bgmVolume * totalVolume * _volume, _isLoop, _fadeTime, _fadeTime, _crossFadeRate, false, 0.0f, 0.0f);
 	}
 
 	public void PlayCrossFadeBGM(string _audioName, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, float _volume = DefaultVolume, bool _isLoop = true)
 	{
-		PlayBGM(_audioName, bgmVolume * totalVolume * _volume, _isLoop, _fadeInTime, _fadeOutTime, _crossFadeRate, 0.0f, 0.0f);
+		PlayBGM(_audioName, bgmVolume * totalVolume * _volume, _isLoop, _fadeInTime, _fadeOutTime, _crossFadeRate, false, 0.0f, 0.0f);
 	}
 
-	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, float _loopStartTime = 0.0f, float _loopEndTime = 0.0f)
+	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, bool _isCheckLoopPoint, float _loopStartTime = 0.0f, float _loopEndTime = 0.0f)
 	{
 		if (!bgmDictionary.ContainsKey(_audioName))
 		{
@@ -241,7 +245,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		var clipInfo = bgmDictionary[_audioName];
 		var player = GetBgmPlayer();
 		var isFade = (_fadeInTime != 0.0f || _fadeOutTime != 0.0f);
-		var isCheckLoopPoint = (_loopStartTime != 0.0f || _loopEndTime != 0.0f);
 
 		if (isFade)
 		{
@@ -257,7 +260,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			StopBGM();
 		}
 
-		player.Play(clipInfo.clip, _isLoop, isFade, isCheckLoopPoint, _volume, _loopStartTime, _loopEndTime);
+		player.Play(clipInfo.clip, _isLoop, isFade, _isCheckLoopPoint, _volume, _loopStartTime, _loopEndTime);
 	}
 
 	public void PauseBGM()
