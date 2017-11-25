@@ -3,14 +3,14 @@
 	public const string BGM_DemoExample1 = "DemoExample1";
 	public const string BGM_DemoExample2 = "DemoExample2";
 	
-	public const string SE_BallBound = "BallBound";
-	public const string SE_BallWaterIn = "BallWaterIn";
-	public const string SE_ButtonDown = "ButtonDown";
-	public const string SE_ButtonEnter = "ButtonEnter";
-	public const string SE_ButtonExit = "ButtonExit";
-	public const string SE_InputText = "InputText";
-	public const string SE_SliderValueChange = "SliderValueChange";
-	public const string SE_ToggleDown = "ToggleDown";
+	public const string SE_DemoBallBound = "DemoBallBound";
+	public const string SE_DemoBallWaterIn = "DemoBallWaterIn";
+	public const string SE_DemoButtonDown = "DemoButtonDown";
+	public const string SE_DemoButtonEnter = "DemoButtonEnter";
+	public const string SE_DemoButtonExit = "DemoButtonExit";
+	public const string SE_DemoInputText = "DemoInputText";
+	public const string SE_DemoSliderValueChange = "DemoSliderValueChange";
+	public const string SE_DemoToggleDown = "DemoToggleDown";
 }
 	
 public enum AudioNameBGM
@@ -23,12 +23,12 @@ public enum AudioNameBGM
 public enum AudioNameSE
 {
 	None,
-	BallBound,
-	BallWaterIn,
-	ButtonDown,
-	ButtonEnter,
-	ButtonExit,
-	InputText,
-	SliderValueChange,
-	ToggleDown,
+	DemoBallBound,
+	DemoBallWaterIn,
+	DemoButtonDown,
+	DemoButtonEnter,
+	DemoButtonExit,
+	DemoInputText,
+	DemoSliderValueChange,
+	DemoToggleDown,
 }
