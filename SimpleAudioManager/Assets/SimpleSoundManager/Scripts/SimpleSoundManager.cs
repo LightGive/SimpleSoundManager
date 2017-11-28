@@ -315,7 +315,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
-	public void PlaySE3D(AudioNameSE _audioName, Vector3 _soundPos, float _minDistance = DefaultMinDistance, float _maxDistance = DefaultMaxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	public void PlaySE3D(AudioNameSE _audioName, Vector3 _soundPos, float _minDistance, float _maxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
 		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, _minDistance, _maxDistance, null, null);
 	}
@@ -327,13 +327,63 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
-	public void PlaySE3D(string _audioName, Vector3 _soundPos, float _minDistance = DefaultMinDistance, float _maxDistance = DefaultMaxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	public void PlaySE3D(string _audioName, Vector3 _soundPos, float _minDistance, float _maxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, _minDistance, _maxDistance, null, null);
 	}
 	public void PlaySE3D(string _audioName, GameObject _chaseObj, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
 	{
 		PlaySE(_audioName, _seVolume, _delay, _pitch, false, 1, _fadeInTime, _fadeOutTime, true, _chaseObj.transform.position, _chaseObj, DefaultMinDistance, DefaultMaxDistance, null, null);
+	}
+
+	public void PlaySE3DLoop(AudioNameSE _audioName, Vector3 _soundPos, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+	}
+	public void PlaySE3DLoop(AudioNameSE _audioName, Vector3 _soundPos, int _loopCount, float _minDistance, float _maxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, true, _soundPos, null, _minDistance, _maxDistance, null, null);
+	}
+	public void PlaySE3DLoop(AudioNameSE _audioName, GameObject _chaseObj, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, true, _chaseObj.transform.position, _chaseObj, DefaultMinDistance, DefaultMaxDistance, null, null);
+	}
+	public void PlaySE3DLoop(string _audioName, Vector3 _soundPos, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName, _seVolume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+	}
+	public void PlaySE3DLoop(string _audioName, Vector3 _soundPos, int _loopCount, float _minDistance, float _maxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName, _seVolume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, true, _soundPos, null, _minDistance, _maxDistance, null, null);
+	}
+	public void PlaySE3DLoop(string _audioName, GameObject _chaseObj, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName, _seVolume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, true, _chaseObj.transform.position, _chaseObj, DefaultMinDistance, DefaultMaxDistance, null, null);
+	}
+
+	public void PlaySE3DLoopInfinity(AudioNameSE _audioName, Vector3 _soundPos, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, true, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+	}
+	public void PlaySE3DLoopInfinity(AudioNameSE _audioName, Vector3 _soundPos, int _loopCount, float _minDistance, float _maxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, true, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, _minDistance, _maxDistance, null, null);
+	}
+	public void PlaySE3DLoopInfinity(AudioNameSE _audioName, GameObject _chaseObj, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName.ToString(), _seVolume, _delay, _pitch, true, 1, _fadeInTime, _fadeOutTime, true, _chaseObj.transform.position, _chaseObj, DefaultMinDistance, DefaultMaxDistance, null, null);
+	}
+	public void PlaySE3DLoopInfinity(string _audioName, Vector3 _soundPos, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName, _seVolume, _delay, _pitch, true, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, DefaultMinDistance, DefaultMaxDistance, null, null);
+	}
+	public void PlaySE3DLoopInfinity(string _audioName, Vector3 _soundPos, int _loopCount, float _minDistance, float _maxDistance, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName, _seVolume, _delay, _pitch, true, 1, _fadeInTime, _fadeOutTime, true, _soundPos, null, _minDistance, _maxDistance, null, null);
+	}
+	public void PlaySE3DLoopInfinity(string _audioName, GameObject _chaseObj, int _loopCount, float _seVolume = DefaultVolume, float _delay = DefaultSeDelay, float _pitch = DefaultSePitch, float _fadeInTime = DefaultSeFadeTime, float _fadeOutTime = DefaultSeFadeTime, UnityAction _onStart = null, UnityAction _onComplete = null)
+	{
+		PlaySE(_audioName, _seVolume, _delay, _pitch, true, 1, _fadeInTime, _fadeOutTime, true, _chaseObj.transform.position, _chaseObj, DefaultMinDistance, DefaultMaxDistance, null, null);
 	}
 
 

@@ -34,6 +34,8 @@ public class SoundPlayer : MonoBehaviour
 	[SerializeField]
 	private bool isAwakePlay;
 	[SerializeField]
+	private bool isLoopInfinity = false;
+	[SerializeField]
 	private UnityEvent startCallbackAct;
 	[SerializeField]
 	private UnityEvent endCallbackAct;
@@ -45,7 +47,7 @@ public class SoundPlayer : MonoBehaviour
 
 	void Start ()
 	{
-		
+		Play();
 	}
 
 	public void Play()
@@ -54,6 +56,16 @@ public class SoundPlayer : MonoBehaviour
 		{
 			loopCount = 1;
 		}
+
+		if (is3dSound)
+		{
+
+		}
+		else
+		{
+
+		}
+
 	}
 }
 
@@ -74,28 +86,30 @@ public class SoundPlayerEditor : Editor
 	private SerializedProperty playTypeProp;
 	private SerializedProperty randomWaitTimeMinProp;
 	private SerializedProperty randomWaitTimeMaxProp;
+	private SerializedProperty isLoopInfinityProp;
+	private SerializedProperty audioNameProp;
 
 	public override void OnInspectorGUI()
 	{
 		serializedObj.Update();
 		EditorGUILayout.Space();
 		EditorGUILayout.LabelField("SoundSetting", EditorStyles.boldLabel);
-
+		audioNameProp.enumValueIndex = (int)((AudioNameSE)EditorGUILayout.EnumPopup("AudioName", (AudioNameSE)audioNameProp.enumValueIndex));
 		playTypeProp.enumValueIndex = (int)((SoundPlayer.PlayType)EditorGUILayout.EnumPopup("PlayType", (SoundPlayer.PlayType)playTypeProp.enumValueIndex));
 		EditorGUILayout.Space();
-
 		EditorGUILayout.LabelField("Sound Type");
+		
 		is3dSoundProp.boolValue = (GUILayout.Toolbar((is3dSoundProp.boolValue) ? 1 : 0, new string[] { "2D", "3D" })) == 1;
-
 		EditorGUILayout.Slider(volumeProp, 0.0f, 1.0f,"Volume");
 		EditorGUILayout.Slider(pitchProp, 0.0f, 3.0f, "Pitch");
 		delayProp.floatValue = EditorGUILayout.FloatField("Delay", delayProp.floatValue);
-
+		isAwakePlayProp.boolValue = EditorGUILayout.Toggle("PlayAwake", isAwakePlayProp.boolValue);
 		if (playTypeProp.enumValueIndex != (int)SoundPlayer.PlayType.Single)
-		{	
-			loopCountProp.intValue = EditorGUILayout.IntField("LoopCount", loopCountProp.intValue);
+		{
+			isLoopInfinityProp.boolValue = EditorGUILayout.Toggle("LoopInfinity", isLoopInfinityProp.boolValue);
+			if (!isLoopInfinityProp.boolValue)
+				loopCountProp.intValue = Mathf.Clamp(EditorGUILayout.IntField("LoopCount", loopCountProp.intValue), 1, int.MaxValue);
 		}
-
 		if (playTypeProp.enumValueIndex == (int)SoundPlayer.PlayType.Random)
 		{
 			randomWaitTimeMinProp.floatValue = EditorGUILayout.FloatField("Wait min time", randomWaitTimeMinProp.floatValue);
@@ -103,7 +117,6 @@ public class SoundPlayerEditor : Editor
 		}
 		EditorGUILayout.PropertyField(startCallbackActProp);
 		EditorGUILayout.PropertyField(endCallbackActProp);
-
 		EditorUtility.SetDirty(target);
 		serializedObj.ApplyModifiedProperties();
 	}
@@ -122,6 +135,8 @@ public class SoundPlayerEditor : Editor
 		playTypeProp = serializedObj.FindProperty("playType");
 		randomWaitTimeMinProp = serializedObj.FindProperty("randomWaitTimeMin");
 		randomWaitTimeMaxProp = serializedObj.FindProperty("randomWaitTimeMax");
-	}
+		isLoopInfinityProp = serializedObj.FindProperty("isLoopInfinity");
+		audioNameProp = serializedObj.FindProperty("audioName");
+    }
 }
 #endif
