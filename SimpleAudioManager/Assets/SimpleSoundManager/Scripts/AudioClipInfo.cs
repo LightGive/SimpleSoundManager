@@ -36,18 +36,10 @@ public class AudioClipInfo
 	/// </summary>
 	public string audioName
 	{
-		get { return clip.name; }
-	}
-
-	/// <summary>
-	/// コンストラクタ
-	/// オーディオクリップを新しく設定
-	/// </summary>
-	/// <param name="_clip">オーディオクリップ</param>
-	public AudioClipInfo(AudioClip _clip)
-	{
-		audioNo = 0;
-		clip = _clip;
+		get
+		{
+			return clip.name;
+		}
 	}
 
 	/// <summary>

@@ -1,34 +1,34 @@
 ﻿public static class AudioName
 {
-	public const string BGM_DemoExample1 = "DemoExample1";
-	public const string BGM_DemoExample2 = "DemoExample2";
+	public const string BGM_Example1 = "Example1";
+	public const string BGM_Example2 = "Example2";
 	
-	public const string SE_DemoBallBound = "DemoBallBound";
-	public const string SE_DemoBallWaterIn = "DemoBallWaterIn";
-	public const string SE_DemoButtonDown = "DemoButtonDown";
-	public const string SE_DemoButtonEnter = "DemoButtonEnter";
-	public const string SE_DemoButtonExit = "DemoButtonExit";
-	public const string SE_DemoInputText = "DemoInputText";
-	public const string SE_DemoSliderValueChange = "DemoSliderValueChange";
-	public const string SE_DemoToggleDown = "DemoToggleDown";
+	public const string SE_ExampleBallBound = "ExampleBallBound";
+	public const string SE_ExampleBallWaterIn = "ExampleBallWaterIn";
+	public const string SE_ExampleButtonDown = "ExampleButtonDown";
+	public const string SE_ExampleButtonEnter = "ExampleButtonEnter";
+	public const string SE_ExampleButtonExit = "ExampleButtonExit";
+	public const string SE_ExampleInputText = "ExampleInputText";
+	public const string SE_ExampleSliderValueChange = "ExampleSliderValueChange";
+	public const string SE_ExampleToggleDown = "ExampleToggleDown";
 }
 	
 public enum AudioNameBGM
 {
 	None,
-	DemoExample1,
-	DemoExample2,
+	Example1,
+	Example2,
 }
 	
 public enum AudioNameSE
 {
 	None,
-	DemoBallBound,
-	DemoBallWaterIn,
-	DemoButtonDown,
-	DemoButtonEnter,
-	DemoButtonExit,
-	DemoInputText,
-	DemoSliderValueChange,
-	DemoToggleDown,
+	ExampleBallBound,
+	ExampleBallWaterIn,
+	ExampleButtonDown,
+	ExampleButtonEnter,
+	ExampleButtonExit,
+	ExampleInputText,
+	ExampleSliderValueChange,
+	ExampleToggleDown,
 }

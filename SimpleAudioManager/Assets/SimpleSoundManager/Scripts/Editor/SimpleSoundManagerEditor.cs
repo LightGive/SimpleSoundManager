@@ -132,6 +132,7 @@ namespace LightGive
 
 		void OnEnable()
 		{
+			Debug.Log("OnEnanle");
 			serializedObj = new SerializedObject(target);
 			totalVolumeProp = serializedObj.FindProperty("totalVolume");
 			bgmVolumeProp = serializedObj.FindProperty("bgmVolume");
@@ -181,7 +182,6 @@ namespace LightGive
 			serializedObject.ApplyModifiedProperties();
 
 			Repaint();
-
 		}
 
 
@@ -197,7 +197,6 @@ namespace LightGive
 		}
 	}
 
-
 	[CustomPropertyDrawer(typeof(SoundEffectPlayer))]
 	public class AudioSourceInfoDrawer : PropertyDrawer
 	{
@@ -209,7 +208,6 @@ namespace LightGive
 			{
 				EditorGUIUtility.labelWidth = 10;
 
-				//Debug.Log("Prop" + property);
 				var audioSourceProp = property.FindPropertyRelative("audioSource");
 				var audioSourceRect = new Rect(position)
 				{
