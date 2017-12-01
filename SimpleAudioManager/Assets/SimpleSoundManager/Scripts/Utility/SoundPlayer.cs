@@ -69,9 +69,10 @@ public class SoundPlayer : MonoBehaviour
 		if (is3dSound)
 		{
 			if (isLoopInfinity)
-				SimpleSoundManager.Instance.PlaySE3DLoopInfinity(audioName, transform.position, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+				SimpleSoundManager.Instance.PlaySE3DLoopInfinity(audioName, this.gameObject, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
 			else
-				SimpleSoundManager.Instance.PlaySE3DLoop(audioName, transform.position, loopCount, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+				SimpleSoundManager.Instance.PlaySE3DLoop(audioName, this.gameObject, loopCount, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+			
 		}
 		else
 		{

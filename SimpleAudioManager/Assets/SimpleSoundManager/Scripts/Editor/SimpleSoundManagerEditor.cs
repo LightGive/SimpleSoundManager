@@ -127,12 +127,10 @@ namespace LightGive
 				t.seAudioClipList.Clear();
 			}
 			serializedObj.ApplyModifiedProperties();
-
 		}
 
 		void OnEnable()
 		{
-			Debug.Log("OnEnanle");
 			serializedObj = new SerializedObject(target);
 			totalVolumeProp = serializedObj.FindProperty("totalVolume");
 			bgmVolumeProp = serializedObj.FindProperty("bgmVolume");
