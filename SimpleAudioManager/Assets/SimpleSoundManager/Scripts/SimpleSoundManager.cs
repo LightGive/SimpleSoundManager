@@ -496,7 +496,16 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		var clipInfo = seDictionary[_audioName];
 		var spatialBlend = (_is3dSound) ? 1.0f : 0.0f;
 
-		SoundEffectPlayer sePlayer = GetSePlayer();
+		SoundEffectPlayer sePlayer = null;
+		if (_seIndex == -1)
+		{
+			sePlayer = GetSePlayer();
+		}
+		else
+		{
+			sePlayer = GetSePlayer(_seIndex);
+		}
+
 		sePlayer.audioSource.clip = clipInfo.clip;
 		sePlayer.Pitch = _pitch;
 		sePlayer.transform.position = _soundPos;
@@ -686,5 +695,17 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			return sePlayerList[i];
 		}
 		return sePlayerList[0];
+	}
+	private SoundEffectPlayer GetSePlayer(int _index)
+	{
+		if (sePlayerList.Count <= _index)
+		{
+			Debug.LogError("There is no Player. Please increase PlayerCount");
+			return sePlayerList[0];
+		}
+		else
+		{
+			return sePlayerList[_index];
+		}
 	}
 }

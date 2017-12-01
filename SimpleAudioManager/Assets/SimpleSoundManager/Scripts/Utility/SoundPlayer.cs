@@ -28,11 +28,15 @@ public class SoundPlayer : MonoBehaviour
 	private float randomWaitTimeMax = 5.0f;
 
 	[SerializeField]
+	private int playerIndex;
+	[SerializeField]
 	private int loopCount;
 	[SerializeField]
-	private bool is3dSound;
+	private bool is3dSound = true;
 	[SerializeField]
-	private bool isAwakePlay;
+	private bool isIndexAssignment  = false;
+	[SerializeField]
+	private bool isAwakePlay = true;
 	[SerializeField]
 	private bool isLoopInfinity = false;
 	[SerializeField]
@@ -69,20 +73,36 @@ public class SoundPlayer : MonoBehaviour
 		if (is3dSound)
 		{
 			if (isLoopInfinity)
-				SimpleSoundManager.Instance.PlaySE3DLoopInfinity(audioName, this.gameObject, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+			{
+				if (isIndexAssignment)
+					SimpleSoundManager.Instance.PlayIndexSE3DLoopInfinity(audioName, playerIndex, this.gameObject, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+				else
+					SimpleSoundManager.Instance.PlaySE3DLoopInfinity(audioName, this.gameObject, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+			}
 			else
-				SimpleSoundManager.Instance.PlaySE3DLoop(audioName, this.gameObject, loopCount, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
-			
+			{
+				if (isIndexAssignment)
+					SimpleSoundManager.Instance.PlayIndexSE3DLoop(audioName, playerIndex, this.gameObject, loopCount, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+				else
+					SimpleSoundManager.Instance.PlaySE3DLoop(audioName, this.gameObject, loopCount, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+			}
 		}
 		else
 		{
 			if (isLoopInfinity)
-				SimpleSoundManager.Instance.PlaySE2DLoopInfinity(audioName, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+			{
+				if (isIndexAssignment)
+					SimpleSoundManager.Instance.PlayIndexSE2DLoopInfinity(audioName, playerIndex, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+				else
+					SimpleSoundManager.Instance.PlaySE2DLoopInfinity(audioName, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+			}
 			else
-				SimpleSoundManager.Instance.PlaySE2DLoop(audioName, loopCount,volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
-
-
-
+			{
+				if (isIndexAssignment)
+					SimpleSoundManager.Instance.PlayIndexSE2DLoop(audioName, playerIndex, loopCount, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+				else
+					SimpleSoundManager.Instance.PlaySE2DLoop(audioName, loopCount, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+			}
 		}
 	}
 }
@@ -96,8 +116,10 @@ public class SoundPlayerEditor : Editor
 	private SerializedProperty volumeProp;
 	private SerializedProperty pitchProp;
 	private SerializedProperty delayProp;
-	private SerializedProperty loopCountProp;
+	private SerializedProperty playerIndexProp;
+    private SerializedProperty loopCountProp;
 	private SerializedProperty is3dSoundProp;
+	private SerializedProperty isIndexAssignmentProp;
 	private SerializedProperty isAwakePlayProp;
 	private SerializedProperty startCallbackActProp;
 	private SerializedProperty endCallbackActProp;
@@ -121,12 +143,25 @@ public class SoundPlayerEditor : Editor
 		EditorGUILayout.Slider(volumeProp, 0.0f, 1.0f,"Volume");
 		EditorGUILayout.Slider(pitchProp, 0.0f, 3.0f, "Pitch");
 		delayProp.floatValue = EditorGUILayout.FloatField("Delay", delayProp.floatValue);
+		EditorGUILayout.BeginHorizontal();
+		isIndexAssignmentProp.boolValue = EditorGUILayout.Toggle("isIndexAssignment", isIndexAssignmentProp.boolValue);
+		if (isIndexAssignmentProp.boolValue)
+		{
+			playerIndexProp.intValue = Mathf.Clamp(EditorGUILayout.IntField("", playerIndexProp.intValue), 1, int.MaxValue);
+		}
+		EditorGUILayout.EndHorizontal();
 		isAwakePlayProp.boolValue = EditorGUILayout.Toggle("PlayAwake", isAwakePlayProp.boolValue);
+
+
 		if (playTypeProp.enumValueIndex != (int)SoundPlayer.PlayType.Single)
 		{
+			EditorGUILayout.BeginHorizontal();
 			isLoopInfinityProp.boolValue = EditorGUILayout.Toggle("LoopInfinity", isLoopInfinityProp.boolValue);
 			if (!isLoopInfinityProp.boolValue)
-				loopCountProp.intValue = Mathf.Clamp(EditorGUILayout.IntField("LoopCount", loopCountProp.intValue), 1, int.MaxValue);
+			{
+				loopCountProp.intValue = Mathf.Clamp(EditorGUILayout.IntField("", loopCountProp.intValue), 1, int.MaxValue);
+			}
+			EditorGUILayout.EndHorizontal();
 		}
 		if (playTypeProp.enumValueIndex == (int)SoundPlayer.PlayType.Random)
 		{
@@ -145,8 +180,10 @@ public class SoundPlayerEditor : Editor
 		volumeProp = serializedObj.FindProperty("volume");
 		pitchProp = serializedObj.FindProperty("pitch");
 		delayProp = serializedObj.FindProperty("delay");
+		playerIndexProp = serializedObj.FindProperty("playerIndex");
 		loopCountProp = serializedObj.FindProperty("loopCount");
 		is3dSoundProp = serializedObj.FindProperty("is3dSound");
+		isIndexAssignmentProp = serializedObj.FindProperty("isIndexAssignment");
 		isAwakePlayProp = serializedObj.FindProperty("isAwakePlay");
 		startCallbackActProp = serializedObj.FindProperty("startCallbackAct");
 		endCallbackActProp = serializedObj.FindProperty("endCallbackAct");
