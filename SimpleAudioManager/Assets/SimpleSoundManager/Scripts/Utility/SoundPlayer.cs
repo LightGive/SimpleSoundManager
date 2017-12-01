@@ -45,9 +45,18 @@ public class SoundPlayer : MonoBehaviour
 	private AudioNameSE audioName;
 
 
+	public bool IsPlaying
+	{
+		get
+		{
+			return true;
+		}
+	}
+
 	void Start ()
 	{
-		Play();
+		if (isAwakePlay)
+			Play();
 	}
 
 	public void Play()
@@ -59,13 +68,21 @@ public class SoundPlayer : MonoBehaviour
 
 		if (is3dSound)
 		{
-
+			if (isLoopInfinity)
+				SimpleSoundManager.Instance.PlaySE3DLoopInfinity(audioName, transform.position, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+			else
+				SimpleSoundManager.Instance.PlaySE3DLoop(audioName, transform.position, loopCount, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
 		}
 		else
 		{
+			if (isLoopInfinity)
+				SimpleSoundManager.Instance.PlaySE2DLoopInfinity(audioName, volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+			else
+				SimpleSoundManager.Instance.PlaySE2DLoop(audioName, loopCount,volume, delay, pitch, 0.0f, 0.0f, () => startCallbackAct.Invoke(), () => startCallbackAct.Invoke());
+
+
 
 		}
-
 	}
 }
 

@@ -87,13 +87,13 @@ public class Example2 : MonoBehaviour
 			callBackStart = DebugStartCallback;
 		if (isEndCallBack.isOn)
 			callBackEnd = DebugEndCallback;
-		
+
 		if (isLoopToggle.isOn)
 		{
 			if (loopCountInput.text == "")
 				return;
 			var loopCnt = int.Parse(loopCountInput.text);
-			SimpleSoundManager.Instance.PlaySE2DLoop(itemName.text, loopCnt, volume, delay, pitch, callBackStart, callBackEnd);
+			SimpleSoundManager.Instance.PlaySE2DLoop(itemName.text, loopCnt, volume, delay, pitch, fadeInTime, fadeOutTime, callBackStart, callBackEnd);
 		}
 		else
 		{

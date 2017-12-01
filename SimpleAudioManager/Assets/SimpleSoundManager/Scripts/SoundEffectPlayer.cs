@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 namespace LightGive
 {
+	
 	[System.Serializable]
 	public class SoundEffectPlayer : MonoBehaviour
 	{
@@ -157,7 +158,7 @@ namespace LightGive
 
 		private IEnumerator AudioPlayCheck()
 		{
-			if (LoopCount <= 0)
+			if (LoopCount <= 0 && !IsLoopInfinity)
 				AudioPlayEnd();
 
 			float timeCnt = 0.0f;
@@ -181,7 +182,7 @@ namespace LightGive
 			coroutineMethod = AudioPlayCheck();
 			StartCoroutine(coroutineMethod);
 			if (IsLoopInfinity)
-				LoopCount = 1;
+				loopCount = 1;
 			yield break;
 		}
 
