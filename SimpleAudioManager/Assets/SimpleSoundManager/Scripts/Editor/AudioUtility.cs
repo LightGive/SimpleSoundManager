@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
-using UnityEditor;
 using UnityEngine;
 
-namespace UnityEditor {
+namespace UnityEditor
+{
 	public static class AudioUtility {
 
 		public static void PlayClip(AudioClip clip , int startSample , bool loop) {

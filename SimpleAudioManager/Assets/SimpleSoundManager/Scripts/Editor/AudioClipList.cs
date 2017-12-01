@@ -1,38 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-public class AudioClipList : ScriptableObject
+namespace LightGive
 {
-	[SerializeField]
-	public List<AudioClipInfo> data = new List<AudioClipInfo>();
-
-	public AudioClipList(List<AudioClipInfo> _clipList)
+	public class AudioClipList : ScriptableObject
 	{
-		data = _clipList;
-	}
+		[SerializeField]
+		public List<AudioClipInfo> data = new List<AudioClipInfo>();
 
-	public AudioClipInfo GetAudioClipInfo(string clipName)
-	{
-		AudioClipInfo clipInfo;
-		if (!Contains(clipName, out clipInfo))
+		public AudioClipList(List<AudioClipInfo> _clipList)
 		{
-			Debug.Log("hoge hoge");
+			data = _clipList;
 		}
-		return clipInfo;
-	}
 
-	private bool Contains(string clipName, out AudioClipInfo info)
-	{
-		foreach (var clipInfo in data)
+		public AudioClipInfo GetAudioClipInfo(string clipName)
 		{
-			if (clipInfo.AudioCilp.name != clipName)
-				continue;
-			info = clipInfo;
-			return true;
+			AudioClipInfo clipInfo;
+			if (!Contains(clipName, out clipInfo))
+			{
+			}
+			return clipInfo;
 		}
-		info = null;
-		return false;
+
+		private bool Contains(string clipName, out AudioClipInfo info)
+		{
+			foreach (var clipInfo in data)
+			{
+				if (clipInfo.AudioCilp.name != clipName)
+					continue;
+				info = clipInfo;
+				return true;
+			}
+			info = null;
+			return false;
+		}
 	}
 }

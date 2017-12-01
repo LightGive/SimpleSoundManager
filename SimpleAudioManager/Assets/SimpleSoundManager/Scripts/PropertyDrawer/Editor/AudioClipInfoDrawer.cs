@@ -1,9 +1,5 @@
-﻿using System;
-using System.Reflection;
-using UnityEditor;
-using UnityEditor.Audio;
+﻿using UnityEditor;
 using UnityEngine;
-using LightGive;
 
 namespace LightGive
 {

@@ -1,11 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace LightGive
 {
-	
 	[System.Serializable]
 	public class SoundEffectPlayer : MonoBehaviour
 	{

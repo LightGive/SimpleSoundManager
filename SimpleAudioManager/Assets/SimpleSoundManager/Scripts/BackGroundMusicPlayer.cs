@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace LightGive
@@ -59,8 +58,6 @@ namespace LightGive
 
 			fadeVolume = 1.0f;
 
-
-			//ループ再生で、かつループ開始・終了位置の指定があった時
 			if (_isLoop && isCheckLoopPoint)
 			{
 				isCheckLoopPoint = true;
@@ -75,7 +72,6 @@ namespace LightGive
 		{
 			if (isCheckLoopPoint)
 			{
-				Debug.Log("呼ばれてんぞ");
 				if (audioSource.time >= loopEndTime)
 				{
 					audioSource.time = loopStartTime;

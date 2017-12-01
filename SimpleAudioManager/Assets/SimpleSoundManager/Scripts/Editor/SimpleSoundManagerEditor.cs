@@ -8,9 +8,6 @@ using UnityEditor;
 
 namespace LightGive
 {
-	/// <summary>
-	/// AudioManagerのインスペクタの操作
-	/// </summary>
 	[CustomEditor(typeof(SimpleSoundManager))]
 	public class SimpleSoundManagerEditor : Editor
 	{
@@ -39,9 +36,6 @@ namespace LightGive
 		private AudioClipList bgmClipList;
 		private AudioClipList seClipList;
 
-		/// <summary>
-		/// Inspector拡張
-		/// </summary>
 		public override void OnInspectorGUI()
 		{
 			serializedObj.Update();
@@ -70,7 +64,7 @@ namespace LightGive
 			EditorGUILayout.EndVertical();
 
 			EditorGUILayout.Space();
-			//オーディオクリップのリストを表示する
+
 			EditorGUILayout.LabelField("AudioClipList", EditorStyles.boldLabel);
 			EditorGUILayout.BeginVertical(GUI.skin.box);
 			{
@@ -157,7 +151,6 @@ namespace LightGive
 
 			for (int i = 0; i < bgmClipList.data.Count; i++)
 			{
-				//bgmAudioClipListProp.arraySize++;
 				foreach (SimpleSoundManager t in targets)
 				{
 					t.bgmAudioClipList.Add(bgmClipList.data[i]);
@@ -167,7 +160,6 @@ namespace LightGive
 			
 			for (int i = 0; i < seClipList.data.Count; i++)
 			{
-				//seAudioClipListProp.arraySize++;
 				foreach (SimpleSoundManager t in targets)
 				{
 					t.seAudioClipList.Add(seClipList.data[i]);
