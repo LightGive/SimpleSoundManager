@@ -6,16 +6,20 @@ using UnityEngine;
 
 namespace LightGive
 {
-	public class AudioNameCreator : AssetPostprocessor
+	public class SoundNameCreator : AssetPostprocessor
 	{
-		private const string AUDIO_SCRIPT_NAME = "AudioName.cs";
+		private const string PathManagerRootFolder = "Assets/LightGive/SimpleSoundManager/";
+		private const string PathSourceFolderBackgroundMusic = PathManagerRootFolder + "Sources/BGM";
+		private const string PathSourceFolderSoundEffect = PathManagerRootFolder + "Sources/SE";
+
+		private const string AUDIO_SCRIPT_NAME = "SoundName.cs";
 		private const string BGM_CLIPLIST_DATA_NAME = "ClipInfoListBGM.asset";
 		private const string SE_CLIPLIST_DATA_NAME = "ClipInfoListSE.asset";
 		private const string BGM_FOLDER_PATH = "\\Source\\BGM";
 		private const string SE_FOLDER_PATH = "\\Source\\SE";
 		private const string BGM_CLIPLIST_FOLDER_PATH = "\\Data\\BGM";
 		private const string SE_CLIPLIST_FOLDER_PATH = "\\Data\\SE";
-		private const string COMMAND_NAME = "Tools/AudioManager/Create AudioName";
+		private const string COMMAND_NAME = "Tools/LightGive/SimpleSoundManager/Create SoundName";
 
 		/// <summary>
 		/// Get root folder path
@@ -24,11 +28,14 @@ namespace LightGive
 		{
 			get
 			{
-				//Find "AudioNameCreator.cs" Path
-				string[] res = System.IO.Directory.GetFiles(Application.dataPath, "AudioNameCreator.cs", SearchOption.AllDirectories);
+				//Find "SoundNameCreator.cs" Path
+				string[] res = System.IO.Directory.GetFiles(Application.dataPath, "SoundNameCreator.cs", SearchOption.AllDirectories);
 				return Directory.GetParent(Directory.GetParent(Directory.GetParent(res[0]).FullName).FullName).FullName;
 			}
 		}
+
+
+
 		/// <summary>
 		/// SourceFolderPath(BGM)
 		/// </summary>
@@ -101,6 +108,12 @@ namespace LightGive
 			}
 		}
 
+		[MenuItem("Tools/DebugCreate")]
+		private static void CreateDebug()
+		{
+			CreateFolder("Assets/LightGive/SimpleSoundManager", "Test");
+		}
+
 		/// <summary>
 		/// Create audio name file
 		/// </summary>
@@ -108,10 +121,16 @@ namespace LightGive
 		private static void Create()
 		{
 			//Create SourceFolder, ClipListFolder
-			CreateFolder(SourceFolderPathBGM, "BGM source folder");
-			CreateFolder(SourceFolderPathSE, "SE source folder");
-			CreateFolder(CliplistFolderPathBGM, "BGM list data folder");
-			CreateFolder(CliplistFolderPathSE, "SE list data folder");
+
+			CreateFolder(PathSourceFolderBackgroundMusic, "BGM");
+
+
+			//CreateFolder(SourceFolderPathBGM, "BGM source folder");
+			//CreateFolder(SourceFolderPathSE, "SE source folder");
+			//CreateFolder(CliplistFolderPathBGM, "BGM list data folder");
+			//CreateFolder(CliplistFolderPathSE, "SE list data folder");
+
+			return;
 
 			string[] fileEntriesBgm = Directory.GetFiles(SourceFolderPathBGM, "*", SearchOption.AllDirectories);
 			string[] fileEntriesSe = Directory.GetFiles(SourceFolderPathSE, "*", SearchOption.AllDirectories);
@@ -232,21 +251,11 @@ namespace LightGive
 
 		static void CreateFolder(string _createFolderPath, string _folderName = "")
 		{
-			try
-			{
-				if (!Directory.Exists(_createFolderPath))
-				{
-					// If there is no BGM folder, create it.
-					Directory.CreateDirectory(_createFolderPath);
-					Debug.Log("I did not have the " + _folderName + ", so I created it. \nPath:" + _createFolderPath);
-				}
-			}
-
-			//When an error occurs, a log is output
-			catch (IOException ex)
-			{
-				Debug.Log(ex.Message);
-			}
+			if (Directory.Exists(_createFolderPath + "/" + _folderName))
+				return;
+			
+			string guid = AssetDatabase.CreateFolder(_createFolderPath, _folderName);
+			string newFolderPath = AssetDatabase.GUIDToAssetPath(guid);
 		}
 	}
 }

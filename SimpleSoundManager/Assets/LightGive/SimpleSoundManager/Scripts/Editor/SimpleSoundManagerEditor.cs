@@ -140,8 +140,8 @@ namespace LightGive
 			bgmAudioClipListProp = serializedObj.FindProperty("bgmAudioClipList");
 			seAudioClipListProp = serializedObj.FindProperty("seAudioClipList");
 
-			bgmClipList = AudioNameCreator.BgmClipList;
-			seClipList = AudioNameCreator.SeClipList;
+			bgmClipList = SoundNameCreator.BgmClipList;
+			seClipList = SoundNameCreator.SeClipList;
 
 			ResetAudioClipInfo();
 
