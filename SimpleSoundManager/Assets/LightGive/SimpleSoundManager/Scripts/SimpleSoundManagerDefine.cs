@@ -4,8 +4,7 @@ using UnityEngine;
 
 public static class SimpleSoundManagerDefine
 {
-	public static string PathBgmSource
-	{
-		get { return Application.dataPath + ""; }
-	}
+	public static string PathSettingData { get { return Application.dataPath + ""; } }
+	public static string PathBgmSource { get { return Application.dataPath + ""; } }
+	public static string PathSeSource { get { return Application.dataPath + ""; } }
 }
