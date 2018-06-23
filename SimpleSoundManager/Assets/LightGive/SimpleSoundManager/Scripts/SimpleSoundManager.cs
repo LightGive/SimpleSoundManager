@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 {
-	protected override void Awake()
+	protected override void Init()
 	{
-		base.Awake();
-
-		Debug.Log("アイヤー");
+		base.Init();
 	}
 }
