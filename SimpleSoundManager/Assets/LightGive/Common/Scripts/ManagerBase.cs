@@ -4,8 +4,21 @@ using UnityEngine;
 
 public class ManagerBase : MonoBehaviour
 {
-	private void Awake()
+	private static ManagerBase instance = null;
+	public static ManagerBase Instance
 	{
-		
+		get { return ManagerBase.instance; }
+	}
+
+	void Awake()
+	{
+		if (instance == null)
+		{
+			instance = this;
+		}
+		else
+		{
+			Destroy(this);
+		}
 	}
 }
