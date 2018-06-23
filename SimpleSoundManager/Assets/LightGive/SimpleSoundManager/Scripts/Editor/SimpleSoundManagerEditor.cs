@@ -8,6 +8,6 @@ public class SimpleSoundManagerEditor : Editor
 {
 	public override void OnInspectorGUI()
 	{
-		//base.OnInspectorGUI();
+		base.OnInspectorGUI();
 	}
 }

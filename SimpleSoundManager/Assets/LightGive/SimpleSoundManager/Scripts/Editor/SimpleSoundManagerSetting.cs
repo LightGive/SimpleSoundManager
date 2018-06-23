@@ -4,5 +4,8 @@ using UnityEngine;
 
 public static class SimpleSoundManagerSetting
 {
+	public static void CreateConfigData()
+	{
 
+	}
 }
