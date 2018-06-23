@@ -1574,6 +1574,16 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114783293896319466, guid: 3df2ad2c49b2913458f7df49b2870273,
+        type: 2}
+      propertyPath: seAudioClipList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114783293896319466, guid: 3df2ad2c49b2913458f7df49b2870273,
+        type: 2}
+      propertyPath: bgmAudioClipList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1606,9 +1616,13 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114783293896319466, guid: 3df2ad2c49b2913458f7df49b2870273,
+        type: 2}
+      propertyPath: volumeLoadAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-  m_RootGameObject: {fileID: 1740213359}
   m_IsPrefabParent: 0
 --- !u!1 &961881025
 GameObject:
@@ -2748,114 +2762,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1738085379}
---- !u!1 &1740213359
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1912537045309134, guid: 3df2ad2c49b2913458f7df49b2870273,
-    type: 2}
-  m_PrefabInternal: {fileID: 949602546}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1740213361}
-  - component: {fileID: 1740213360}
-  m_Layer: 0
-  m_Name: SimpleSoundManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1740213360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114783293896319466, guid: 3df2ad2c49b2913458f7df49b2870273,
-    type: 2}
-  m_PrefabInternal: {fileID: 949602546}
-  m_GameObject: {fileID: 1740213359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38728408513dc644fbc42ebf212b1431, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmAudioClipList:
-  - isUse: 1
-    audioNo: 1
-    clip: {fileID: 8300000, guid: ceedea4d71d86b745a3248290273d4f8, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 2
-    clip: {fileID: 8300000, guid: 742909464c513ed4f97392f5c9affbfe, type: 3}
-    volume: 0
-    pitch: 0
-  seAudioClipList:
-  - isUse: 1
-    audioNo: 1
-    clip: {fileID: 8300000, guid: d519a96c5839a9144be277e1a5640e47, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 2
-    clip: {fileID: 8300000, guid: ddd254312054eb24f8007cf31a4f3e15, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 3
-    clip: {fileID: 8300000, guid: afea9d9d8e2f5194bac47433d24ab13d, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 4
-    clip: {fileID: 8300000, guid: 1d1930175e104ae4abdf150f533821b6, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 5
-    clip: {fileID: 8300000, guid: ed99dea9b9fa8604eaa8b06c24fa8146, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 6
-    clip: {fileID: 8300000, guid: d1ede49a06cc6ce41be33176b14a4306, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 7
-    clip: {fileID: 8300000, guid: 70abd2f2ba6ea924c9909469d787bbf4, type: 3}
-    volume: 0
-    pitch: 0
-  - isUse: 1
-    audioNo: 8
-    clip: {fileID: 8300000, guid: 9fd0913ea9e528d4bba64e8c85e6da9c, type: 3}
-    volume: 0
-    pitch: 0
-  sePlayerList: []
-  bgmPlayerList: []
-  bgmAudioMixerGroup: {fileID: 243799960048372378, guid: cd69dcc405bb9d34fa94c707e00e48c3,
-    type: 2}
-  seAudioMixerGroup: {fileID: 243771570964864060, guid: cd69dcc405bb9d34fa94c707e00e48c3,
-    type: 2}
-  totalVolume: 1
-  bgmVolume: 1
-  seVolume: 1
-  sePlayerNum: 10
-  bgmPlayerNum: 2
-  volumeChangeToSave: 1
-  volumeLoadAwake: 0
---- !u!4 &1740213361
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273,
-    type: 2}
-  m_PrefabInternal: {fileID: 949602546}
-  m_GameObject: {fileID: 1740213359}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1763055067
 GameObject:
   m_ObjectHideFlags: 0
