@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-public class DebugWindow : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+public class DebugWindow : EditorWindow
+{
+	[MenuItem("Tools/LightGive/SimpleSoundManager/DebugWindow")]
+	static void Open()
+	{
+		var exampleWindow = CreateInstance<DebugWindow>();
+		exampleWindow.Show();
 	}
 }
