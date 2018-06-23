@@ -29,7 +29,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 	protected bool CheckInstance()
 	{
 		if (this == Instance) { return true; }
-		Destroy(this);
+		Destroy(this.gameObject);
 		return false;
 	}
 }

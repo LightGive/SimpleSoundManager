@@ -15,10 +15,11 @@ public class ManagerBase : MonoBehaviour
 		if (instance == null)
 		{
 			instance = this;
+			DontDestroyOnLoad(this.gameObject);
 		}
 		else
 		{
-			Destroy(this);
+			Destroy(this.gameObject);
 		}
 	}
 }
