@@ -1,17 +1,17 @@
 ﻿<Properties StartupConfiguration="{AFBD8A31-F4FD-E83D-8664-2E9A8123EBCE}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerSetting.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LightGive/SimpleSoundManager/Scripts/Editor/AssetPostprocessorExSound.cs">
     <Files>
       <File FileName="Assets/LightGive/Common/Scripts/ManagerBase.cs" Line="22" Column="27" />
-      <File FileName="Assets/LightGive/Common/Scripts/SingletonMonoBehaviour.cs" Line="32" Column="35" />
+      <File FileName="Assets/LightGive/Common/Scripts/SingletonMonoBehaviour.cs" Line="35" Column="3" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="6" Column="2" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Example/Scripts/Example1.cs" Line="13" Column="1" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManagerDefine.cs" Line="11" Column="1" />
-      <File FileName="Assets/LightGive/Common/Editor/AssetPostprocessorEx.cs" Line="13" Column="1" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManagerDefine.cs" Line="12" Column="41" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/DebugWindow.cs" Line="15" Column="1" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerSetting.cs" Line="10" Column="1" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="7" Column="47" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/ConfigAsset.cs" Line="9" Column="2" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerSetting.cs" Line="10" Column="24" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="11" Column="25" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/ConfigAsset.cs" Line="8" Column="22" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/AssetPostprocessorExSound.cs" Line="17" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
