@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1705262769}
+      - m_Target: {fileID: 0}
         m_MethodName: OnCrossFadeRateSliderValueChange
         m_Mode: 0
         m_Arguments:
@@ -1521,7 +1521,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1705262769}
+      - m_Target: {fileID: 0}
         m_MethodName: OnPlayButtonDown
         m_Mode: 1
         m_Arguments:
@@ -1567,63 +1567,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 927407514}
---- !u!1001 &949602546
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 114783293896319466, guid: 3df2ad2c49b2913458f7df49b2870273,
-        type: 2}
-      propertyPath: seAudioClipList.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114783293896319466, guid: 3df2ad2c49b2913458f7df49b2870273,
-        type: 2}
-      propertyPath: bgmAudioClipList.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4278157432796712, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114783293896319466, guid: 3df2ad2c49b2913458f7df49b2870273,
-        type: 2}
-      propertyPath: volumeLoadAwake
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 3df2ad2c49b2913458f7df49b2870273, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &961881025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,7 +1862,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1705262769}
+      - m_Target: {fileID: 0}
         m_MethodName: OnVolumeSliderValueChange
         m_Mode: 0
         m_Arguments:
@@ -2527,7 +2470,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1705262770}
-  - component: {fileID: 1705262769}
   m_Layer: 0
   m_Name: Example1
   m_TagString: Untagged
@@ -2535,24 +2477,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1705262769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1705262768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 973b24a7c58b97640a7fff05e3de8c1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmNameDropDown: {fileID: 1417574336}
-  fadeOutTimeInputField: {fileID: 1781842627}
-  fadeInTimeInputField: {fileID: 1884391257}
-  volumeSlider: {fileID: 1303393934}
-  crossFadeRateSlider: {fileID: 831785306}
-  volumeText: {fileID: 1934211505}
-  crossFadeRateText: {fileID: 1738085381}
 --- !u!4 &1705262770
 Transform:
   m_ObjectHideFlags: 0
@@ -2642,7 +2566,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1705262769}
+      - m_Target: {fileID: 0}
         m_MethodName: OnPlayFadeButtonDown
         m_Mode: 1
         m_Arguments:
