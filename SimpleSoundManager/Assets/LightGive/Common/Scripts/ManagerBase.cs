@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManagerBase : MonoBehaviour
+public class ManagerBase : SingletonMonoBehaviour<ManagerBase>
 {
-	private void Awake()
+	protected override void Awake()
 	{
-		DontDestroyOnLoad(this.gameObject);
+		base.Awake();
 	}
 }
