@@ -19,6 +19,8 @@ public class AssetPostprocessorExSound : AssetPostprocessorEx
 
 		if (ExistsDirectoryInAssets(assetsList, targetDirectoryNameList))
 		{
+			SimpleSoundManagerSetting.CreateSoundName();
+
 			//該当するファイルがあった場合の処理
 			Debug.Log("変更がありました");
 		}

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Text;
+using System.IO;
 
 public static class SimpleSoundManagerSetting
 {
@@ -24,16 +26,14 @@ public static class SimpleSoundManagerSetting
 		return ConfigAsset.CreateAsset();
 	}
 
+	[MenuItem("Tools/LightGive/SimpleSoundManager/DebugSoundNameCreate")]
 	public static void CreateSoundName()
 	{
-		string[] fileEntriesBgm = Directory.GetFiles(SourceFolderPathBGM, "*", SearchOption.AllDirectories);
-		string[] fileEntriesSe = Directory.GetFiles(SourceFolderPathSE, "*", SearchOption.AllDirectories);
+		string[] fileEntriesBgm = Directory.GetFiles(SimpleSoundManagerDefine.PathBgmSourceFolder, "*", SearchOption.AllDirectories);
+		string[] fileEntriesSe = Directory.GetFiles(SimpleSoundManagerDefine.PathSeSourceFolder, "*", SearchOption.AllDirectories);
 
 		List<Object> bgmObjList = new List<Object>();
 		List<Object> seObjList = new List<Object>();
-
-		List<AudioClipInfo> bgmClipList = new List<AudioClipInfo>();
-		List<AudioClipInfo> seClipList = new List<AudioClipInfo>();
 
 		int idx = 0;
 
@@ -51,8 +51,8 @@ public static class SimpleSoundManagerSetting
 				AudioClip audio = (AudioClip)obj;
 				bgmObjList.Add(obj);
 
-				var bgmInfo = new AudioClipInfo(idx, audio);
-				bgmClipList.Add(bgmInfo);
+				//var bgmInfo = new AudioClipInfo(idx, audio);
+				//bgmClipList.Add(bgmInfo);
 			}
 		}
 
@@ -72,31 +72,32 @@ public static class SimpleSoundManagerSetting
 					continue;
 				idx++;
 				AudioClip audio = (AudioClip)obj;
-				var seInfo = new AudioClipInfo(idx, audio);
 				seObjList.Add(obj);
-				seClipList.Add(seInfo);
+
+				//var seInfo = new AudioClipInfo(idx, audio);
+				//seClipList.Add(seInfo);
 			}
 		}
 
 		//CreateClipListAsset
-		var bgmClipListInstance = Editor.CreateInstance<AudioClipList>();
-		var seClipListInstance = Editor.CreateInstance<AudioClipList>();
-		bgmClipListInstance = new AudioClipList(bgmClipList);
-		seClipListInstance = new AudioClipList(seClipList);
+		//var bgmClipListInstance = Editor.CreateInstance<AudioClipList>();
+		//var seClipListInstance = Editor.CreateInstance<AudioClipList>();
+		//bgmClipListInstance = new AudioClipList(bgmClipList);
+		//seClipListInstance = new AudioClipList(seClipList);
 
 
-		var bgmClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathBGM, typeof(AudioClipList));
-		var seClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathSE, typeof(AudioClipList));
-		AssetDatabase.CreateAsset(bgmClipListInstance, CliplistDataPathBGM);
-		AssetDatabase.CreateAsset(seClipListInstance, CliplistDataPathSE);
-		AssetDatabase.Refresh();
+		//var bgmClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathBGM, typeof(AudioClipList));
+		//var seClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathSE, typeof(AudioClipList));
+		//AssetDatabase.CreateAsset(bgmClipListInstance, CliplistDataPathBGM);
+		//AssetDatabase.CreateAsset(seClipListInstance, CliplistDataPathSE);
+		//AssetDatabase.Refresh();
 
 
 		//Get script path
-		var audioNameScriptPath = ManagerRootFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
+		//var audioNameScriptPath = ManagerRootFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
 
 		//Create "AudioName.cs"
-		string audioFileNameExtension = Path.GetFileNameWithoutExtension(audioNameScriptPath);
+		string audioFileNameExtension = Path.GetFileNameWithoutExtension(SimpleSoundManagerDefine.PathSoundName);
 		StringBuilder strBuilder = new StringBuilder();
 		strBuilder.AppendFormat("public static class {0}", audioFileNameExtension).AppendLine();
 		strBuilder.AppendLine("{");
@@ -123,12 +124,23 @@ public static class SimpleSoundManagerSetting
 			strBuilder.Append("\t").AppendFormat(@"{0},", se.name).AppendLine();
 		strBuilder.AppendLine("}");
 
-		string directoryName = Path.GetDirectoryName(audioNameScriptPath);
+		string directoryName = Path.GetDirectoryName(SimpleSoundManagerDefine.PathSoundName);
 		if (!Directory.Exists(directoryName))
 		{
 			Directory.CreateDirectory(directoryName);
 		}
-		File.WriteAllText(audioNameScriptPath, strBuilder.ToString(), Encoding.UTF8);
+		File.WriteAllText(SimpleSoundManagerDefine.PathSoundName, strBuilder.ToString(), Encoding.UTF8);
 		AssetDatabase.Refresh(ImportAssetOptions.ImportRecursive);
+	}
+
+	static string ConvertSystemPathToUnityPath(string _path)
+	{
+		int index = _path.IndexOf("Assets");
+		if (index > 0)
+		{
+			_path = _path.Remove(0, index);
+		}
+		_path.Replace("\\", "/");
+		return _path;
 	}
 }
