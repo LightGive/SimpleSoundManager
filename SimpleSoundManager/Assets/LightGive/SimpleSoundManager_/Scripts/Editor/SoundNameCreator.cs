@@ -8,9 +8,28 @@ namespace LightGive
 {
 	public class SoundNameCreator : AssetPostprocessor
 	{
+		/// <summary>
+		/// Manager root folder path
+		/// </summary>
 		private const string PathManagerRootFolder = "Assets/LightGive/SimpleSoundManager/";
-		private const string PathSourceFolderBackgroundMusic = PathManagerRootFolder + "Sources/BGM";
-		private const string PathSourceFolderSoundEffect = PathManagerRootFolder + "Sources/SE";
+		/// <summary>
+		/// Source folder path
+		/// </summary>
+		private const string PathSourceFolder = PathManagerRootFolder + "Sources";
+		/// <summary>
+		/// Source folder path (SE)
+		/// </summary>
+		private const string PathSourceFolderSoundEffect = PathSourceFolder + "/"+FolderNameSourceSoundEffect;
+		/// <summary>
+		/// Source folder path (BGM)
+		/// </summary>
+		private const string PathSourceFolderBackGroundMusic = PathSourceFolder + "/" + FolderNameSourceBackGroundMusic;
+
+		private const string FolderNameSourceSoundEffect = "SE";
+		private const string FolderNameSourceBackGroundMusic = "BGM";
+
+
+
 
 		private const string AUDIO_SCRIPT_NAME = "SoundName.cs";
 		private const string BGM_CLIPLIST_DATA_NAME = "ClipInfoListBGM.asset";
@@ -122,7 +141,8 @@ namespace LightGive
 		{
 			//Create SourceFolder, ClipListFolder
 
-			CreateFolder(PathSourceFolderBackgroundMusic, "BGM");
+			CreateFolder(PathSourceFolder, FolderNameSourceSoundEffect);
+			CreateFolder(PathSourceFolder, FolderNameSourceBackGroundMusic);
 
 
 			//CreateFolder(SourceFolderPathBGM, "BGM source folder");

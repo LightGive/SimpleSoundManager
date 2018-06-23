@@ -1,16 +1,10 @@
-﻿<Properties StartupConfiguration="{8279171C-C0AA-460C-AF21-A309F9D13FA3}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SoundNameCreator.cs">
-    <Files>
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="708" Column="32" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="143" Column="1" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SoundNameCreator.cs" Line="245" Column="31" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+﻿<Properties StartupConfiguration="{AFBD8A31-F4FD-E83D-8664-2E9A8123EBCE}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.SimpleSoundManager PreferredExecutionTarget="Unity.Editor" />
   <MultiItemStartupConfigurations />
 </Properties>
