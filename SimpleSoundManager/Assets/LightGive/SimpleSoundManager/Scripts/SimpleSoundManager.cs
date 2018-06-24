@@ -22,11 +22,29 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		}
 	}
 
+	public void Play()
+	{
+		var player = GetSoundEffectPlayer();
+	}
+
 	private SoundEffectPlayer GetSoundEffectPlayer()
 	{
 		for (int i = 0; i < m_soundEffectPlayers.Count;i++)
 		{
-			if(m_soundEffectPlayers[i].)
+			if (m_soundEffectPlayers[i].isActive)
+				continue;
+
+			return m_soundEffectPlayers[i];
 		}
+
+		int idx = 0;
+		for (int i = 1; i < m_soundEffectPlayers.Count; i++)
+		{
+			if (m_soundEffectPlayers[i].Length > m_soundEffectPlayers[idx].Length)
+			{
+				idx = i;
+			}
+		}
+		return m_soundEffectPlayers[idx];
 	}
 }
