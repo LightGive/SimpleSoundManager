@@ -7,7 +7,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	[SerializeField]
 	private List<SoundEffectPlayer> m_soundEffectPlayers = new List<SoundEffectPlayer>();
 	[SerializeField]
-	private List<AudioClip> m_audioClipList = new List<AudioClip>();
+	private List<AudioClip> m_audioClipListSe = new List<AudioClip>();
 	[SerializeField]
 	private int m_sePlayerNum = 10;
 
@@ -27,7 +27,14 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	public void Play()
 	{
 		var player = GetSoundEffectPlayer();
+		StartCoroutine(Play(0.0f));
  	}
+
+	private IEnumerator Play(float _delay)
+	{
+		yield return new WaitForSeconds(_delay);
+
+	}
 
 	private SoundEffectPlayer GetSoundEffectPlayer()
 	{
