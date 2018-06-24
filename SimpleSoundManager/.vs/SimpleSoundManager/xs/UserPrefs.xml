@@ -4,7 +4,6 @@
     <Files>
       <File FileName="Assets/LightGive/Common/Scripts/ManagerBase.cs" Line="22" Column="27" />
       <File FileName="Assets/LightGive/Common/Scripts/SingletonMonoBehaviour.cs" Line="35" Column="3" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="6" Column="2" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManagerDefine.cs" Line="13" Column="115" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerSetting.cs" Line="132" Column="59" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="11" Column="25" />
@@ -12,8 +11,10 @@
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/AssetPostprocessorExSound.cs" Line="23" Column="4" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SoundNameCreator.cs" Line="222" Column="87" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SoundName.cs" Line="1" Column="1" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManager_.cs" Line="673" Column="6" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/AudioClipInfo.cs" Line="15" Column="21" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManager_.cs" Line="147" Column="19" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/AudioClipInfo.cs" Line="12" Column="21" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SoundEffectPlayer.cs" Line="7" Column="32" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="8" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
