@@ -7,6 +7,8 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	[SerializeField]
 	private List<SoundEffectPlayer> m_soundEffectPlayers = new List<SoundEffectPlayer>();
 	[SerializeField]
+	private List<AudioClip> m_audioClipList = new List<AudioClip>();
+	[SerializeField]
 	private int m_sePlayerNum = 10;
 
 	protected override void Init()
@@ -25,7 +27,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	public void Play()
 	{
 		var player = GetSoundEffectPlayer();
-	}
+ 	}
 
 	private SoundEffectPlayer GetSoundEffectPlayer()
 	{

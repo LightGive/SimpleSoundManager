@@ -8,6 +8,8 @@ using System.IO;
 public static class SimpleSoundManagerSetting
 {
 	private static ConfigAsset m_configAsset;
+	private static List<AudioClip> m_audioClipListSe = new List<AudioClip>();
+	private static List<AudioClip> m_audioClipListBgm = new List<AudioClip>();
 
 	public static ConfigAsset configAsset
 	{
@@ -26,41 +28,16 @@ public static class SimpleSoundManagerSetting
 		return ConfigAsset.CreateAsset();
 	}
 
-	[MenuItem("Tools/LightGive/SimpleSoundManager/DebugSoundNameCreate")]
-	public static void CreateSoundName()
+	/// <summary>
+	/// ファイルからAudioClipを取得する（SE）
+	/// </summary>
+	/// <returns>The audio clip list se.</returns>
+	public static List<AudioClip>GetAudioClipListSe()
 	{
-		string[] fileEntriesBgm = Directory.GetFiles(SimpleSoundManagerDefine.PathBgmSourceFolder, "*", SearchOption.AllDirectories);
+		List<AudioClip> audioClipList = new List<AudioClip>();
 		string[] fileEntriesSe = Directory.GetFiles(SimpleSoundManagerDefine.PathSeSourceFolder, "*", SearchOption.AllDirectories);
 
-		List<Object> bgmObjList = new List<Object>();
-		List<Object> seObjList = new List<Object>();
-
 		int idx = 0;
-
-		//Search files in BGM folder one by one
-		for (int i = 0; i < fileEntriesBgm.Length; i++)
-		{
-			var filePath = fileEntriesBgm[i];
-			filePath = ConvertSystemPathToUnityPath(filePath);
-			var obj = AssetDatabase.LoadAssetAtPath(filePath, typeof(object));
-			if (obj != null)
-			{
-				if (obj.GetType() != typeof(AudioClip))
-					continue;
-				idx++;
-				AudioClip audio = (AudioClip)obj;
-				bgmObjList.Add(obj);
-
-				//var bgmInfo = new AudioClipInfo(idx, audio);
-				//bgmClipList.Add(bgmInfo);
-			}
-		}
-
-		//Init
-		idx = 0;
-
-
-		//Find "SE" folder file
 		for (int i = 0; i < fileEntriesSe.Length; i++)
 		{
 			var filePath = fileEntriesSe[i];
@@ -72,29 +49,44 @@ public static class SimpleSoundManagerSetting
 					continue;
 				idx++;
 				AudioClip audio = (AudioClip)obj;
-				seObjList.Add(obj);
-
-				//var seInfo = new AudioClipInfo(idx, audio);
-				//seClipList.Add(seInfo);
+				audioClipList.Add(audio);
 			}
 		}
+		return audioClipList;
+	}
 
-		//CreateClipListAsset
-		//var bgmClipListInstance = Editor.CreateInstance<AudioClipList>();
-		//var seClipListInstance = Editor.CreateInstance<AudioClipList>();
-		//bgmClipListInstance = new AudioClipList(bgmClipList);
-		//seClipListInstance = new AudioClipList(seClipList);
+	/// <summary>
+	/// ファイルからAudioClipを取得する（BGM）
+	/// </summary>
+	/// <returns>The audio clip list bgm.</returns>
+	public static List<AudioClip>GetAudioClipListBgm()
+	{
+		List<AudioClip> audioClipList = new List<AudioClip>();
+		string[] fileEntriesBgm = Directory.GetFiles(SimpleSoundManagerDefine.PathBgmSourceFolder, "*", SearchOption.AllDirectories);
 
+		int idx = 0;
+		for (int i = 0; i < fileEntriesBgm.Length; i++)
+		{
+			var filePath = fileEntriesBgm[i];
+			filePath = ConvertSystemPathToUnityPath(filePath);
+			var obj = AssetDatabase.LoadAssetAtPath(filePath, typeof(object));
+			if (obj != null)
+			{
+				if (obj.GetType() != typeof(AudioClip))
+					continue;
+				idx++;
+				AudioClip audio = (AudioClip)obj;
+				audioClipList.Add(audio);
+			}
+		}
+		return audioClipList;
+	}
 
-		//var bgmClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathBGM, typeof(AudioClipList));
-		//var seClipListOld = (AudioClipList)AssetDatabase.LoadAssetAtPath(CliplistDataPathSE, typeof(AudioClipList));
-		//AssetDatabase.CreateAsset(bgmClipListInstance, CliplistDataPathBGM);
-		//AssetDatabase.CreateAsset(seClipListInstance, CliplistDataPathSE);
-		//AssetDatabase.Refresh();
-
-
-		//Get script path
-		//var audioNameScriptPath = ManagerRootFolderPath + "/Scripts/" + AUDIO_SCRIPT_NAME;
+	[MenuItem("Tools/LightGive/SimpleSoundManager/DebugSoundNameCreate")]
+	public static void CreateSoundName()
+	{
+		List<AudioClip> bgmObjList = GetAudioClipListBgm();
+		List<AudioClip> seObjList = GetAudioClipListSe();
 
 		//Create "AudioName.cs"
 		string audioFileNameExtension = Path.GetFileNameWithoutExtension(SimpleSoundManagerDefine.PathSoundName);
