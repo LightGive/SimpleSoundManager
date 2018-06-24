@@ -17,7 +17,16 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			GameObject soundPlayerObj = new GameObject("SoundPlayer" + i.ToString("0"));
 			soundPlayerObj.transform.SetParent(transform);
 			SoundEffectPlayer player = soundPlayerObj.AddComponent<SoundEffectPlayer>();
+			player.Init();
 			m_soundEffectPlayers.Add(player);
+		}
+	}
+
+	private SoundEffectPlayer GetSoundEffectPlayer()
+	{
+		for (int i = 0; i < m_soundEffectPlayers.Count;i++)
+		{
+			if(m_soundEffectPlayers[i].)
 		}
 	}
 }
