@@ -37,6 +37,6 @@ public class Example1 : MonoBehaviour
 
 	public void OnButtonDownPlay()
 	{
-		SimpleSoundManager.Instance.PlaySE(selectSeName);
+		SimpleSoundManager.Instance.PlaySE2D(selectSeName);
 	}
 }

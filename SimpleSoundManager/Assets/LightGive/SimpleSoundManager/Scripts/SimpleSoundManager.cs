@@ -48,12 +48,12 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		}
 	}
 
-	public void PlaySE(SoundNameSE _audioName)
+	public void PlaySE2D(SoundNameSE _audioName)
 	{
 		PlaySE(_audioName.ToString(), volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
 
-	public void PlaySE(string _audioName)
+	public void PlaySE2D(string _audioName)
 	{
 		PlaySE(_audioName, volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
@@ -75,7 +75,6 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		UnityAction _onStart, 
 		UnityAction _onComplete)
 	{
-		Debug.Log(_audioName);
 		if (!m_audioClipDictSe.ContainsKey(_audioName))
 		{
 			Debug.Log("SE with that name does not exist :" + _audioName);
