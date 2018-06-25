@@ -81,8 +81,6 @@ public static class SimpleSoundManagerSetting
 				audioClipList.Add(audio);
 			}
 		}
-
-		Debug.Log("数" + audioClipList.Count.ToString("0"));
 		return audioClipList;
 	}
 
@@ -105,7 +103,7 @@ public static class SimpleSoundManagerSetting
 		strBuilder.AppendLine("}");
 		strBuilder.AppendLine("\t");
 
-		strBuilder.AppendFormat("public enum AudioNameBGM").AppendLine();
+		strBuilder.AppendFormat("public enum SoundNameBGM").AppendLine();
 		strBuilder.AppendLine("{");
 		strBuilder.Append("\t").AppendFormat(@"None,").AppendLine();
 		foreach (AudioClip bgm in bgmObjList)
@@ -113,7 +111,7 @@ public static class SimpleSoundManagerSetting
 		strBuilder.AppendLine("}");
 		strBuilder.AppendLine("\t");
 
-		strBuilder.AppendFormat("public enum AudioNameSE").AppendLine();
+		strBuilder.AppendFormat("public enum SoundNameSE").AppendLine();
 		strBuilder.AppendLine("{");
 		strBuilder.Append("\t").AppendFormat(@"None,").AppendLine();
 		foreach (AudioClip se in seObjList)

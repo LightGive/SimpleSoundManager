@@ -15,8 +15,8 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	[SerializeField]
 	private int m_sePlayerNum = 10;
 
-	private Dictionary<string, AudioClip> m_audioClipDirectorSe = new Dictionary<string, AudioClip>();
-	private Dictionary<string, AudioClip> m_audioClipDirectorBgm = new Dictionary<string, AudioClip>();
+	private Dictionary<string, AudioClip> m_audioClipDictSe = new Dictionary<string, AudioClip>();
+	private Dictionary<string, AudioClip> m_audioClipDirtBgm = new Dictionary<string, AudioClip>();
 
 
 	protected override void Init()
@@ -34,25 +34,27 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		//Dictionaryに追加
 		for (int i = 0; i < audioClipListSe.Count;i++)
 		{
-			m_audioClipDirectorSe.Add(audioClipListSe[i].name, audioClipListSe[i]);
+			m_audioClipDictSe.Add(audioClipListSe[i].name, audioClipListSe[i]);
 		}
 		for (int i = 0; i < audioClipListBgm.Count; i++)
 		{
-			m_audioClipDirectorBgm.Add(audioClipListBgm[i].name, audioClipListBgm[i]);
+			m_audioClipDirtBgm.Add(audioClipListBgm[i].name, audioClipListBgm[i]);
 		}
 	}
 
-	public void Play()
+	public void PlaySE(string _audioName)
 	{
+		if (!m_audioClipDictSe.ContainsKey(_audioName))
+		{
+			Debug.Log("その名前のSEは見つかりませんでした。");
+			return;
+		}
+
 		var player = GetSoundEffectPlayer();
-		StartCoroutine(Play(0.0f));
- 	}
-
-	private IEnumerator Play(float _delay)
-	{
-		yield return new WaitForSeconds(_delay);
-
+		var clip = m_audioClipDictSe[_audioName];
+		player.Play(clip);
 	}
+
 
 	private SoundEffectPlayer GetSoundEffectPlayer()
 	{

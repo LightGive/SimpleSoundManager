@@ -9,4 +9,9 @@ public class Example1 : MonoBehaviour
 	{
 		SceneManager.LoadScene(0);
 	}
+
+	public void OnButtonDownPlay()
+	{
+		SimpleSoundManager.Instance.PlaySE()
+	}
 }
