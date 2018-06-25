@@ -16,8 +16,12 @@ public class SoundEffectPlayer : MonoBehaviour
 	public SoundPlayState state;
 	private AudioSource m_source;
 	private GameObject m_chaseObj;
-	private UnityAction m_callbackOnStart;
-	private UnityAction m_callbackOnComplete;
+
+	private UnityAction m_onStartBefore;
+	private UnityAction m_onStart;
+	private UnityAction m_onComplete;
+	private UnityAction m_onCompleteAfter;
+
 	private AnimationCurve m_animationCurve;
 	private float m_volume;
 	private float m_delay;
@@ -25,11 +29,15 @@ public class SoundEffectPlayer : MonoBehaviour
 	private int m_loopCount;
 	private bool m_isFade;
 	private bool m_isLoopInfinity;
+	private IEnumerator m_coroutineMethod;
 
 	public AudioSource source { get { return m_source; } }
 	public GameObject chaseObj { get { return m_chaseObj; } set { m_chaseObj = value; } }
-	public UnityAction callbackOnStart { get { return m_callbackOnStart; } set { m_callbackOnStart = value; } }
-	public UnityAction callbackOnComplete { get { return m_callbackOnComplete; } set { m_callbackOnComplete = value; } }
+	public UnityAction onStartBefore { get { return m_onStartBefore; } set { m_onStartBefore = value; } }
+	public UnityAction onStart { get { return m_onStart; } set { m_onStart = value; } }
+	public UnityAction onComplete { get { return m_onComplete; } set { m_onComplete = value; } }
+	public UnityAction onCompleteAfter { get { return m_onCompleteAfter; } set { m_onCompleteAfter = value; } }
+
 	public AnimationCurve animationCurve { get { return m_animationCurve; } set { m_animationCurve = value; } }
 	public float volume { get { return m_volume; } set { m_volume = value; } }
 	public float delay { get { return m_delay; } set { m_delay = value; } }
@@ -75,34 +83,44 @@ public class SoundEffectPlayer : MonoBehaviour
 		state = SoundPlayState.DelayWait;
 		source.volume = volume;
 		source.pitch = pitch;
-		StartCoroutine(_Play());
+		m_coroutineMethod = _Play();
+		StartCoroutine(m_coroutineMethod);
 	}
 
 	public void Pause()
 	{
-		source.Pause();
+		if (state == SoundPlayState.Playing)
+			state = SoundPlayState.Pause;
+	}
+
+	public void Resume()
+	{
+
 	}
 
 	private IEnumerator _Play()
 	{
 		yield return new WaitForSeconds(delay);
 
-		if (callbackOnStart != null)
+		if (onStart != null)
 		{
-			callbackOnStart.Invoke();
+			onStart.Invoke();
 		}
 
 		state = SoundPlayState.Playing;
 		source.Play();
 		yield return new WaitForSeconds(source.clip.length / source.pitch);
 
-		if (callbackOnComplete != null)
+		if (onComplete != null)
 		{
-			callbackOnComplete.Invoke();
+			onComplete.Invoke();
 		}
 
 		state = SoundPlayState.Stop;
 	}
+
+	private void PlayEnd()
+	{}
 }
 
 
