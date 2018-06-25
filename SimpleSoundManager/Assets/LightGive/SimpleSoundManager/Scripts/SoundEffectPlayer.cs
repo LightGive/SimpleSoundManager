@@ -73,6 +73,7 @@ public class SoundEffectPlayer : MonoBehaviour
 		state = SoundPlayState.Stop;
 		m_source = this.gameObject.AddComponent<AudioSource>();
 		m_source.loop = false;
+		ResetPlayer();
 	}
 
 	/// <summary>
@@ -80,6 +81,7 @@ public class SoundEffectPlayer : MonoBehaviour
 	/// </summary>
 	public void Play()
 	{
+		gameObject.SetActive(true);
 		state = SoundPlayState.DelayWait;
 		source.volume = volume;
 		source.pitch = pitch;
@@ -139,7 +141,7 @@ public class SoundEffectPlayer : MonoBehaviour
 			onCompleteAfter.Invoke();
 		}
 		state = SoundPlayState.Stop;
-
+		ResetPlayer();
 	}
 
 	public void Pause()
@@ -153,7 +155,12 @@ public class SoundEffectPlayer : MonoBehaviour
 
 	}
 
+	public void ResetPlayer()
+	{
+		gameObject.SetActive(false);
+		state = SoundPlayState.Stop;
 
+	}
 }
 
 
