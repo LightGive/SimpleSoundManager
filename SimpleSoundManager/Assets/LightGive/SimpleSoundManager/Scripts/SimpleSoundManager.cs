@@ -53,10 +53,8 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 
 		var player = GetSoundEffectPlayer();
 		var clip = m_audioClipDictSe[_audioName];
-		player.Play(clip);
+		player.Play();
 	}
-
-
 
 	private void PlaySE(
 		string _audioName, 
@@ -80,33 +78,33 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			Debug.Log("SE with that name does not exist :" + _audioName);
 			return;
 		}
-		var clipInfo = m_audioClipDictSe[_audioName];
+		var clip = m_audioClipDictSe[_audioName];
 		var spatialBlend = (_is3dSound) ? 1.0f : 0.0f;
 
 		SoundEffectPlayer player = null;
 
-		player.audioSource.clip = clipInfo.clip;
-		player.Pitch = _pitch;
+		player.source.clip = clip;
+		player.pitch = _pitch;
 		player.transform.position = _soundPos;
-		player.audioSource.spatialBlend = spatialBlend;
+		player.source.spatialBlend = spatialBlend;
 		player.chaseObj = _chaseObj;
-		player.LoopCount = _loopCount;
-		player.Volume = _volume;
-		player.Delay = _delay;
+		player.loopCount = _loopCount;
+		player.volume = _volume;
+		player.delay = _delay;
 		player.callbackOnComplete = _onComplete;
 		player.callbackOnStart = _onStart;
-		player.IsFade = (_fadeInTime != 0.0f || _fadeOutTime != 0.0f);
-		player.IsLoopInfinity = _isLoopInfinity;
+		player.isFade = (_fadeInTime >= 0.0f || _fadeOutTime >= 0.0f);
+		player.isLoopInfinity = _isLoopInfinity;
 
-		if (player.IsFade)
+		if (player.isFade)
 		{
-			_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clipInfo.clip.length);
-			_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clipInfo.clip.length);
+			_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clip.length);
+			_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clip.length);
 
 			Keyframe key1 = new Keyframe(0.0f, 0.0f, 0.0f, 1.0f);
 			Keyframe key2 = new Keyframe(_fadeInTime, 1.0f, 0.0f, 0.0f);
-			Keyframe key3 = new Keyframe(clipInfo.clip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
-			Keyframe key4 = new Keyframe(clipInfo.clip.length, 0.0f, 0.0f, 1.0f);
+			Keyframe key3 = new Keyframe(clip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
+			Keyframe key4 = new Keyframe(clip.length, 0.0f, 0.0f, 1.0f);
 
 			AnimationCurve animCurve = new AnimationCurve(key1, key2, key3, key4);
 			player.animationCurve = animCurve;

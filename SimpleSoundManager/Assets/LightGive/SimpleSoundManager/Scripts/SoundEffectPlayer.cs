@@ -18,19 +18,25 @@ public class SoundEffectPlayer : MonoBehaviour
 	private GameObject m_chaseObj;
 	private UnityAction m_callbackOnStart;
 	private UnityAction m_callbackOnComplete;
+	private AnimationCurve m_animationCurve;
 	private float m_volume;
 	private float m_delay;
 	private float m_pitch;
 	private int m_loopCount;
+	private bool m_isFade;
+	private bool m_isLoopInfinity;
 
 	public AudioSource source { get { return m_source; } }
 	public GameObject chaseObj { get { return m_chaseObj; } set { m_chaseObj = value; } }
 	public UnityAction callbackOnStart { get { return m_callbackOnStart; } set { m_callbackOnStart = value; } }
 	public UnityAction callbackOnComplete { get { return m_callbackOnComplete; } set { m_callbackOnComplete = value; } }
+	public AnimationCurve animationCurve { get { return m_animationCurve; } set { m_animationCurve = value; } }
 	public float volume { get { return m_volume; } set { m_volume = value; } }
 	public float delay { get { return m_delay; } set { m_delay = value; } }
 	public float pitch { get { return m_pitch; } set { m_pitch = value; } }
 	public int loopCount { get { return m_loopCount; } set { m_loopCount = value; } }
+	public bool isFade { get { return m_isFade; } set { m_isFade = value; } }
+	public bool isLoopInfinity { get { return m_isLoopInfinity; } set { m_isLoopInfinity = value; } }
 
 
 	/// <summary>
@@ -61,10 +67,18 @@ public class SoundEffectPlayer : MonoBehaviour
 		m_source.loop = false;
 	}
 
-	public void Play(AudioClip _clip,float _volume, float _delay)
+	/// <summary>
+	/// 再生する
+	/// </summary>
+	public void Play()
 	{
-		m_source.clip = _clip;
-		m_source.Play((ulong)_delay);
+		StartCoroutine(_Play());
+	}
+
+	private IEnumerator _Play()
+	{
+		yield return new WaitForSeconds(delay);
+		source.Play();
 	}
 }
 
