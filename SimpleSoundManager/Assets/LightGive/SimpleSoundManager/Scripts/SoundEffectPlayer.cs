@@ -9,11 +9,11 @@ public class SoundEffectPlayer : MonoBehaviour
 	{
 		Stop,
 		Playing,
-		Pause
+		Pause,
+		DelayWait
 	}
 
 	public SoundPlayState state;
-	private AudioClip m_audioClip;
 	private AudioSource m_source;
 	private GameObject m_chaseObj;
 	private UnityAction m_callbackOnStart;
@@ -47,10 +47,10 @@ public class SoundEffectPlayer : MonoBehaviour
 	{
 		get 
 		{
-			if (state == SoundPlayState.Stop)
+			if (state == SoundPlayState.Stop || state == SoundPlayState.DelayWait)
 				return 0.0f;
 
-			return Mathf.Clamp01(m_source.time / m_audioClip.length); 
+			return Mathf.Clamp01((source.time / source.pitch) / (source.clip.length / source.pitch)); 
 		} 
 	}
 
@@ -58,7 +58,7 @@ public class SoundEffectPlayer : MonoBehaviour
 	/// 使用されているかどうか
 	/// </summary>
 	/// <value><c>true</c> if is active; otherwise, <c>false</c>.</value>
-	public bool isActive { get { return (state == SoundPlayState.Stop); } }
+	public bool isActive { get { return (state == SoundPlayState.Playing || state == SoundPlayState.DelayWait); } }
 
 	public void Init()
 	{
@@ -72,15 +72,36 @@ public class SoundEffectPlayer : MonoBehaviour
 	/// </summary>
 	public void Play()
 	{
+		state = SoundPlayState.DelayWait;
 		source.volume = volume;
 		source.pitch = pitch;
 		StartCoroutine(_Play());
 	}
 
+	public void Pause()
+	{
+		source.Pause();
+	}
+
 	private IEnumerator _Play()
 	{
 		yield return new WaitForSeconds(delay);
+
+		if (callbackOnStart != null)
+		{
+			callbackOnStart.Invoke();
+		}
+
+		state = SoundPlayState.Playing;
 		source.Play();
+		yield return new WaitForSeconds(source.clip.length / source.pitch);
+
+		if (callbackOnComplete != null)
+		{
+			callbackOnComplete.Invoke();
+		}
+
+		state = SoundPlayState.Stop;
 	}
 }
 

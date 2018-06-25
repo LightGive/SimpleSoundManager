@@ -11,6 +11,8 @@ public class Example1 : MonoBehaviour
 	[SerializeField]
 	private Dropdown m_dropDownBgmName;
 	[SerializeField]
+	private Slider m_sliderPlayTime;
+	[SerializeField]
 	private Slider m_sliderVolumeSe;
 	[SerializeField]
 	private Slider m_sliderDelaySe;
@@ -20,6 +22,8 @@ public class Example1 : MonoBehaviour
 	private ExampleSpectrum[] m_spectrum;
 	[SerializeField]
 	private int m_spectrumWidth = 100;
+
+	private SoundEffectPlayer m_player;
 
 	private string selectSeName
 	{
@@ -44,6 +48,21 @@ public class Example1 : MonoBehaviour
 		}
 	}
 
+	private void Update()
+	{
+		if (m_player == null)
+			return;
+
+		if(m_player.isActive)
+		{
+			m_sliderPlayTime.value = m_player.Length;
+		}
+		else
+		{
+			m_sliderPlayTime.value = 0.0f;
+		}
+	}
+
 	public void OnButtonDownSceneReload()
 	{
 		SceneManager.LoadScene(0);
@@ -51,18 +70,18 @@ public class Example1 : MonoBehaviour
 
 	public void OnButtonDownPlay()
 	{
-		var player = SimpleSoundManager.Instance.PlaySE2D(
+		m_player = SimpleSoundManager.Instance.PlaySE2D(
 			selectSeName,
 			m_sliderVolumeSe.value,
 			m_sliderDelaySe.value,
 			m_sliderPitchSe.value);
 
-		if (player == null)
+		if (m_player == null)
 			return;
 
 		for (int i = 0; i < m_spectrum.Length;i++)
 		{
-			m_spectrum[i].audioSource = player.source;
+			m_spectrum[i].audioSource = m_player.source;
 		}
 	}
 }
