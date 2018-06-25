@@ -23,6 +23,14 @@ public class Example1 : MonoBehaviour
 	[SerializeField]
 	private InputField m_inputFieldLoopCount;
 
+	//ShowText
+	[SerializeField]
+	private Text m_textShowVolume;
+	[SerializeField]
+	private Text m_textShowDelay;
+	[SerializeField]
+	private Text m_textShowPitch;
+
 	//CalledTextList
 	[SerializeField]
 	private Example1_CalledText calledTextStartBefore;
@@ -33,7 +41,7 @@ public class Example1 : MonoBehaviour
 	[SerializeField]
 	private Example1_CalledText calledTextCompleteAfter;
 
-
+	//Spectrum
 	[SerializeField]
 	private Example1_Spectrum[] m_spectrum;
 	[SerializeField]
@@ -54,6 +62,10 @@ public class Example1 : MonoBehaviour
 
 	private void Start()
 	{
+		OnSliderChangeDelay();
+		OnSliderChangePitch();
+		OnSliderChangeVolume();
+
 		string[] enumNames = System.Enum.GetNames(typeof(SoundNameSE));
 		List<string> names = new List<string>(enumNames);
 		m_dropDownSeName.ClearOptions();
@@ -83,6 +95,19 @@ public class Example1 : MonoBehaviour
 	public void OnButtonDownSceneReload()
 	{
 		SceneManager.LoadScene(0);
+	}
+
+	public void OnSliderChangeVolume()
+	{
+		m_textShowVolume.text = (m_sliderVolumeSe.value * 100.0f).ToString("F1")+"%";
+	}
+	public void OnSliderChangeDelay()
+	{
+		m_textShowDelay.text = m_sliderDelaySe.value.ToString("F2") + " sec";
+	}
+	public void OnSliderChangePitch()
+	{
+		m_textShowPitch.text = m_sliderPitchSe.value.ToString("F2");
 	}
 
 	public void OnButtonDownPlay()

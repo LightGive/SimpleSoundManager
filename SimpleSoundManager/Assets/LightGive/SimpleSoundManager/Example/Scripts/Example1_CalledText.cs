@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Example1_CalledText : MonoBehaviour
 {
 	[SerializeField]
+	private Toggle m_toggleIsActive;
+	[SerializeField]
 	private float m_colorChangeTime = 0.5f;
 
 	private Text m_text;
@@ -20,7 +22,7 @@ public class Example1_CalledText : MonoBehaviour
 	
 	void Update ()
 	{
-		if (!m_isActive)
+		if (!m_isActive || !m_toggleIsActive.isOn)
 			return;
 		m_timeCnt += Time.deltaTime;
 		var lerp = Mathf.Clamp01(m_timeCnt / m_colorChangeTime);
@@ -32,6 +34,9 @@ public class Example1_CalledText : MonoBehaviour
 
 	public void  Show()
 	{
+		if (!m_toggleIsActive.isOn)
+			return;
+
 		m_timeCnt = 0.0f;
 		m_isActive = true;
 	}

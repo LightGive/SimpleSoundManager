@@ -1505,7 +1505,18 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1705262769}
+        m_MethodName: OnSliderChangePitch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &369742409
@@ -2935,7 +2946,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &621545226
 GameObject:
   m_ObjectHideFlags: 0
@@ -3088,7 +3099,18 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1705262769}
+        m_MethodName: OnSliderChangeVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &634534796
@@ -3197,8 +3219,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230, y: 0}
-  m_SizeDelta: {x: 100, y: 60}
+  m_AnchoredPosition: {x: 260, y: 0}
+  m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &635687990
 MonoBehaviour:
@@ -3232,7 +3254,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1.0
+  m_Text: 1.00
 --- !u!222 &635687991
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3467,6 +3489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf4442307be249cb8f9054738290171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_toggleIsActive: {fileID: 604456137}
   m_colorChangeTime: 0.5
 --- !u!1 &688186736
 GameObject:
@@ -6006,7 +6029,18 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1705262769}
+        m_MethodName: OnSliderChangeDelay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1219702811
@@ -6126,8 +6160,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230, y: 0}
-  m_SizeDelta: {x: 100, y: 60}
+  m_AnchoredPosition: {x: 260, y: 0}
+  m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1232194586
 MonoBehaviour:
@@ -8069,6 +8103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf4442307be249cb8f9054738290171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_toggleIsActive: {fileID: 1614787327}
   m_colorChangeTime: 0.5
 --- !u!1 &1499233883
 GameObject:
@@ -8230,6 +8265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf4442307be249cb8f9054738290171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_toggleIsActive: {fileID: 910292222}
   m_colorChangeTime: 0.5
 --- !u!1 &1508873110
 GameObject:
@@ -8521,6 +8557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf4442307be249cb8f9054738290171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_toggleIsActive: {fileID: 688186738}
   m_colorChangeTime: 0.5
 --- !u!1 &1542496492
 GameObject:
@@ -8916,7 +8953,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &1618334987
 GameObject:
   m_ObjectHideFlags: 0
@@ -9357,6 +9394,9 @@ MonoBehaviour:
   m_sliderDelaySe: {fileID: 1215674218}
   m_sliderPitchSe: {fileID: 369630970}
   m_inputFieldLoopCount: {fileID: 471584246}
+  m_textShowVolume: {fileID: 1867913684}
+  m_textShowDelay: {fileID: 1232194586}
+  m_textShowPitch: {fileID: 635687990}
   calledTextStartBefore: {fileID: 1533328936}
   calledTextStart: {fileID: 672165762}
   calledTextComplete: {fileID: 1489388687}
@@ -10258,8 +10298,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230, y: 0}
-  m_SizeDelta: {x: 100, y: 60}
+  m_AnchoredPosition: {x: 260, y: 0}
+  m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1867913684
 MonoBehaviour:
