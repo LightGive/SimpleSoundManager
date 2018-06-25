@@ -72,7 +72,8 @@ public class SoundEffectPlayer : MonoBehaviour
 	{
 		state = SoundPlayState.Stop;
 		m_source = this.gameObject.AddComponent<AudioSource>();
-		m_source.loop = false;
+		source.loop = false;
+		source.playOnAwake = false;
 		ResetPlayer();
 	}
 
@@ -154,9 +155,11 @@ public class SoundEffectPlayer : MonoBehaviour
 
 	public void Pause()
 	{
-		if (state == SoundPlayState.Playing)
+		if (state == SoundPlayState.Playing || state == SoundPlayState.DelayWait)
 		{
+			StopCoroutine(m_coroutineMethod);
 			state = SoundPlayState.Pause;
+			source.Pause();
 		}
 	}
 
@@ -164,6 +167,7 @@ public class SoundEffectPlayer : MonoBehaviour
 	{
 		if (state == SoundPlayState.Pause)
 		{
+			StartCoroutine(m_coroutineMethod);
 			state = SoundPlayState.Playing;
 			source.Play();
 		}
@@ -171,6 +175,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
 	public void ResetPlayer()
 	{
+		Debug.Log("ResetPlayer");
 		gameObject.SetActive(false);
 		state = SoundPlayState.Stop;
 
