@@ -72,6 +72,8 @@ public class SoundEffectPlayer : MonoBehaviour
 	/// </summary>
 	public void Play()
 	{
+		source.volume = volume;
+		source.pitch = pitch;
 		StartCoroutine(_Play());
 	}
 

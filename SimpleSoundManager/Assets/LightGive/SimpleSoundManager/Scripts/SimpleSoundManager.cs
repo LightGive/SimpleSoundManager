@@ -48,17 +48,23 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		}
 	}
 
-	public void PlaySE2D(SoundNameSE _audioName)
+	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName)
 	{
-		PlaySE(_audioName.ToString(), volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName.ToString(), volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
 
-	public void PlaySE2D(string _audioName)
+	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName ,float _volume)
 	{
-		PlaySE(_audioName, volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName.ToString(), _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
 
-	private void PlaySE(
+	public SoundEffectPlayer PlaySE2D(string _audioName)
+	{
+		return PlaySE(_audioName, volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+	}
+
+
+	private SoundEffectPlayer PlaySE(
 		string _audioName, 
 		float _volume, 
 		float _delay, 
@@ -78,7 +84,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		if (!m_audioClipDictSe.ContainsKey(_audioName))
 		{
 			Debug.Log("SE with that name does not exist :" + _audioName);
-			return;
+			return null;
 		}
 
 		var clip = m_audioClipDictSe[_audioName];
@@ -118,6 +124,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		}
 
 		player.Play();
+		return player;
 	}
 
 	private SoundEffectPlayer GetSoundEffectPlayer()

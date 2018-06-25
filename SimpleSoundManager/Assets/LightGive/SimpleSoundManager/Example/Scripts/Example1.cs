@@ -10,7 +10,14 @@ public class Example1 : MonoBehaviour
 	private Dropdown m_dropDownSeName;
 	[SerializeField]
 	private Dropdown m_dropDownBgmName;
-
+	[SerializeField]
+	private Slider m_sliderVolumeSe;
+	[SerializeField]
+	private Slider m_sliderPitchSe;
+	[SerializeField]
+	private ExampleSpectrum[] m_spectrum;
+	[SerializeField]
+	private int m_spectrumWidth = 100;
 
 	private string selectSeName
 	{
@@ -28,6 +35,11 @@ public class Example1 : MonoBehaviour
 		List<string> names = new List<string>(enumNames);
 		m_dropDownSeName.ClearOptions();
 		m_dropDownSeName.AddOptions(names);
+		for (int i = 0; i < m_spectrum.Length; i++)
+		{
+			m_spectrum[i].min = i * m_spectrumWidth;
+			m_spectrum[i].maximam = (i * m_spectrumWidth) + m_spectrumWidth;
+		}
 	}
 
 	public void OnButtonDownSceneReload()
@@ -37,6 +49,13 @@ public class Example1 : MonoBehaviour
 
 	public void OnButtonDownPlay()
 	{
-		SimpleSoundManager.Instance.PlaySE2D(selectSeName);
+		var player = SimpleSoundManager.Instance.PlaySE2D(selectSeName);
+		if (player == null)
+			return;
+
+		for (int i = 0; i < m_spectrum.Length;i++)
+		{
+			m_spectrum[i].audioSource = player.source;
+		}
 	}
 }
