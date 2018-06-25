@@ -109,8 +109,8 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		player.loopCount = _loopCount;
 		player.volume = _volume * volumeSe;
 		player.delay = _delay;
-		player.callbackOnComplete = _onComplete;
-		player.callbackOnStart = _onStart;
+		player.onComplete = _onComplete;
+		player.onStart = _onStart;
 		player.isFade = (_fadeInTime >= 0.0f || _fadeOutTime >= 0.0f);
 		player.isLoopInfinity = _isLoopInfinity;
 
