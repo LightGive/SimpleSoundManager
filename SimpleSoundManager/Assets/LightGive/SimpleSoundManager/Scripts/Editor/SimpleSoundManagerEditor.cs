@@ -22,8 +22,6 @@ public class SimpleSoundManagerEditor : Editor
 		bgmClipList = SimpleSoundManagerSetting.GetAudioClipListBgm();
 		seClipList = SimpleSoundManagerSetting.GetAudioClipListSe();
 
-		Debug.Log(seClipList.Count);
-
 		m_audioClipListSeProp.arraySize = seClipList.Count;
 		m_audioClipListBgmProp.arraySize = bgmClipList.Count;
 
