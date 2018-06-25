@@ -56,6 +56,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	{
 		return PlaySE(_audioName.ToString(), _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
+
 	public SoundEffectPlayer PlaySE2D(string _audioName)
 	{
 		return PlaySE(_audioName, 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
@@ -64,12 +65,14 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	{
 		return PlaySE(_audioName, _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
-
-	public SoundEffectPlayer Play2D_FadeInOut(SoundNameSE _audioName)
+	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume,float _delay)
 	{
-
+		return PlaySE(_audioName, _volume, _delay, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
-
+	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume, float _delay, float _pitch)
+	{
+		return PlaySE(_audioName, _volume, _delay, _pitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+	}
 
 	private SoundEffectPlayer PlaySE(
 		string _audioName, 

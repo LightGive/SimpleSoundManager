@@ -13,6 +13,8 @@ public class Example1 : MonoBehaviour
 	[SerializeField]
 	private Slider m_sliderVolumeSe;
 	[SerializeField]
+	private Slider m_sliderDelaySe;
+	[SerializeField]
 	private Slider m_sliderPitchSe;
 	[SerializeField]
 	private ExampleSpectrum[] m_spectrum;
@@ -49,7 +51,12 @@ public class Example1 : MonoBehaviour
 
 	public void OnButtonDownPlay()
 	{
-		var player = SimpleSoundManager.Instance.PlaySE2D(selectSeName, m_sliderVolumeSe.value);
+		var player = SimpleSoundManager.Instance.PlaySE2D(
+			selectSeName,
+			m_sliderVolumeSe.value,
+			m_sliderDelaySe.value,
+			m_sliderPitchSe.value);
+
 		if (player == null)
 			return;
 

@@ -8245,6 +8245,7 @@ MonoBehaviour:
   m_dropDownSeName: {fileID: 64841020}
   m_dropDownBgmName: {fileID: 0}
   m_sliderVolumeSe: {fileID: 626214010}
+  m_sliderDelaySe: {fileID: 1215674218}
   m_sliderPitchSe: {fileID: 369630970}
   m_spectrum:
   - {fileID: 1364304958}
