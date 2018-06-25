@@ -28,6 +28,12 @@ public class SimpleSoundManagerEditor : Editor
 		m_audioClipListBgmProp.arraySize = bgmClipList.Count;
 
 
+		foreach (SimpleSoundManager t in targets)
+		{
+			t.audioClipListSe.Clear();
+			t.audioClipListBgm.Clear();
+		}
+
 		for (int i = 0; i < bgmClipList.Count; i++)
 		{
 			foreach (SimpleSoundManager t in targets)
