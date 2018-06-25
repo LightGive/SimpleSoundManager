@@ -6,12 +6,12 @@
 	public const string SE_Shoot = "Shoot";
 }
 	
-public enum AudioNameBGM
+public enum SoundNameBGM
 {
 	None,
 }
 	
-public enum AudioNameSE
+public enum SoundNameSE
 {
 	None,
 	Enter,

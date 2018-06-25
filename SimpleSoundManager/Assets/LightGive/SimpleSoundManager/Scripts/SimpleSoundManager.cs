@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.Events;
 
 public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 {
@@ -54,6 +55,74 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		var clip = m_audioClipDictSe[_audioName];
 		player.Play(clip);
 	}
+
+
+
+	private void PlaySE(
+		string _audioName, 
+		float _volume, 
+		float _delay, 
+		float _pitch, 
+		bool _isLoopInfinity, 
+		int _loopCount, 
+		float _fadeInTime, 
+		float _fadeOutTime, 
+		bool _is3dSound, 
+		Vector3 _soundPos, 
+		GameObject _chaseObj, 
+		float _minDistance, 
+		float _maxDistance, 
+		UnityAction _onStart, 
+		UnityAction _onComplete)
+	{
+		if (!m_audioClipDictSe.ContainsKey(_audioName))
+		{
+			Debug.Log("SE with that name does not exist :" + _audioName);
+			return;
+		}
+		var clipInfo = m_audioClipDictSe[_audioName];
+		var spatialBlend = (_is3dSound) ? 1.0f : 0.0f;
+
+		SoundEffectPlayer player = null;
+
+		player.audioSource.clip = clipInfo.clip;
+		player.Pitch = _pitch;
+		player.transform.position = _soundPos;
+		player.audioSource.spatialBlend = spatialBlend;
+		player.chaseObj = _chaseObj;
+		player.LoopCount = _loopCount;
+		player.Volume = _volume;
+		player.Delay = _delay;
+		player.callbackOnComplete = _onComplete;
+		player.callbackOnStart = _onStart;
+		player.IsFade = (_fadeInTime != 0.0f || _fadeOutTime != 0.0f);
+		player.IsLoopInfinity = _isLoopInfinity;
+
+		if (player.IsFade)
+		{
+			_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clipInfo.clip.length);
+			_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clipInfo.clip.length);
+
+			Keyframe key1 = new Keyframe(0.0f, 0.0f, 0.0f, 1.0f);
+			Keyframe key2 = new Keyframe(_fadeInTime, 1.0f, 0.0f, 0.0f);
+			Keyframe key3 = new Keyframe(clipInfo.clip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
+			Keyframe key4 = new Keyframe(clipInfo.clip.length, 0.0f, 0.0f, 1.0f);
+
+			AnimationCurve animCurve = new AnimationCurve(key1, key2, key3, key4);
+			player.animationCurve = animCurve;
+		}
+
+		if (_is3dSound)
+		{
+			player.audioSource.minDistance = _minDistance;
+			player.audioSource.maxDistance = _maxDistance;
+		}
+
+		player.Play();
+	}
+
+
+
 
 
 	private SoundEffectPlayer GetSoundEffectPlayer()
