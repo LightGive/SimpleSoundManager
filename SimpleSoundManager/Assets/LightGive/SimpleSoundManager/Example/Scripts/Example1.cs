@@ -31,6 +31,14 @@ public class Example1 : MonoBehaviour
 	[SerializeField]
 	private Text m_textShowPitch;
 
+	//ButtonList
+	[SerializeField]
+	private Button m_buttonPlay;
+	[SerializeField]
+	private Button m_buttonPause;
+	[SerializeField]
+	private Button m_buttonStop;
+
 	//CalledTextList
 	[SerializeField]
 	private Example1_CalledText calledTextStartBefore;
@@ -48,6 +56,7 @@ public class Example1 : MonoBehaviour
 	private int m_spectrumWidth = 100;
 
 
+	private bool m_isPause = false;
 	private SoundEffectPlayer m_player;
 
 	private string selectSeName
@@ -65,6 +74,10 @@ public class Example1 : MonoBehaviour
 		OnSliderChangeDelay();
 		OnSliderChangePitch();
 		OnSliderChangeVolume();
+
+		m_buttonPlay.gameObject.SetActive(true);
+		m_buttonStop.gameObject.SetActive(true);
+		m_buttonPause.gameObject.SetActive(false);
 
 		string[] enumNames = System.Enum.GetNames(typeof(SoundNameSE));
 		List<string> names = new List<string>(enumNames);
@@ -112,24 +125,57 @@ public class Example1 : MonoBehaviour
 
 	public void OnButtonDownPlay()
 	{
-		m_player = SimpleSoundManager.Instance.PlaySE2D(
-			selectSeName,
-			m_sliderVolumeSe.value,
-			m_sliderDelaySe.value,
-			m_sliderPitchSe.value,
-			int.Parse(m_inputFieldLoopCount.text),
-			() => calledTextStartBefore.Show(),
-			() => calledTextStart.Show(),
-			() => calledTextComplete.Show(),
-			() => calledTextCompleteAfter.Show()
-		);
-
-		if (m_player == null)
-			return;
-
-		for (int i = 0; i < m_spectrum.Length;i++)
+		if (m_isPause)
 		{
-			m_spectrum[i].audioSource = m_player.source;
+			m_isPause = false;
+			SimpleSoundManager.Instance.Resume();
 		}
+		else
+		{
+			m_player = SimpleSoundManager.Instance.PlaySE2D(
+				selectSeName,
+				m_sliderVolumeSe.value,
+				m_sliderDelaySe.value,
+				m_sliderPitchSe.value,
+				int.Parse(m_inputFieldLoopCount.text),
+				() => calledTextStartBefore.Show(),
+				() => calledTextStart.Show(),
+				() => calledTextComplete.Show(),
+				() => OnPlayComplete()
+			);
+
+			if (m_player == null)
+				return;
+
+			for (int i = 0; i < m_spectrum.Length; i++)
+			{
+				m_spectrum[i].audioSource = m_player.source;
+			}
+		}
+
+		m_buttonPause.gameObject.SetActive(true);
+		m_buttonPlay.gameObject.SetActive(false);
+	}
+
+	public void OnButtonDownPause()
+	{
+		m_isPause = true;
+		SimpleSoundManager.Instance.Pause();
+		m_buttonPause.gameObject.SetActive(false);
+		m_buttonPlay.gameObject.SetActive(true);
+	}
+
+	public void OnButtonDownStop()
+	{
+		SimpleSoundManager.Instance.Stop();
+		m_buttonPause.gameObject.SetActive(false);
+
+	}
+
+	public void OnPlayComplete()
+	{
+		calledTextCompleteAfter.Show();
+		m_buttonPlay.gameObject.SetActive(true);
+		m_buttonPause.gameObject.SetActive(false);
 	}
 }

@@ -151,6 +151,30 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		return player;
 	}
 
+	public void Stop()
+	{
+		for (int i = 0; i < m_soundEffectPlayers.Count;i++)
+		{
+			m_soundEffectPlayers[i].Stop();
+		}
+	}
+
+	public void Pause()
+	{
+		for (int i = 0; i < m_soundEffectPlayers.Count; i++)
+		{
+			m_soundEffectPlayers[i].Pause();
+		}
+	}
+
+	public void Resume()
+	{
+		for (int i = 0; i < m_soundEffectPlayers.Count; i++)
+		{
+			m_soundEffectPlayers[i].Resume();
+		}
+	}
+
 	private SoundEffectPlayer GetSoundEffectPlayer()
 	{
 		for (int i = 0; i < m_soundEffectPlayers.Count;i++)

@@ -144,15 +144,29 @@ public class SoundEffectPlayer : MonoBehaviour
 		ResetPlayer();
 	}
 
+	public void Stop()
+	{
+		if(state == SoundPlayState.DelayWait || state == SoundPlayState.Playing)
+		{
+			source.Stop();
+		}
+	}
+
 	public void Pause()
 	{
 		if (state == SoundPlayState.Playing)
+		{
 			state = SoundPlayState.Pause;
+		}
 	}
 
 	public void Resume()
 	{
-
+		if (state == SoundPlayState.Pause)
+		{
+			state = SoundPlayState.Playing;
+			source.Play();
+		}
 	}
 
 	public void ResetPlayer()
