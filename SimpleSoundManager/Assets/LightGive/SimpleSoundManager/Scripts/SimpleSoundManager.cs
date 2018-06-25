@@ -15,6 +15,11 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	private List<SoundEffectPlayer> m_soundEffectPlayers = new List<SoundEffectPlayer>();
 	[SerializeField]
 	private int m_sePlayerNum = 10;
+	[SerializeField]
+	private float volumeSe = 1.0f;
+	[SerializeField]
+	private float volumeBgm = 1.0f;
+
 
 	private Dictionary<string, AudioClip> m_audioClipDictSe = new Dictionary<string, AudioClip>();
 	private Dictionary<string, AudioClip> m_audioClipDirtBgm = new Dictionary<string, AudioClip>();
@@ -43,17 +48,14 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		}
 	}
 
+	public void PlaySE(SoundNameSE _audioName)
+	{
+		PlaySE(_audioName.ToString(), volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+	}
+
 	public void PlaySE(string _audioName)
 	{
-		if (!m_audioClipDictSe.ContainsKey(_audioName))
-		{
-			Debug.Log("その名前のSEは見つかりませんでした。");
-			return;
-		}
-
-		var player = GetSoundEffectPlayer();
-		var clip = m_audioClipDictSe[_audioName];
-		player.Play();
+		PlaySE(_audioName, volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
 
 	private void PlaySE(
@@ -73,16 +75,17 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		UnityAction _onStart, 
 		UnityAction _onComplete)
 	{
+		Debug.Log(_audioName);
 		if (!m_audioClipDictSe.ContainsKey(_audioName))
 		{
 			Debug.Log("SE with that name does not exist :" + _audioName);
 			return;
 		}
+
 		var clip = m_audioClipDictSe[_audioName];
 		var spatialBlend = (_is3dSound) ? 1.0f : 0.0f;
 
-		SoundEffectPlayer player = null;
-
+		SoundEffectPlayer player = GetSoundEffectPlayer();
 		player.source.clip = clip;
 		player.pitch = _pitch;
 		player.transform.position = _soundPos;
@@ -100,7 +103,6 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		{
 			_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clip.length);
 			_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clip.length);
-
 			Keyframe key1 = new Keyframe(0.0f, 0.0f, 0.0f, 1.0f);
 			Keyframe key2 = new Keyframe(_fadeInTime, 1.0f, 0.0f, 0.0f);
 			Keyframe key3 = new Keyframe(clip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
@@ -112,16 +114,12 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 
 		if (_is3dSound)
 		{
-			player.audioSource.minDistance = _minDistance;
-			player.audioSource.maxDistance = _maxDistance;
+			player.source.minDistance = _minDistance;
+			player.source.maxDistance = _maxDistance;
 		}
 
 		player.Play();
 	}
-
-
-
-
 
 	private SoundEffectPlayer GetSoundEffectPlayer()
 	{

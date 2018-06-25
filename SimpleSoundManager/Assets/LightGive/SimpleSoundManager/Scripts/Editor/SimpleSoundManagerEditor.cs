@@ -55,8 +55,6 @@ public class SimpleSoundManagerEditor : Editor
 		m_serializedObj.Update();
 		EditorUtility.SetDirty(target);
 		serializedObject.ApplyModifiedProperties();
-
-		Debug.Log("AudioClipList Initialize");
 	}
 
 	public override void OnInspectorGUI()
