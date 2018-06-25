@@ -10,6 +10,8 @@ public class Example1 : MonoBehaviour
 	private Dropdown m_dropDownSeName;
 	[SerializeField]
 	private Dropdown m_dropDownBgmName;
+
+	//SoundEffectProperties
 	[SerializeField]
 	private Slider m_sliderPlayTime;
 	[SerializeField]
@@ -19,9 +21,24 @@ public class Example1 : MonoBehaviour
 	[SerializeField]
 	private Slider m_sliderPitchSe;
 	[SerializeField]
+	private InputField m_inputFieldLoopCount;
+
+	//CalledTextList
+	[SerializeField]
+	private Example1_CalledText calledTextStartBefore;
+	[SerializeField]
+	private Example1_CalledText calledTextStart;
+	[SerializeField]
+	private Example1_CalledText calledTextComplete;
+	[SerializeField]
+	private Example1_CalledText calledTextCompleteAfter;
+
+
+	[SerializeField]
 	private Example1_Spectrum[] m_spectrum;
 	[SerializeField]
 	private int m_spectrumWidth = 100;
+
 
 	private SoundEffectPlayer m_player;
 
@@ -74,7 +91,13 @@ public class Example1 : MonoBehaviour
 			selectSeName,
 			m_sliderVolumeSe.value,
 			m_sliderDelaySe.value,
-			m_sliderPitchSe.value);
+			m_sliderPitchSe.value,
+			int.Parse(m_inputFieldLoopCount.text),
+			() => calledTextStartBefore.Show(),
+			() => calledTextStart.Show(),
+			() => calledTextComplete.Show(),
+			() => calledTextCompleteAfter.Show()
+		);
 
 		if (m_player == null)
 			return;

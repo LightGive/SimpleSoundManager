@@ -49,28 +49,36 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 
 	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName)
 	{
-		return PlaySE(_audioName.ToString(), 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName.ToString(), 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
 	}
 	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName ,float _volume)
 	{
-		return PlaySE(_audioName.ToString(), _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName.ToString(), _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
 	}
 
 	public SoundEffectPlayer PlaySE2D(string _audioName)
 	{
-		return PlaySE(_audioName, 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName, 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
 	}
 	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume)
 	{
-		return PlaySE(_audioName, _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName, _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
 	}
 	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume,float _delay)
 	{
-		return PlaySE(_audioName, _volume, _delay, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName, _volume, _delay, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
 	}
 	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume, float _delay, float _pitch)
 	{
-		return PlaySE(_audioName, _volume, _delay, _pitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName, _volume, _delay, _pitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
+	}
+	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume, float _delay, float _pitch, int _loopCount)
+	{
+		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
+	}
+	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume, float _delay, float _pitch, int _loopCount, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
+	{
+		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
 
 	private SoundEffectPlayer PlaySE(
@@ -87,8 +95,10 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		GameObject _chaseObj, 
 		float _minDistance, 
 		float _maxDistance, 
+		UnityAction _onStartBefore, 
 		UnityAction _onStart, 
-		UnityAction _onComplete)
+		UnityAction _onComplete,
+		UnityAction _onCompleteAfter)
 	{
 		if (!m_audioClipDictSe.ContainsKey(_audioName))
 		{
@@ -108,8 +118,13 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		player.loopCount = _loopCount;
 		player.volume = _volume * volumeSe;
 		player.delay = _delay;
-		player.onComplete = _onComplete;
+
+		//CallBackEntry
+		player.onStartBefore = _onStartBefore;
 		player.onStart = _onStart;
+		player.onComplete = _onComplete;
+		player.onCompleteAfter = _onCompleteAfter;
+
 		player.isFade = (_fadeInTime >= 0.0f || _fadeOutTime >= 0.0f);
 		player.isLoopInfinity = _isLoopInfinity;
 

@@ -86,7 +86,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
 		if (onStartBefore != null)
 		{
-			onStart.Invoke();
+			onStartBefore.Invoke();
 		}
 
 		m_coroutineMethod = _Play();
