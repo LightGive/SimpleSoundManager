@@ -83,23 +83,21 @@ public class SoundEffectPlayer : MonoBehaviour
 		state = SoundPlayState.DelayWait;
 		source.volume = volume;
 		source.pitch = pitch;
+
+		if (onStartBefore != null)
+		{
+			onStart.Invoke();
+		}
+
 		m_coroutineMethod = _Play();
 		StartCoroutine(m_coroutineMethod);
 	}
 
-	public void Pause()
-	{
-		if (state == SoundPlayState.Playing)
-			state = SoundPlayState.Pause;
-	}
-
-	public void Resume()
-	{
-
-	}
-
 	private IEnumerator _Play()
 	{
+		if (!isLoopInfinity)
+			loopCount--;
+
 		yield return new WaitForSeconds(delay);
 
 		if (onStart != null)
@@ -116,11 +114,46 @@ public class SoundEffectPlayer : MonoBehaviour
 			onComplete.Invoke();
 		}
 
-		state = SoundPlayState.Stop;
+
+		//終わるかのチェック
+		if (loopCount <= 0)
+		{
+			PlayEnd();
+			yield break;
+		}
+		else
+		{
+			m_coroutineMethod = _Play();
+			StartCoroutine(m_coroutineMethod);
+			yield break;
+		}
 	}
 
+	/// <summary>
+	/// 再生がループも含めて完全に終わったとき
+	/// </summary>
 	private void PlayEnd()
-	{}
+	{
+		if(onCompleteAfter != null)
+		{
+			onCompleteAfter.Invoke();
+		}
+		state = SoundPlayState.Stop;
+
+	}
+
+	public void Pause()
+	{
+		if (state == SoundPlayState.Playing)
+			state = SoundPlayState.Pause;
+	}
+
+	public void Resume()
+	{
+
+	}
+
+
 }
 
 

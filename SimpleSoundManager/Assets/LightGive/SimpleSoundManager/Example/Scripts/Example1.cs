@@ -19,7 +19,7 @@ public class Example1 : MonoBehaviour
 	[SerializeField]
 	private Slider m_sliderPitchSe;
 	[SerializeField]
-	private ExampleSpectrum[] m_spectrum;
+	private Example1_Spectrum[] m_spectrum;
 	[SerializeField]
 	private int m_spectrumWidth = 100;
 

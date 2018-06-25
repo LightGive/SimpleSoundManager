@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Security.Principal;
 
-public class ExampleSpectrum : MonoBehaviour
+public class Example1_Spectrum : MonoBehaviour
 {
 	public AudioSource audioSource;
 	public int min;
