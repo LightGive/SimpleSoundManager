@@ -6,11 +6,12 @@ using System.IO;
 public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 {
 	[SerializeField]
+	public List<AudioClip> audioClipListSe = new List<AudioClip>();
+	[SerializeField]
+	public List<AudioClip> audioClipListBgm = new List<AudioClip>();
+
+	[SerializeField]
 	private List<SoundEffectPlayer> m_soundEffectPlayers = new List<SoundEffectPlayer>();
-	[SerializeField]
-	private List<AudioClip> m_audioClipListSe = new List<AudioClip>();
-	[SerializeField]
-	private List<AudioClip> m_audioClipListBgm = new List<AudioClip>();
 	[SerializeField]
 	private int m_sePlayerNum = 10;
 
@@ -31,13 +32,13 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		}
 
 		//Dictionaryに追加
-		for (int i = 0; i < m_audioClipListSe.Count;i++)
+		for (int i = 0; i < audioClipListSe.Count;i++)
 		{
-			m_audioClipDirectorSe.Add(m_audioClipListSe[i].name, m_audioClipListSe[i]);
+			m_audioClipDirectorSe.Add(audioClipListSe[i].name, audioClipListSe[i]);
 		}
-		for (int i = 0; i < m_audioClipListBgm.Count; i++)
+		for (int i = 0; i < audioClipListBgm.Count; i++)
 		{
-			m_audioClipDirectorBgm.Add(m_audioClipListBgm[i].name, m_audioClipListBgm[i]);
+			m_audioClipDirectorBgm.Add(audioClipListBgm[i].name, audioClipListBgm[i]);
 		}
 	}
 

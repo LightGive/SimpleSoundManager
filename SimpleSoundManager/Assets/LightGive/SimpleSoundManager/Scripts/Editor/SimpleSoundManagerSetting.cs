@@ -29,37 +29,10 @@ public static class SimpleSoundManagerSetting
 	}
 
 	/// <summary>
-	/// ファイルからAudioClipを取得する（SE）
-	/// </summary>
-	/// <returns>The audio clip list se.</returns>
-	public static List<AudioClip>GetAudioClipListSe()
-	{
-		List<AudioClip> audioClipList = new List<AudioClip>();
-		string[] fileEntriesSe = Directory.GetFiles(SimpleSoundManagerDefine.PathSeSourceFolder, "*", SearchOption.AllDirectories);
-
-		int idx = 0;
-		for (int i = 0; i < fileEntriesSe.Length; i++)
-		{
-			var filePath = fileEntriesSe[i];
-			filePath = ConvertSystemPathToUnityPath(filePath);
-			var obj = AssetDatabase.LoadAssetAtPath(filePath, typeof(object));
-			if (obj != null)
-			{
-				if (obj.GetType() != typeof(AudioClip))
-					continue;
-				idx++;
-				AudioClip audio = (AudioClip)obj;
-				audioClipList.Add(audio);
-			}
-		}
-		return audioClipList;
-	}
-
-	/// <summary>
 	/// ファイルからAudioClipを取得する（BGM）
 	/// </summary>
 	/// <returns>The audio clip list bgm.</returns>
-	public static List<AudioClip>GetAudioClipListBgm()
+	public static List<AudioClip> GetAudioClipListBgm()
 	{
 		List<AudioClip> audioClipList = new List<AudioClip>();
 		string[] fileEntriesBgm = Directory.GetFiles(SimpleSoundManagerDefine.PathBgmSourceFolder, "*", SearchOption.AllDirectories);
@@ -79,6 +52,37 @@ public static class SimpleSoundManagerSetting
 				audioClipList.Add(audio);
 			}
 		}
+		return audioClipList;
+	}
+
+
+	/// <summary>
+	/// ファイルからAudioClipを取得する（SE）
+	/// </summary>
+	/// <returns>The audio clip list se.</returns>
+	public static List<AudioClip>GetAudioClipListSe()
+	{
+		List<AudioClip> audioClipList = new List<AudioClip>();
+		string[] fileEntriesSe = Directory.GetFiles(SimpleSoundManagerDefine.PathSeSourceFolder, "*", SearchOption.AllDirectories);
+
+		int idx = 0;
+		for (int i = 0; i < fileEntriesSe.Length; i++)
+		{
+			var filePath = fileEntriesSe[i];
+			filePath = ConvertSystemPathToUnityPath(filePath);
+			var obj = AssetDatabase.LoadAssetAtPath(filePath, typeof(object));
+			if (obj != null)
+			{
+				if (obj.GetType() != typeof(AudioClip))
+					continue;
+
+				idx++;
+				AudioClip audio = (AudioClip)obj;
+				audioClipList.Add(audio);
+			}
+		}
+
+		Debug.Log("数" + audioClipList.Count.ToString("0"));
 		return audioClipList;
 	}
 
