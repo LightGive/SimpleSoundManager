@@ -49,7 +49,7 @@ public class Example1 : MonoBehaviour
 
 	public void OnButtonDownPlay()
 	{
-		var player = SimpleSoundManager.Instance.PlaySE2D(selectSeName);
+		var player = SimpleSoundManager.Instance.PlaySE2D(selectSeName, m_sliderVolumeSe.value);
 		if (player == null)
 			return;
 

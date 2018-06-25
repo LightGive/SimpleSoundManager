@@ -50,17 +50,24 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 
 	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName)
 	{
-		return PlaySE(_audioName.ToString(), volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName.ToString(), 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
-
 	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName ,float _volume)
 	{
 		return PlaySE(_audioName.ToString(), _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
 	}
-
 	public SoundEffectPlayer PlaySE2D(string _audioName)
 	{
-		return PlaySE(_audioName, volumeSe, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+		return PlaySE(_audioName, 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+	}
+	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume)
+	{
+		return PlaySE(_audioName, _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null);
+	}
+
+	public SoundEffectPlayer Play2D_FadeInOut(SoundNameSE _audioName)
+	{
+
 	}
 
 
@@ -97,7 +104,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		player.source.spatialBlend = spatialBlend;
 		player.chaseObj = _chaseObj;
 		player.loopCount = _loopCount;
-		player.volume = _volume;
+		player.volume = _volume * volumeSe;
 		player.delay = _delay;
 		player.callbackOnComplete = _onComplete;
 		player.callbackOnStart = _onStart;
