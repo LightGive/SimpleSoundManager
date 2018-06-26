@@ -27,8 +27,6 @@ public class Example1 : MonoBehaviour
 	[SerializeField]
 	private InputField m_inputFieldFadeOutTime;
 
-
-
 	//ShowText
 	[SerializeField]
 	private Text m_textShowVolume;
