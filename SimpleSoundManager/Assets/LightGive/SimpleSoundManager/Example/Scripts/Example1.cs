@@ -127,7 +127,8 @@ public class Example1 : MonoBehaviour
 	{
 		if (m_isPause)
 		{
-			m_player.Resume();
+			Debug.Log("Resume");
+			SimpleSoundManager.Instance.Resume();
 			m_isPause = false;
 		}
 		else

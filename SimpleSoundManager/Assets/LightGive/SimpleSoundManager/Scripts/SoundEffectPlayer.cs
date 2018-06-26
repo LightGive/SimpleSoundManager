@@ -31,6 +31,8 @@ public class SoundEffectPlayer : MonoBehaviour
 	private bool m_isLoopInfinity;
 	private IEnumerator m_coroutineMethod;
 
+	private float m_waitTimeCnt = 0.0f;
+
 	public AudioSource source { get { return m_source; } }
 	public GameObject chaseObj { get { return m_chaseObj; } set { m_chaseObj = value; } }
 	public UnityAction onStartBefore { get { return m_onStartBefore; } set { m_onStartBefore = value; } }
@@ -66,14 +68,16 @@ public class SoundEffectPlayer : MonoBehaviour
 	/// 使用されているかどうか
 	/// </summary>
 	/// <value><c>true</c> if is active; otherwise, <c>false</c>.</value>
-	public bool isActive { get { return (state == SoundPlayState.Playing || state == SoundPlayState.DelayWait); } }
+	public bool isActive { get { return (state != SoundPlayState.Stop); } }
 
 	public void Init()
 	{
+		Debug.Log("初期化");
 		state = SoundPlayState.Stop;
 		m_source = this.gameObject.AddComponent<AudioSource>();
 		source.loop = false;
 		source.playOnAwake = false;
+		m_waitTimeCnt = 0.0f;
 		ResetPlayer();
 	}
 
@@ -110,8 +114,16 @@ public class SoundEffectPlayer : MonoBehaviour
 
 		state = SoundPlayState.Playing;
 		source.Play();
-		yield return new WaitForSeconds(source.clip.length / source.pitch);
 
+		m_waitTimeCnt = 0.0f;
+		while(m_waitTimeCnt < source.clip.length / source.pitch)
+		{
+			m_waitTimeCnt += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+
+		Debug.Log("通った");
 		if (onComplete != null)
 		{
 			onComplete.Invoke();
@@ -167,9 +179,10 @@ public class SoundEffectPlayer : MonoBehaviour
 	{
 		if (state == SoundPlayState.Pause)
 		{
+			Debug.Log("UnPause");
 			StartCoroutine(m_coroutineMethod);
 			state = SoundPlayState.Playing;
-			source.Play();
+			source.UnPause();
 		}
 	}
 
