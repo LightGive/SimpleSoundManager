@@ -11755,8 +11755,8 @@ MonoBehaviour:
   audioClipListBgm: []
   m_soundEffectPlayers: []
   m_sePlayerNum: 10
-  volumeSe: 1
-  volumeBgm: 1
+  m_volumeSe: 1
+  m_volumeBgm: 1
 --- !u!1 &1960135567
 GameObject:
   m_ObjectHideFlags: 0

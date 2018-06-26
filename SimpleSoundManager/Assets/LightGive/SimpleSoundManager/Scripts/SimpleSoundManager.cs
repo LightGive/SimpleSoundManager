@@ -154,6 +154,12 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			Keyframe key4 = new Keyframe(clip.length, 0.0f, 0.0f, 1.0f);
 
 			AnimationCurve animCurve = new AnimationCurve(key1, key2, key3, key4);
+			for (int i = 0; i < animCurve.keys.Length;i++)
+			{
+				var k = animCurve.keys[i];
+				k.outTangent = 1;
+				k.inTangent = 1;
+			}
 			player.animationCurve = animCurve;
 		}
 
