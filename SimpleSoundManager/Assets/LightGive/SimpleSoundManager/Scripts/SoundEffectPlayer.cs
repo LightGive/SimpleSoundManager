@@ -105,8 +105,15 @@ public class SoundEffectPlayer : MonoBehaviour
 		if (!isLoopInfinity)
 			loopCount--;
 
-		yield return new WaitForSeconds(delay);
+		//delay wait.
+		m_waitTimeCnt = 0.0f;
+		while (m_waitTimeCnt < delay)
+		{
+			m_waitTimeCnt += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
 
+		//start callback
 		if (onStart != null)
 		{
 			onStart.Invoke();
@@ -114,6 +121,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
 		state = SoundPlayState.Playing;
 		source.Play();
+
 
 		m_waitTimeCnt = 0.0f;
 		while(m_waitTimeCnt < source.clip.length / source.pitch)
