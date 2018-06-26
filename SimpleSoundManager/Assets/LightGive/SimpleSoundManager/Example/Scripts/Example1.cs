@@ -22,6 +22,12 @@ public class Example1 : MonoBehaviour
 	private Slider m_sliderPitchSe;
 	[SerializeField]
 	private InputField m_inputFieldLoopCount;
+	[SerializeField]
+	private InputField m_inputFieldFadeInTime;
+	[SerializeField]
+	private InputField m_inputFieldFadeOutTime;
+
+
 
 	//ShowText
 	[SerializeField]
@@ -133,8 +139,10 @@ public class Example1 : MonoBehaviour
 		}
 		else
 		{
-			m_player = SimpleSoundManager.Instance.PlaySE2D(
+			m_player = SimpleSoundManager.Instance.PlaySE2D_FadeInOut(
 				selectSeName,
+				float.Parse(m_inputFieldFadeInTime.text),
+				float.Parse(m_inputFieldFadeOutTime.text),
 				m_sliderVolumeSe.value,
 				m_sliderDelaySe.value,
 				m_sliderPitchSe.value,

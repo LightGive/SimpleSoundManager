@@ -1943,7 +1943,7 @@ RectTransform:
   - {fileID: 580568907}
   - {fileID: 634534797}
   m_Father: {fileID: 1336917572}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7446,9 +7446,9 @@ RectTransform:
   - {fileID: 626214009}
   - {fileID: 1215674217}
   - {fileID: 369630969}
+  - {fileID: 471584245}
   - {fileID: 1903602165}
   - {fileID: 2005948554}
-  - {fileID: 471584245}
   - {fileID: 688186737}
   - {fileID: 604456136}
   - {fileID: 1614787326}
@@ -10085,6 +10085,8 @@ MonoBehaviour:
   m_sliderDelaySe: {fileID: 1215674218}
   m_sliderPitchSe: {fileID: 369630970}
   m_inputFieldLoopCount: {fileID: 471584246}
+  m_inputFieldFadeInTime: {fileID: 1903602166}
+  m_inputFieldFadeOutTime: {fileID: 2005948555}
   m_textShowVolume: {fileID: 1867913684}
   m_textShowDelay: {fileID: 1232194586}
   m_textShowPitch: {fileID: 635687990}
@@ -11309,7 +11311,7 @@ RectTransform:
   - {fileID: 721745495}
   - {fileID: 1837029808}
   m_Father: {fileID: 1336917572}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12089,7 +12091,7 @@ RectTransform:
   - {fileID: 384095216}
   - {fileID: 1456811323}
   m_Father: {fileID: 1336917572}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

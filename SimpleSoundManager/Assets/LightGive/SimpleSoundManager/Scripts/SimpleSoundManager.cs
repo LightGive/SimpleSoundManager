@@ -81,6 +81,11 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
 
+	public SoundEffectPlayer PlaySE2D_FadeInOut(string _audioName, float _fadeInTime,float _fadeOutTime,float _volume, float _delay, float _pitch, int _loopCount, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
+	{
+		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
+	}
+
 	private SoundEffectPlayer PlaySE(
 		string _audioName, 
 		float _volume, 
@@ -125,7 +130,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		player.onComplete = _onComplete;
 		player.onCompleteAfter = _onCompleteAfter;
 
-		player.isFade = (_fadeInTime >= 0.0f || _fadeOutTime >= 0.0f);
+		player.isFade = (_fadeInTime > 0.0f || _fadeOutTime > 0.0f);
 		player.isLoopInfinity = _isLoopInfinity;
 
 		if (player.isFade)

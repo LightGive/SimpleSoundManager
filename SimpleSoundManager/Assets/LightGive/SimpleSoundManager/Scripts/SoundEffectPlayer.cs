@@ -22,6 +22,7 @@ public class SoundEffectPlayer : MonoBehaviour
 	private UnityAction m_onComplete;
 	private UnityAction m_onCompleteAfter;
 
+	[SerializeField]
 	private AnimationCurve m_animationCurve;
 	private float m_volume;
 	private float m_delay;
