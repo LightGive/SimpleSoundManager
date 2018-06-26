@@ -16,13 +16,15 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	[SerializeField]
 	private int m_sePlayerNum = 10;
 	[SerializeField]
-	private float volumeSe = 1.0f;
+	private float m_volumeSe = 1.0f;
 	[SerializeField]
-	private float volumeBgm = 1.0f;
+	private float m_volumeBgm = 1.0f;
 
 	private Dictionary<string, AudioClip> m_audioClipDictSe = new Dictionary<string, AudioClip>();
 	private Dictionary<string, AudioClip> m_audioClipDirtBgm = new Dictionary<string, AudioClip>();
 
+	public float volumeSe { get { return m_volumeSe; } }
+	public float volumeBgm { get { return m_volumeBgm; } }
 
 	protected override void Init()
 	{
@@ -45,6 +47,15 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		{
 			m_audioClipDirtBgm.Add(audioClipListBgm[i].name, audioClipListBgm[i]);
 		}
+	}
+
+	private void Update()
+	{
+		for (int i = 0; i < m_sePlayerNum; i++)
+		{
+			if (m_soundEffectPlayers[i].isActive)
+				m_soundEffectPlayers[i].PlayerUpdate();
+		}	
 	}
 
 	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName)
@@ -121,7 +132,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		player.source.spatialBlend = spatialBlend;
 		player.chaseObj = _chaseObj;
 		player.loopCount = _loopCount;
-		player.volume = _volume * volumeSe;
+		player.volume = _volume * m_volumeSe;
 		player.delay = _delay;
 
 		//CallBackEntry

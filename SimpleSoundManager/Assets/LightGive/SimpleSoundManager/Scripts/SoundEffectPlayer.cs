@@ -42,12 +42,24 @@ public class SoundEffectPlayer : MonoBehaviour
 	public UnityAction onCompleteAfter { get { return m_onCompleteAfter; } set { m_onCompleteAfter = value; } }
 
 	public AnimationCurve animationCurve { get { return m_animationCurve; } set { m_animationCurve = value; } }
-	public float volume { get { return m_volume; } set { m_volume = value; } }
 	public float delay { get { return m_delay; } set { m_delay = value; } }
 	public float pitch { get { return m_pitch; } set { m_pitch = value; } }
 	public int loopCount { get { return m_loopCount; } set { m_loopCount = value; } }
 	public bool isFade { get { return m_isFade; } set { m_isFade = value; } }
 	public bool isLoopInfinity { get { return m_isLoopInfinity; } set { m_isLoopInfinity = value; } }
+	public float volume
+	{
+		get
+		{
+			var v = m_volume * SimpleSoundManager.Instance.volumeSe;
+			if (isFade) { v *= animationCurve.Evaluate(source.time); }
+			return v;
+		}
+		set
+		{
+			m_volume = Mathf.Clamp01(value);
+		}
+	}
 
 
 	/// <summary>
@@ -79,6 +91,19 @@ public class SoundEffectPlayer : MonoBehaviour
 		source.playOnAwake = false;
 		m_waitTimeCnt = 0.0f;
 		ResetPlayer();
+	}
+
+	public void PlayerUpdate()
+	{
+		if (chaseObj != null)
+		{
+			transform.position = chaseObj.transform.position;
+		}
+
+		if (isFade)
+		{
+			source.volume = volume;
+		}
 	}
 
 	/// <summary>
