@@ -170,7 +170,7 @@ public class Example1 : MonoBehaviour
 	{
 		SimpleSoundManager.Instance.Stop();
 		m_buttonPause.gameObject.SetActive(false);
-
+		m_buttonPlay.gameObject.SetActive(true);
 	}
 
 	public void OnPlayComplete()

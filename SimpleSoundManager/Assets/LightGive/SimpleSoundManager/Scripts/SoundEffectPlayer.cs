@@ -72,7 +72,6 @@ public class SoundEffectPlayer : MonoBehaviour
 
 	public void Init()
 	{
-		Debug.Log("初期化");
 		state = SoundPlayState.Stop;
 		m_source = this.gameObject.AddComponent<AudioSource>();
 		source.loop = false;
@@ -131,7 +130,6 @@ public class SoundEffectPlayer : MonoBehaviour
 		}
 
 
-		Debug.Log("通った");
 		if (onComplete != null)
 		{
 			onComplete.Invoke();
@@ -167,9 +165,12 @@ public class SoundEffectPlayer : MonoBehaviour
 
 	public void Stop()
 	{
-		if(state == SoundPlayState.DelayWait || state == SoundPlayState.Playing)
+		if(state == SoundPlayState.DelayWait || state == SoundPlayState.Playing || state == SoundPlayState.Pause)
 		{
 			source.Stop();
+			StopCoroutine(m_coroutineMethod);
+			state = SoundPlayState.Stop;
+			gameObject.SetActive(false);
 		}
 	}
 
@@ -187,7 +188,6 @@ public class SoundEffectPlayer : MonoBehaviour
 	{
 		if (state == SoundPlayState.Pause)
 		{
-			Debug.Log("UnPause");
 			StartCoroutine(m_coroutineMethod);
 			state = SoundPlayState.Playing;
 			source.UnPause();
@@ -196,7 +196,6 @@ public class SoundEffectPlayer : MonoBehaviour
 
 	public void ResetPlayer()
 	{
-		Debug.Log("ResetPlayer");
 		gameObject.SetActive(false);
 		state = SoundPlayState.Stop;
 
