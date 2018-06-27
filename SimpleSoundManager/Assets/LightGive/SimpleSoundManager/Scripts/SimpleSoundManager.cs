@@ -169,6 +169,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			player.animationCurve = animCurve;
 		}
 
+
 		if (_is3dSound)
 		{
 			player.source.minDistance = _minDistance;
