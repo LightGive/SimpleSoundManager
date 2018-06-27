@@ -166,7 +166,6 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			AnimationUtility.SetKeyRightTangentMode(animCurve, 3, AnimationUtility.TangentMode.Linear);
 			AnimationUtility.SetKeyLeftTangentMode(animCurve, 3, AnimationUtility.TangentMode.Linear);
 
-
 			player.animationCurve = animCurve;
 		}
 
