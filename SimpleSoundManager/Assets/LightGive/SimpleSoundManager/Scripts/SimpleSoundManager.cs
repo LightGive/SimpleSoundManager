@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.Events;
+using UnityEditor;
 
 public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 {
@@ -154,12 +155,18 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			Keyframe key4 = new Keyframe(clip.length, 0.0f, 0.0f, 1.0f);
 
 			AnimationCurve animCurve = new AnimationCurve(key1, key2, key3, key4);
-			for (int i = 0; i < animCurve.keys.Length;i++)
-			{
-				var k = animCurve.keys[i];
-				k.outTangent = 1;
-				k.inTangent = 1;
-			}
+
+
+			AnimationUtility.SetKeyRightTangentMode(animCurve, 0, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyLeftTangentMode(animCurve, 0, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyRightTangentMode(animCurve, 1, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyLeftTangentMode(animCurve, 1, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyRightTangentMode(animCurve, 2, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyLeftTangentMode(animCurve, 2, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyRightTangentMode(animCurve, 3, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyLeftTangentMode(animCurve, 3, AnimationUtility.TangentMode.Linear);
+
+
 			player.animationCurve = animCurve;
 		}
 
