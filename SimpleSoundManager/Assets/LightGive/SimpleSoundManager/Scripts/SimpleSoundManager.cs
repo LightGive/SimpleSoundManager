@@ -170,7 +170,6 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		}
 
 
-
 		if (_is3dSound)
 		{
 			player.source.minDistance = _minDistance;
