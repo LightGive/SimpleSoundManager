@@ -149,23 +149,40 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		{
 			_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clip.length);
 			_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clip.length);
-			Keyframe key1 = new Keyframe(0.0f, 0.0f, 0.0f, 1.0f);
-			Keyframe key2 = new Keyframe(_fadeInTime, 1.0f, 0.0f, 0.0f);
-			Keyframe key3 = new Keyframe(clip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
-			Keyframe key4 = new Keyframe(clip.length, 0.0f, 0.0f, 1.0f);
-
-			AnimationCurve animCurve = new AnimationCurve(key1, key2, key3, key4);
+			Keyframe k1, k2, k3, k4;
 
 
-			AnimationUtility.SetKeyRightTangentMode(animCurve, 0, AnimationUtility.TangentMode.Linear);
-			AnimationUtility.SetKeyLeftTangentMode(animCurve, 0, AnimationUtility.TangentMode.Linear);
-			AnimationUtility.SetKeyRightTangentMode(animCurve, 1, AnimationUtility.TangentMode.Linear);
-			AnimationUtility.SetKeyLeftTangentMode(animCurve, 1, AnimationUtility.TangentMode.Linear);
-			AnimationUtility.SetKeyRightTangentMode(animCurve, 2, AnimationUtility.TangentMode.Linear);
-			AnimationUtility.SetKeyLeftTangentMode(animCurve, 2, AnimationUtility.TangentMode.Linear);
-			AnimationUtility.SetKeyRightTangentMode(animCurve, 3, AnimationUtility.TangentMode.Linear);
-			AnimationUtility.SetKeyLeftTangentMode(animCurve, 3, AnimationUtility.TangentMode.Linear);
+			////y = Ax+B
+			////u = ax+b
+			////c = ((B-b)/(a-A),(aB-Ab)/(a-A))
 
+			//var x1 = clip.length - _fadeOutTime;
+			//var y1 = 1.0f;
+			//var x2 = clip.length;
+			//var y2 = 0.0f;
+			//var aa = (y1 - y2) / (x1 - x2);
+			//var bb = (x1 * y2 - x2 * y1) / (x1 - x2);
+
+			//var a = _fadeInTime;
+			//var b = 0.0f;
+			//var A = aa;
+			//var B = bb;
+
+			//var cx = (B - b) / (a - A);
+			//var cy = ((a * B) - (A * b)) / (a - A);
+
+			var p1 = 0.0f;
+			var p2 = _fadeInTime;
+			var p3 = clip.length - _fadeOutTime;
+			var p4 = clip.length;
+
+			AnimationCurve animCurve;
+			k1 = new Keyframe(0.0f, 0.0f, 0.0f, 1.0f);
+			k2 = new Keyframe(_fadeInTime, 1.0f, 0.0f, 0.0f);
+			k3 = new Keyframe(clip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
+			k4 = new Keyframe(clip.length, 0.0f, 0.0f, 1.0f);
+
+			animCurve = new AnimationCurve(k1, k2, k3, k4);
 			player.animationCurve = animCurve;
 		}
 
