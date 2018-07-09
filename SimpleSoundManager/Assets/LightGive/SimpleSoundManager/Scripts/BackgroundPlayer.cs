@@ -10,7 +10,6 @@ public class BackgroundPlayer : MonoBehaviour
 		Stop,
 		Playing,
 		Pause,
-		DelayWait
 	}
 
 	public SoundPlayState state;
@@ -25,7 +24,6 @@ public class BackgroundPlayer : MonoBehaviour
 	[SerializeField]
 	private AnimationCurve m_animationCurve;
 	private float m_volume;
-	private float m_delay;
 	private float m_pitch;
 	private int m_loopCount;
 	private bool m_isFade;
@@ -42,7 +40,6 @@ public class BackgroundPlayer : MonoBehaviour
 	public UnityAction onCompleteAfter { get { return m_onCompleteAfter; } set { m_onCompleteAfter = value; } }
 
 	public AnimationCurve animationCurve { get { return m_animationCurve; } set { m_animationCurve = value; } }
-	public float delay { get { return m_delay; } set { m_delay = value; } }
 	public float pitch { get { return m_pitch; } set { m_pitch = value; } }
 	public int loopCount { get { return m_loopCount; } set { m_loopCount = value; } }
 	public bool isFade { get { return m_isFade; } set { m_isFade = value; } }
@@ -70,7 +67,7 @@ public class BackgroundPlayer : MonoBehaviour
 	{
 		get
 		{
-			if (state == SoundPlayState.Stop || state == SoundPlayState.DelayWait)
+			if (state == SoundPlayState.Stop)
 				return 0.0f;
 
 			return Mathf.Clamp01((source.time / source.pitch) / (source.clip.length / source.pitch));
@@ -112,7 +109,6 @@ public class BackgroundPlayer : MonoBehaviour
 	public void Play()
 	{
 		gameObject.SetActive(true);
-		state = SoundPlayState.DelayWait;
 		source.volume = volume;
 		source.pitch = pitch;
 
@@ -129,14 +125,6 @@ public class BackgroundPlayer : MonoBehaviour
 	{
 		if (!isLoopInfinity)
 			loopCount--;
-
-		//delay wait.
-		m_waitTimeCnt = 0.0f;
-		while (m_waitTimeCnt < delay)
-		{
-			m_waitTimeCnt += Time.deltaTime;
-			yield return new WaitForEndOfFrame();
-		}
 
 		//start callback
 		if (onStart != null)
@@ -191,7 +179,7 @@ public class BackgroundPlayer : MonoBehaviour
 
 	public void Stop()
 	{
-		if (state == SoundPlayState.DelayWait || state == SoundPlayState.Playing || state == SoundPlayState.Pause)
+		if (state == SoundPlayState.Playing || state == SoundPlayState.Pause)
 		{
 			source.Stop();
 			StopCoroutine(m_coroutineMethod);
@@ -202,7 +190,7 @@ public class BackgroundPlayer : MonoBehaviour
 
 	public void Pause()
 	{
-		if (state == SoundPlayState.Playing || state == SoundPlayState.DelayWait)
+		if (state == SoundPlayState.Playing)
 		{
 			StopCoroutine(m_coroutineMethod);
 			state = SoundPlayState.Pause;

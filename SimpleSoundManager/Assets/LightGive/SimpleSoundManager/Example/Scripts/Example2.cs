@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Example1 : MonoBehaviour
+public class Example2 : MonoBehaviour
 {
 	[SerializeField]
 	private Dropdown m_dropDownSeName;
+	[SerializeField]
+	private Dropdown m_dropDownBgmName;
 
 	//SoundEffectProperties
 	[SerializeField]
@@ -81,7 +83,7 @@ public class Example1 : MonoBehaviour
 		m_buttonStop.gameObject.SetActive(true);
 		m_buttonPause.gameObject.SetActive(false);
 
-		string[] enumNames = System.Enum.GetNames(typeof(SoundNameSE));
+		string[] enumNames = System.Enum.GetNames(typeof(SoundNameBGM));
 		List<string> names = new List<string>(enumNames);
 		m_dropDownSeName.ClearOptions();
 		m_dropDownSeName.AddOptions(names);
@@ -97,7 +99,7 @@ public class Example1 : MonoBehaviour
 		if (m_player == null)
 			return;
 
-		if(m_player.isActive)
+		if (m_player.isActive)
 		{
 			m_sliderPlayTime.value = m_player.Length;
 		}
@@ -114,7 +116,7 @@ public class Example1 : MonoBehaviour
 
 	public void OnSliderChangeVolume()
 	{
-		m_textShowVolume.text = (m_sliderVolumeSe.value * 100.0f).ToString("F1")+"%";
+		m_textShowVolume.text = (m_sliderVolumeSe.value * 100.0f).ToString("F1") + "%";
 	}
 	public void OnSliderChangeDelay()
 	{
