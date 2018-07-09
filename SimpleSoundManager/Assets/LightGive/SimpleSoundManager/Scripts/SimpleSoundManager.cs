@@ -149,44 +149,28 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		{
 			_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clip.length);
 			_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clip.length);
+
+			//フェードインとフェードアウトの時間が長すぎる場合の対応
 			Keyframe k1, k2, k3, k4;
-
-
-			////y = Ax+B
-			////u = ax+b
-			////c = ((B-b)/(a-A),(aB-Ab)/(a-A))
-
-			//var x1 = clip.length - _fadeOutTime;
-			//var y1 = 1.0f;
-			//var x2 = clip.length;
-			//var y2 = 0.0f;
-			//var aa = (y1 - y2) / (x1 - x2);
-			//var bb = (x1 * y2 - x2 * y1) / (x1 - x2);
-
-			//var a = _fadeInTime;
-			//var b = 0.0f;
-			//var A = aa;
-			//var B = bb;
-
-			//var cx = (B - b) / (a - A);
-			//var cy = ((a * B) - (A * b)) / (a - A);
-
 			var p1 = 0.0f;
 			var p2 = _fadeInTime;
 			var p3 = clip.length - _fadeOutTime;
 			var p4 = clip.length;
-
+			if (p2 > p3)
+			{
+				var av = (p2 + p3) / 2.0f;
+				p2 = av;
+				p3 = av;
+			}
 			AnimationCurve animCurve;
-			k1 = new Keyframe(0.0f, 0.0f, 0.0f, 1.0f);
-			k2 = new Keyframe(_fadeInTime, 1.0f, 0.0f, 0.0f);
-			k3 = new Keyframe(clip.length - _fadeOutTime, 1.0f, 0.0f, 0.0f);
-			k4 = new Keyframe(clip.length, 0.0f, 0.0f, 1.0f);
+			k1 = new Keyframe(p1, 0.0f, 0.0f, 1.0f);
+			k2 = new Keyframe(p2, 1.0f, 0.0f, 0.0f);
+			k3 = new Keyframe(p3, 1.0f, 0.0f, 0.0f);
+			k4 = new Keyframe(p4, 0.0f, 0.0f, 1.0f);
 
 			animCurve = new AnimationCurve(k1, k2, k3, k4);
 			player.animationCurve = animCurve;
 		}
-
-
 
 		if (_is3dSound)
 		{

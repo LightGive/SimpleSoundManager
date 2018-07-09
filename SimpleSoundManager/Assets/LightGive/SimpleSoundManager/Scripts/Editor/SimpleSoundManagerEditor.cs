@@ -58,5 +58,11 @@ public class SimpleSoundManagerEditor : Editor
 	public override void OnInspectorGUI()
 	{
 		base.OnInspectorGUI();
+
+
+		GUI.color = Color.black;
+		EditorGUILayout.Space();
+		EditorGUILayout.LabelField("--------------------");
+		EditorGUILayout.LabelField("ここから下がCustomEditor");
 	}
 }
