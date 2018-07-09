@@ -9,6 +9,9 @@ public class SimpleSoundManagerEditor : Editor
 	private SerializedObject m_serializedObj;
 	private SerializedProperty m_audioClipListSeProp;
 	private SerializedProperty m_audioClipListBgmProp;
+	private SerializedProperty m_editorIsFoldSeListProp;
+	private SerializedProperty m_editorIsFoldBgmListProp;
+
 	private float currentWidth = 0.0f;
 
 	private void OnEnable()
@@ -16,7 +19,8 @@ public class SimpleSoundManagerEditor : Editor
 		m_serializedObj = new SerializedObject(target);
 		m_audioClipListSeProp = m_serializedObj.FindProperty("audioClipListSe");
 		m_audioClipListBgmProp = m_serializedObj.FindProperty("audioClipListBgm");
-
+		m_editorIsFoldSeListProp = m_serializedObj.FindProperty("m_editorIsFoldSeList");
+		m_editorIsFoldBgmListProp = m_serializedObj.FindProperty("m_editorIsFoldBgmList");
 
 		List<AudioClip> bgmClipList = new List<AudioClip>();
 		List<AudioClip> seClipList = new List<AudioClip>();
@@ -67,22 +71,68 @@ public class SimpleSoundManagerEditor : Editor
 
 		currentWidth = EditorGUIUtility.currentViewWidth;
 
-		EditorGUILayout.LabelField("SoundList");
 		EditorGUILayout.BeginVertical(GUI.skin.box);
-		for (int i = 0; i < m_audioClipListSeProp.arraySize; i++)
-		{
-			var p = m_audioClipListSeProp.GetArrayElementAtIndex(i);
-			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField(i.ToString("00") + ".", GUILayout.Width(20));
-			EditorGUI.BeginDisabledGroup(true);
-			EditorGUILayout.ObjectField(p.objectReferenceValue, typeof(AudioClip), false);
-			EditorGUI.EndDisabledGroup();
-			if (GUILayout.Button("P"))
-			{
-				AudioUtility.PlayClip((AudioClip)p.objectReferenceValue);
-			}
+		EditorGUILayout.LabelField("SoundList");
 
-			EditorGUILayout.EndHorizontal();
+		m_editorIsFoldSeListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldSeListProp.boolValue," SE");
+		if (m_editorIsFoldSeListProp.boolValue)
+		{
+			EditorGUILayout.BeginVertical(GUI.skin.box);
+			if (m_audioClipListSeProp.arraySize == 0)
+			{
+				EditorGUILayout.LabelField("None");
+			}
+			else
+			{
+				for (int i = 0; i < m_audioClipListSeProp.arraySize; i++)
+				{
+					var p = m_audioClipListSeProp.GetArrayElementAtIndex(i);
+					EditorGUILayout.BeginHorizontal();
+					EditorGUILayout.LabelField((i + 1).ToString("00") + ".", GUILayout.Width(20));
+					EditorGUI.BeginDisabledGroup(true);
+					EditorGUILayout.ObjectField(p.objectReferenceValue, typeof(AudioClip), false);
+					EditorGUI.EndDisabledGroup();
+
+					//Editor上で再生できる様に修正
+					if (GUILayout.Button("P"))
+					{
+						AudioUtility.PlayClip((AudioClip)p.objectReferenceValue);
+					}
+
+					EditorGUILayout.EndHorizontal();
+				}
+			}
+			EditorGUILayout.EndVertical();
+		}
+
+		m_editorIsFoldBgmListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldBgmListProp.boolValue, " BGM");
+		if (m_editorIsFoldBgmListProp.boolValue)
+		{
+			EditorGUILayout.BeginVertical(GUI.skin.box);
+			if (m_audioClipListBgmProp.arraySize == 0)
+			{
+				EditorGUILayout.LabelField("None");
+			}
+			else
+			{
+				for (int i = 0; i < m_audioClipListBgmProp.arraySize; i++)
+				{
+					var p = m_audioClipListSeProp.GetArrayElementAtIndex(i);
+					EditorGUILayout.BeginHorizontal();
+					EditorGUILayout.LabelField((i + 1).ToString("00") + ".", GUILayout.Width(20));
+					EditorGUI.BeginDisabledGroup(true);
+					EditorGUILayout.ObjectField(p.objectReferenceValue, typeof(AudioClip), false);
+					EditorGUI.EndDisabledGroup();
+
+					//Editor上で再生できる様に修正
+					if (GUILayout.Button("P"))
+					{
+						AudioUtility.PlayClip((AudioClip)p.objectReferenceValue);
+					}
+					EditorGUILayout.EndHorizontal();
+				}
+			}
+			EditorGUILayout.EndVertical();
 		}
 		EditorGUILayout.EndVertical();
 	}
