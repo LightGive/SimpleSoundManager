@@ -79,7 +79,7 @@ public class SimpleSoundManagerEditor : Editor
 			EditorGUI.EndDisabledGroup();
 			if (GUILayout.Button("P"))
 			{
-				AudioUtility.PlayClip((AudioClip)clipProp.objectReferenceValue);
+				AudioUtility.PlayClip((AudioClip)p.objectReferenceValue);
 			}
 
 			EditorGUILayout.EndHorizontal();
