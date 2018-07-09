@@ -71,11 +71,10 @@ public class SimpleSoundManagerEditor : Editor
 
 		currentWidth = EditorGUIUtility.currentViewWidth;
 
-		EditorGUILayout.BeginVertical(GUI.skin.box);
 		EditorGUILayout.LabelField("SoundList");
 
-		m_editorIsFoldSeListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldSeListProp.boolValue," SE");
-		if (m_editorIsFoldSeListProp.boolValue)
+		m_editorIsFoldSeListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldSeListProp.boolValue," SE",true);
+		if (!m_editorIsFoldSeListProp.boolValue)
 		{
 			EditorGUILayout.BeginVertical(GUI.skin.box);
 			if (m_audioClipListSeProp.arraySize == 0)
@@ -105,8 +104,8 @@ public class SimpleSoundManagerEditor : Editor
 			EditorGUILayout.EndVertical();
 		}
 
-		m_editorIsFoldBgmListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldBgmListProp.boolValue, " BGM");
-		if (m_editorIsFoldBgmListProp.boolValue)
+		m_editorIsFoldBgmListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldBgmListProp.boolValue, " BGM", true);
+		if (!m_editorIsFoldBgmListProp.boolValue)
 		{
 			EditorGUILayout.BeginVertical(GUI.skin.box);
 			if (m_audioClipListBgmProp.arraySize == 0)
@@ -134,6 +133,9 @@ public class SimpleSoundManagerEditor : Editor
 			}
 			EditorGUILayout.EndVertical();
 		}
-		EditorGUILayout.EndVertical();
+
+		m_serializedObj.Update();
+		EditorUtility.SetDirty(target);
+		m_serializedObj.ApplyModifiedProperties();
 	}
 }
