@@ -62,7 +62,13 @@ public class SimpleSoundManagerEditor : Editor
 
 		GUI.color = Color.black;
 		EditorGUILayout.Space();
+		EditorGUILayout.Space();
 		EditorGUILayout.LabelField("--------------------");
 		EditorGUILayout.LabelField("ここから下がCustomEditor");
+
+
+
+
+
 	}
 }
