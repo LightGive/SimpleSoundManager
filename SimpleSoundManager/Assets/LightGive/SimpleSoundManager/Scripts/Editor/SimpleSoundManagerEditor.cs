@@ -11,6 +11,7 @@ public class SimpleSoundManagerEditor : Editor
 	private SerializedProperty m_audioClipListBgmProp;
 	private SerializedProperty m_editorIsFoldSeListProp;
 	private SerializedProperty m_editorIsFoldBgmListProp;
+	private SerializedProperty m_editorIsFoldSoundLIstProp;
 
 	private float currentWidth = 0.0f;
 
@@ -72,8 +73,7 @@ public class SimpleSoundManagerEditor : Editor
 		currentWidth = EditorGUIUtility.currentViewWidth;
 
 		EditorGUILayout.LabelField("SoundList");
-
-		m_editorIsFoldSeListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldSeListProp.boolValue," SE",true);
+		m_editorIsFoldSeListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldSeListProp.boolValue, " SE", true);
 		if (!m_editorIsFoldSeListProp.boolValue)
 		{
 			EditorGUILayout.BeginVertical(GUI.skin.box);
@@ -134,7 +134,6 @@ public class SimpleSoundManagerEditor : Editor
 			EditorGUILayout.EndVertical();
 		}
 
-		m_serializedObj.Update();
 		EditorUtility.SetDirty(target);
 		m_serializedObj.ApplyModifiedProperties();
 	}
