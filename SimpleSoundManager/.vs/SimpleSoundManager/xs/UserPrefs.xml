@@ -1,11 +1,13 @@
 ﻿<Properties StartupConfiguration="{AFBD8A31-F4FD-E83D-8664-2E9A8123EBCE}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LightGive/SimpleSoundManager/Scripts/SoundEffectPlayer.cs">
     <Files>
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="16" Column="32" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="82" Column="38" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="20" Column="26" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="92" Column="102" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerSetting.cs" Line="35" Column="32" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Before/AudioClipInfoDrawer_.cs" Line="125" Column="74" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SoundEffectPlayer.cs" Line="232" Column="1" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/BackgroundPlayer.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

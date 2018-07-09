@@ -90,9 +90,6 @@ public class SimpleSoundManagerEditor : Editor
 
 		EditorGUILayout.LabelField("【Other】");
 		m_sePlayerNumProp.intValue = EditorGUILayout.IntField("SE PlayerCount",m_sePlayerNumProp.intValue);
-
-
-
 		EditorGUILayout.LabelField("【SoundList】");
 		m_editorIsFoldSeListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldSeListProp.boolValue, " SE", true);
 		if (!m_editorIsFoldSeListProp.boolValue)
