@@ -9,6 +9,7 @@ public class SimpleSoundManagerEditor : Editor
 	private SerializedObject m_serializedObj;
 	private SerializedProperty m_audioClipListSeProp;
 	private SerializedProperty m_audioClipListBgmProp;
+	private float currentWidth = 0.0f;
 
 	private void OnEnable()
 	{
@@ -59,16 +60,30 @@ public class SimpleSoundManagerEditor : Editor
 	{
 		base.OnInspectorGUI();
 
-
-		GUI.color = Color.black;
 		EditorGUILayout.Space();
 		EditorGUILayout.Space();
 		EditorGUILayout.LabelField("--------------------");
 		EditorGUILayout.LabelField("ここから下がCustomEditor");
 
+		currentWidth = EditorGUIUtility.currentViewWidth;
 
+		EditorGUILayout.LabelField("SoundList");
+		EditorGUILayout.BeginVertical(GUI.skin.box);
+		for (int i = 0; i < m_audioClipListSeProp.arraySize; i++)
+		{
+			var p = m_audioClipListSeProp.GetArrayElementAtIndex(i);
+			EditorGUILayout.BeginHorizontal();
+			EditorGUILayout.LabelField(i.ToString("00") + ".", GUILayout.Width(20));
+			EditorGUI.BeginDisabledGroup(true);
+			EditorGUILayout.ObjectField(p.objectReferenceValue, typeof(AudioClip), false);
+			EditorGUI.EndDisabledGroup();
+			if (GUILayout.Button("P"))
+			{
+				AudioUtility.PlayClip((AudioClip)clipProp.objectReferenceValue);
+			}
 
-
-
+			EditorGUILayout.EndHorizontal();
+		}
+		EditorGUILayout.EndVertical();
 	}
 }
