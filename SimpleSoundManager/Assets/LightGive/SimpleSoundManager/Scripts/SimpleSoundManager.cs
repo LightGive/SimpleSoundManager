@@ -25,12 +25,8 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	[SerializeField]
 	private bool m_editorIsFoldBgmList = false;
 
-
-
 	private Dictionary<string, AudioClip> m_audioClipDictSe = new Dictionary<string, AudioClip>();
 	private Dictionary<string, AudioClip> m_audioClipDirtBgm = new Dictionary<string, AudioClip>();
-
-
 
 	public float volumeSe { get { return m_volumeSe; } }
 	public float volumeBgm { get { return m_volumeBgm; } }

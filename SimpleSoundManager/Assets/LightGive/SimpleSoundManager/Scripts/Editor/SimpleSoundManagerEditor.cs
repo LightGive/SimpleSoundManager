@@ -12,6 +12,9 @@ public class SimpleSoundManagerEditor : Editor
 	private SerializedProperty m_editorIsFoldSeListProp;
 	private SerializedProperty m_editorIsFoldBgmListProp;
 	private SerializedProperty m_editorIsFoldSoundLIstProp;
+	private SerializedProperty m_sePlayerNumProp;
+	private SerializedProperty m_volumeSeProp;
+	private SerializedProperty m_volumeBgmProp;
 
 	private float currentWidth = 0.0f;
 
@@ -22,6 +25,12 @@ public class SimpleSoundManagerEditor : Editor
 		m_audioClipListBgmProp = m_serializedObj.FindProperty("audioClipListBgm");
 		m_editorIsFoldSeListProp = m_serializedObj.FindProperty("m_editorIsFoldSeList");
 		m_editorIsFoldBgmListProp = m_serializedObj.FindProperty("m_editorIsFoldBgmList");
+		m_sePlayerNumProp = m_serializedObj.FindProperty("m_sePlayerNum");
+		m_volumeSeProp = m_serializedObj.FindProperty("m_volumeSe");
+		m_volumeBgmProp = m_serializedObj.FindProperty("m_volumeBgm");
+
+
+
 
 		List<AudioClip> bgmClipList = new List<AudioClip>();
 		List<AudioClip> seClipList = new List<AudioClip>();
@@ -72,7 +81,19 @@ public class SimpleSoundManagerEditor : Editor
 
 		currentWidth = EditorGUIUtility.currentViewWidth;
 
-		EditorGUILayout.LabelField("SoundList");
+
+		EditorGUILayout.LabelField("【Volume】");
+		EditorGUILayout.Slider(m_volumeSeProp, 0.0f, 1.0f);
+		EditorGUILayout.Slider(m_volumeBgmProp, 0.0f, 1.0f);
+		EditorGUILayout.Space();
+
+
+		EditorGUILayout.LabelField("【Other】");
+		m_sePlayerNumProp.intValue = EditorGUILayout.IntField("SE PlayerCount",m_sePlayerNumProp.intValue);
+
+
+
+		EditorGUILayout.LabelField("【SoundList】");
 		m_editorIsFoldSeListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldSeListProp.boolValue, " SE", true);
 		if (!m_editorIsFoldSeListProp.boolValue)
 		{
@@ -93,7 +114,7 @@ public class SimpleSoundManagerEditor : Editor
 					EditorGUI.EndDisabledGroup();
 
 					//Editor上で再生できる様に修正
-					if (GUILayout.Button("P"))
+					if (GUILayout.Button("Play"))
 					{
 						AudioUtility.PlayClip((AudioClip)p.objectReferenceValue);
 					}
@@ -124,7 +145,7 @@ public class SimpleSoundManagerEditor : Editor
 					EditorGUI.EndDisabledGroup();
 
 					//Editor上で再生できる様に修正
-					if (GUILayout.Button("P"))
+					if (GUILayout.Button("Play"))
 					{
 						AudioUtility.PlayClip((AudioClip)p.objectReferenceValue);
 					}
