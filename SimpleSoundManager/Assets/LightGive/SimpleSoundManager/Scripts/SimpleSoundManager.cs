@@ -17,6 +17,8 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	[SerializeField]
 	private int m_sePlayerNum = 10;
 	[SerializeField]
+	private float m_volumeTotal = 1.0f;
+	[SerializeField]
 	private float m_volumeSe = 1.0f;
 	[SerializeField]
 	private float m_volumeBgm = 1.0f;
@@ -28,6 +30,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	private Dictionary<string, AudioClip> m_audioClipDictSe = new Dictionary<string, AudioClip>();
 	private Dictionary<string, AudioClip> m_audioClipDirtBgm = new Dictionary<string, AudioClip>();
 
+	public float volumeTotal { get { return m_volumeTotal; } }
 	public float volumeSe { get { return m_volumeSe; } }
 	public float volumeBgm { get { return m_volumeBgm; } }
 

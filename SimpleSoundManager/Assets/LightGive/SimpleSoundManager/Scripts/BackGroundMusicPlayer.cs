@@ -15,7 +15,9 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	private bool isFade;
 	private bool isPlaying;
 	private bool isCheckLoopPoint;
+
 	public bool IsPlaying { get { return isPlaying; } }
+
 	public BackGroundMusicPlayer()
 	{
 		loopStartTime = 0.0f;
@@ -33,8 +35,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		audioSource.playOnAwake = false;
 		audioSource.loop = true;
 		audioSource.spatialBlend = 0.0f;
-		audioSource.outputAudioMixerGroup = SimpleSoundManager.Instance.bgmAudioMixerGroup;
-		audioSource.volume = SimpleSoundManager.Instance.BGMVolume;
+		audioSource.volume = SimpleSoundManager.Instance.volumeBgm;
+		//audioSource.outputAudioMixerGroup = SimpleSoundManager.Instance.bgmAudioMixerGroup;
 	}
 
 	public void Play(AudioClip _clip, bool _isLoop, bool _isFade, bool _isCheckLoopPoint, float _volume, float _loopStartTime, float _loopEndTime)
@@ -145,8 +147,9 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		var v =
 			volume *
 			fadeVolume *
-			SimpleSoundManager.Instance.BGMVolume *
-			SimpleSoundManager.Instance.TotalVolume;
+			SimpleSoundManager.Instance.volumeBgm *
+			SimpleSoundManager.Instance.volumeTotal;
+
 		audioSource.volume = v;
 	}
 }
