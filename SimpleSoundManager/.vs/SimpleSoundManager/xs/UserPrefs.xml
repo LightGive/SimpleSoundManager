@@ -11,7 +11,8 @@
       <File FileName="Assets/LightGive/SimpleSoundManager/Example/Scripts/Example2.cs" Line="86" Column="60" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Example/Scripts/Example1.cs" Line="92" Column="2" />
       <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/SoundName.cs" Line="1" Column="1" />
-      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Before/_BackGroundMusicPlayer.cs" Line="131" Column="6" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/Before/_BackGroundMusicPlayer.cs" Line="30" Column="17" />
+      <File FileName="Assets/LightGive/SimpleSoundManager/Scripts/BackGroundMusicPlayer.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
