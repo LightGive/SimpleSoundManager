@@ -13,6 +13,7 @@ public class SimpleSoundManagerEditor : Editor
 	private SerializedProperty m_editorIsFoldBgmListProp;
 	private SerializedProperty m_editorIsFoldSoundLIstProp;
 	private SerializedProperty m_sePlayerNumProp;
+	private SerializedProperty m_volumeTotalProp;
 	private SerializedProperty m_volumeSeProp;
 	private SerializedProperty m_volumeBgmProp;
 
@@ -26,6 +27,7 @@ public class SimpleSoundManagerEditor : Editor
 		m_editorIsFoldSeListProp = m_serializedObj.FindProperty("m_editorIsFoldSeList");
 		m_editorIsFoldBgmListProp = m_serializedObj.FindProperty("m_editorIsFoldBgmList");
 		m_sePlayerNumProp = m_serializedObj.FindProperty("m_sePlayerNum");
+		m_volumeTotalProp = m_serializedObj.FindProperty("m_volumeTotal");
 		m_volumeSeProp = m_serializedObj.FindProperty("m_volumeSe");
 		m_volumeBgmProp = m_serializedObj.FindProperty("m_volumeBgm");
 
@@ -83,13 +85,16 @@ public class SimpleSoundManagerEditor : Editor
 
 
 		EditorGUILayout.LabelField("【Volume】");
-		EditorGUILayout.Slider(m_volumeSeProp, 0.0f, 1.0f);
-		EditorGUILayout.Slider(m_volumeBgmProp, 0.0f, 1.0f);
+		EditorGUILayout.Slider(m_volumeTotalProp, 0.0f, 1.0f, "Total");
+		EditorGUILayout.Slider(m_volumeSeProp, 0.0f, 1.0f,"SE");
+		EditorGUILayout.Slider(m_volumeBgmProp, 0.0f, 1.0f, "BGM");
 		EditorGUILayout.Space();
 
 
 		EditorGUILayout.LabelField("【Other】");
 		m_sePlayerNumProp.intValue = EditorGUILayout.IntField("SE PlayerCount",m_sePlayerNumProp.intValue);
+
+		EditorGUILayout.Space();
 		EditorGUILayout.LabelField("【SoundList】");
 		m_editorIsFoldSeListProp.boolValue = EditorGUILayout.Foldout(m_editorIsFoldSeListProp.boolValue, " SE", true);
 		if (!m_editorIsFoldSeListProp.boolValue)

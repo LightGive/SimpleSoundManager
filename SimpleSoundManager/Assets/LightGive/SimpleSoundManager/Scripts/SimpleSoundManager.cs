@@ -15,6 +15,10 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	[SerializeField]
 	private List<SoundEffectPlayer> m_soundEffectPlayers = new List<SoundEffectPlayer>();
 	[SerializeField]
+	private BackGroundMusicPlayer m_mainBackgroundPlayer;
+	[SerializeField]
+	private BackGroundMusicPlayer m_subBackgroundPlayer;
+	[SerializeField]
 	private int m_sePlayerNum = 10;
 	[SerializeField]
 	private float m_volumeTotal = 1.0f;
@@ -45,6 +49,13 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			player.Init();
 			m_soundEffectPlayers.Add(player);
 		}
+
+		GameObject mainBackgroundPlayerObj = new GameObject("MainBackgroundMusicPlayer");
+		GameObject subBackgroundPlayerObj = new GameObject("MainBackgroundMusicPlayer");
+		mainBackgroundPlayerObj.transform.SetParent(transform);
+		subBackgroundPlayerObj.transform.SetParent(transform);
+		m_mainBackgroundPlayer = mainBackgroundPlayerObj.AddComponent<BackGroundMusicPlayer>();
+		m_subBackgroundPlayer = subBackgroundPlayerObj.AddComponent<BackGroundMusicPlayer>();
 
 		//Dictionaryに追加
 		for (int i = 0; i < audioClipListSe.Count;i++)
