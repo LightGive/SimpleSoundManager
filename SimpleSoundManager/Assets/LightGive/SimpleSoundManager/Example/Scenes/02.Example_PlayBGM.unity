@@ -7546,9 +7546,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ffb9ef747869a46149f6dd34db482c63, type: 3}
   - {fileID: 8300000, guid: 3f7e3060051d448c383d95ca8efcb37f, type: 3}
   - {fileID: 8300000, guid: b66645cb7bce14b03bfc8a37fa4126cf, type: 3}
-  audioClipListBgm: []
+  audioClipListBgm:
+  - {fileID: 8300000, guid: 3e45c8527a62741829839a5b761403d1, type: 3}
   m_soundEffectPlayers: []
+  m_mainBackgroundPlayer: {fileID: 0}
+  m_subBackgroundPlayer: {fileID: 0}
   m_sePlayerNum: 10
+  m_volumeTotal: 1
   m_volumeSe: 1
   m_volumeBgm: 1
   m_editorIsFoldSeList: 1
