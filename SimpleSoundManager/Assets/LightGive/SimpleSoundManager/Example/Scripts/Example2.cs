@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class Example2 : MonoBehaviour
 {
 	[SerializeField]
-	private Dropdown m_dropDownSeName;
-	[SerializeField]
 	private Dropdown m_dropDownBgmName;
 
 	//SoundEffectProperties
@@ -67,8 +65,8 @@ public class Example2 : MonoBehaviour
 	{
 		get
 		{
-			var idx = m_dropDownSeName.value;
-			var itemName = m_dropDownSeName.options[idx];
+			var idx = m_dropDownBgmName.value;
+			var itemName = m_dropDownBgmName.options[idx];
 			return itemName.text;
 		}
 	}
@@ -85,8 +83,8 @@ public class Example2 : MonoBehaviour
 
 		string[] enumNames = System.Enum.GetNames(typeof(SoundNameBGM));
 		List<string> names = new List<string>(enumNames);
-		m_dropDownSeName.ClearOptions();
-		m_dropDownSeName.AddOptions(names);
+		m_dropDownBgmName.ClearOptions();
+		m_dropDownBgmName.AddOptions(names);
 		for (int i = 0; i < m_spectrum.Length; i++)
 		{
 			m_spectrum[i].min = i * m_spectrumWidth;
