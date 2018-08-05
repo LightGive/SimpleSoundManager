@@ -5054,7 +5054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dropDownBgmName: {fileID: 64841020}
   m_sliderPlayTime: {fileID: 1864676690}
-  m_sliderVolumeSe: {fileID: 0}
+  m_sliderVolumeSe: {fileID: 626214010}
   m_sliderDelaySe: {fileID: 0}
   m_sliderPitchSe: {fileID: 0}
   m_inputFieldLoopCount: {fileID: 0}

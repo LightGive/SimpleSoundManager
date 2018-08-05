@@ -244,4 +244,45 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		}
 		return m_soundEffectPlayers[idx];
 	}
+
+
+	//******************************ここからBGM
+
+
+
+
+	public void PlayBGM(SoundNameBGM _soundName)
+	{
+
+	}
+
+
+	public void PlayBGM(string _soundName, float _volume, bool _isLoop)
+	{
+		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
+		{
+			Debug.Log("SE with that name does not exist :" + _soundName);
+			return;
+		}
+
+		var clip = m_audioClipDictSe[_audioName];
+		BackGroundMusicPlayer player = GetBgmPlayer();
+
+		player.Play(clip,)
+	}
+
+
+	/// <summary>
+	/// 使っていないBGMPlayerを取得する
+	/// </summary>
+	/// <returns>The bgm player.</returns>
+	public BackGroundMusicPlayer GetBgmPlayer()
+	{
+		return (m_mainBackgroundPlayer.IsPlaying) ? m_subBackgroundPlayer : m_mainBackgroundPlayer;
+	}
+
+
+
+
+
 }

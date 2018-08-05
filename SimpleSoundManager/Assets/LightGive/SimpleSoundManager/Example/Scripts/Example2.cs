@@ -13,25 +13,11 @@ public class Example2 : MonoBehaviour
 	[SerializeField]
 	private Slider m_sliderPlayTime;
 	[SerializeField]
-	private Slider m_sliderVolumeSe;
-	[SerializeField]
-	private Slider m_sliderDelaySe;
-	[SerializeField]
-	private Slider m_sliderPitchSe;
-	[SerializeField]
-	private InputField m_inputFieldLoopCount;
-	[SerializeField]
-	private InputField m_inputFieldFadeInTime;
-	[SerializeField]
-	private InputField m_inputFieldFadeOutTime;
+	private Slider m_sliderVolume;
 
 	//ShowText
 	[SerializeField]
 	private Text m_textShowVolume;
-	[SerializeField]
-	private Text m_textShowDelay;
-	[SerializeField]
-	private Text m_textShowPitch;
 
 	//ButtonList
 	[SerializeField]
@@ -40,16 +26,6 @@ public class Example2 : MonoBehaviour
 	private Button m_buttonPause;
 	[SerializeField]
 	private Button m_buttonStop;
-
-	//CalledTextList
-	[SerializeField]
-	private Example1_CalledText calledTextStartBefore;
-	[SerializeField]
-	private Example1_CalledText calledTextStart;
-	[SerializeField]
-	private Example1_CalledText calledTextComplete;
-	[SerializeField]
-	private Example1_CalledText calledTextCompleteAfter;
 
 	//Spectrum
 	[SerializeField]
@@ -73,10 +49,7 @@ public class Example2 : MonoBehaviour
 
 	private void Start()
 	{
-		OnSliderChangeDelay();
-		OnSliderChangePitch();
 		OnSliderChangeVolume();
-
 		m_buttonPlay.gameObject.SetActive(true);
 		m_buttonStop.gameObject.SetActive(true);
 		m_buttonPause.gameObject.SetActive(false);
@@ -114,15 +87,7 @@ public class Example2 : MonoBehaviour
 
 	public void OnSliderChangeVolume()
 	{
-		m_textShowVolume.text = (m_sliderVolumeSe.value * 100.0f).ToString("F1") + "%";
-	}
-	public void OnSliderChangeDelay()
-	{
-		m_textShowDelay.text = m_sliderDelaySe.value.ToString("F2") + " sec";
-	}
-	public void OnSliderChangePitch()
-	{
-		m_textShowPitch.text = m_sliderPitchSe.value.ToString("F2");
+		m_textShowVolume.text = (m_sliderVolume.value * 100.0f).ToString("F1") + "%";
 	}
 
 	public void OnButtonDownPlay()
@@ -135,19 +100,19 @@ public class Example2 : MonoBehaviour
 		}
 		else
 		{
-			m_player = SimpleSoundManager.Instance.PlaySE2D_FadeInOut(
-				selectSeName,
-				float.Parse(m_inputFieldFadeInTime.text),
-				float.Parse(m_inputFieldFadeOutTime.text),
-				m_sliderVolumeSe.value,
-				m_sliderDelaySe.value,
-				m_sliderPitchSe.value,
-				int.Parse(m_inputFieldLoopCount.text),
-				() => calledTextStartBefore.Show(),
-				() => calledTextStart.Show(),
-				() => calledTextComplete.Show(),
-				() => OnPlayComplete()
-			);
+			//m_player = SimpleSoundManager.Instance.PlaySE2D(
+			//	selectSeName,
+			//	float.Parse(m_inputFieldFadeInTime.text),
+			//	float.Parse(m_inputFieldFadeOutTime.text),
+			//	m_sliderVolumeSe.value,
+			//	m_sliderDelaySe.value,
+			//	m_sliderPitchSe.value,
+			//	int.Parse(m_inputFieldLoopCount.text),
+			//	() => calledTextStartBefore.Show(),
+			//	() => calledTextStart.Show(),
+			//	() => calledTextComplete.Show(),
+			//	() => OnPlayComplete()
+			//);
 
 			if (m_player == null)
 				return;
