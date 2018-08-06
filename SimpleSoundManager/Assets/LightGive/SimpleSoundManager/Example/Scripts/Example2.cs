@@ -146,7 +146,6 @@ public class Example2 : MonoBehaviour
 
 	public void OnPlayComplete()
 	{
-		calledTextCompleteAfter.Show();
 		m_buttonPlay.gameObject.SetActive(true);
 		m_buttonPause.gameObject.SetActive(false);
 	}

@@ -256,7 +256,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 
 	}
 
-	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, bool _isCheckLoopPoint, float _loopStartTime = 0.0f, float _loopEndTime = 0.0f)
+	private void PlayBGM(string _soundName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, bool _isCheckLoopPoint, float _loopStartTime = 0.0f, float _loopEndTime = 0.0f)
 	{
 		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
 		{
@@ -264,10 +264,9 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			return;
 		}
 
-
 		_volume = Mathf.Clamp01(_volume);
 		_crossFadeRate = 1.0f - Mathf.Clamp01(_crossFadeRate);
-		var clip = m_audioClipDictSe[_audioName];
+		var clip = m_audioClipDictSe[_soundName];
 		BackGroundMusicPlayer player = GetDisableBgmPlayer();
 
 		//BGM再生部分の作成
@@ -282,8 +281,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			StopBGM();
 		}
 
-
-
+		player.Play(clip, _isLoop, isFade, _volume * volumeBgm * volumeTotal, false, 0.0f, 0.0f);
 	}
 
 	/// <summary>
