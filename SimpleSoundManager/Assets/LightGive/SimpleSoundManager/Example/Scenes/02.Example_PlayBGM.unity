@@ -5054,22 +5054,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dropDownBgmName: {fileID: 64841020}
   m_sliderPlayTime: {fileID: 1864676690}
-  m_sliderVolumeSe: {fileID: 626214010}
-  m_sliderDelaySe: {fileID: 0}
-  m_sliderPitchSe: {fileID: 0}
-  m_inputFieldLoopCount: {fileID: 0}
-  m_inputFieldFadeInTime: {fileID: 0}
-  m_inputFieldFadeOutTime: {fileID: 0}
-  m_textShowVolume: {fileID: 0}
-  m_textShowDelay: {fileID: 0}
-  m_textShowPitch: {fileID: 0}
-  m_buttonPlay: {fileID: 0}
-  m_buttonPause: {fileID: 0}
-  m_buttonStop: {fileID: 0}
-  calledTextStartBefore: {fileID: 0}
-  calledTextStart: {fileID: 0}
-  calledTextComplete: {fileID: 0}
-  calledTextCompleteAfter: {fileID: 0}
+  m_sliderVolume: {fileID: 626214010}
+  m_textShowVolume: {fileID: 1867913684}
+  m_buttonPlay: {fileID: 836606216}
+  m_buttonPause: {fileID: 1235321415}
+  m_buttonStop: {fileID: 1221537815}
   m_spectrum: []
   m_spectrumWidth: 100
 --- !u!4 &1705262770
@@ -5578,6 +5567,7 @@ MonoBehaviour:
   m_volumeBgm: 1
   m_editorIsFoldSeList: 0
   m_editorIsFoldBgmList: 0
+  m_isLopBgm: 1
 --- !u!1 &1960135567
 GameObject:
   m_ObjectHideFlags: 0
