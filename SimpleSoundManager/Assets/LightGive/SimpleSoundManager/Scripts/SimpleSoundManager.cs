@@ -27,7 +27,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	[SerializeField]
 	private float m_volumeBgm = 1.0f;
 	[SerializeField]
-	private bool m_editorIsFoldSeList =false;
+	private bool m_editorIsFoldSeList = false;
 	[SerializeField]
 	private bool m_editorIsFoldBgmList = false;
 
@@ -41,7 +41,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	protected override void Init()
 	{
 		base.Init();
-		for (int i = 0; i < m_sePlayerNum;i++)
+		for (int i = 0; i < m_sePlayerNum; i++)
 		{
 			GameObject soundPlayerObj = new GameObject("SoundPlayer" + i.ToString("0"));
 			soundPlayerObj.transform.SetParent(transform);
@@ -58,7 +58,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		m_subBackgroundPlayer = subBackgroundPlayerObj.AddComponent<BackGroundMusicPlayer>();
 
 		//Dictionaryに追加
-		for (int i = 0; i < audioClipListSe.Count;i++)
+		for (int i = 0; i < audioClipListSe.Count; i++)
 		{
 			m_audioClipDictSe.Add(audioClipListSe[i].name, audioClipListSe[i]);
 		}
@@ -74,14 +74,14 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		{
 			if (m_soundEffectPlayers[i].isActive)
 				m_soundEffectPlayers[i].PlayerUpdate();
-		}	
+		}
 	}
 
 	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName)
 	{
 		return PlaySE(_audioName.ToString(), 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
 	}
-	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName ,float _volume)
+	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName, float _volume)
 	{
 		return PlaySE(_audioName.ToString(), _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
 	}
@@ -94,7 +94,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	{
 		return PlaySE(_audioName, _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
 	}
-	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume,float _delay)
+	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume, float _delay)
 	{
 		return PlaySE(_audioName, _volume, _delay, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
 	}
@@ -111,27 +111,27 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
 
-	public SoundEffectPlayer PlaySE2D_FadeInOut(string _audioName, float _fadeInTime,float _fadeOutTime,float _volume, float _delay, float _pitch, int _loopCount, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
+	public SoundEffectPlayer PlaySE2D_FadeInOut(string _audioName, float _fadeInTime, float _fadeOutTime, float _volume, float _delay, float _pitch, int _loopCount, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
 	{
 		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
 
 	private SoundEffectPlayer PlaySE(
-		string _audioName, 
-		float _volume, 
-		float _delay, 
-		float _pitch, 
-		bool _isLoopInfinity, 
-		int _loopCount, 
-		float _fadeInTime, 
-		float _fadeOutTime, 
-		bool _is3dSound, 
-		Vector3 _soundPos, 
-		GameObject _chaseObj, 
-		float _minDistance, 
-		float _maxDistance, 
-		UnityAction _onStartBefore, 
-		UnityAction _onStart, 
+		string _audioName,
+		float _volume,
+		float _delay,
+		float _pitch,
+		bool _isLoopInfinity,
+		int _loopCount,
+		float _fadeInTime,
+		float _fadeOutTime,
+		bool _is3dSound,
+		Vector3 _soundPos,
+		GameObject _chaseObj,
+		float _minDistance,
+		float _maxDistance,
+		UnityAction _onStartBefore,
+		UnityAction _onStart,
 		UnityAction _onComplete,
 		UnityAction _onCompleteAfter)
 	{
@@ -202,7 +202,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 
 	public void Stop()
 	{
-		for (int i = 0; i < m_soundEffectPlayers.Count;i++)
+		for (int i = 0; i < m_soundEffectPlayers.Count; i++)
 		{
 			m_soundEffectPlayers[i].Stop();
 		}
@@ -226,7 +226,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 
 	private SoundEffectPlayer GetSoundEffectPlayer()
 	{
-		for (int i = 0; i < m_soundEffectPlayers.Count;i++)
+		for (int i = 0; i < m_soundEffectPlayers.Count; i++)
 		{
 			if (m_soundEffectPlayers[i].isActive)
 				continue;
@@ -256,8 +256,7 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 
 	}
 
-
-	public void PlayBGM(string _soundName, float _volume, bool _isLoop)
+	private void PlayBGM(string _audioName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, bool _isCheckLoopPoint, float _loopStartTime = 0.0f, float _loopEndTime = 0.0f)
 	{
 		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
 		{
@@ -265,23 +264,51 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			return;
 		}
 
-		var clip = m_audioClipDictSe[_audioName];
-		BackGroundMusicPlayer player = GetBgmPlayer();
 
-		player.Play(clip,)
+		_volume = Mathf.Clamp01(_volume);
+		_crossFadeRate = 1.0f - Mathf.Clamp01(_crossFadeRate);
+		var clip = m_audioClipDictSe[_audioName];
+		BackGroundMusicPlayer player = GetDisableBgmPlayer();
+
+		//BGM再生部分の作成
+		var isFade = (_fadeInTime > 0.0f || _fadeOutTime > 0.0f);
+		if (isFade)
+		{
+			GetDisableBgmPlayer().FadeIn(_fadeInTime, (_crossFadeRate * _fadeInTime));
+			GetAbleBgmPlayer().FadeOut(_fadeOutTime);
+		}
+		else
+		{
+			StopBGM();
+		}
+
+
+
 	}
 
+	/// <summary>
+	/// BGMを停止させる
+	/// </summary>
+	public void StopBGM()
+	{
+		m_mainBackgroundPlayer.Stop();
+		m_subBackgroundPlayer.Stop();
+	}
 
 	/// <summary>
 	/// 使っていないBGMPlayerを取得する
 	/// </summary>
 	/// <returns>The bgm player.</returns>
-	public BackGroundMusicPlayer GetBgmPlayer()
+	public BackGroundMusicPlayer GetDisableBgmPlayer()
 	{
 		return (m_mainBackgroundPlayer.IsPlaying) ? m_subBackgroundPlayer : m_mainBackgroundPlayer;
 	}
 
+	public BackGroundMusicPlayer GetAbleBgmPlayer()
+	{
+		return (m_mainBackgroundPlayer.IsPlaying) ? m_mainBackgroundPlayer : m_subBackgroundPlayer;
 
+	}
 
 
 

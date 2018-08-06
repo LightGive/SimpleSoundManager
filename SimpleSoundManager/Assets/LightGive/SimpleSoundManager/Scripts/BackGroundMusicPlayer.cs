@@ -39,7 +39,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		//audioSource.outputAudioMixerGroup = SimpleSoundManager.Instance.bgmAudioMixerGroup;
 	}
 
-	public void Play(AudioClip _clip, bool _isLoop, bool _isFade, bool _isCheckLoopPoint, float _volume, float _loopStartTime, float _loopEndTime)
+	public void Play(AudioClip _clip, bool _isLoop, bool _isFade, float _volume, bool _isCheckLoopPoint, float _loopStartTime, float _loopEndTime)
 	{
 		isPlaying = true;
 		this.gameObject.SetActive(true);
