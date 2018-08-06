@@ -30,6 +30,8 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	private bool m_editorIsFoldSeList = false;
 	[SerializeField]
 	private bool m_editorIsFoldBgmList = false;
+	[SerializeField]
+	private bool m_isLopBgm = true;
 
 	private Dictionary<string, AudioClip> m_audioClipDictSe = new Dictionary<string, AudioClip>();
 	private Dictionary<string, AudioClip> m_audioClipDirtBgm = new Dictionary<string, AudioClip>();
@@ -248,12 +250,9 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 
 	//******************************ここからBGM
 
-
-
-
 	public void PlayBGM(SoundNameBGM _soundName)
 	{
-
+		//PlayBGM(_soundName.ToString(), volumeBgm * volumeTotal,);
 	}
 
 	private void PlayBGM(string _soundName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, bool _isCheckLoopPoint, float _loopStartTime = 0.0f, float _loopEndTime = 0.0f)
@@ -302,12 +301,12 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 		return (m_mainBackgroundPlayer.IsPlaying) ? m_subBackgroundPlayer : m_mainBackgroundPlayer;
 	}
 
+	/// <summary>
+	/// 使用中のBGMPlayerを取得する
+	/// </summary>
+	/// <returns>The able bgm player.</returns>
 	public BackGroundMusicPlayer GetAbleBgmPlayer()
 	{
 		return (m_mainBackgroundPlayer.IsPlaying) ? m_mainBackgroundPlayer : m_subBackgroundPlayer;
-
 	}
-
-
-
 }
