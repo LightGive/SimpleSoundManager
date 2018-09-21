@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine.Events;
 using UnityEditor;
 
-public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
+public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundManager>
 {
 	[SerializeField]
 	public List<AudioClip> audioClipListSe = new List<AudioClip>();
@@ -40,9 +40,11 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 	public float volumeSe { get { return m_volumeSe; } }
 	public float volumeBgm { get { return m_volumeBgm; } }
 
-	protected override void Init()
+	protected override void Awake()
 	{
-		base.Init();
+		base.isDontDestroy = true;
+		base.Awake();
+
 		for (int i = 0; i < m_sePlayerNum; i++)
 		{
 			GameObject soundPlayerObj = new GameObject("SoundPlayer" + i.ToString("0"));
@@ -170,8 +172,46 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clip.length);
 			_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clip.length);
 
-			//フェードインとフェードアウトの時間が長すぎる場合の対応
+			List<Keyframe> keyframeList = new List<Keyframe>();
 			Keyframe k1, k2, k3, k4;
+			if (_fadeInTime <= 0.0f)
+			{
+				//フェードアウトのみの場合
+				keyframeList.Add(new Keyframe(0.0f, 1.0f));
+				if (clip.length < _fadeOutTime)
+				{
+					keyframeList.Add(new Keyframe(clip.length, clip.length / _fadeOutTime));
+				}
+				else
+				{
+					keyframeList.Add(new Keyframe(clip.length - _fadeOutTime, 1.0f));
+					keyframeList.Add(new Keyframe(clip.length, 0.0f));
+				}
+			}
+			else if (_fadeOutTime <= 0.0f)
+			{
+				//フェードインのみの場合
+				keyframeList.Add(new Keyframe(0.0f, 0.0f));
+				if (clip.length < _fadeInTime)
+				{
+					keyframeList.Add(new Keyframe(clip.length, clip.length / _fadeInTime));
+				}
+				else
+				{
+					keyframeList.Add(new Keyframe(_fadeInTime, 1.0f));
+					keyframeList.Add(new Keyframe(clip.length, 1.0f));
+
+				}
+			}
+			else
+			{
+
+			}
+
+
+
+
+			//フェードインとフェードアウトの時間が長すぎる場合の対応
 			var p1 = 0.0f;
 			var p2 = _fadeInTime;
 			var p3 = clip.length - _fadeOutTime;
@@ -189,6 +229,12 @@ public class SimpleSoundManager : SingletonMonoBehaviour<SimpleSoundManager>
 			k4 = new Keyframe(p4, 0.0f, 0.0f, 1.0f);
 
 			animCurve = new AnimationCurve(k1, k2, k3, k4);
+			AnimationUtility.SetKeyLeftTangentMode(animCurve, 0, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyRightTangentMode(animCurve, 0, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyLeftTangentMode(animCurve, 1, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyRightTangentMode(animCurve, 1, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyLeftTangentMode(animCurve, 2, AnimationUtility.TangentMode.Linear);
+			AnimationUtility.SetKeyRightTangentMode(animCurve, 2, AnimationUtility.TangentMode.Linear);
 			player.animationCurve = animCurve;
 		}
 

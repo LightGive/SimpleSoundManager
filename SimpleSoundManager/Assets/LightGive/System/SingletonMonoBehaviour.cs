@@ -1,40 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
+namespace LightGive
 {
-	protected static T instance;
-	public static T Instance
+	public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
 	{
-		get
+		public bool isDontDestroy;
+
+		private static T instance;
+		public static T Instance
 		{
-			if (instance == null)
+			get
 			{
-				instance = (T)FindObjectOfType(typeof(T));
 				if (instance == null)
 				{
-					Debug.LogError(typeof(T) + "is nothing");
+					instance = (T)FindObjectOfType(typeof(T));
+					if (instance == null)
+					{
+						Debug.LogError(typeof(T) + "is nothing");
+					}
 				}
+				return instance;
 			}
-			return instance;
 		}
-	}
 
-	protected void Awake()
-	{
-		if(CheckInstance())
+		protected virtual void Awake()
 		{
-			Init();
+			if (CheckInstance() && isDontDestroy)
+				DontDestroyOnLoad(this.gameObject);
 		}
-	}
 
-	protected virtual void Init() { }
-
-	protected bool CheckInstance()
-	{
-		if (this == Instance) { return true; }
-		Destroy(this.gameObject);
-		return false;
+		protected bool CheckInstance()
+		{
+			if (this == Instance) { return true; }
+			Destroy(this);
+			return false;
+		}
 	}
 }
