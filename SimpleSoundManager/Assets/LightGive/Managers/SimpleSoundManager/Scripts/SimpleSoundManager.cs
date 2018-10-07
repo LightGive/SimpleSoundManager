@@ -208,9 +208,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 			}
 
-
-
-
 			//フェードインとフェードアウトの時間が長すぎる場合の対応
 			var p1 = 0.0f;
 			var p2 = _fadeInTime;
