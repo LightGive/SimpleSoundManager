@@ -87,6 +87,20 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		float delay = 0.0f;
 		float pitch = 1.0f;
 		bool isLoopInfinity = false;
+		int loopCount = 0;
+		float fadeInTime = 0.0f;
+		float fadeOutTime = 0.0f;
+
+		bool is3dSound = false;
+		Vector3 soundPos = Vector3.zero;
+		GameObject chaseObj = null;
+		float minDistance = 5.0f;
+		float maxDistance = 500.0f;
+
+		UnityAction onStartBefore = null;
+		UnityAction onStart = null;
+		UnityAction onComplete = null;
+		UnityAction onCompleteAfter = null;
 
 		//Volume
 		if (_args.ContainsKey(HashParam.volume))
@@ -115,8 +129,136 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				Debug.Log(HashParam.pitch.ToString() + " type is different.");
 		}
 
+		//IsLoopInfinity
+		if (_args.ContainsKey(HashParam.isLoopInfinity))
+		{
+			if (_args[HashParam.isLoopInfinity] is bool)
+				isLoopInfinity = (bool)_args[HashParam.isLoopInfinity];
+			else
+				Debug.Log(HashParam.isLoopInfinity.ToString() + " type is different.");
+		}
 
-		return PlaySE(_audioName, volume, delay);
+		//LoopCount
+		if (_args.ContainsKey(HashParam.loopCount))
+		{
+			if (_args[HashParam.loopCount] is int)
+				loopCount = (int)_args[HashParam.loopCount];
+			else
+				Debug.Log(HashParam.loopCount.ToString() + " type is different.");
+		}
+
+		//FadeInTime
+		if (_args.ContainsKey(HashParam.fadeInTime))
+		{
+			if (_args[HashParam.fadeInTime] is float)
+				fadeInTime = (float)_args[HashParam.fadeInTime];
+			else
+				Debug.Log(HashParam.fadeInTime.ToString() + " type is different.");
+		}
+
+		//FadeOutTime
+		if (_args.ContainsKey(HashParam.fadeOutTime))
+		{
+			if (_args[HashParam.fadeOutTime] is float)
+				fadeOutTime = (float)_args[HashParam.fadeOutTime];
+			else
+				Debug.Log(HashParam.fadeOutTime.ToString() + " type is different.");
+		}
+
+		//is3dSound
+		if (_args.ContainsKey(HashParam.is3dSound))
+		{
+			if (_args[HashParam.is3dSound] is bool)
+				is3dSound = (bool)_args[HashParam.is3dSound];
+			else
+				Debug.Log(HashParam.is3dSound.ToString() + " type is different.");
+		}
+
+		//SoundPos
+		if (_args.ContainsKey(HashParam.soundPos))
+		{
+			if (_args[HashParam.soundPos] is Vector3)
+				soundPos = (Vector3)_args[HashParam.soundPos];
+			else
+				Debug.Log(HashParam.soundPos.ToString() + " type is different.");
+		}
+
+		//ChaseObj
+		if (_args.ContainsKey(HashParam.chaseObj))
+		{
+			if (_args[HashParam.chaseObj] is GameObject)
+				chaseObj = (GameObject)_args[HashParam.chaseObj];
+			else
+				Debug.Log(HashParam.chaseObj.ToString() + " type is different.");
+		}
+
+		//MinDistance
+		if (_args.ContainsKey(HashParam.minDistance))
+		{
+			if (_args[HashParam.minDistance] is float)
+				minDistance = (float)_args[HashParam.minDistance];
+			else
+				Debug.Log(HashParam.minDistance.ToString() + " type is different.");
+		}
+		//MaxDistance
+		if (_args.ContainsKey(HashParam.maxDistance))
+		{
+			if (_args[HashParam.maxDistance] is float)
+				maxDistance = (float)_args[HashParam.maxDistance];
+			else
+				Debug.Log(HashParam.maxDistance.ToString() + " type is different.");
+		}
+		//onStartBefore
+		if (_args.ContainsKey(HashParam.onStartBefore))
+		{
+			if (_args[HashParam.onStartBefore] is UnityAction)
+				onStartBefore = (UnityAction)_args[HashParam.onStartBefore];
+			else
+				Debug.Log(HashParam.onStartBefore.ToString() + " type is different.");
+		}
+		//onStart
+		if (_args.ContainsKey(HashParam.onStart))
+		{
+			if (_args[HashParam.onStart] is UnityAction)
+				onStart = (UnityAction)_args[HashParam.onStart];
+			else
+				Debug.Log(HashParam.onStart.ToString() + " type is different.");
+		}
+		//onComplete
+		if (_args.ContainsKey(HashParam.onComplete))
+		{
+			if (_args[HashParam.onComplete] is UnityAction)
+				onComplete = (UnityAction)_args[HashParam.onComplete];
+			else
+				Debug.Log(HashParam.onComplete.ToString() + " type is different.");
+		}
+		//onCompleteAfter
+		if (_args.ContainsKey(HashParam.onCompleteAfter))
+		{
+			if (_args[HashParam.onCompleteAfter] is UnityAction)
+				onCompleteAfter = (UnityAction)_args[HashParam.onCompleteAfter];
+			else
+				Debug.Log(HashParam.onCompleteAfter.ToString() + " type is different.");
+		}
+
+		return PlaySE(
+			_audioName.ToString(),
+			volume,
+			delay,
+			pitch,
+			isLoopInfinity,
+			loopCount,
+			fadeInTime,
+			fadeOutTime,
+			is3dSound,
+			soundPos,
+			chaseObj,
+			minDistance,
+			maxDistance,
+			onStartBefore,
+			onStart,
+			onComplete,
+			onCompleteAfter);
 	}
 
 
@@ -158,7 +300,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
-
 
 
 	private SoundEffectPlayer PlaySE(
@@ -411,7 +552,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	public enum HashParam
 	{
-		audioName,
 		volume,
 		delay,
 		pitch,
@@ -429,5 +569,4 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		onComplete,
 		onCompleteAfter,
 	}
-
 }
