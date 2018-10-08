@@ -81,6 +81,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
+
+
 	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName)
 	{
 		return PlaySE(_audioName.ToString(), 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
@@ -164,14 +166,13 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		player.onComplete = _onComplete;
 		player.onCompleteAfter = _onCompleteAfter;
 
+		_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, float.MaxValue);
+		_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, float.MaxValue);
 		player.isFade = (_fadeInTime > 0.0f || _fadeOutTime > 0.0f);
 		player.isLoopInfinity = _isLoopInfinity;
 
 		if (player.isFade)
 		{
-			_fadeInTime = Mathf.Clamp(_fadeInTime, 0.0f, clip.length);
-			_fadeOutTime = Mathf.Clamp(_fadeOutTime, 0.0f, clip.length);
-
 			List<Keyframe> keyframeList = new List<Keyframe>();
 			if (_fadeInTime <= 0.0f)
 			{
@@ -186,8 +187,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 					keyframeList.Add(new Keyframe(clip.length - _fadeOutTime, 1.0f));
 					keyframeList.Add(new Keyframe(clip.length, 0.0f));
 				}
-
-				Debug.Log("ふぇーどアウトのみ");
 			}
 			else if (_fadeOutTime <= 0.0f)
 			{
@@ -202,7 +201,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 					keyframeList.Add(new Keyframe(_fadeInTime, 1.0f));
 					keyframeList.Add(new Keyframe(clip.length, 1.0f));
 				}
-				Debug.Log("ふぇーどいんのみ");
 			}
 			else
 			{
@@ -211,28 +209,35 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				//フェードイン、フェードアウトが両方ある時
 				if (clip.length < (_fadeInTime + _fadeOutTime))
 				{
-					var func1 = GetQuadraticFunction(new Coordinates(0.0f, 0.0f), new Coordinates(_fadeInTime, 1.0f));
-					var func2 = GetQuadraticFunction(new Coordinates(1.0f, 0.0f), new Coordinates(clip.length - _fadeOutTime, 1.0f));
-					var crossPoint = GetCrossCoordinates(func1, func2);
-					keyframeList.Add(new Keyframe(crossPoint.x, crossPoint.y));
+					var x1 = 0.0f;
+					var y1 = 0.0f;
+					var x2 = _fadeInTime;
+					var y2 = 1.0f;
+					var x3 = clip.length - _fadeOutTime;
+					var y3 = 1.0f;
+					var x4 = clip.length;
+					var y4 = 0.0f;
+					var a0 = (y2 - y1) / (x2 - x1);
+					var a1 = (y4 - y3) / (x4 - x3);
+					var x = (a0 * x1 - y1 - a1 * x3 + y3) / (a0 - a1);
+					var y = (y2 - y1) / (x2 - 0.0f) * (x - x1) + y1;
+					keyframeList.Add(new Keyframe(x, y));
 				}
 				else
 				{
-					Debug.Log("こっち");
 					keyframeList.Add(new Keyframe(_fadeInTime, 1.0f));
 					keyframeList.Add(new Keyframe(clip.length - _fadeOutTime, 1.0f));
 				}
-
 				keyframeList.Add(new Keyframe(clip.length, 0.0f));
-
-				Debug.Log("とおった");
 			}
 
 			//フェードインとフェードアウトの時間が長すぎる場合の対応
 
 			AnimationCurve animCurve = new AnimationCurve(keyframeList.ToArray());
-			for (int i = 0; i < keyframeList.Count; i++)
+			Debug.Log(keyframeList.Count);
+			for (int i = 0; i < animCurve.keys.Length; i++)
 			{
+				Debug.Log("i" + i.ToString());
 				AnimationUtility.SetKeyLeftTangentMode(animCurve, i, AnimationUtility.TangentMode.Linear);
 				AnimationUtility.SetKeyRightTangentMode(animCurve, i, AnimationUtility.TangentMode.Linear);
 			}
@@ -358,64 +363,4 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		return (m_mainBackgroundPlayer.IsPlaying) ? m_mainBackgroundPlayer : m_subBackgroundPlayer;
 	}
 
-
-	/// <summary>
-	/// 式
-	/// </summary>
-	public class Function
-	{
-		public float a = 0;
-		public float b = 0;
-
-		public Function() { }
-		public Function(float _a, float _b)
-		{
-			a = _a;
-			b = _b;
-		}
-	}
-
-	/// <summary>
-	/// 座標
-	/// </summary>
-	public class Coordinates
-	{
-		public float x = 0;
-		public float y = 0;
-
-		public Coordinates() { }
-		public Coordinates(float _x, float _y)
-		{
-			x = _x;
-			y = _y;
-		}
-	}
-
-	/// <summary>
-	/// 二点の座標から式を求める
-	/// </summary>
-	/// <returns>The quadratic function.</returns>
-	/// <param name="_coordinates1">座標1</param>
-	/// <param name="_coordinates2">座標2</param>
-	public Function GetQuadraticFunction(Coordinates _coordinates1, Coordinates _coordinates2)
-	{
-		var func = new Function();
-		func.a = (_coordinates2.y - _coordinates1.y) / (_coordinates2.x - _coordinates1.x);
-		func.b = _coordinates1.y - _coordinates1.x;
-		return func;
-	}
-
-	/// <summary>
-	/// 二つの式の交点の座標を求める
-	/// </summary>
-	/// <returns>The cross coordinates.</returns>
-	/// <param name="_func1">式1</param>
-	/// <param name="_func2">式2</param>
-	public Coordinates GetCrossCoordinates(Function _func1, Function _func2)
-	{
-		var coordinates = new Coordinates(
-			(_func2.b - _func1.b) / (_func1.a - _func2.a),
-			((_func1.a * _func2.b) - (_func2.a * _func1.b)) / (_func1.a - _func2.a));
-		return coordinates;
-	}
 }
