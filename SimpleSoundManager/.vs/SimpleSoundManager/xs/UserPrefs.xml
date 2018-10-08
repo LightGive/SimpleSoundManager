@@ -7,7 +7,7 @@
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Editor/AssetPostprocessorExSound.cs" Line="16" Column="38" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManagerDefine.cs" Line="13" Column="115" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example1.cs" Line="138" Column="55" />
-      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="211" Column="4" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="209" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
