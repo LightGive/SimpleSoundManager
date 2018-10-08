@@ -81,6 +81,43 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
+	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName, Hashtable _args)
+	{
+		float volume = 1.0f;
+		float delay = 0.0f;
+		float pitch = 1.0f;
+		bool isLoopInfinity = false;
+
+		//Volume
+		if (_args.ContainsKey(HashParam.volume))
+		{
+			if (_args[HashParam.volume] is float)
+				volume = (float)_args[HashParam.volume];
+			else
+				Debug.Log(HashParam.volume.ToString() + " type is different.");
+		}
+
+		//Delay
+		if (_args.ContainsKey(HashParam.delay))
+		{
+			if (_args[HashParam.delay] is float)
+				delay = (float)_args[HashParam.delay];
+			else
+				Debug.Log(HashParam.delay.ToString() + " type is different.");
+		}
+
+		//Pitch
+		if (_args.ContainsKey(HashParam.pitch))
+		{
+			if (_args[HashParam.pitch] is float)
+				pitch = (float)_args[HashParam.pitch];
+			else
+				Debug.Log(HashParam.pitch.ToString() + " type is different.");
+		}
+
+
+		return PlaySE(_audioName, volume, delay);
+	}
 
 
 	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName)
@@ -122,7 +159,10 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
 
+
+
 	private SoundEffectPlayer PlaySE(
+
 		string _audioName,
 		float _volume,
 		float _delay,
@@ -141,6 +181,11 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		UnityAction _onComplete,
 		UnityAction _onCompleteAfter)
 	{
+
+		Hashtable a = new Hashtable();
+		a.Add(HashParam.onStart, _onComplete);
+
+
 		if (!m_audioClipDictSe.ContainsKey(_audioName))
 		{
 			Debug.Log("SE with that name does not exist :" + _audioName);
@@ -361,6 +406,28 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	public BackGroundMusicPlayer GetAbleBgmPlayer()
 	{
 		return (m_mainBackgroundPlayer.IsPlaying) ? m_mainBackgroundPlayer : m_subBackgroundPlayer;
+	}
+
+
+	public enum HashParam
+	{
+		audioName,
+		volume,
+		delay,
+		pitch,
+		isLoopInfinity,
+		loopCount,
+		fadeInTime,
+		fadeOutTime,
+		is3dSound,
+		soundPos,
+		chaseObj,
+		minDistance,
+		maxDistance,
+		onStartBefore,
+		onStart,
+		onComplete,
+		onCompleteAfter,
 	}
 
 }
