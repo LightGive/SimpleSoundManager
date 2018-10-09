@@ -7,26 +7,8 @@ using System.IO;
 
 public static class SimpleSoundManagerSetting
 {
-	private static ConfigAsset m_configAsset;
 	private static List<AudioClip> m_audioClipListSe = new List<AudioClip>();
 	private static List<AudioClip> m_audioClipListBgm = new List<AudioClip>();
-
-	public static ConfigAsset configAsset
-	{
-		get
-		{
-			if (m_configAsset != null)
-				return m_configAsset;
-
-			m_configAsset = (ConfigAsset)AssetDatabase.LoadAssetAtPath(SimpleSoundManagerDefine.PathConfigData, typeof(ConfigAsset));
-			return (m_configAsset != null) ? m_configAsset : CreateConfigData();
-		}
-	}
-
-	public static ConfigAsset CreateConfigData()
-	{
-		return ConfigAsset.CreateAsset();
-	}
 
 	/// <summary>
 	/// ファイルからAudioClipを取得する（BGM）
@@ -60,7 +42,7 @@ public static class SimpleSoundManagerSetting
 	/// ファイルからAudioClipを取得する（SE）
 	/// </summary>
 	/// <returns>The audio clip list se.</returns>
-	public static List<AudioClip>GetAudioClipListSe()
+	public static List<AudioClip> GetAudioClipListSe()
 	{
 		List<AudioClip> audioClipList = new List<AudioClip>();
 		string[] fileEntriesSe = Directory.GetFiles(SimpleSoundManagerDefine.PathSeSourceFolder, "*", SearchOption.AllDirectories);

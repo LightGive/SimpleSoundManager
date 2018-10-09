@@ -32,8 +32,6 @@ public class SimpleSoundManagerEditor : Editor
 		m_volumeBgmProp = m_serializedObj.FindProperty("m_volumeBgm");
 
 
-
-
 		List<AudioClip> bgmClipList = new List<AudioClip>();
 		List<AudioClip> seClipList = new List<AudioClip>();
 		bgmClipList = SimpleSoundManagerSetting.GetAudioClipListBgm();
@@ -86,13 +84,13 @@ public class SimpleSoundManagerEditor : Editor
 
 		EditorGUILayout.LabelField("【Volume】");
 		EditorGUILayout.Slider(m_volumeTotalProp, 0.0f, 1.0f, "Total");
-		EditorGUILayout.Slider(m_volumeSeProp, 0.0f, 1.0f,"SE");
+		EditorGUILayout.Slider(m_volumeSeProp, 0.0f, 1.0f, "SE");
 		EditorGUILayout.Slider(m_volumeBgmProp, 0.0f, 1.0f, "BGM");
 		EditorGUILayout.Space();
 
 
 		EditorGUILayout.LabelField("【Other】");
-		m_sePlayerNumProp.intValue = EditorGUILayout.IntField("SE PlayerCount",m_sePlayerNumProp.intValue);
+		m_sePlayerNumProp.intValue = EditorGUILayout.IntField("SE PlayerCount", m_sePlayerNumProp.intValue);
 
 		EditorGUILayout.Space();
 		EditorGUILayout.LabelField("【SoundList】");

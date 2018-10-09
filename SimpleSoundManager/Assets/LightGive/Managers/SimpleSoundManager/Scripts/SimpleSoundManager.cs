@@ -7,6 +7,12 @@ using UnityEditor;
 
 public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundManager>
 {
+	private const float DefaultParamVolume = 1.0f;
+	private const float DefaultParamDelay = 0.0f;
+	private const float DefaultParamPitch = 1.0f;
+	private const float DefaultParamMinDistance = 1.0f;
+	private const float DefaultParamMaxDistance = 500.0f;
+
 	[SerializeField]
 	public List<AudioClip> audioClipListSe = new List<AudioClip>();
 	[SerializeField]
@@ -21,11 +27,11 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	[SerializeField]
 	private int m_sePlayerNum = 10;
 	[SerializeField]
-	private float m_volumeTotal = 1.0f;
+	private float m_volumeTotal = 0.5f;
 	[SerializeField]
-	private float m_volumeSe = 1.0f;
+	private float m_volumeSe = 0.5f;
 	[SerializeField]
-	private float m_volumeBgm = 1.0f;
+	private float m_volumeBgm = 0.5f;
 	[SerializeField]
 	private bool m_editorIsFoldSeList = false;
 	[SerializeField]
@@ -81,7 +87,24 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
-	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName, Hashtable _args)
+	/// <summary>
+	/// HashTableのパラメータを参照してSEを再生する
+	/// </summary>
+	/// <returns>SEPlayer</returns>
+	/// <param name="_soundName">SEの名前</param>
+	/// <param name="_args">パラメータ</param>
+	public SoundEffectPlayer PlaySE(SoundNameSE _soundName, Hashtable _args)
+	{
+		return PlaySE(_soundName.ToString(), _args);
+	}
+
+	/// <summary>
+	/// HashTableのパラメータを参照してSEを再生する
+	/// </summary>
+	/// <returns>SEPlayer</returns>
+	/// <param name="_soundName">SEの名前</param>
+	/// <param name="_args">パラメータ</param>
+	public SoundEffectPlayer PlaySE(string _soundName, Hashtable _args)
 	{
 		float volume = 1.0f;
 		float delay = 0.0f;
@@ -242,7 +265,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 
 		return PlaySE(
-			_audioName.ToString(),
+			_soundName,
 			volume,
 			delay,
 			pitch,
@@ -261,49 +284,32 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			onCompleteAfter);
 	}
 
-
-	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName)
+	//2D
+	public SoundEffectPlayer PlaySE_2D(SoundNameSE _soundName, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onStartBefore = null, UnityAction _onStart = null, UnityAction _onComplete = null, UnityAction _onCompleteAfter = null)
 	{
-		return PlaySE(_audioName.ToString(), 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
+		return PlaySE(_soundName.ToString(), _volume, _delay, DefaultParamPitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
-	public SoundEffectPlayer PlaySE2D(SoundNameSE _audioName, float _volume)
+	public SoundEffectPlayer PlaySE_2D_Loop(SoundNameSE _soundName, int _loopCount, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, float _pitch = DefaultParamPitch, UnityAction _onStartBefore = null, UnityAction _onStart = null, UnityAction _onComplete = null, UnityAction _onCompleteAfter = null)
 	{
-		return PlaySE(_audioName.ToString(), _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
+		return PlaySE(_soundName.ToString(), _volume, _delay, DefaultParamPitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
-
-	public SoundEffectPlayer PlaySE2D(string _audioName)
+	public SoundEffectPlayer PlaySE_2D_LoopInfinity(SoundNameSE _soundName, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onStartBefore = null, UnityAction _onStart = null, UnityAction _onComplete = null, UnityAction _onCompleteAfter = null)
 	{
-		return PlaySE(_audioName, 1.0f, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
+		return PlaySE(_soundName.ToString(), _volume, _delay, DefaultParamPitch, true, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
-	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume)
+	public SoundEffectPlayer PlaySE_2D_FadeInOut(SoundNameSE _soundName, float _fadeInTime, float _fadeOutTime, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onStartBefore = null, UnityAction _onStart = null, UnityAction _onComplete = null, UnityAction _onCompleteAfter = null)
 	{
-		return PlaySE(_audioName, _volume, 0.0f, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
-	}
-	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume, float _delay)
-	{
-		return PlaySE(_audioName, _volume, _delay, 1.0f, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
-	}
-	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume, float _delay, float _pitch)
-	{
-		return PlaySE(_audioName, _volume, _delay, _pitch, false, 1, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
-	}
-	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume, float _delay, float _pitch, int _loopCount)
-	{
-		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, null, null, null, null);
-	}
-	public SoundEffectPlayer PlaySE2D(string _audioName, float _volume, float _delay, float _pitch, int _loopCount, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
-	{
-		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, 0.0f, 0.0f, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
+		return PlaySE(_soundName.ToString(), _volume, _delay, DefaultParamPitch, false, 1, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 	}
 
-	public SoundEffectPlayer PlaySE2D_FadeInOut(string _audioName, float _fadeInTime, float _fadeOutTime, float _volume, float _delay, float _pitch, int _loopCount, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
-	{
-		return PlaySE(_audioName, _volume, _delay, _pitch, false, _loopCount, _fadeInTime, _fadeOutTime, false, Vector3.zero, null, 0.0f, 0.0f, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
-	}
 
+	//3D
+	public SoundEffectPlayer PlaySE_3D(SoundNameSE _soundName, Vector3 _soundPos, float _minDistance, float _maxDistance, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onStartBefore = null, UnityAction _onStart = null, UnityAction _onComplete = null, UnityAction _onCompleteAfter = null)
+	{
+		return PlaySE(_soundName.ToString(), _volume, _delay, DefaultParamPitch, false, 1, 0.0f, 0.0f, true, _soundPos, null, _minDistance, _maxDistance, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
+	}
 
 	private SoundEffectPlayer PlaySE(
-
 		string _audioName,
 		float _volume,
 		float _delay,
@@ -341,6 +347,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		player.pitch = _pitch;
 		player.transform.position = _soundPos;
 		player.source.spatialBlend = spatialBlend;
+		player.source.rolloffMode = (_is3dSound) ? AudioRolloffMode.Linear : AudioRolloffMode.Logarithmic;
 		player.chaseObj = _chaseObj;
 		player.loopCount = _loopCount;
 		player.volume = _volume * m_volumeSe;
@@ -420,10 +427,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			//フェードインとフェードアウトの時間が長すぎる場合の対応
 
 			AnimationCurve animCurve = new AnimationCurve(keyframeList.ToArray());
-			Debug.Log(keyframeList.Count);
 			for (int i = 0; i < animCurve.keys.Length; i++)
 			{
-				Debug.Log("i" + i.ToString());
 				AnimationUtility.SetKeyLeftTangentMode(animCurve, i, AnimationUtility.TangentMode.Linear);
 				AnimationUtility.SetKeyRightTangentMode(animCurve, i, AnimationUtility.TangentMode.Linear);
 			}

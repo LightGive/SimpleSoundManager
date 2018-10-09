@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class Example1 : MonoBehaviour
 {
@@ -97,7 +98,7 @@ public class Example1 : MonoBehaviour
 		if (m_player == null)
 			return;
 
-		if(m_player.isActive)
+		if (m_player.isActive)
 		{
 			m_sliderPlayTime.value = m_player.Length;
 		}
@@ -114,7 +115,7 @@ public class Example1 : MonoBehaviour
 
 	public void OnSliderChangeVolume()
 	{
-		m_textShowVolume.text = (m_sliderVolumeSe.value * 100.0f).ToString("F1")+"%";
+		m_textShowVolume.text = (m_sliderVolumeSe.value * 100.0f).ToString("F1") + "%";
 	}
 	public void OnSliderChangeDelay()
 	{
@@ -135,19 +136,19 @@ public class Example1 : MonoBehaviour
 		}
 		else
 		{
-			m_player = SimpleSoundManager.Instance.PlaySE2D_FadeInOut(
-				selectSeName,
-				float.Parse(m_inputFieldFadeInTime.text),
-				float.Parse(m_inputFieldFadeOutTime.text),
-				m_sliderVolumeSe.value,
-				m_sliderDelaySe.value,
-				m_sliderPitchSe.value,
-				int.Parse(m_inputFieldLoopCount.text),
-				() => calledTextStartBefore.Show(),
-				() => calledTextStart.Show(),
-				() => calledTextComplete.Show(),
-				() => OnPlayComplete()
-			);
+			Hashtable ht = new Hashtable();
+			ht.Add(SimpleSoundManager.HashParam.volume, m_sliderVolumeSe.value);
+			ht.Add(SimpleSoundManager.HashParam.delay, m_sliderDelaySe.value);
+			ht.Add(SimpleSoundManager.HashParam.pitch, m_sliderPitchSe.value);
+			ht.Add(SimpleSoundManager.HashParam.fadeInTime, float.Parse(m_inputFieldFadeInTime.text));
+			ht.Add(SimpleSoundManager.HashParam.fadeOutTime, float.Parse(m_inputFieldFadeOutTime.text));
+			ht.Add(SimpleSoundManager.HashParam.loopCount, int.Parse(m_inputFieldLoopCount.text));
+			ht.Add(SimpleSoundManager.HashParam.onStartBefore, new UnityAction(() => calledTextStartBefore.Show()));
+			ht.Add(SimpleSoundManager.HashParam.onStart, new UnityAction(() => calledTextStart.Show()));
+			ht.Add(SimpleSoundManager.HashParam.onComplete, new UnityAction(() => calledTextComplete.Show()));
+			ht.Add(SimpleSoundManager.HashParam.onCompleteAfter, new UnityAction(OnPlayComplete));
+
+			m_player = SimpleSoundManager.Instance.PlaySE(selectSeName, ht);
 
 			if (m_player == null)
 				return;

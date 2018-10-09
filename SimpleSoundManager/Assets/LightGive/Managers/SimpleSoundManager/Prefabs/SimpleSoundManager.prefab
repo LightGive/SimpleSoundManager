@@ -64,8 +64,8 @@ MonoBehaviour:
   m_subBackgroundPlayer: {fileID: 0}
   m_sePlayerNum: 10
   m_volumeTotal: 1
-  m_volumeSe: 1
-  m_volumeBgm: 1
+  m_volumeSe: 0.5
+  m_volumeBgm: 0.5
   m_editorIsFoldSeList: 0
   m_editorIsFoldBgmList: 0
   m_isLopBgm: 1
