@@ -66,6 +66,7 @@ MonoBehaviour:
   m_volumeTotal: 1
   m_volumeSe: 0.5
   m_volumeBgm: 0.5
-  m_editorIsFoldSeList: 0
-  m_editorIsFoldBgmList: 0
-  m_isLopBgm: 1
+  m_editorIsFoldSeList: 1
+  m_editorIsFoldBgmList: 1
+  m_isLoopBgm: 1
+  m_isChangeToSave: 0
