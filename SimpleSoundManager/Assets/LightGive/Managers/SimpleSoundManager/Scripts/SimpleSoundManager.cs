@@ -57,6 +57,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	private Dictionary<string, AudioClip> m_audioClipDictSe = new Dictionary<string, AudioClip>();
 	private Dictionary<string, AudioClip> m_audioClipDirtBgm = new Dictionary<string, AudioClip>();
 
+
 	public float volumeTotal
 	{
 		set
@@ -696,7 +697,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
 		{
-			Debug.Log("SE with that name does not exist :" + _soundName);
+			Debug.Log("BGM with that name does not exist :" + _soundName);
 			return;
 		}
 

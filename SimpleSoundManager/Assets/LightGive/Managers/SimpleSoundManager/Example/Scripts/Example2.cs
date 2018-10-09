@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class Example2 : MonoBehaviour
 {
 	[SerializeField]
+	private Dropdown m_dropDownIntroBgmName;
+	[SerializeField]
 	private Dropdown m_dropDownBgmName;
 
 	//SoundEffectProperties
@@ -100,19 +102,6 @@ public class Example2 : MonoBehaviour
 		}
 		else
 		{
-			//m_player = SimpleSoundManager.Instance.PlaySE2D(
-			//	selectSeName,
-			//	float.Parse(m_inputFieldFadeInTime.text),
-			//	float.Parse(m_inputFieldFadeOutTime.text),
-			//	m_sliderVolumeSe.value,
-			//	m_sliderDelaySe.value,
-			//	m_sliderPitchSe.value,
-			//	int.Parse(m_inputFieldLoopCount.text),
-			//	() => calledTextStartBefore.Show(),
-			//	() => calledTextStart.Show(),
-			//	() => calledTextComplete.Show(),
-			//	() => OnPlayComplete()
-			//);
 
 
 

@@ -5837,6 +5837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb14979656f7d4b28acd4e13e4dc5032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dropDownIntroBgmName: {fileID: 428848896}
   m_dropDownBgmName: {fileID: 64841020}
   m_sliderPlayTime: {fileID: 1864676690}
   m_sliderVolume: {fileID: 626214010}

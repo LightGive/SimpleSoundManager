@@ -28,6 +28,11 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		isCheckLoopPoint = false;
 	}
 
+	public void Init()
+	{
+
+	}
+
 	void Awake()
 	{
 		fadeVolume = 1.0f;
@@ -83,6 +88,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		fadeInMethod = _FadeIn(_fadeTime, _waitTime);
 		StartCoroutine(fadeInMethod);
 	}
+
 	public void FadeOut(float _fadeTime)
 	{
 		if (!IsPlaying)
