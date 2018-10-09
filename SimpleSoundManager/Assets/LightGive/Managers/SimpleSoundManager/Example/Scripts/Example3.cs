@@ -9,6 +9,7 @@ public class Example3 : MonoBehaviour
 	[SerializeField]
 	private Transform m_anchorShot;
 
+
 	public void OnButtonDownRandomShot()
 	{
 		m_ball.transform.position = m_anchorShot.position;
