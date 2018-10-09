@@ -36,7 +36,6 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		audioSource.loop = true;
 		audioSource.spatialBlend = 0.0f;
 		audioSource.volume = SimpleSoundManager.Instance.volumeBgm;
-		//audioSource.outputAudioMixerGroup = SimpleSoundManager.Instance.bgmAudioMixerGroup;
 	}
 
 	public void Play(AudioClip _clip, bool _isLoop, bool _isFade, float _volume, bool _isCheckLoopPoint, float _loopStartTime, float _loopEndTime)

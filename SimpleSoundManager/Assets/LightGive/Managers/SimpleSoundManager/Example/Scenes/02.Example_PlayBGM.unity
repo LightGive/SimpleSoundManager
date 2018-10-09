@@ -1327,7 +1327,7 @@ GameObject:
   - component: {fileID: 428848897}
   - component: {fileID: 428848896}
   m_Layer: 5
-  m_Name: DropdownBgmName (1)
+  m_Name: DropdownIntroBgmName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
