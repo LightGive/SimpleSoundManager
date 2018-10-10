@@ -704,14 +704,14 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		_volume = Mathf.Clamp01(_volume);
 		_crossFadeRate = 1.0f - Mathf.Clamp01(_crossFadeRate);
 		var clip = m_audioClipDictSe[_soundName];
-		BackGroundMusicPlayer player = GetDisableBgmPlayer();
+		BackGroundMusicPlayer player = GetNonActiveBgmPlayer();
 
 		//BGM再生部分の作成
 		var isFade = (_fadeInTime > 0.0f || _fadeOutTime > 0.0f);
 		if (isFade)
 		{
-			GetDisableBgmPlayer().FadeIn(_fadeInTime, (_crossFadeRate * _fadeInTime));
-			GetAbleBgmPlayer().FadeOut(_fadeOutTime);
+			GetNonActiveBgmPlayer().FadeIn(_fadeInTime, (_crossFadeRate * _fadeInTime));
+			GetActiveBgmPlayer().FadeOut(_fadeOutTime);
 		}
 		else
 		{
@@ -734,7 +734,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// 使っていないBGMPlayerを取得する
 	/// </summary>
 	/// <returns>The bgm player.</returns>
-	public BackGroundMusicPlayer GetDisableBgmPlayer()
+	public BackGroundMusicPlayer GetNonActiveBgmPlayer()
 	{
 		return (m_mainBackgroundPlayer.IsPlaying) ? m_subBackgroundPlayer : m_mainBackgroundPlayer;
 	}
@@ -743,7 +743,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// 使用中のBGMPlayerを取得する
 	/// </summary>
 	/// <returns>The able bgm player.</returns>
-	public BackGroundMusicPlayer GetAbleBgmPlayer()
+	public BackGroundMusicPlayer GetActiveBgmPlayer()
 	{
 		return (m_mainBackgroundPlayer.IsPlaying) ? m_mainBackgroundPlayer : m_subBackgroundPlayer;
 	}

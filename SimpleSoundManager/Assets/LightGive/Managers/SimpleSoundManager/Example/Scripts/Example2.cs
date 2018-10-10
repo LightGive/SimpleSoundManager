@@ -35,7 +35,6 @@ public class Example2 : MonoBehaviour
 	[SerializeField]
 	private int m_spectrumWidth = 100;
 
-
 	private bool m_isPause = false;
 	private SoundEffectPlayer m_player;
 
@@ -60,6 +59,9 @@ public class Example2 : MonoBehaviour
 		List<string> names = new List<string>(enumNames);
 		m_dropDownBgmName.ClearOptions();
 		m_dropDownBgmName.AddOptions(names);
+		m_dropDownIntroBgmName.ClearOptions();
+		m_dropDownIntroBgmName.AddOptions(names);
+
 		for (int i = 0; i < m_spectrum.Length; i++)
 		{
 			m_spectrum[i].min = i * m_spectrumWidth;

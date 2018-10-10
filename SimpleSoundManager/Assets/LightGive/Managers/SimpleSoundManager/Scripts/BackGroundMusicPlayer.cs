@@ -70,6 +70,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		}
 	}
 
+
 	public void PlayerUpdate()
 	{
 		if (isCheckLoopPoint)

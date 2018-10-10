@@ -116,6 +116,7 @@ public class SimpleSoundManagerEditor : Editor
 					//Editor上で再生できる様に修正
 					if (GUILayout.Button("Play"))
 					{
+						AudioUtility.StopAllClips();
 						AudioUtility.PlayClip((AudioClip)p.objectReferenceValue);
 					}
 
@@ -137,7 +138,7 @@ public class SimpleSoundManagerEditor : Editor
 			{
 				for (int i = 0; i < m_audioClipListBgmProp.arraySize; i++)
 				{
-					var p = m_audioClipListSeProp.GetArrayElementAtIndex(i);
+					var p = m_audioClipListBgmProp.GetArrayElementAtIndex(i);
 					EditorGUILayout.BeginHorizontal();
 					EditorGUILayout.LabelField((i + 1).ToString("00") + ".", GUILayout.Width(20));
 					EditorGUI.BeginDisabledGroup(true);
@@ -147,6 +148,7 @@ public class SimpleSoundManagerEditor : Editor
 					//Editor上で再生できる様に修正
 					if (GUILayout.Button("Play"))
 					{
+						AudioUtility.StopAllClips();
 						AudioUtility.PlayClip((AudioClip)p.objectReferenceValue);
 					}
 					EditorGUILayout.EndHorizontal();
