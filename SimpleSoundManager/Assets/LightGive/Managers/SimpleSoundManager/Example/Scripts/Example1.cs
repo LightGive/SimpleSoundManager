@@ -8,6 +8,8 @@ using UnityEngine.Events;
 public class Example1 : MonoBehaviour
 {
 	[SerializeField]
+	private Text m_textSceneName;
+	[SerializeField]
 	private Dropdown m_dropDownSeName;
 
 	//SoundEffectProperties
@@ -78,6 +80,7 @@ public class Example1 : MonoBehaviour
 		OnSliderChangePitch();
 		OnSliderChangeVolume();
 
+		m_textSceneName.text = SceneManager.GetActiveScene().name;
 		m_buttonPlay.gameObject.SetActive(true);
 		m_buttonStop.gameObject.SetActive(true);
 		m_buttonPause.gameObject.SetActive(false);
