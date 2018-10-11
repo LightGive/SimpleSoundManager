@@ -140,4 +140,13 @@ public class Example2 : MonoBehaviour
 		m_buttonPlay.gameObject.SetActive(true);
 		m_buttonPause.gameObject.SetActive(false);
 	}
+
+
+	public void OnButtonDownNextScene()
+	{
+		var no = SceneManager.GetActiveScene().buildIndex;
+		no++;
+		if (no >= SceneManager.sceneCountInBuildSettings) { no = 0; }
+		SceneManager.LoadScene(no);
+	}
 }
