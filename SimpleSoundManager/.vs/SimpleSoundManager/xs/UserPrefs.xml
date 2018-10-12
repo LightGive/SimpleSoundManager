@@ -4,7 +4,7 @@
     <Files>
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/BackGroundMusicPlayer.cs" Line="93" Column="14" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SoundEffectPlayer.cs" Line="29" Column="24" />
-      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example2.cs" Line="19" Column="2" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example2.cs" Line="37" Column="41" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example3_Ball.cs" Line="20" Column="58" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="142" Column="40" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="119" Column="53" />
