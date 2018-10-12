@@ -10,18 +10,20 @@ public class Example2 : MonoBehaviour
 	private Dropdown m_dropDownIntroBgmName;
 	[SerializeField]
 	private Dropdown m_dropDownBgmName;
+	[SerializeField]
+	private InputField m_inputFadeInTime;
+	[SerializeField]
+	private InputField m_inputFadeOutTime;
+	[SerializeField]
+	private Toggle m_toggleIsLoop;
 
-	//SoundEffectProperties
 	[SerializeField]
 	private Slider m_sliderPlayTime;
 	[SerializeField]
 	private Slider m_sliderVolume;
-
-	//ShowText
 	[SerializeField]
 	private Text m_textShowVolume;
 
-	//ButtonList
 	[SerializeField]
 	private Button m_buttonPlay;
 	[SerializeField]
@@ -105,6 +107,7 @@ public class Example2 : MonoBehaviour
 		else
 		{
 
+			//Play
 
 
 			if (m_player == null)
