@@ -17,6 +17,7 @@ public class Example2 : MonoBehaviour
 	[SerializeField]
 	private Toggle m_toggleIsLoop;
 
+
 	[SerializeField]
 	private Slider m_sliderPlayTime;
 	[SerializeField]
