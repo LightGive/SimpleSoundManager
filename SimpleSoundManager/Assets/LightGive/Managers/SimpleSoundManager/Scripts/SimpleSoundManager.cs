@@ -693,8 +693,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	}
 
-
-
 	private void PlayBGM(string _soundName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate)
 	{
 		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
@@ -723,6 +721,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		player.Play(clip, _isLoop, isFade, _volume * volumeBgm * volumeTotal, false, 0.0f, 0.0f);
 	}
 
+
 	/// <summary>
 	/// BGMを停止させる
 	/// </summary>
@@ -749,6 +748,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	{
 		return (m_mainBackgroundPlayer.IsPlaying) ? m_mainBackgroundPlayer : m_subBackgroundPlayer;
 	}
+
 
 	public void LoadVolume()
 	{
