@@ -140,16 +140,16 @@ public class Example1 : MonoBehaviour
 		else
 		{
 			Hashtable ht = new Hashtable();
-			ht.Add(SimpleSoundManager.HashParam.volume, m_sliderVolumeSe.value);
-			ht.Add(SimpleSoundManager.HashParam.delay, m_sliderDelaySe.value);
-			ht.Add(SimpleSoundManager.HashParam.pitch, m_sliderPitchSe.value);
-			ht.Add(SimpleSoundManager.HashParam.fadeInTime, float.Parse(m_inputFieldFadeInTime.text));
-			ht.Add(SimpleSoundManager.HashParam.fadeOutTime, float.Parse(m_inputFieldFadeOutTime.text));
-			ht.Add(SimpleSoundManager.HashParam.loopCount, int.Parse(m_inputFieldLoopCount.text));
-			ht.Add(SimpleSoundManager.HashParam.onStartBefore, new UnityAction(() => calledTextStartBefore.Show()));
-			ht.Add(SimpleSoundManager.HashParam.onStart, new UnityAction(() => calledTextStart.Show()));
-			ht.Add(SimpleSoundManager.HashParam.onComplete, new UnityAction(() => calledTextComplete.Show()));
-			ht.Add(SimpleSoundManager.HashParam.onCompleteAfter, new UnityAction(OnPlayComplete));
+			ht.Add(SimpleSoundManager.HashParam_SE.volume, m_sliderVolumeSe.value);
+			ht.Add(SimpleSoundManager.HashParam_SE.delay, m_sliderDelaySe.value);
+			ht.Add(SimpleSoundManager.HashParam_SE.pitch, m_sliderPitchSe.value);
+			ht.Add(SimpleSoundManager.HashParam_SE.fadeInTime, float.Parse(m_inputFieldFadeInTime.text));
+			ht.Add(SimpleSoundManager.HashParam_SE.fadeOutTime, float.Parse(m_inputFieldFadeOutTime.text));
+			ht.Add(SimpleSoundManager.HashParam_SE.loopCount, int.Parse(m_inputFieldLoopCount.text));
+			ht.Add(SimpleSoundManager.HashParam_SE.onStartBefore, new UnityAction(() => calledTextStartBefore.Show()));
+			ht.Add(SimpleSoundManager.HashParam_SE.onStart, new UnityAction(() => calledTextStart.Show()));
+			ht.Add(SimpleSoundManager.HashParam_SE.onComplete, new UnityAction(() => calledTextComplete.Show()));
+			ht.Add(SimpleSoundManager.HashParam_SE.onCompleteAfter, new UnityAction(OnPlayComplete));
 
 			m_player = SimpleSoundManager.Instance.PlaySE(selectSeName, ht);
 

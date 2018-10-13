@@ -168,142 +168,142 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		UnityAction onCompleteAfter = null;
 
 		//Volume
-		if (_args.ContainsKey(HashParam.volume))
+		if (_args.ContainsKey(HashParam_SE.volume))
 		{
-			if (_args[HashParam.volume] is float)
-				volume = (float)_args[HashParam.volume];
+			if (_args[HashParam_SE.volume] is float)
+				volume = (float)_args[HashParam_SE.volume];
 			else
-				Debug.Log(HashParam.volume.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.volume.ToString() + " type is different.");
 		}
 
 		//Delay
-		if (_args.ContainsKey(HashParam.delay))
+		if (_args.ContainsKey(HashParam_SE.delay))
 		{
-			if (_args[HashParam.delay] is float)
-				delay = (float)_args[HashParam.delay];
+			if (_args[HashParam_SE.delay] is float)
+				delay = (float)_args[HashParam_SE.delay];
 			else
-				Debug.Log(HashParam.delay.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.delay.ToString() + " type is different.");
 		}
 
 		//Pitch
-		if (_args.ContainsKey(HashParam.pitch))
+		if (_args.ContainsKey(HashParam_SE.pitch))
 		{
-			if (_args[HashParam.pitch] is float)
-				pitch = (float)_args[HashParam.pitch];
+			if (_args[HashParam_SE.pitch] is float)
+				pitch = (float)_args[HashParam_SE.pitch];
 			else
-				Debug.Log(HashParam.pitch.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.pitch.ToString() + " type is different.");
 		}
 
 		//IsLoopInfinity
-		if (_args.ContainsKey(HashParam.isLoopInfinity))
+		if (_args.ContainsKey(HashParam_SE.isLoopInfinity))
 		{
-			if (_args[HashParam.isLoopInfinity] is bool)
-				isLoopInfinity = (bool)_args[HashParam.isLoopInfinity];
+			if (_args[HashParam_SE.isLoopInfinity] is bool)
+				isLoopInfinity = (bool)_args[HashParam_SE.isLoopInfinity];
 			else
-				Debug.Log(HashParam.isLoopInfinity.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.isLoopInfinity.ToString() + " type is different.");
 		}
 
 		//LoopCount
-		if (_args.ContainsKey(HashParam.loopCount))
+		if (_args.ContainsKey(HashParam_SE.loopCount))
 		{
-			if (_args[HashParam.loopCount] is int)
-				loopCount = (int)_args[HashParam.loopCount];
+			if (_args[HashParam_SE.loopCount] is int)
+				loopCount = (int)_args[HashParam_SE.loopCount];
 			else
-				Debug.Log(HashParam.loopCount.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.loopCount.ToString() + " type is different.");
 		}
 
 		//FadeInTime
-		if (_args.ContainsKey(HashParam.fadeInTime))
+		if (_args.ContainsKey(HashParam_SE.fadeInTime))
 		{
-			if (_args[HashParam.fadeInTime] is float)
-				fadeInTime = (float)_args[HashParam.fadeInTime];
+			if (_args[HashParam_SE.fadeInTime] is float)
+				fadeInTime = (float)_args[HashParam_SE.fadeInTime];
 			else
-				Debug.Log(HashParam.fadeInTime.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.fadeInTime.ToString() + " type is different.");
 		}
 
 		//FadeOutTime
-		if (_args.ContainsKey(HashParam.fadeOutTime))
+		if (_args.ContainsKey(HashParam_SE.fadeOutTime))
 		{
-			if (_args[HashParam.fadeOutTime] is float)
-				fadeOutTime = (float)_args[HashParam.fadeOutTime];
+			if (_args[HashParam_SE.fadeOutTime] is float)
+				fadeOutTime = (float)_args[HashParam_SE.fadeOutTime];
 			else
-				Debug.Log(HashParam.fadeOutTime.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.fadeOutTime.ToString() + " type is different.");
 		}
 
 		//is3dSound
-		if (_args.ContainsKey(HashParam.is3dSound))
+		if (_args.ContainsKey(HashParam_SE.is3dSound))
 		{
-			if (_args[HashParam.is3dSound] is bool)
-				is3dSound = (bool)_args[HashParam.is3dSound];
+			if (_args[HashParam_SE.is3dSound] is bool)
+				is3dSound = (bool)_args[HashParam_SE.is3dSound];
 			else
-				Debug.Log(HashParam.is3dSound.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.is3dSound.ToString() + " type is different.");
 		}
 
 		//SoundPos
-		if (_args.ContainsKey(HashParam.soundPos))
+		if (_args.ContainsKey(HashParam_SE.soundPos))
 		{
-			if (_args[HashParam.soundPos] is Vector3)
-				soundPos = (Vector3)_args[HashParam.soundPos];
+			if (_args[HashParam_SE.soundPos] is Vector3)
+				soundPos = (Vector3)_args[HashParam_SE.soundPos];
 			else
-				Debug.Log(HashParam.soundPos.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.soundPos.ToString() + " type is different.");
 		}
 
 		//ChaseObj
-		if (_args.ContainsKey(HashParam.chaseObj))
+		if (_args.ContainsKey(HashParam_SE.chaseObj))
 		{
-			if (_args[HashParam.chaseObj] is GameObject)
-				chaseObj = (GameObject)_args[HashParam.chaseObj];
+			if (_args[HashParam_SE.chaseObj] is GameObject)
+				chaseObj = (GameObject)_args[HashParam_SE.chaseObj];
 			else
-				Debug.Log(HashParam.chaseObj.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.chaseObj.ToString() + " type is different.");
 		}
 
 		//MinDistance
-		if (_args.ContainsKey(HashParam.minDistance))
+		if (_args.ContainsKey(HashParam_SE.minDistance))
 		{
-			if (_args[HashParam.minDistance] is float)
-				minDistance = (float)_args[HashParam.minDistance];
+			if (_args[HashParam_SE.minDistance] is float)
+				minDistance = (float)_args[HashParam_SE.minDistance];
 			else
-				Debug.Log(HashParam.minDistance.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.minDistance.ToString() + " type is different.");
 		}
 		//MaxDistance
-		if (_args.ContainsKey(HashParam.maxDistance))
+		if (_args.ContainsKey(HashParam_SE.maxDistance))
 		{
-			if (_args[HashParam.maxDistance] is float)
-				maxDistance = (float)_args[HashParam.maxDistance];
+			if (_args[HashParam_SE.maxDistance] is float)
+				maxDistance = (float)_args[HashParam_SE.maxDistance];
 			else
-				Debug.Log(HashParam.maxDistance.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.maxDistance.ToString() + " type is different.");
 		}
 		//onStartBefore
-		if (_args.ContainsKey(HashParam.onStartBefore))
+		if (_args.ContainsKey(HashParam_SE.onStartBefore))
 		{
-			if (_args[HashParam.onStartBefore] is UnityAction)
-				onStartBefore = (UnityAction)_args[HashParam.onStartBefore];
+			if (_args[HashParam_SE.onStartBefore] is UnityAction)
+				onStartBefore = (UnityAction)_args[HashParam_SE.onStartBefore];
 			else
-				Debug.Log(HashParam.onStartBefore.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.onStartBefore.ToString() + " type is different.");
 		}
 		//onStart
-		if (_args.ContainsKey(HashParam.onStart))
+		if (_args.ContainsKey(HashParam_SE.onStart))
 		{
-			if (_args[HashParam.onStart] is UnityAction)
-				onStart = (UnityAction)_args[HashParam.onStart];
+			if (_args[HashParam_SE.onStart] is UnityAction)
+				onStart = (UnityAction)_args[HashParam_SE.onStart];
 			else
-				Debug.Log(HashParam.onStart.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.onStart.ToString() + " type is different.");
 		}
 		//onComplete
-		if (_args.ContainsKey(HashParam.onComplete))
+		if (_args.ContainsKey(HashParam_SE.onComplete))
 		{
-			if (_args[HashParam.onComplete] is UnityAction)
-				onComplete = (UnityAction)_args[HashParam.onComplete];
+			if (_args[HashParam_SE.onComplete] is UnityAction)
+				onComplete = (UnityAction)_args[HashParam_SE.onComplete];
 			else
-				Debug.Log(HashParam.onComplete.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.onComplete.ToString() + " type is different.");
 		}
 		//onCompleteAfter
-		if (_args.ContainsKey(HashParam.onCompleteAfter))
+		if (_args.ContainsKey(HashParam_SE.onCompleteAfter))
 		{
-			if (_args[HashParam.onCompleteAfter] is UnityAction)
-				onCompleteAfter = (UnityAction)_args[HashParam.onCompleteAfter];
+			if (_args[HashParam_SE.onCompleteAfter] is UnityAction)
+				onCompleteAfter = (UnityAction)_args[HashParam_SE.onCompleteAfter];
 			else
-				Debug.Log(HashParam.onCompleteAfter.ToString() + " type is different.");
+				Debug.Log(HashParam_SE.onCompleteAfter.ToString() + " type is different.");
 		}
 
 		return PlaySE(
@@ -765,8 +765,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		PlayerPrefs.Save();
 	}
 
-
-	public enum HashParam
+	public enum HashParam_SE
 	{
 		volume,
 		delay,
@@ -784,5 +783,16 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		onStart,
 		onComplete,
 		onCompleteAfter,
+	}
+
+	public enum HashParam_BGM
+	{
+		volume,
+		delay,
+		isLoop,
+		fadeInTime,
+		fadeOutTime,
+		crossFadeRate,
+
 	}
 }

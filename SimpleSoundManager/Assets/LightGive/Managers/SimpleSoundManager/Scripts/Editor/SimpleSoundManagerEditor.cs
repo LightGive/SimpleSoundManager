@@ -113,6 +113,10 @@ public class SimpleSoundManagerEditor : Editor
 					EditorGUILayout.ObjectField(p.objectReferenceValue, typeof(AudioClip), false);
 					EditorGUI.EndDisabledGroup();
 
+					var clip = (AudioClip)p.objectReferenceValue;
+					var timeSpan = System.TimeSpan.FromSeconds(clip.length);
+					EditorGUILayout.LabelField(timeSpan.Minutes.ToString("00") + ":" + timeSpan.Seconds.ToString("00"), GUILayout.Width(40));
+
 					//Editor上で再生できる様に修正
 					if (GUILayout.Button("Play"))
 					{
@@ -144,6 +148,10 @@ public class SimpleSoundManagerEditor : Editor
 					EditorGUI.BeginDisabledGroup(true);
 					EditorGUILayout.ObjectField(p.objectReferenceValue, typeof(AudioClip), false);
 					EditorGUI.EndDisabledGroup();
+
+					var clip = (AudioClip)p.objectReferenceValue;
+					var timeSpan = System.TimeSpan.FromSeconds(clip.length);
+					EditorGUILayout.LabelField(timeSpan.Minutes.ToString("00") + ":" + timeSpan.Seconds.ToString("00"), GUILayout.Width(40));
 
 					//Editor上で再生できる様に修正
 					if (GUILayout.Button("Play"))
