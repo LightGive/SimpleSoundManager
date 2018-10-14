@@ -23,11 +23,17 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	private bool m_isFadeIn;
 	private bool m_isFadeOut;
 	private bool m_isPlaying;
+	private bool m_isPlayIntro;
 	private AudioClip m_introClip;
 	private AudioClip m_mainClip;
 
 	public AudioSource source { get { return m_source; } }
 	public bool IsPlaying { get { return m_isPlaying; } }
+	/// <summary>
+	/// 使用されているかどうか
+	/// </summary>
+	/// <value><c>true</c> if is active; otherwise, <c>false</c>.</value>
+	public bool isActive { get { return (state != SoundPlayState.Stop); } }
 	/// <summary>
 	/// 0-1の間でどのくらい再生されているか
 	/// </summary>
@@ -39,16 +45,17 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			if (state == SoundPlayState.Stop || state == SoundPlayState.DelayWait)
 				return 0.0f;
 
-			if (source.clip == m_introClip)
+			if (m_introClip != null)
 			{
-				//source.time +
+				if (source.clip == m_introClip)
+					return Mathf.Clamp01(source.time / (m_mainClip.length + m_introClip.length));
+				else
+					return Mathf.Clamp01((source.time + m_introClip.length) / (m_mainClip.length + m_introClip.length));
 			}
 			else
 			{
 				return Mathf.Clamp01(source.time / source.clip.length);
 			}
-
-			return Mathf.Clamp01(source);
 		}
 	}
 
