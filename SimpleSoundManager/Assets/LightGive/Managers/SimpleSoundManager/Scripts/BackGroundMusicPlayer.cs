@@ -6,6 +6,13 @@ using UnityEngine.Events;
 [System.Serializable]
 public class BackGroundMusicPlayer : MonoBehaviour
 {
+	public enum SoundPlayState
+	{
+		Stop,
+		Playing,
+		Pause,
+		DelayWait
+	}
 	private AudioSource m_source;
 	private IEnumerator m_fadeInMethod;
 	private IEnumerator m_fadeOutMethod;
@@ -18,6 +25,20 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public AudioSource source { get { return m_source; } }
 	public bool IsPlaying { get { return m_isPlaying; } }
+	/// <summary>
+	/// 0-1の間でどのくらい再生されているか
+	/// </summary>
+	/// <value>The length.</value>
+	public float Length
+	{
+		get
+		{
+			if (state == SoundPlayState.Stop || state == SoundPlayState.DelayWait)
+				return 0.0f;
+
+			return Mathf.Clamp01();
+		}
+	}
 
 	public BackGroundMusicPlayer()
 	{
