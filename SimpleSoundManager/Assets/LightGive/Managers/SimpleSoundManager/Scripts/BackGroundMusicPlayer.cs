@@ -30,11 +30,6 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Init()
 	{
-
-	}
-
-	void Awake()
-	{
 		fadeVolume = 1.0f;
 		audioSource = this.gameObject.AddComponent<AudioSource>();
 		audioSource.playOnAwake = false;

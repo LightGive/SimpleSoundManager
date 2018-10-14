@@ -103,11 +103,15 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 
 		GameObject mainBackgroundPlayerObj = new GameObject("MainBackgroundMusicPlayer");
-		GameObject subBackgroundPlayerObj = new GameObject("MainBackgroundMusicPlayer");
+		GameObject subBackgroundPlayerObj = new GameObject("SubBackgroundMusicPlayer");
 		mainBackgroundPlayerObj.transform.SetParent(transform);
 		subBackgroundPlayerObj.transform.SetParent(transform);
 		m_mainBackgroundPlayer = mainBackgroundPlayerObj.AddComponent<BackGroundMusicPlayer>();
 		m_subBackgroundPlayer = subBackgroundPlayerObj.AddComponent<BackGroundMusicPlayer>();
+
+		//初期化
+		m_mainBackgroundPlayer.Init();
+		m_subBackgroundPlayer.Init();
 
 		//Dictionaryに追加
 		for (int i = 0; i < audioClipListSe.Count; i++)
@@ -688,23 +692,32 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	//******************************ここからBGM
 
+	public BackGroundMusicPlayer PlayBGM(string _soundName, Hashtable _args)
+	{
+	}
+
 	public void PlayBGM(SoundNameBGM _soundName)
 	{
 
 	}
 
-	private void PlayBGM(string _soundName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate)
+	private BackGroundMusicPlayer PlayBGM(string _soundName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate)
 	{
 		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
 		{
 			Debug.Log("BGM with that name does not exist :" + _soundName);
-			return;
+			return null;
 		}
 
+		//音量を規定値に制限
 		_volume = Mathf.Clamp01(_volume);
+
+		//フェードをどの程度被せるかを規定値に制限
 		_crossFadeRate = 1.0f - Mathf.Clamp01(_crossFadeRate);
+
+		//AudioClip取得
 		var clip = m_audioClipDictSe[_soundName];
-		BackGroundMusicPlayer player = GetNonActiveBgmPlayer();
+
 
 		//BGM再生部分の作成
 		var isFade = (_fadeInTime > 0.0f || _fadeOutTime > 0.0f);
@@ -718,6 +731,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			StopBGM();
 		}
 
+		//使っていない方のBGMPlayerを取得
+		BackGroundMusicPlayer player = m_subBackgroundPlayer;
 		player.Play(clip, _isLoop, isFade, _volume * volumeBgm * volumeTotal, false, 0.0f, 0.0f);
 	}
 
@@ -793,6 +808,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		fadeInTime,
 		fadeOutTime,
 		crossFadeRate,
-
+		onStartBefore,
+		onStart,
+		onComplete,
+		onCompleteAfter,
 	}
 }

@@ -7,9 +7,10 @@
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example2.cs" Line="17" Column="18" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example3_Ball.cs" Line="20" Column="58" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="154" Column="123" />
-      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="696" Column="19" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="701" Column="11" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example1.cs" Line="184" Column="30" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example3.cs" Line="32" Column="64" />
+      <File FileName="Assets/LightGive/Managers/ManagerCreator/ManagerCreator.cs" Line="40" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
