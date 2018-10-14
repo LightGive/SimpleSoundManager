@@ -692,7 +692,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	public BackGroundMusicPlayer PlayBGM(string _soundName, Hashtable _args)
 	{
-		return null;
 		float volume = 1.0f;
 		float delay = 0.0f;
 		bool isLoop = false;
@@ -731,15 +730,79 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				Debug.Log(HashParam_BGM.isLoop.ToString() + " type is different.");
 		}
 
-		//
-		if (_args.ContainsKey(HashParam_BGM.isLoop))
+		//FadeIn
+		if (_args.ContainsKey(HashParam_BGM.fadeInTime))
 		{
-			if (_args[HashParam_BGM.isLoop] is bool)
-				isLoop = (bool)_args[HashParam_BGM.isLoop];
+			if (_args[HashParam_BGM.fadeOutTime] is float)
+				fadeInTime = (float)_args[HashParam_BGM.fadeInTime];
 			else
-				Debug.Log(HashParam_BGM.isLoop.ToString() + " type is different.");
+				Debug.Log(HashParam_BGM.fadeInTime.ToString() + " type is different.");
 		}
 
+		//FadeOut
+		if (_args.ContainsKey(HashParam_BGM.fadeInTime))
+		{
+			if (_args[HashParam_BGM.fadeOutTime] is float)
+				fadeOutTime = (float)_args[HashParam_BGM.fadeOutTime];
+			else
+				Debug.Log(HashParam_BGM.fadeOutTime.ToString() + " type is different.");
+		}
+
+		//CrossFadeRate
+		if (_args.ContainsKey(HashParam_BGM.crossFadeRate))
+		{
+			if (_args[HashParam_BGM.crossFadeRate] is float)
+				crossFadeRate = (float)_args[HashParam_BGM.crossFadeRate];
+			else
+				Debug.Log(HashParam_BGM.crossFadeRate.ToString() + " type is different.");
+		}
+
+		//onStartBefore
+		if (_args.ContainsKey(HashParam_BGM.onStartBefore))
+		{
+			if (_args[HashParam_BGM.onStartBefore] is UnityAction)
+				onStartBefore = (UnityAction)_args[HashParam_BGM.onStartBefore];
+			else
+				Debug.Log(HashParam_BGM.onStartBefore.ToString() + " type is different.");
+		}
+
+		//onStart
+		if (_args.ContainsKey(HashParam_BGM.onStart))
+		{
+			if (_args[HashParam_BGM.onStart] is UnityAction)
+				onStart = (UnityAction)_args[HashParam_BGM.onStart];
+			else
+				Debug.Log(HashParam_BGM.onStart.ToString() + " type is different.");
+		}
+
+		//onComplete
+		if (_args.ContainsKey(HashParam_BGM.onComplete))
+		{
+			if (_args[HashParam_BGM.onComplete] is UnityAction)
+				onComplete = (UnityAction)_args[HashParam_BGM.onComplete];
+			else
+				Debug.Log(HashParam_BGM.onComplete.ToString() + " type is different.");
+		}
+
+		//onCompleteAfter
+		if (_args.ContainsKey(HashParam_BGM.onCompleteAfter))
+		{
+			if (_args[HashParam_BGM.onCompleteAfter] is UnityAction)
+				onCompleteAfter = (UnityAction)_args[HashParam_BGM.onCompleteAfter];
+			else
+				Debug.Log(HashParam_BGM.onCompleteAfter.ToString() + " type is different.");
+		}
+
+		return
+
+			PlayBGM(
+				_soundName,
+				volume,
+				isLoop,
+				fadeInTime,
+				fadeOutTime,
+				crossFadeRate,
+				onStartBefore,
 
 	}
 
@@ -748,7 +811,17 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	}
 
-	private BackGroundMusicPlayer PlayBGM(string _soundName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate)
+	private BackGroundMusicPlayer PlayBGM(
+				string _soundName,
+				float _volume,
+				bool _isLoop,
+				float _fadeInTime,
+				float _fadeOutTime,
+				float _crossFadeRate,
+				UnityAction _onStartBefore,
+				UnityAction _onStart,
+				UnityAction _onComplete,
+				UnityAction _onCompleteAfter)
 	{
 		return null;
 		if (!m_audioClipDirtBgm.ContainsKey(_soundName))

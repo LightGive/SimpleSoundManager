@@ -179,6 +179,7 @@ public class Example1 : MonoBehaviour
 		SimpleSoundManager.Instance.StopSE();
 		m_buttonPause.gameObject.SetActive(false);
 		m_buttonPlay.gameObject.SetActive(true);
+		m_isPause = false;
 	}
 
 	public void OnPlayComplete()
