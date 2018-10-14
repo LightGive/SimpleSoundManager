@@ -4,7 +4,7 @@
     <Files>
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SoundEffectPlayer.cs" Line="192" Column="14" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="154" Column="123" />
-      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="805" Column="19" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="805" Column="37" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/BackGroundMusicPlayer.cs" Line="41" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>

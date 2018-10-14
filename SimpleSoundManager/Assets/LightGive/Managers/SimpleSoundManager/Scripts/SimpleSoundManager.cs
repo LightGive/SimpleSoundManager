@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -698,10 +700,10 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		float fadeInTime = 0.0f;
 		float fadeOutTime = 0.0f;
 		float crossFadeRate = 0.0f;
-		UnityAction onStartBefore;
-		UnityAction onStart;
-		UnityAction onComplete;
-		UnityAction onCompleteAfter;
+		UnityAction onStartBefore = null;
+		UnityAction onStart = null;
+		UnityAction onComplete = null;
+		UnityAction onCompleteAfter = null;
 
 		//Volume
 		if (_args.ContainsKey(HashParam_BGM.volume))
@@ -793,9 +795,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				Debug.Log(HashParam_BGM.onCompleteAfter.ToString() + " type is different.");
 		}
 
-		return
-
-			PlayBGM(
+		return PlayBGM(
 				_soundName,
 				volume,
 				isLoop,
@@ -803,7 +803,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				fadeOutTime,
 				crossFadeRate,
 				onStartBefore,
-
+				onStart,
+				onComplete,
+				onCompleteAfter);
 	}
 
 	public void PlayBGM(SoundNameBGM _soundName)
