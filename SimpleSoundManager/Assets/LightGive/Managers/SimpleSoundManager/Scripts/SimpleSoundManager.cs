@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 using UnityEngine.Events;
-using UnityEditor;
 
 public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundManager>
 {
@@ -627,8 +625,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			AnimationCurve animCurve = new AnimationCurve(keyframeList.ToArray());
 			for (int i = 0; i < animCurve.keys.Length; i++)
 			{
-				AnimationUtility.SetKeyLeftTangentMode(animCurve, i, AnimationUtility.TangentMode.Linear);
-				AnimationUtility.SetKeyRightTangentMode(animCurve, i, AnimationUtility.TangentMode.Linear);
+				animCurve.keys[i].inTangent = 0.0f;
+				animCurve.keys[i].outTangent = 0.0f;
 			}
 
 			player.animationCurve = animCurve;
@@ -694,6 +692,55 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	public BackGroundMusicPlayer PlayBGM(string _soundName, Hashtable _args)
 	{
+		return null;
+		float volume = 1.0f;
+		float delay = 0.0f;
+		bool isLoop = false;
+		float fadeInTime = 0.0f;
+		float fadeOutTime = 0.0f;
+		float crossFadeRate = 0.0f;
+		UnityAction onStartBefore;
+		UnityAction onStart;
+		UnityAction onComplete;
+		UnityAction onCompleteAfter;
+
+		//Volume
+		if (_args.ContainsKey(HashParam_BGM.volume))
+		{
+			if (_args[HashParam_BGM.volume] is float)
+				volume = (float)_args[HashParam_BGM.volume];
+			else
+				Debug.Log(HashParam_BGM.volume.ToString() + " type is different.");
+		}
+
+		//Delay
+		if (_args.ContainsKey(HashParam_BGM.delay))
+		{
+			if (_args[HashParam_BGM.delay] is float)
+				delay = (float)_args[HashParam_BGM.delay];
+			else
+				Debug.Log(HashParam_BGM.delay.ToString() + " type is different.");
+		}
+
+		//IsLoop
+		if (_args.ContainsKey(HashParam_BGM.isLoop))
+		{
+			if (_args[HashParam_BGM.isLoop] is bool)
+				isLoop = (bool)_args[HashParam_BGM.isLoop];
+			else
+				Debug.Log(HashParam_BGM.isLoop.ToString() + " type is different.");
+		}
+
+		//
+		if (_args.ContainsKey(HashParam_BGM.isLoop))
+		{
+			if (_args[HashParam_BGM.isLoop] is bool)
+				isLoop = (bool)_args[HashParam_BGM.isLoop];
+			else
+				Debug.Log(HashParam_BGM.isLoop.ToString() + " type is different.");
+		}
+
+
 	}
 
 	public void PlayBGM(SoundNameBGM _soundName)
@@ -703,6 +750,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	private BackGroundMusicPlayer PlayBGM(string _soundName, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate)
 	{
+		return null;
 		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
 		{
 			Debug.Log("BGM with that name does not exist :" + _soundName);

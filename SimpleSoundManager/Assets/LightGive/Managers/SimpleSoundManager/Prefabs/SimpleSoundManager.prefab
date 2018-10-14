@@ -59,8 +59,8 @@ MonoBehaviour:
   audioClipListBgm:
   - {fileID: 8300000, guid: 9faf2042e04054903a0f1b1df6f5769f, type: 3}
   - {fileID: 8300000, guid: 63e8d26dcc11d4e7ebe56274da2a67c9, type: 3}
-  - {fileID: 8300000, guid: af8a65c868e1d4fa4b5963b274a0af66, type: 3}
   - {fileID: 8300000, guid: 620a79aebaff748b684cc753f8e05360, type: 3}
+  - {fileID: 8300000, guid: af8a65c868e1d4fa4b5963b274a0af66, type: 3}
   m_soundEffectPlayers: []
   m_mainBackgroundPlayer: {fileID: 0}
   m_subBackgroundPlayer: {fileID: 0}
