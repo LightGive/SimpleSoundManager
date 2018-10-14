@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d67bd5f3440994fc6a478670a5f08591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDontDestroy: 0
+  isDontDestroy: 1
   audioClipListSe:
   - {fileID: 8300000, guid: ffb9ef747869a46149f6dd34db482c63, type: 3}
   - {fileID: 8300000, guid: 3f7e3060051d448c383d95ca8efcb37f, type: 3}

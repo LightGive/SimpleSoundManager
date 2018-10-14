@@ -642,7 +642,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		return player;
 	}
 
-	public void Stop()
+	public void StopSE()
 	{
 		for (int i = 0; i < m_soundEffectPlayers.Count; i++)
 		{
@@ -650,7 +650,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
-	public void Pause()
+	public void PauseSE()
 	{
 		for (int i = 0; i < m_soundEffectPlayers.Count; i++)
 		{
@@ -658,7 +658,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
-	public void Resume()
+	public void ResumeSE()
 	{
 		for (int i = 0; i < m_soundEffectPlayers.Count; i++)
 		{

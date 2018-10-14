@@ -134,7 +134,7 @@ public class Example1 : MonoBehaviour
 		if (m_isPause)
 		{
 			Debug.Log("Resume");
-			SimpleSoundManager.Instance.Resume();
+			SimpleSoundManager.Instance.ResumeSE();
 			m_isPause = false;
 		}
 		else
@@ -169,14 +169,14 @@ public class Example1 : MonoBehaviour
 	public void OnButtonDownPause()
 	{
 		m_isPause = true;
-		SimpleSoundManager.Instance.Pause();
+		SimpleSoundManager.Instance.PauseSE();
 		m_buttonPause.gameObject.SetActive(false);
 		m_buttonPlay.gameObject.SetActive(true);
 	}
 
 	public void OnButtonDownStop()
 	{
-		SimpleSoundManager.Instance.Stop();
+		SimpleSoundManager.Instance.StopSE();
 		m_buttonPause.gameObject.SetActive(false);
 		m_buttonPlay.gameObject.SetActive(true);
 	}
