@@ -15,6 +15,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	private float loopEndTime;
 	private bool isFade;
 	private bool isPlaying;
+	private AudioClip introClip;
 
 	public bool IsPlaying { get { return isPlaying; } }
 
@@ -37,7 +38,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		audioSource.volume = SimpleSoundManager.Instance.volumeBgm;
 	}
 
-	public void Play(AudioClip _clip, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
+	public void Play(AudioClip _clip, AudioClip _introClip, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
 	{
 		isPlaying = true;
 		this.gameObject.SetActive(true);

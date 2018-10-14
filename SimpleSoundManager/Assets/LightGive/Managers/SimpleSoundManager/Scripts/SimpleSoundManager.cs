@@ -810,7 +810,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	public BackGroundMusicPlayer PlayBGM(SoundNameBGM _soundName)
 	{
-		return PlayBGM(_soundName.ToString(), DefaultParamVolume, true, 0.0f, 0.0f, 0.0f, null, null, null, null);
+		return PlayBGM(_soundName.ToString(), "", DefaultParamVolume, true, 0.0f, 0.0f, 0.0f, null, null, null, null);
 	}
 
 	/// <summary>
@@ -828,17 +828,33 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// <param name="_onComplete">On complete.</param>
 	/// <param name="_onCompleteAfter">On complete after.</param>
 	private BackGroundMusicPlayer PlayBGM(
-				string _soundName,
-				float _volume,
-				bool _isLoop,
-				float _fadeInTime,
-				float _fadeOutTime,
-				float _crossFadeRate,
-				UnityAction _onStartBefore,
-				UnityAction _onStart,
-				UnityAction _onComplete,
-				UnityAction _onCompleteAfter)
+		string _soundName,
+		string _introSoundName,
+		float _volume,
+		bool _isLoop,
+		float _fadeInTime,
+		float _fadeOutTime,
+		float _crossFadeRate,
+		UnityAction _onStartBefore,
+		UnityAction _onStart,
+		UnityAction _onComplete,
+		UnityAction _onCompleteAfter)
 	{
+
+		AudioClip introClip;
+
+		//イントロのサウンドの名前に文字が入っているかのチェック
+		if (!string.IsNullOrEmpty(_introSoundName))
+		{
+			//文字が入っていた時
+			if (!m_audioClipDirtBgm.ContainsKey(_introSoundName))
+			{
+				Debug.Log("BGM with that name does not exist :" + _introSoundName);
+				return null;
+			}
+			introClip = m_audioClipDirtBgm[_introSoundName];
+		}
+
 		//音楽ファイルが存在するかの判定
 		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
 		{
@@ -853,7 +869,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		_crossFadeRate = 1.0f - Mathf.Clamp01(_crossFadeRate);
 
 		//AudioClip取得
-		var clip = m_audioClipDictSe[_soundName];
+		var clip = m_audioClipDirtBgm[_soundName];
 
 		//BGM再生部分の作成
 		var isFade = (_fadeInTime > 0.0f || _fadeOutTime > 0.0f);
@@ -864,6 +880,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 		else
 		{
+			//BGMを止める
 			StopBGM();
 		}
 
