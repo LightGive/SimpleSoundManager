@@ -4586,6 +4586,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 114310295477844844, guid: 0eef113928cef4cfa89801e9bcd528f3,
+        type: 2}
+      propertyPath: m_Text
+      value: 02.Example_PlayBGM
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eef113928cef4cfa89801e9bcd528f3, type: 2}
   m_IsPrefabAsset: 0
@@ -4594,6 +4599,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224872124572016892, guid: 0eef113928cef4cfa89801e9bcd528f3,
     type: 2}
   m_PrefabInternal: {fileID: 1274717928}
+--- !u!114 &1274717930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114310295477844844, guid: 0eef113928cef4cfa89801e9bcd528f3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1274717928}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1306175314
 GameObject:
   m_ObjectHideFlags: 0
@@ -6007,6 +6018,7 @@ MonoBehaviour:
   m_inputFadeInTime: {fileID: 1875274561}
   m_inputFadeOutTime: {fileID: 833233908}
   m_toggleIsLoop: {fileID: 1160618021}
+  m_textSceneTitle: {fileID: 1274717930}
   m_sliderPlayTime: {fileID: 1864676690}
   m_sliderVolume: {fileID: 626214010}
   m_textShowVolume: {fileID: 1867913684}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class BackGroundMusicPlayer : MonoBehaviour
@@ -14,7 +15,6 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	private float loopEndTime;
 	private bool isFade;
 	private bool isPlaying;
-	private bool isCheckLoopPoint;
 
 	public bool IsPlaying { get { return isPlaying; } }
 
@@ -25,7 +25,6 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 		isPlaying = false;
 		isFade = false;
-		isCheckLoopPoint = false;
 	}
 
 	public void Init()
@@ -38,43 +37,28 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		audioSource.volume = SimpleSoundManager.Instance.volumeBgm;
 	}
 
-	public void Play(AudioClip _clip, bool _isLoop, bool _isFade, float _volume, bool _isCheckLoopPoint, float _loopStartTime, float _loopEndTime)
+	public void Play(AudioClip _clip, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
 	{
 		isPlaying = true;
 		this.gameObject.SetActive(true);
-		fadeVolume = (_isFade) ? 0.0f : 1.0f;
+		isFade = (_fadeInTime >= 0.0f || _fadeOutTime >= 0.0f);
+		fadeVolume = (isFade) ? 0.0f : 1.0f;
 		volume = _volume;
 
 		if (audioSource.isPlaying)
 			audioSource.Stop();
 
+		audioSource.loop = _isLoop;
 		audioSource.time = 0.0f;
 		audioSource.clip = _clip;
 		ChangeVolume();
 		audioSource.Play();
-
-		fadeVolume = 1.0f;
-
-		if (_isLoop && isCheckLoopPoint)
-		{
-			isCheckLoopPoint = true;
-		}
-		else
-		{
-			isCheckLoopPoint = false;
-		}
 	}
 
 
 	public void PlayerUpdate()
 	{
-		if (isCheckLoopPoint)
-		{
-			if (audioSource.time >= loopEndTime)
-			{
-				audioSource.time = loopStartTime;
-			}
-		}
+
 	}
 
 	public void FadeIn(float _fadeTime, float _waitTime)

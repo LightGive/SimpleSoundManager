@@ -808,11 +808,25 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				onCompleteAfter);
 	}
 
-	public void PlayBGM(SoundNameBGM _soundName)
+	public BackGroundMusicPlayer PlayBGM(SoundNameBGM _soundName)
 	{
-
+		return PlayBGM(_soundName.ToString(), DefaultParamVolume, true, 0.0f, 0.0f, 0.0f, null, null, null, null);
 	}
 
+	/// <summary>
+	/// BGMを再生する
+	/// </summary>
+	/// <returns>BGMPlayerを返す</returns>
+	/// <param name="_soundName">BGM名</param>
+	/// <param name="_volume">音量(0.0-1.0)</param>
+	/// <param name="_isLoop">ループするか</param>
+	/// <param name="_fadeInTime">Fade in time.</param>
+	/// <param name="_fadeOutTime">Fade out time.</param>
+	/// <param name="_crossFadeRate">Cross fade rate.</param>
+	/// <param name="_onStartBefore">On start before.</param>
+	/// <param name="_onStart">On start.</param>
+	/// <param name="_onComplete">On complete.</param>
+	/// <param name="_onCompleteAfter">On complete after.</param>
 	private BackGroundMusicPlayer PlayBGM(
 				string _soundName,
 				float _volume,
@@ -825,7 +839,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				UnityAction _onComplete,
 				UnityAction _onCompleteAfter)
 	{
-		return null;
+		//音楽ファイルが存在するかの判定
 		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
 		{
 			Debug.Log("BGM with that name does not exist :" + _soundName);
@@ -841,23 +855,27 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		//AudioClip取得
 		var clip = m_audioClipDictSe[_soundName];
 
-
 		//BGM再生部分の作成
 		var isFade = (_fadeInTime > 0.0f || _fadeOutTime > 0.0f);
 		if (isFade)
 		{
-			GetNonActiveBgmPlayer().FadeIn(_fadeInTime, (_crossFadeRate * _fadeInTime));
-			GetActiveBgmPlayer().FadeOut(_fadeOutTime);
+			m_subBackgroundPlayer.FadeIn(_fadeInTime, (_crossFadeRate * _fadeInTime));
+			m_mainBackgroundPlayer.FadeOut(_fadeOutTime);
 		}
 		else
 		{
 			StopBGM();
 		}
 
+		var tmp = m_subBackgroundPlayer;
+		m_subBackgroundPlayer = m_mainBackgroundPlayer;
+		m_mainBackgroundPlayer = tmp;
+
 		//使っていない方のBGMPlayerを取得
-		BackGroundMusicPlayer player = m_subBackgroundPlayer;
-		player.Play(clip, _isLoop, isFade, _volume * volumeBgm * volumeTotal, false, 0.0f, 0.0f);
+		m_subBackgroundPlayer.Play(clip, _volume * volumeBgm * volumeTotal, _isLoop, _fadeInTime, _fadeOutTime, _crossFadeRate, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
+		return m_subBackgroundPlayer;
 	}
+
 
 
 	/// <summary>
@@ -870,24 +888,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	}
 
 	/// <summary>
-	/// 使っていないBGMPlayerを取得する
+	/// 音量をロードする
 	/// </summary>
-	/// <returns>The bgm player.</returns>
-	public BackGroundMusicPlayer GetNonActiveBgmPlayer()
-	{
-		return (m_mainBackgroundPlayer.IsPlaying) ? m_subBackgroundPlayer : m_mainBackgroundPlayer;
-	}
-
-	/// <summary>
-	/// 使用中のBGMPlayerを取得する
-	/// </summary>
-	/// <returns>The able bgm player.</returns>
-	public BackGroundMusicPlayer GetActiveBgmPlayer()
-	{
-		return (m_mainBackgroundPlayer.IsPlaying) ? m_mainBackgroundPlayer : m_subBackgroundPlayer;
-	}
-
-
 	public void LoadVolume()
 	{
 		m_volumeTotal = PlayerPrefs.GetFloat(SaveKeyVolumeTotal, DefaultParamVolumeTotal);
@@ -895,6 +897,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		m_volumeSe = PlayerPrefs.GetFloat(SaveKeyVolumeSe, DefaultParamVolumeSe);
 	}
 
+	/// <summary>
+	/// 音量を保存しておく
+	/// </summary>
 	public void SaveVolume()
 	{
 		PlayerPrefs.SetFloat(SaveKeyVolumeTotal, volumeTotal);
@@ -903,6 +908,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		PlayerPrefs.Save();
 	}
 
+	/// <summary>
+	/// ハッシュ値(SE) 
+	/// </summary>
 	public enum HashParam_SE
 	{
 		volume,
@@ -923,6 +931,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		onCompleteAfter,
 	}
 
+	/// <summary>
+	/// ハッシュ値(BGM)
+	/// </summary>
 	public enum HashParam_BGM
 	{
 		volume,

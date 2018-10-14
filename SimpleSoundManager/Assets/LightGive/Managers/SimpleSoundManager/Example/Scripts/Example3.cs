@@ -7,16 +7,10 @@ using UnityEngine.SceneManagement;
 public class Example3 : MonoBehaviour
 {
 	[SerializeField]
-	private Text m_textSceneName;
-	[SerializeField]
 	private Example3_Ball m_ball;
 	[SerializeField]
 	private Transform m_anchorShot;
 
-	private void Start()
-	{
-		m_textSceneName.text = SceneManager.GetActiveScene().name;
-	}
 
 	public void OnButtonDownRandomShot()
 	{

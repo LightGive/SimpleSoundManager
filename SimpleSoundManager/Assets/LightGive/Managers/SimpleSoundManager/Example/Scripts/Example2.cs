@@ -16,6 +16,8 @@ public class Example2 : MonoBehaviour
 	private InputField m_inputFadeOutTime;
 	[SerializeField]
 	private Toggle m_toggleIsLoop;
+	[SerializeField]
+	private Text m_textSceneTitle;
 
 
 	[SerializeField]
