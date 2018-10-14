@@ -93,11 +93,11 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		m_source.Play();
 	}
 
-	private IEnumerator _Play(AudioClip _clip, AudioClip _introClip, float _volume, bool _isLoop, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
-	{
+	//private IEnumerator _Play(AudioClip _clip, AudioClip _introClip, float _volume, bool _isLoop, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
+	//{
 
 
-	}
+	//}
 
 
 	public void PlayerUpdate()
