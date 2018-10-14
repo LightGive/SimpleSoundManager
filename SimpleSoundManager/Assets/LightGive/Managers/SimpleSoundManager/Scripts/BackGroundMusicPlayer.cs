@@ -6,54 +6,57 @@ using UnityEngine.Events;
 [System.Serializable]
 public class BackGroundMusicPlayer : MonoBehaviour
 {
-	public AudioSource audioSource;
-	private IEnumerator fadeInMethod;
-	private IEnumerator fadeOutMethod;
-	private float volume;
-	private float fadeVolume;
-	private float loopStartTime;
-	private float loopEndTime;
-	private bool isFade;
-	private bool isPlaying;
-	private AudioClip introClip;
+	private AudioSource m_source;
+	private IEnumerator m_fadeInMethod;
+	private IEnumerator m_fadeOutMethod;
+	private float m_volume;
+	private float m_fadeVolume;
+	private bool m_isFadeIn;
+	private bool m_isFadeOut;
+	private bool m_isPlaying;
+	private AudioClip m_introClip;
 
-	public bool IsPlaying { get { return isPlaying; } }
+	public AudioSource source { get { return m_source; } }
+	public bool IsPlaying { get { return m_isPlaying; } }
 
 	public BackGroundMusicPlayer()
 	{
-		loopStartTime = 0.0f;
-		loopEndTime = 0.0f;
-
-		isPlaying = false;
-		isFade = false;
+		m_isPlaying = false;
+		m_isFadeIn = false;
+		m_isFadeOut = false;
 	}
 
 	public void Init()
 	{
-		fadeVolume = 1.0f;
-		audioSource = this.gameObject.AddComponent<AudioSource>();
-		audioSource.playOnAwake = false;
-		audioSource.loop = true;
-		audioSource.spatialBlend = 0.0f;
-		audioSource.volume = SimpleSoundManager.Instance.volumeBgm;
+		m_fadeVolume = 1.0f;
+		m_source = this.gameObject.AddComponent<AudioSource>();
+		m_source.playOnAwake = false;
+		m_source.loop = true;
+		m_source.spatialBlend = 0.0f;
+		m_source.volume = SimpleSoundManager.Instance.volumeBgm;
 	}
 
-	public void Play(AudioClip _clip, AudioClip _introClip, float _volume, bool _isLoop, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
+	public void Play(AudioClip _clip, AudioClip _introClip, float _volume, float _delay, bool _isLoop, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
 	{
-		isPlaying = true;
+		m_isPlaying = true;
 		this.gameObject.SetActive(true);
-		isFade = (_fadeInTime >= 0.0f || _fadeOutTime >= 0.0f);
-		fadeVolume = (isFade) ? 0.0f : 1.0f;
-		volume = _volume;
 
-		if (audioSource.isPlaying)
-			audioSource.Stop();
+		m_volume = _volume;
 
-		audioSource.loop = _isLoop;
-		audioSource.time = 0.0f;
-		audioSource.clip = _clip;
+		if (m_source.isPlaying)
+			m_source.Stop();
+
+		m_source.loop = _isLoop;
+		m_source.time = 0.0f;
+		m_source.clip = _clip;
 		ChangeVolume();
-		audioSource.Play();
+		m_source.Play();
+	}
+
+	private IEnumerator _Play(AudioClip _clip, AudioClip _introClip, float _volume, bool _isLoop, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
+	{
+
+
 	}
 
 
@@ -66,33 +69,43 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	{
 		this.gameObject.SetActive(true);
 
-		fadeInMethod = _FadeIn(_fadeTime, _waitTime);
-		StartCoroutine(fadeInMethod);
+		m_fadeInMethod = _FadeIn(_fadeTime, _waitTime);
+		StartCoroutine(m_fadeInMethod);
 	}
 
 	public void FadeOut(float _fadeTime)
 	{
 		if (!IsPlaying)
 			return;
-		if (fadeInMethod != null)
-			StopCoroutine(fadeInMethod);
+		if (m_fadeInMethod != null)
+			StopCoroutine(m_fadeInMethod);
 
-		isPlaying = false;
-		fadeOutMethod = _FadeOut(_fadeTime);
-		StartCoroutine(fadeOutMethod);
+		m_isPlaying = false;
+		m_fadeOutMethod = _FadeOut(_fadeTime);
+		StartCoroutine(m_fadeOutMethod);
 	}
 
 	public void Stop()
 	{
-		isPlaying = false;
-		audioSource.Stop();
+		m_isPlaying = false;
+		m_source.Stop();
 		this.gameObject.SetActive(false);
+
+		if (m_isFadeIn)
+			StopCoroutine(m_fadeInMethod);
+		if (m_isFadeOut)
+			StopCoroutine(m_fadeOutMethod);
 	}
 
 	public void Pause()
 	{
-		isPlaying = false;
-		audioSource.Pause();
+		m_isPlaying = false;
+		m_source.Pause();
+
+		if (m_isFadeIn)
+			StopCoroutine(m_fadeInMethod);
+		if (m_isFadeOut)
+			StopCoroutine(m_fadeOutMethod);
 	}
 
 	private IEnumerator _FadeIn(float _fadeTime, float _waitTime)
@@ -108,7 +121,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		while (timeCnt < _fadeTime)
 		{
 			timeCnt += Time.deltaTime;
-			fadeVolume = Mathf.Clamp01(timeCnt / _fadeTime);
+			m_fadeVolume = Mathf.Clamp01(timeCnt / _fadeTime);
 			ChangeVolume();
 			yield return new WaitForEndOfFrame();
 		}
@@ -120,7 +133,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		while (timeCnt < _fadeTime)
 		{
 			timeCnt += Time.deltaTime;
-			fadeVolume = 1.0f - Mathf.Clamp01(timeCnt / _fadeTime);
+			m_fadeVolume = 1.0f - Mathf.Clamp01(timeCnt / _fadeTime);
 			ChangeVolume();
 			yield return new WaitForEndOfFrame();
 		}
@@ -131,11 +144,11 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	public void ChangeVolume()
 	{
 		var v =
-			volume *
-			fadeVolume *
+			m_volume *
+			m_fadeVolume *
 			SimpleSoundManager.Instance.volumeBgm *
 			SimpleSoundManager.Instance.volumeTotal;
 
-		audioSource.volume = v;
+		m_source.volume = v;
 	}
 }

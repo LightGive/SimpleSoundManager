@@ -41,7 +41,7 @@ public class Example2 : MonoBehaviour
 	private int m_spectrumWidth = 100;
 
 	private bool m_isPause = false;
-	private SoundEffectPlayer m_player;
+	private BackGroundMusicPlayer m_player;
 
 	private string selectSeName
 	{
@@ -109,9 +109,10 @@ public class Example2 : MonoBehaviour
 		}
 		else
 		{
-
 			//Play
-
+			Hashtable ht = new Hashtable();
+			ht.Add(SimpleSoundManager.HashParam_BGM.introSoundName, m_dropDownIntroBgmName.itemText.text);
+			m_player = SimpleSoundManager.Instance.PlayBGM(m_dropDownBgmName.itemText.text, ht);
 
 			if (m_player == null)
 				return;
