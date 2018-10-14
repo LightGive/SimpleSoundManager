@@ -13,6 +13,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		Pause,
 		DelayWait
 	}
+
+	private SoundPlayState state;
 	private AudioSource m_source;
 	private IEnumerator m_fadeInMethod;
 	private IEnumerator m_fadeOutMethod;
@@ -22,6 +24,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	private bool m_isFadeOut;
 	private bool m_isPlaying;
 	private AudioClip m_introClip;
+	private AudioClip m_mainClip;
 
 	public AudioSource source { get { return m_source; } }
 	public bool IsPlaying { get { return m_isPlaying; } }
@@ -36,7 +39,16 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			if (state == SoundPlayState.Stop || state == SoundPlayState.DelayWait)
 				return 0.0f;
 
-			return Mathf.Clamp01();
+			if (source.clip == m_introClip)
+			{
+				//source.time +
+			}
+			else
+			{
+				return Mathf.Clamp01(source.time / source.clip.length);
+			}
+
+			return Mathf.Clamp01(source);
 		}
 	}
 

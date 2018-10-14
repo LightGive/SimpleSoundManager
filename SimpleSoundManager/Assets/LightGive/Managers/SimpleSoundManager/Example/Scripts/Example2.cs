@@ -19,7 +19,6 @@ public class Example2 : MonoBehaviour
 	[SerializeField]
 	private Text m_textSceneTitle;
 
-
 	[SerializeField]
 	private Slider m_sliderPlayTime;
 	[SerializeField]
