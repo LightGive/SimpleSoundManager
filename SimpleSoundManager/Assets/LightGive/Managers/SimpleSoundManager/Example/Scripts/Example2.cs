@@ -15,6 +15,8 @@ public class Example2 : MonoBehaviour
 	[SerializeField]
 	private InputField m_inputFadeOutTime;
 	[SerializeField]
+	private InputField m_inputDelayTime;
+	[SerializeField]
 	private Toggle m_toggleIsLoop;
 	[SerializeField]
 	private Text m_textSceneTitle;
@@ -126,6 +128,13 @@ public class Example2 : MonoBehaviour
 			//Play
 			Hashtable ht = new Hashtable();
 			ht.Add(SimpleSoundManager.HashParam_BGM.introSoundName, selectBgmIntroName);
+			ht.Add(SimpleSoundManager.HashParam_BGM.isLoop, m_toggleIsLoop.isOn);
+			ht.Add(SimpleSoundManager.HashParam_BGM.volume, m_sliderVolume.value);
+			ht.Add(SimpleSoundManager.HashParam_BGM.delay, (m_inputDelayTime.text == "") ? 0.0f : float.Parse(m_inputDelayTime.text));
+			ht.Add(SimpleSoundManager.HashParam_BGM.fadeInTime, (m_inputFadeInTime.text == "") ? 0.0f : float.Parse(m_inputFadeInTime.text));
+			ht.Add(SimpleSoundManager.HashParam_BGM.fadeOutTime, (m_inputFadeOutTime.text == "") ? 0.0f : float.Parse(m_inputFadeOutTime.text));
+
+
 			m_player = SimpleSoundManager.Instance.PlayBGM(selectBgmMainName, ht);
 
 			if (m_player == null)

@@ -9,6 +9,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	public enum SoundPlayState
 	{
 		Stop,
+		PlayingFadeIn,
+		PlayingFadeOut,
 		Playing,
 		Pause,
 		DelayWait
@@ -91,7 +93,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Play(AudioClip _clip, AudioClip _introClip, float _volume, float _delay, bool _isLoop, UnityAction _onStartBefore, UnityAction _onStart, UnityAction _onComplete, UnityAction _onCompleteAfter)
 	{
-		m_isPlaying = true;
+		state = SoundPlayState.Playing;
 		this.gameObject.SetActive(true);
 
 		m_volume = _volume;
@@ -120,8 +122,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void FadeIn(float _fadeTime, float _waitTime)
 	{
-		this.gameObject.SetActive(true);
 
+		this.gameObject.SetActive(true);
 		m_fadeInMethod = _FadeIn(_fadeTime, _waitTime);
 		StartCoroutine(m_fadeInMethod);
 	}
@@ -183,6 +185,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			ChangeVolume();
 			yield return new WaitForEndOfFrame();
 		}
+
+		m_fadeInMethod = null;
 	}
 
 	private IEnumerator _FadeOut(float _fadeTime)
@@ -197,6 +201,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		}
 
 		Stop();
+		m_fadeOutMethod = null;
 	}
 
 	public void ChangeVolume()
