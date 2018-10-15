@@ -169,6 +169,7 @@ public class SoundEffectPlayer : MonoBehaviour
 		if (loopCount <= 0)
 		{
 			PlayEnd();
+			m_coroutineMethod = null;
 			yield break;
 		}
 		else

@@ -29,15 +29,27 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public AudioSource source { get { return m_source; } }
 	public bool IsPlaying { get { return m_isPlaying; } }
-	/// <summary>
-	/// 使用されているかどうか
-	/// </summary>
-	/// <value><c>true</c> if is active; otherwise, <c>false</c>.</value>
+	public float volume
+	{
+		get
+		{
+			var v = m_volume * SimpleSoundManager.Instance.volumeSe;
+			//if (isFade) { v *= animationCurve.Evaluate(source.time); }
+			return v;
+		}
+		set
+		{
+			m_volume = Mathf.Clamp01(value);
+		}
+	}
 	public bool isActive { get { return (state != SoundPlayState.Stop); } }
-	/// <summary>
-	/// 0-1の間でどのくらい再生されているか
-	/// </summary>
-	/// <value>The length.</value>
+	public bool isFade
+	{
+		get
+		{
+			return (m_fadeInMethod != null || m_fadeOutMethod != null);
+		}
+	}
 	public float Length
 	{
 		get
@@ -58,6 +70,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			}
 		}
 	}
+
 
 	public BackGroundMusicPlayer()
 	{
