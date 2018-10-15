@@ -42,7 +42,20 @@ public class Example2 : MonoBehaviour
 	private bool m_isPause = false;
 	private BackGroundMusicPlayer m_player;
 
-	private string selectSeName
+	private string selectBgmIntroName
+	{
+		get
+		{
+			if (m_dropDownIntroBgmName.value == 0)
+				return "";
+
+			var idx = m_dropDownIntroBgmName.value;
+			var itemName = m_dropDownIntroBgmName.options[idx];
+			return itemName.text;
+		}
+	}
+
+	private string selectBgmMainName
 	{
 		get
 		{
@@ -108,10 +121,12 @@ public class Example2 : MonoBehaviour
 		}
 		else
 		{
+			Debug.Log(selectBgmMainName);
+
 			//Play
 			Hashtable ht = new Hashtable();
-			ht.Add(SimpleSoundManager.HashParam_BGM.introSoundName, m_dropDownIntroBgmName.itemText.text);
-			m_player = SimpleSoundManager.Instance.PlayBGM(m_dropDownBgmName.itemText.text, ht);
+			ht.Add(SimpleSoundManager.HashParam_BGM.introSoundName, selectBgmIntroName);
+			m_player = SimpleSoundManager.Instance.PlayBGM(selectBgmMainName, ht);
 
 			if (m_player == null)
 				return;

@@ -148,6 +148,11 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			StopCoroutine(m_fadeOutMethod);
 	}
 
+	public void Resume()
+	{
+
+	}
+
 	private IEnumerator _FadeIn(float _fadeTime, float _waitTime)
 	{
 		var timeCnt = 0.0f;

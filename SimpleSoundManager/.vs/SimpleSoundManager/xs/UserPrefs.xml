@@ -1,12 +1,13 @@
 ﻿<Properties StartupConfiguration="{AFBD8A31-F4FD-E83D-8664-2E9A8123EBCE}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example2.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LightGive/Managers/SimpleSoundManager/Scripts/BackGroundMusicPlayer.cs">
     <Files>
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="156" Column="25" />
-      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="908" Column="1" />
-      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/BackGroundMusicPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example2.cs" Line="82" Column="1" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="712" Column="14" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example2.cs" Line="143" Column="2" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SoundEffectPlayer.cs" Line="37" Column="29" NotebookId="1" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example1.cs" Line="73" Column="19" NotebookId="1" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/BackGroundMusicPlayer.cs" Line="101" Column="2" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

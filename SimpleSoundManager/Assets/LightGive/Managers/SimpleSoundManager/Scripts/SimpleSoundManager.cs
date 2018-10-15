@@ -660,6 +660,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 	}
 
+
 	public void ResumeSE()
 	{
 		for (int i = 0; i < m_soundEffectPlayers.Count; i++)
@@ -691,6 +692,24 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 
 	//******************************ここからBGM
+
+	public void StopBGM()
+	{
+		m_mainBackgroundPlayer.Stop();
+		m_subBackgroundPlayer.Stop();
+	}
+
+	public void PauseBGM()
+	{
+		m_mainBackgroundPlayer.Pause();
+		m_subBackgroundPlayer.Pause();
+	}
+
+	public void ResumeBGM()
+	{
+		m_mainBackgroundPlayer.Resume();
+		m_subBackgroundPlayer.Resume();
+	}
 
 	public BackGroundMusicPlayer PlayBGM(string _soundName, Hashtable _args)
 	{
@@ -911,14 +930,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		return m_subBackgroundPlayer;
 	}
 
-	/// <summary>
-	/// BGMを停止させる
-	/// </summary>
-	public void StopBGM()
-	{
-		m_mainBackgroundPlayer.Stop();
-		m_subBackgroundPlayer.Stop();
-	}
 
 	/// <summary>
 	/// 音量をロードする
