@@ -66,15 +66,15 @@ public class SoundEffectPlayer : MonoBehaviour
 	/// 0-1の間でどのくらい再生されているか
 	/// </summary>
 	/// <value>The length.</value>
-	public float Length 
+	public float Length
 	{
-		get 
+		get
 		{
 			if (state == SoundPlayState.Stop || state == SoundPlayState.DelayWait)
 				return 0.0f;
 
-			return Mathf.Clamp01((source.time / source.pitch) / (source.clip.length / source.pitch)); 
-		} 
+			return Mathf.Clamp01((source.time / source.pitch) / (source.clip.length / source.pitch));
+		}
 	}
 
 	/// <summary>
@@ -83,6 +83,9 @@ public class SoundEffectPlayer : MonoBehaviour
 	/// <value><c>true</c> if is active; otherwise, <c>false</c>.</value>
 	public bool isActive { get { return (state != SoundPlayState.Stop); } }
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	public void Init()
 	{
 		state = SoundPlayState.Stop;
@@ -149,7 +152,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
 
 		m_waitTimeCnt = 0.0f;
-		while(m_waitTimeCnt < source.clip.length / source.pitch)
+		while (m_waitTimeCnt < source.clip.length / source.pitch)
 		{
 			m_waitTimeCnt += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
@@ -181,7 +184,7 @@ public class SoundEffectPlayer : MonoBehaviour
 	/// </summary>
 	private void PlayEnd()
 	{
-		if(onCompleteAfter != null)
+		if (onCompleteAfter != null)
 		{
 			onCompleteAfter.Invoke();
 		}
@@ -191,7 +194,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
 	public void Stop()
 	{
-		if(state == SoundPlayState.DelayWait || state == SoundPlayState.Playing || state == SoundPlayState.Pause)
+		if (state == SoundPlayState.DelayWait || state == SoundPlayState.Playing || state == SoundPlayState.Pause)
 		{
 			source.Stop();
 			StopCoroutine(m_coroutineMethod);
