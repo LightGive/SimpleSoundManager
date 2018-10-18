@@ -15,8 +15,6 @@ public class Example2 : MonoBehaviour
 	[SerializeField]
 	private InputField m_inputFadeOutTime;
 	[SerializeField]
-	private InputField m_inputDelayTime;
-	[SerializeField]
 	private Toggle m_toggleIsLoop;
 	[SerializeField]
 	private Text m_textSceneTitle;
@@ -134,7 +132,7 @@ public class Example2 : MonoBehaviour
 			ht.Add(SimpleSoundManager.HashParam_BGM.introSoundName, selectBgmIntroName);
 			ht.Add(SimpleSoundManager.HashParam_BGM.isLoop, m_toggleIsLoop.isOn);
 			ht.Add(SimpleSoundManager.HashParam_BGM.volume, m_sliderVolume.value);
-			ht.Add(SimpleSoundManager.HashParam_BGM.delay, (m_inputDelayTime.text == "") ? 0.0f : float.Parse(m_inputDelayTime.text));
+			ht.Add(SimpleSoundManager.HashParam_BGM.delay, m_sliderDelayBgm.value);
 			ht.Add(SimpleSoundManager.HashParam_BGM.fadeInTime, (m_inputFadeInTime.text == "") ? 0.0f : float.Parse(m_inputFadeInTime.text));
 			ht.Add(SimpleSoundManager.HashParam_BGM.fadeOutTime, (m_inputFadeOutTime.text == "") ? 0.0f : float.Parse(m_inputFadeOutTime.text));
 			//ht.Add(SimpleSoundManager.HashParam_BGM.crossFadeRate,)
@@ -177,7 +175,7 @@ public class Example2 : MonoBehaviour
 
 	public void OnSliderChangeDelay()
 	{
-		m_textShowDelay.text = m_sliderDelaySe.value.ToString("F2") + " sec";
+		m_textShowDelay.text = m_sliderDelayBgm.value.ToString("F2") + " sec";
 	}
 
 	public void OnButtonDownNextScene()

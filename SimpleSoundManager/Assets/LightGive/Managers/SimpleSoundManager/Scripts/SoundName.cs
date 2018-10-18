@@ -1,5 +1,7 @@
 ﻿public static class SoundName
 {
+	public const string BGM_Jingle1 = "Jingle1";
+	public const string BGM_Jingle2 = "Jingle2";
 	public const string BGM_SampleBGM1 = "SampleBGM1";
 	public const string BGM_SampleBGM2 = "SampleBGM2";
 	public const string BGM_SampleBGM3_Intro = "SampleBGM3_Intro";
@@ -13,6 +15,8 @@
 public enum SoundNameBGM
 {
 	None,
+	Jingle1 = 10,
+	Jingle2 = 8,
 	SampleBGM1 = 3,
 	SampleBGM2 = 4,
 	SampleBGM3_Intro = 7,
