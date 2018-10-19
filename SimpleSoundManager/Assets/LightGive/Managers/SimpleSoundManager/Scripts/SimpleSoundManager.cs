@@ -709,39 +709,39 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 
 		//onStartBefore
-		if (_args.ContainsKey(HashParam_BGM.onStartBefore))
+		if (_args.ContainsKey(HashParam_BGM.onIntroStart))
 		{
-			if (_args[HashParam_BGM.onStartBefore] is UnityAction)
-				onStartBefore = (UnityAction)_args[HashParam_BGM.onStartBefore];
+			if (_args[HashParam_BGM.onIntroStart] is UnityAction)
+				onStartBefore = (UnityAction)_args[HashParam_BGM.onIntroStart];
 			else
-				Debug.Log(HashParam_BGM.onStartBefore.ToString() + " type is different.");
+				Debug.Log(HashParam_BGM.onIntroStart.ToString() + " type is different.");
 		}
 
 		//onStart
-		if (_args.ContainsKey(HashParam_BGM.onStart))
+		if (_args.ContainsKey(HashParam_BGM.onIntroComplete))
 		{
-			if (_args[HashParam_BGM.onStart] is UnityAction)
-				onStart = (UnityAction)_args[HashParam_BGM.onStart];
+			if (_args[HashParam_BGM.onIntroComplete] is UnityAction)
+				onStart = (UnityAction)_args[HashParam_BGM.onIntroComplete];
 			else
-				Debug.Log(HashParam_BGM.onStart.ToString() + " type is different.");
+				Debug.Log(HashParam_BGM.onIntroComplete.ToString() + " type is different.");
 		}
 
 		//onComplete
-		if (_args.ContainsKey(HashParam_BGM.onComplete))
+		if (_args.ContainsKey(HashParam_BGM.onMainStart))
 		{
-			if (_args[HashParam_BGM.onComplete] is UnityAction)
-				onComplete = (UnityAction)_args[HashParam_BGM.onComplete];
+			if (_args[HashParam_BGM.onMainStart] is UnityAction)
+				onComplete = (UnityAction)_args[HashParam_BGM.onMainStart];
 			else
-				Debug.Log(HashParam_BGM.onComplete.ToString() + " type is different.");
+				Debug.Log(HashParam_BGM.onMainStart.ToString() + " type is different.");
 		}
 
 		//onCompleteAfter
-		if (_args.ContainsKey(HashParam_BGM.onCompleteAfter))
+		if (_args.ContainsKey(HashParam_BGM.onMainComplete))
 		{
-			if (_args[HashParam_BGM.onCompleteAfter] is UnityAction)
-				onCompleteAfter = (UnityAction)_args[HashParam_BGM.onCompleteAfter];
+			if (_args[HashParam_BGM.onMainComplete] is UnityAction)
+				onCompleteAfter = (UnityAction)_args[HashParam_BGM.onMainComplete];
 			else
-				Debug.Log(HashParam_BGM.onCompleteAfter.ToString() + " type is different.");
+				Debug.Log(HashParam_BGM.onMainComplete.ToString() + " type is different.");
 		}
 
 		return PlayBGM(
@@ -934,16 +934,10 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		/// </summary>
 		crossFadeRate,
 
-		/// <summary>
-		/// コールバック。イントロを含め一番最初に呼ばれる
-		/// </summary>
-		onStartBefore,
 
-		/// <summary>
-		/// コールバック。ループを一度回るたびに一回呼ばれる
-		/// </summary>
-		onStart,
-		onComplete,
-		onCompleteAfter,
+		onIntroStart,
+		onIntroComplete,
+		onMainStart,
+		onMainComplete,
 	}
 }

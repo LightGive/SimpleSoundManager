@@ -29,18 +29,18 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	private bool m_isLoop;
 	private AudioClip m_introClip;
 	private AudioClip m_mainClip;
-	private UnityAction m_onStartBefore;
-	private UnityAction m_onStart;
-	private UnityAction m_onComplete;
-	private UnityAction m_onCompleteAfter;
+	private UnityAction m_onIntroStart;
+	private UnityAction m_onIntroComplete;
+	private UnityAction m_onMainStart;
+	private UnityAction m_onMainComplete;
 
 	public AudioClip mainClip { get { return m_mainClip; } set { m_mainClip = value; } }
 	public AudioClip introClip { get { return m_introClip; } set { m_introClip = value; } }
 	public AudioSource source { get { return m_source; } }
-	public UnityAction onStartBefore { get { return m_onStartBefore; } set { m_onStartBefore = value; } }
-	public UnityAction onStart { get { return m_onStart; } set { m_onStart = value; } }
-	public UnityAction onComplete { get { return m_onComplete; } set { m_onComplete = value; } }
-	public UnityAction onCompleteAfter { get { return m_onCompleteAfter; } set { m_onCompleteAfter = value; } }
+	public UnityAction onIntroStart { get { return m_onIntroStart; } set { m_onIntroStart = value; } }
+	public UnityAction onIntroComplete { get { return m_onIntroComplete; } set { m_onIntroComplete = value; } }
+	public UnityAction onMainStart { get { return m_onMainStart; } set { m_onMainStart = value; } }
+	public UnityAction onMainComplete { get { return m_onMainComplete; } set { m_onMainComplete = value; } }
 	public bool IsPlaying { get { return m_isPlaying; } }
 	public float delay { get { return m_delay; } set { m_delay = value; } }
 	public float volume
