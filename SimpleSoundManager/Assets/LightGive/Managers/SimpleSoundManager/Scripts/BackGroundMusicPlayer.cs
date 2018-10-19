@@ -33,6 +33,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	private UnityAction m_onMainStart;
 	private UnityAction m_onMainComplete;
 
+	private float m_waitTimeCnt = 0.0f;
+
 	public AudioClip mainClip { get { return m_mainClip; } set { m_mainClip = value; } }
 	public AudioClip introClip { get { return m_introClip; } set { m_introClip = value; } }
 	public AudioSource source { get { return m_source; } }
@@ -115,6 +117,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	private IEnumerator _Play()
 	{
 		state = SoundPlayState.DelayWait;
+		m_waitTimeCnt = 0.0f;
+
 		yield return new WaitForSeconds(delay);
 
 		//イントロの曲があるかのチェック

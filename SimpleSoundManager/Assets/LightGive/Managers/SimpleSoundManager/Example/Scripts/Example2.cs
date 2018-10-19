@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class Example2 : MonoBehaviour
 {
@@ -34,12 +35,25 @@ public class Example2 : MonoBehaviour
 	[SerializeField]
 	private Text m_textShowCrossFadeRate;
 
+	//ButtonList
 	[SerializeField]
 	private Button m_buttonPlay;
 	[SerializeField]
 	private Button m_buttonPause;
 	[SerializeField]
 	private Button m_buttonStop;
+
+
+	//CalledTextList
+	[SerializeField]
+	private Example1_CalledText calledTextIntroStart;
+	[SerializeField]
+	private Example1_CalledText calledTextIntroComplete;
+	[SerializeField]
+	private Example1_CalledText calledTextMainStart;
+	[SerializeField]
+	private Example1_CalledText calledTextMainComplete;
+
 
 	//Spectrum
 	[SerializeField]
@@ -143,6 +157,10 @@ public class Example2 : MonoBehaviour
 			ht.Add(SimpleSoundManager.HashParam_BGM.fadeInTime, (m_inputFadeInTime.text == "") ? 0.0f : float.Parse(m_inputFadeInTime.text));
 			ht.Add(SimpleSoundManager.HashParam_BGM.fadeOutTime, (m_inputFadeOutTime.text == "") ? 0.0f : float.Parse(m_inputFadeOutTime.text));
 			ht.Add(SimpleSoundManager.HashParam_BGM.crossFadeRate, m_sliderCrossFadeRate.value);
+			ht.Add(SimpleSoundManager.HashParam_BGM.onIntroStart, new UnityAction(() => calledTextIntroStart.Show()));
+			ht.Add(SimpleSoundManager.HashParam_BGM.onIntroComplete, new UnityAction(() => calledTextIntroComplete.Show()));
+			ht.Add(SimpleSoundManager.HashParam_BGM.onMainStart, new UnityAction(() => calledTextMainStart.Show()));
+			ht.Add(SimpleSoundManager.HashParam_BGM.onMainComplete, new UnityAction(OnPlayBgmComplete));
 
 			m_player = SimpleSoundManager.Instance.PlayBGM(selectBgmMainName, ht);
 
@@ -158,6 +176,12 @@ public class Example2 : MonoBehaviour
 		m_buttonPause.gameObject.SetActive(true);
 	}
 
+	void OnPlayBgmComplete()
+	{
+		m_buttonPlay.gameObject.SetActive(true);
+		m_buttonPause.gameObject.SetActive(false);
+	}
+
 	public void OnButtonDownPause()
 	{
 		m_isPause = true;
@@ -171,12 +195,6 @@ public class Example2 : MonoBehaviour
 		SimpleSoundManager.Instance.StopSE();
 		m_buttonPause.gameObject.SetActive(false);
 		m_buttonPlay.gameObject.SetActive(true);
-	}
-
-	public void OnPlayComplete()
-	{
-		m_buttonPlay.gameObject.SetActive(true);
-		m_buttonPause.gameObject.SetActive(false);
 	}
 
 	public void OnSliderChangeCrossFadeRate()
