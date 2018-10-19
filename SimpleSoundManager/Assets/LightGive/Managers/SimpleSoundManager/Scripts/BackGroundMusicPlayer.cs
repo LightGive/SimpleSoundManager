@@ -112,6 +112,9 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			yield return new WaitForEndOfFrame();
 		}
 
+		//状態をプレイ中に変更
+		m_state = SoundPlayState.Playing;
+
 		//イントロの曲があるかのチェック
 		if (introClip != null)
 		{
@@ -153,6 +156,11 @@ public class BackGroundMusicPlayer : MonoBehaviour
 				yield return new WaitForEndOfFrame();
 			}
 
+			if (!isLoop)
+			{
+				m_state = SoundPlayState.Stop;
+			}
+
 			//メイン終了
 			if (onMainComplete != null)
 			{
@@ -189,8 +197,14 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Stop()
 	{
-		m_state = SoundPlayState.Stop;
+		if (m_playMethod != null)
+		{
+			StopCoroutine(m_playMethod);
+			m_playMethod = null;
+		}
+
 		m_source.Stop();
+		m_state = SoundPlayState.Stop;
 
 		if (isFade)
 		{
@@ -217,10 +231,13 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Resume()
 	{
-		if (m_state == SoundPlayState.Pause)
-			m_state = m_beforeState;
+		//ポーズ中ではない時は処理しない
+		if (m_state != SoundPlayState.Pause)
+			return;
 
+		m_state = m_beforeState;
 		StartCoroutine(m_playMethod);
+		m_source.Play();
 
 		if (isFade)
 		{

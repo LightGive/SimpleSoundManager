@@ -141,7 +141,7 @@ public class Example2 : MonoBehaviour
 		if (m_isPause)
 		{
 			Debug.Log("Resume");
-			SimpleSoundManager.Instance.ResumeSE();
+			SimpleSoundManager.Instance.ResumeBGM();
 			m_isPause = false;
 		}
 		else
@@ -178,21 +178,24 @@ public class Example2 : MonoBehaviour
 
 	void OnPlayBgmComplete()
 	{
-		m_buttonPlay.gameObject.SetActive(true);
-		m_buttonPause.gameObject.SetActive(false);
+		if (!m_player.isPlaying)
+			m_buttonPause.gameObject.SetActive(false);
 	}
 
 	public void OnButtonDownPause()
 	{
+		if (!m_player.isPlaying)
+			return;
+
 		m_isPause = true;
-		SimpleSoundManager.Instance.PauseSE();
+		SimpleSoundManager.Instance.PauseBGM();
 		m_buttonPause.gameObject.SetActive(false);
-		m_buttonPlay.gameObject.SetActive(true);
+		//m_buttonPlay.gameObject.SetActive(true);
 	}
 
 	public void OnButtonDownStop()
 	{
-		SimpleSoundManager.Instance.StopSE();
+		SimpleSoundManager.Instance.StopBGM();
 		m_buttonPause.gameObject.SetActive(false);
 		m_buttonPlay.gameObject.SetActive(true);
 	}

@@ -88,6 +88,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		get { return m_volumeBgm; }
 	}
 
+	public bool isPlayingBgm { get { return m_mainBackgroundPlayer.isPlaying; } }
+
 	protected override void Awake()
 	{
 		base.isDontDestroy = true;
@@ -836,18 +838,26 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			//BGMを止める
 			StopBGM();
-
 		}
 		else
 		{
-
+			//待ち時間
 			var waitTime = (_fadeInTime > _fadeOutTime) ?
 				_crossFadeRate * _fadeOutTime :
 				Mathf.Clamp(_fadeOutTime - ((1.0f - _crossFadeRate) * _fadeInTime), 0.0f, float.PositiveInfinity);
 
+			//フェードイン、フェードアウト
 
-			m_subBackgroundPlayer.FadeIn(_fadeInTime, waitTime + _delay);
+			//メインがプレイ中と何も再生していない時で分ける
+			if (m_mainBackgroundPlayer.isPlaying)
+				m_subBackgroundPlayer.FadeIn(_fadeInTime, waitTime + _delay);
+			else
+				m_subBackgroundPlayer.FadeIn(_fadeInTime, _delay);
+
+
+			//メインがプレイ中と何も再生していない時で分ける
 			m_mainBackgroundPlayer.FadeOut(_fadeOutTime, _delay);
+
 		}
 
 		//使っていない方のBGMPlayerに色々設定する
