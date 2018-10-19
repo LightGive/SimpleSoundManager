@@ -798,6 +798,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		UnityAction _onCompleteAfter)
 	{
 		AudioClip introClip = null;
+		AudioClip mainClip = null;
 
 		//イントロのサウンドの名前に文字が入っているかのチェック
 		if (!string.IsNullOrEmpty(_introSoundName))
@@ -825,7 +826,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		_crossFadeRate = 1.0f - Mathf.Clamp01(_crossFadeRate);
 
 		//AudioClip取得
-		var clip = m_audioClipDirtBgm[_soundName];
+		mainClip = m_audioClipDirtBgm[_soundName];
 
 		//BGM再生部分の作成
 		var isFade = (_fadeInTime > 0.0f || _fadeOutTime > 0.0f);
@@ -845,7 +846,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		m_mainBackgroundPlayer = tmp;
 
 		//使っていない方のBGMPlayerを取得
-		m_subBackgroundPlayer.Play(clip, introClip, _volume * volumeBgm * volumeTotal, _delay, _isLoop, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
+		m_subBackgroundPlayer.Play(mainClip, introClip, _volume * volumeBgm * volumeTotal, _delay, _isLoop, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
 		return m_subBackgroundPlayer;
 	}
 
