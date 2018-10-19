@@ -779,10 +779,10 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// <param name="_fadeInTime">Fade in time.</param>
 	/// <param name="_fadeOutTime">Fade out time.</param>
 	/// <param name="_crossFadeRate">Cross fade rate.</param>
-	/// <param name="_onStartBefore">On start before.</param>
-	/// <param name="_onStart">On start.</param>
-	/// <param name="_onComplete">On complete.</param>
-	/// <param name="_onCompleteAfter">On complete after.</param>
+	/// <param name="_onIntroStart">On start before.</param>
+	/// <param name="_onIntroComplete">On start.</param>
+	/// <param name="_onMainStart">On complete.</param>
+	/// <param name="_onMainComplete">On complete after.</param>
 	private BackGroundMusicPlayer PlayBGM(
 		string _soundName,
 		string _introSoundName,
@@ -792,10 +792,10 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		float _fadeInTime,
 		float _fadeOutTime,
 		float _crossFadeRate,
-		UnityAction _onStartBefore,
-		UnityAction _onStart,
-		UnityAction _onComplete,
-		UnityAction _onCompleteAfter)
+		UnityAction _onIntroStart,
+		UnityAction _onIntroComplete,
+		UnityAction _onMainStart,
+		UnityAction _onMainComplete)
 	{
 		AudioClip introClip = null;
 		AudioClip mainClip = null;
@@ -834,6 +834,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			m_subBackgroundPlayer.FadeIn(_fadeInTime, (_crossFadeRate * _fadeInTime));
 			m_mainBackgroundPlayer.FadeOut(_fadeOutTime);
+			Debug.Log("Fade");
 		}
 		else
 		{
@@ -841,13 +842,24 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			StopBGM();
 		}
 
+		//使っていない方のBGMPlayerに色々設定する
+		m_subBackgroundPlayer.mainClip = mainClip;
+		m_subBackgroundPlayer.introClip = introClip;
+		m_subBackgroundPlayer.isLoop = _isLoop;
+		m_subBackgroundPlayer.delay = _delay;
+		m_subBackgroundPlayer.volume = _volume;
+		m_subBackgroundPlayer.onIntroStart = _onIntroStart;
+		m_subBackgroundPlayer.onIntroComplete = _onIntroComplete;
+		m_subBackgroundPlayer.onMainStart = _onMainStart;
+		m_subBackgroundPlayer.onMainComplete = _onMainComplete;
+		m_subBackgroundPlayer.Play();
+
+		//SubとMainを交換
 		var tmp = m_subBackgroundPlayer;
 		m_subBackgroundPlayer = m_mainBackgroundPlayer;
 		m_mainBackgroundPlayer = tmp;
 
-		//使っていない方のBGMPlayerを取得
-		m_subBackgroundPlayer.Play(mainClip, introClip, _volume * volumeBgm * volumeTotal, _delay, _isLoop, _onStartBefore, _onStart, _onComplete, _onCompleteAfter);
-		return m_subBackgroundPlayer;
+		return m_mainBackgroundPlayer;
 	}
 
 

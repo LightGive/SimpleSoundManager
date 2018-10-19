@@ -41,6 +41,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	public UnityAction onIntroComplete { get { return m_onIntroComplete; } set { m_onIntroComplete = value; } }
 	public UnityAction onMainStart { get { return m_onMainStart; } set { m_onMainStart = value; } }
 	public UnityAction onMainComplete { get { return m_onMainComplete; } set { m_onMainComplete = value; } }
+	public bool isLoop { get { return m_isLoop; } set { m_isLoop = value; } }
 	public bool IsPlaying { get { return m_isPlaying; } }
 	public float delay { get { return m_delay; } set { m_delay = value; } }
 	public float volume
@@ -106,9 +107,6 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Play()
 	{
-		state = SoundPlayState.Playing;
-		this.gameObject.SetActive(true);
-
 		if (m_source.isPlaying)
 			m_source.Stop();
 
@@ -117,6 +115,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	private IEnumerator _Play()
 	{
+		state = SoundPlayState.DelayWait;
 		yield return new WaitForSeconds(delay);
 
 		//イントロの曲があるかのチェック
@@ -127,6 +126,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			m_source.clip = introClip;
 			ChangeVolume();
 			m_source.Play();
+			state = SoundPlayState.Playing;
 			yield return new WaitForSeconds(introClip.length);
 
 		}
@@ -137,6 +137,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 		ChangeVolume();
 		m_source.Play();
+
+		Debug.Log("再生");
 
 
 	}
@@ -171,7 +173,6 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	{
 		m_isPlaying = false;
 		m_source.Stop();
-		this.gameObject.SetActive(false);
 
 		if (m_isFadeIn)
 			StopCoroutine(m_fadeInMethod);
