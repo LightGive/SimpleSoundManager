@@ -829,10 +829,31 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		mainClip = m_audioClipDirtBgm[_soundName];
 
 		//BGM再生部分の作成
-		var isFade = (_fadeInTime > 0.0f || _fadeOutTime > 0.0f);
-		if (isFade)
+		var isFadeIn = _fadeInTime > 0.0f;
+		var isFadeOut = _fadeOutTime > 0.0f;
+
+		if (isFadeIn)
 		{
-			m_subBackgroundPlayer.FadeIn(_fadeInTime, (_crossFadeRate * _fadeInTime));
+			if (isFadeOut && m_mainBackgroundPlayer.IsPlaying)
+			{
+				m_subBackgroundPlayer.FadeIn(_fadeInTime, (_fadeOutTime - (_crossFadeRate * _fadeInTime)) + _delay);
+
+			}
+
+
+
+			if (m_mainBackgroundPlayer.IsPlaying)
+			{
+
+			}
+			else
+			{
+			}
+
+
+			if (_fadeInTime > 0.0f)
+			{
+			}
 			m_mainBackgroundPlayer.FadeOut(_fadeOutTime);
 			Debug.Log("Fade");
 		}
