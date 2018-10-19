@@ -156,7 +156,6 @@ public class Example2 : MonoBehaviour
 		}
 
 		m_buttonPause.gameObject.SetActive(true);
-		m_buttonPlay.gameObject.SetActive(false);
 	}
 
 	public void OnButtonDownPause()

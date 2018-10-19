@@ -231,7 +231,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		}
 
 		Stop();
-		m_fadeOutMethod = null;
+		m_fadeMethod = null;
 	}
 
 	public void ChangeVolume()
