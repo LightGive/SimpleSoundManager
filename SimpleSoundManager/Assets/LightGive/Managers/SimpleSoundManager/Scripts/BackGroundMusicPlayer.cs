@@ -18,8 +18,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	private SoundPlayState state;
 	private AudioSource m_source;
-	private IEnumerator m_fadeInMethod;
-	private IEnumerator m_fadeOutMethod;
+	private IEnumerator m_fadeMethod;
 	private float m_volume;
 	private float m_delay;
 	private float m_fadeVolume;
@@ -62,7 +61,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	{
 		get
 		{
-			return (m_fadeInMethod != null || m_fadeOutMethod != null);
+			return (m_fadeMethod != null);
 		}
 	}
 	public float Length
@@ -143,30 +142,26 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	}
 
-
-	public void PlayerUpdate()
-	{
-
-	}
-
 	public void FadeIn(float _fadeTime, float _waitTime)
 	{
+		if (isFade)
+			StopCoroutine(m_fadeMethod);
 
 		this.gameObject.SetActive(true);
-		m_fadeInMethod = _FadeIn(_fadeTime, _waitTime);
-		StartCoroutine(m_fadeInMethod);
+		m_fadeMethod = _FadeIn(_fadeTime, _waitTime);
+		StartCoroutine(m_fadeMethod);
 	}
 
-	public void FadeOut(float _fadeTime)
+	public void FadeOut(float _fadeTime, float _waitTime)
 	{
 		if (!IsPlaying)
 			return;
-		if (m_fadeInMethod != null)
-			StopCoroutine(m_fadeInMethod);
+		if (isFade)
+			StopCoroutine(m_fadeMethod);
 
 		m_isPlaying = false;
-		m_fadeOutMethod = _FadeOut(_fadeTime);
-		StartCoroutine(m_fadeOutMethod);
+		m_fadeMethod = _FadeOut(_fadeTime, _waitTime);
+		StartCoroutine(m_fadeMethod);
 	}
 
 	public void Stop()
@@ -174,10 +169,11 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		m_isPlaying = false;
 		m_source.Stop();
 
-		if (m_isFadeIn)
-			StopCoroutine(m_fadeInMethod);
-		if (m_isFadeOut)
-			StopCoroutine(m_fadeOutMethod);
+		if (isFade)
+		{
+			StopCoroutine(m_fadeMethod);
+			m_fadeMethod = null;
+		}
 	}
 
 	public void Pause()
@@ -185,15 +181,14 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		m_isPlaying = false;
 		m_source.Pause();
 
-		if (m_isFadeIn)
-			StopCoroutine(m_fadeInMethod);
-		if (m_isFadeOut)
-			StopCoroutine(m_fadeOutMethod);
+		if (m_fadeMethod != null)
+			StopCoroutine(m_fadeMethod);
 	}
 
 	public void Resume()
 	{
-
+		if (m_fadeMethod != null)
+			StartCoroutine(m_fadeMethod);
 	}
 
 	private IEnumerator _FadeIn(float _fadeTime, float _waitTime)
@@ -214,12 +209,19 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			yield return new WaitForEndOfFrame();
 		}
 
-		m_fadeInMethod = null;
+		m_fadeMethod = null;
 	}
 
-	private IEnumerator _FadeOut(float _fadeTime)
+	private IEnumerator _FadeOut(float _fadeTime, float _waitTime)
 	{
 		var timeCnt = 0.0f;
+		while (timeCnt < _waitTime)
+		{
+			timeCnt += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+		timeCnt = 0.0f;
 		while (timeCnt < _fadeTime)
 		{
 			timeCnt += Time.deltaTime;
