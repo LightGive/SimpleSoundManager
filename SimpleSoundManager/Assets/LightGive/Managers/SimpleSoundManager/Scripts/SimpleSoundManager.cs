@@ -842,7 +842,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			Debug.Log("FadeInOut");
 
-			var waitTime = (_fadeInTime > _fadeOutTime) ? 0.0f : Mathf.Clamp(_fadeOutTime - (_crossFadeRate * _fadeInTime), 0.0f, float.PositiveInfinity);
+			var waitTime = (_fadeInTime > _fadeOutTime) ? (1.0f - _crossFadeRate) * _fadeOutTime : Mathf.Clamp(_fadeOutTime - (_crossFadeRate * _fadeInTime), 0.0f, float.PositiveInfinity);
 			if (isFadeIn)
 			{
 				m_subBackgroundPlayer.FadeIn(_fadeInTime, waitTime + _delay);

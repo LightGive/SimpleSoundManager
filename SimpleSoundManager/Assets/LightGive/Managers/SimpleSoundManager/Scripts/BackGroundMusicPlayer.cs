@@ -9,8 +9,6 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	public enum SoundPlayState
 	{
 		Stop,
-		PlayingFadeIn,
-		PlayingFadeOut,
 		Playing,
 		Pause,
 		DelayWait
@@ -19,12 +17,12 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	private SoundPlayState state;
 	private AudioSource m_source;
 	private IEnumerator m_fadeMethod;
+	private IEnumerator m_playMethod;
 	private float m_volume;
 	private float m_delay;
 	private float m_fadeVolume;
 	private bool m_isFadeIn;
 	private bool m_isFadeOut;
-	private bool m_isPlaying;
 	private bool m_isLoop;
 	private AudioClip m_introClip;
 	private AudioClip m_mainClip;
@@ -43,14 +41,13 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	public UnityAction onMainStart { get { return m_onMainStart; } set { m_onMainStart = value; } }
 	public UnityAction onMainComplete { get { return m_onMainComplete; } set { m_onMainComplete = value; } }
 	public bool isLoop { get { return m_isLoop; } set { m_isLoop = value; } }
-	public bool IsPlaying { get { return m_isPlaying; } }
+	public bool isPlaying { get { return state == SoundPlayState.Playing; } }
 	public float delay { get { return m_delay; } set { m_delay = value; } }
 	public float volume
 	{
 		get
 		{
 			var v = m_volume * SimpleSoundManager.Instance.volumeSe;
-			//if (isFade) { v *= animationCurve.Evaluate(source.time); }
 			return v;
 		}
 		set
@@ -87,10 +84,9 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		}
 	}
 
-
 	public BackGroundMusicPlayer()
 	{
-		m_isPlaying = false;
+		state = SoundPlayState.Stop;
 		m_isFadeIn = false;
 		m_isFadeOut = false;
 	}
@@ -108,17 +104,14 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Play()
 	{
-		if (m_source.isPlaying)
-			m_source.Stop();
-
-		StartCoroutine(_Play());
+		m_playMethod = _Play();
+		StartCoroutine(m_playMethod);
 	}
 
 	private IEnumerator _Play()
 	{
 		state = SoundPlayState.DelayWait;
 		m_waitTimeCnt = 0.0f;
-
 		yield return new WaitForSeconds(delay);
 
 		//イントロの曲があるかのチェック
@@ -158,19 +151,16 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void FadeOut(float _fadeTime, float _waitTime)
 	{
-		if (!IsPlaying)
-			return;
 		if (isFade)
 			StopCoroutine(m_fadeMethod);
 
-		m_isPlaying = false;
 		m_fadeMethod = _FadeOut(_fadeTime, _waitTime);
 		StartCoroutine(m_fadeMethod);
 	}
 
 	public void Stop()
 	{
-		m_isPlaying = false;
+		state = SoundPlayState.Stop;
 		m_source.Stop();
 
 		if (isFade)
@@ -182,7 +172,10 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Pause()
 	{
-		m_isPlaying = false;
+		if (!(state == SoundPlayState.Playing || state == SoundPlayState.DelayWait))
+			return;
+
+		state = SoundPlayState.Pause;
 		m_source.Pause();
 
 		if (m_fadeMethod != null)
