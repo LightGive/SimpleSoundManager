@@ -6687,7 +6687,7 @@ MonoBehaviour:
   - {fileID: 1312233065}
   - {fileID: 1604938345}
   - {fileID: 1508873114}
-  m_spectrumWidth: 100
+  m_spectrumWidth: 50
 --- !u!4 &1705262770
 Transform:
   m_ObjectHideFlags: 0

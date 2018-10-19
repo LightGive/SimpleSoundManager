@@ -57,6 +57,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3f7e3060051d448c383d95ca8efcb37f, type: 3}
   - {fileID: 8300000, guid: b66645cb7bce14b03bfc8a37fa4126cf, type: 3}
   audioClipListBgm:
+  - {fileID: 8300000, guid: 3027c44d81f3448378b16cee344b15b8, type: 3}
+  - {fileID: 8300000, guid: 42ad75a733061467c8946a36b30d7a9c, type: 3}
   - {fileID: 8300000, guid: 9faf2042e04054903a0f1b1df6f5769f, type: 3}
   - {fileID: 8300000, guid: 63e8d26dcc11d4e7ebe56274da2a67c9, type: 3}
   - {fileID: 8300000, guid: 620a79aebaff748b684cc753f8e05360, type: 3}
@@ -70,7 +72,7 @@ MonoBehaviour:
   m_volumeBgm: 0.5
   m_defaultMinDistance: 1
   m_defaultMaxDistance: 500
-  m_editorIsFoldSeList: 0
-  m_editorIsFoldBgmList: 0
+  m_editorIsFoldSeList: 1
+  m_editorIsFoldBgmList: 1
   m_isLoopBgm: 1
   m_isChangeToSave: 0
