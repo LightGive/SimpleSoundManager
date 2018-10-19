@@ -840,17 +840,14 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 		else
 		{
-			Debug.Log("FadeInOut");
 
-			var waitTime = (_fadeInTime > _fadeOutTime) ? (1.0f - _crossFadeRate) * _fadeOutTime : Mathf.Clamp(_fadeOutTime - (_crossFadeRate * _fadeInTime), 0.0f, float.PositiveInfinity);
-			if (isFadeIn)
-			{
-				m_subBackgroundPlayer.FadeIn(_fadeInTime, waitTime + _delay);
-			}
-			if (isFadeOut)
-			{
-				m_mainBackgroundPlayer.FadeOut(_fadeOutTime, _delay);
-			}
+			var waitTime = (_fadeInTime > _fadeOutTime) ?
+				_crossFadeRate * _fadeOutTime :
+				Mathf.Clamp(_fadeOutTime - ((1.0f - _crossFadeRate) * _fadeInTime), 0.0f, float.PositiveInfinity);
+
+
+			m_subBackgroundPlayer.FadeIn(_fadeInTime, waitTime + _delay);
+			m_mainBackgroundPlayer.FadeOut(_fadeOutTime, _delay);
 		}
 
 		//使っていない方のBGMPlayerに色々設定する

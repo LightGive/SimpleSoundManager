@@ -84,20 +84,13 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		}
 	}
 
-	public BackGroundMusicPlayer()
-	{
-		state = SoundPlayState.Stop;
-		m_isFadeIn = false;
-		m_isFadeOut = false;
-	}
-
 	public void Init()
 	{
 		state = SoundPlayState.Stop;
 		m_fadeVolume = 1.0f;
 		m_source = this.gameObject.AddComponent<AudioSource>();
 		m_source.playOnAwake = false;
-		m_source.loop = true;
+		m_source.loop = false;
 		m_source.spatialBlend = 0.0f;
 		m_source.volume = SimpleSoundManager.Instance.volumeBgm;
 	}
@@ -112,31 +105,59 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	{
 		state = SoundPlayState.DelayWait;
 		m_waitTimeCnt = 0.0f;
-		yield return new WaitForSeconds(delay);
+		while (m_waitTimeCnt < delay)
+		{
+			m_waitTimeCnt += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
 
 		//イントロの曲があるかのチェック
 		if (introClip != null)
 		{
-			m_source.loop = false;
+			//イントロ開始
+			if (onIntroStart != null) { onIntroStart.Invoke(); }
+
 			m_source.time = 0.0f;
 			m_source.clip = introClip;
 			ChangeVolume();
 			m_source.Play();
 			state = SoundPlayState.Playing;
-			yield return new WaitForSeconds(introClip.length);
+			m_waitTimeCnt = 0.0f;
+			while (m_waitTimeCnt < introClip.length)
+			{
+				m_waitTimeCnt += Time.deltaTime;
+				yield return new WaitForEndOfFrame();
+			}
 
+			//イントロ終了
+			if (onIntroComplete != null) { onIntroComplete.Invoke(); }
 		}
 
-		m_source.clip = m_mainClip;
-		m_source.loop = m_isLoop;
-		m_source.time = 0.0f;
+		//メインBGM
+		do
+		{
+			//メイン開始
+			if (onMainStart != null) { onMainStart.Invoke(); }
 
-		ChangeVolume();
-		m_source.Play();
+			m_source.clip = m_mainClip;
+			m_source.time = 0.0f;
 
-		Debug.Log("再生");
+			ChangeVolume();
+			m_source.Play();
 
 
+			while (m_waitTimeCnt < introClip.length)
+			{
+				m_waitTimeCnt += Time.deltaTime;
+				yield return new WaitForEndOfFrame();
+			}
+
+			//メイン終了
+			if (onMainComplete != null)
+			{
+				onMainComplete.Invoke();
+			}
+		} while (isLoop);
 	}
 
 	public void FadeIn(float _fadeTime, float _waitTime)
