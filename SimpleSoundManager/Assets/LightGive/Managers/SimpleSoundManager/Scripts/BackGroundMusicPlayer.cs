@@ -14,7 +14,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		DelayWait
 	}
 
-	private SoundPlayState state;
+	private SoundPlayState m_beforeState;
+	private SoundPlayState m_state;
 	private AudioSource m_source;
 	private IEnumerator m_fadeMethod;
 	private IEnumerator m_playMethod;
@@ -41,7 +42,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	public UnityAction onMainStart { get { return m_onMainStart; } set { m_onMainStart = value; } }
 	public UnityAction onMainComplete { get { return m_onMainComplete; } set { m_onMainComplete = value; } }
 	public bool isLoop { get { return m_isLoop; } set { m_isLoop = value; } }
-	public bool isPlaying { get { return state == SoundPlayState.Playing; } }
+	public bool isPlaying { get { return m_state == SoundPlayState.Playing; } }
 	public float delay { get { return m_delay; } set { m_delay = value; } }
 	public float volume
 	{
@@ -55,7 +56,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			m_volume = Mathf.Clamp01(value);
 		}
 	}
-	public bool isActive { get { return (state != SoundPlayState.Stop); } }
+	public bool isActive { get { return (m_state != SoundPlayState.Stop); } }
 	public bool isFade
 	{
 		get
@@ -67,7 +68,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	{
 		get
 		{
-			if (state == SoundPlayState.Stop || state == SoundPlayState.DelayWait)
+			if (m_state == SoundPlayState.Stop || m_state == SoundPlayState.DelayWait)
 				return 0.0f;
 
 			if (m_introClip != null)
@@ -86,7 +87,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Init()
 	{
-		state = SoundPlayState.Stop;
+		m_state = SoundPlayState.Stop;
 		m_fadeVolume = 1.0f;
 		m_source = this.gameObject.AddComponent<AudioSource>();
 		m_source.playOnAwake = false;
@@ -103,7 +104,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	private IEnumerator _Play()
 	{
-		state = SoundPlayState.DelayWait;
+		m_state = SoundPlayState.DelayWait;
 		m_waitTimeCnt = 0.0f;
 		while (m_waitTimeCnt < delay)
 		{
@@ -121,7 +122,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			m_source.clip = introClip;
 			ChangeVolume();
 			m_source.Play();
-			state = SoundPlayState.Playing;
+			m_state = SoundPlayState.Playing;
 			m_waitTimeCnt = 0.0f;
 			while (m_waitTimeCnt < introClip.length)
 			{
@@ -145,8 +146,8 @@ public class BackGroundMusicPlayer : MonoBehaviour
 			ChangeVolume();
 			m_source.Play();
 
-
-			while (m_waitTimeCnt < introClip.length)
+			m_waitTimeCnt = 0.0f;
+			while (m_waitTimeCnt < m_mainClip.length)
 			{
 				m_waitTimeCnt += Time.deltaTime;
 				yield return new WaitForEndOfFrame();
@@ -158,14 +159,18 @@ public class BackGroundMusicPlayer : MonoBehaviour
 				onMainComplete.Invoke();
 			}
 		} while (isLoop);
+
+		m_playMethod = null;
 	}
 
 	public void FadeIn(float _fadeTime, float _waitTime)
 	{
 		if (isFade)
+		{
 			StopCoroutine(m_fadeMethod);
+			m_fadeMethod = null;
+		}
 
-		this.gameObject.SetActive(true);
 		m_fadeMethod = _FadeIn(_fadeTime, _waitTime);
 		StartCoroutine(m_fadeMethod);
 	}
@@ -173,7 +178,10 @@ public class BackGroundMusicPlayer : MonoBehaviour
 	public void FadeOut(float _fadeTime, float _waitTime)
 	{
 		if (isFade)
+		{
 			StopCoroutine(m_fadeMethod);
+			m_fadeMethod = null;
+		}
 
 		m_fadeMethod = _FadeOut(_fadeTime, _waitTime);
 		StartCoroutine(m_fadeMethod);
@@ -181,7 +189,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Stop()
 	{
-		state = SoundPlayState.Stop;
+		m_state = SoundPlayState.Stop;
 		m_source.Stop();
 
 		if (isFade)
@@ -193,20 +201,31 @@ public class BackGroundMusicPlayer : MonoBehaviour
 
 	public void Pause()
 	{
-		if (!(state == SoundPlayState.Playing || state == SoundPlayState.DelayWait))
+		if (!(m_state == SoundPlayState.Playing || m_state == SoundPlayState.DelayWait))
 			return;
 
-		state = SoundPlayState.Pause;
+		m_beforeState = m_state;
+		m_state = SoundPlayState.Pause;
+		StopCoroutine(m_playMethod);
 		m_source.Pause();
 
-		if (m_fadeMethod != null)
+		if (isFade)
+		{
 			StopCoroutine(m_fadeMethod);
+		}
 	}
 
 	public void Resume()
 	{
-		if (m_fadeMethod != null)
+		if (m_state == SoundPlayState.Pause)
+			m_state = m_beforeState;
+
+		StartCoroutine(m_playMethod);
+
+		if (isFade)
+		{
 			StartCoroutine(m_fadeMethod);
+		}
 	}
 
 	private IEnumerator _FadeIn(float _fadeTime, float _waitTime)
