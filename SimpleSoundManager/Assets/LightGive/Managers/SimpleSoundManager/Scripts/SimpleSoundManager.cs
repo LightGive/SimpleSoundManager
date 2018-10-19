@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundManager>
 {
+	private const bool DefaultParamIsLoop = true;
 	private const float DefaultParamVolume = 1.0f;
 	private const float DefaultParamDelay = 0.0f;
 	private const float DefaultParamPitch = 1.0f;
@@ -612,20 +613,29 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	}
 
 
-	//******************************ここからBGM
+	//ここからBGM
 
+	/// <summary>
+	/// 全てのBGMを停止させる
+	/// </summary>
 	public void StopBGM()
 	{
 		m_mainBackgroundPlayer.Stop();
 		m_subBackgroundPlayer.Stop();
 	}
 
+	/// <summary>
+	/// BGMをポーズさせる
+	/// </summary>
 	public void PauseBGM()
 	{
 		m_mainBackgroundPlayer.Pause();
 		m_subBackgroundPlayer.Pause();
 	}
 
+	/// <summary>
+	/// ポーズ中のBGMを再開させる
+	/// </summary>
 	public void ResumeBGM()
 	{
 		m_mainBackgroundPlayer.Resume();
@@ -635,9 +645,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	public BackGroundMusicPlayer PlayBGM(string _soundName, Hashtable _args)
 	{
 		string introSoundName = "";
-		float volume = 1.0f;
-		float delay = 0.0f;
-		bool isLoop = false;
+		float volume = DefaultParamVolume;
+		float delay = DefaultParamDelay;
+		bool isLoop = DefaultParamIsLoop;
 		float fadeInTime = 0.0f;
 		float fadeOutTime = 0.0f;
 		float crossFadeRate = 0.0f;
@@ -652,6 +662,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		{
 			if (_args[HashParam_BGM.introSoundName] is string)
 				introSoundName = (string)_args[HashParam_BGM.introSoundName];
+			else if (_args[HashParam_BGM.introSoundName] is SoundNameBGM)
+				introSoundName = ((SoundNameBGM)_args[HashParam_BGM.introSoundName]).ToString();
 			else
 				Debug.Log(HashParam_BGM.introSoundName.ToString() + " type is different.");
 		}
@@ -761,30 +773,21 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 			onCompleteAfter);
 	}
 
-	/// <summary>
-	/// BGMを再生する
-	/// </summary>
-	/// <returns>The bgm.</returns>
-	/// <param name="_soundName">Sound name.</param>
-	public BackGroundMusicPlayer PlayBGM(SoundNameBGM _soundName)
-	{
-		return PlayBGM(_soundName.ToString(), "", DefaultParamVolume, DefaultParamDelay, true, 0.0f, 0.0f, 0.0f, null, null, null, null);
-	}
 
 	/// <summary>
 	/// BGMを再生する
 	/// </summary>
-	/// <returns>BGMPlayerを返す</returns>
-	/// <param name="_soundName">BGM名</param>
-	/// <param name="_volume">音量(0.0-1.0)</param>
-	/// <param name="_isLoop">ループするか</param>
-	/// <param name="_fadeInTime">Fade in time.</param>
-	/// <param name="_fadeOutTime">Fade out time.</param>
-	/// <param name="_crossFadeRate">Cross fade rate.</param>
-	/// <param name="_onIntroStart">On start before.</param>
-	/// <param name="_onIntroComplete">On start.</param>
-	/// <param name="_onMainStart">On complete.</param>
-	/// <param name="_onMainComplete">On complete after.</param>
+	/// <returns>再生するBGMプレイヤー</returns>
+	/// <param name="_soundName">再生する曲名</param>
+	public BackGroundMusicPlayer PlayBGM(SoundNameBGM _soundName, bool _isLoop, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onIntroStart = null, UnityAction _onIntroComplete = null, UnityAction _onMainStart = null, UnityAction _onMainComplete = null)
+	{
+		return PlayBGM(_soundName.ToString(), "", _volume, _delay, _isLoop, 0.0f, 0.0f, 0.0f, _onIntroStart, _onIntroComplete, _onMainStart, _onMainComplete);
+	}
+
+	public BackGroundMusicPlayer PlayBGM_FadeInOut(SoundNameBGM _soundName, bool _isLoop, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onIntroStart = null, UnityAction _onIntroComplete = null, UnityAction _onMainStart = null, UnityAction _onMainComplete = null)
+	{
+	}
+
 	private BackGroundMusicPlayer PlayBGM(
 		string _soundName,
 		string _introSoundName,
@@ -846,8 +849,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 				_crossFadeRate * _fadeOutTime :
 				Mathf.Clamp(_fadeOutTime - ((1.0f - _crossFadeRate) * _fadeInTime), 0.0f, float.PositiveInfinity);
 
-			//フェードイン、フェードアウト
-
 			//メインがプレイ中と何も再生していない時で分ける
 			if (m_mainBackgroundPlayer.isPlaying)
 				m_subBackgroundPlayer.FadeIn(_fadeInTime, waitTime + _delay);
@@ -907,21 +908,84 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	/// </summary>
 	public enum HashParam_SE
 	{
+		/// <summary>
+		/// 音量(0.0f-1.0f)(float)
+		/// </summary>
 		volume,
+
+		/// <summary>
+		/// 遅延時間(float)
+		/// </summary>
 		delay,
+
+		/// <summary>
+		/// ピッチ(float)
+		/// </summary>
 		pitch,
+
+		/// <summary>
+		/// 永続的にループさせるか(bool)
+		/// </summary>
 		isLoopInfinity,
+
+		/// <summary>
+		/// ループ回数(int)
+		/// </summary>
 		loopCount,
+
+		/// <summary>
+		/// フェードインの時間(float)
+		/// </summary>
 		fadeInTime,
+
+		/// <summary>
+		/// フェードアウトの時間(float)
+		/// </summary>
 		fadeOutTime,
+
+		/// <summary>
+		/// 3Dサウンドか(bool)
+		/// </summary>
 		is3dSound,
+
+		/// <summary>
+		/// サウンドを鳴らす座標(Vector3)
+		/// </summary>
 		soundPos,
+
+		/// <summary>
+		/// サウンドを追従させるゲームオブジェクト(GameObject)
+		/// </summary>
 		chaseObj,
+
+		/// <summary>
+		/// 音が完全に聞こえなくなる距離(float)
+		/// </summary>
 		minDistance,
+
+		/// <summary>
+		/// 音が減衰を停止する距離(float)
+		/// </summary>
 		maxDistance,
+
+		/// <summary>
+		/// 鳴り始める時に呼ばれるコールバック。一度しか呼ばれない(UnityAction)
+		/// </summary>
 		onStartBefore,
+
+		/// <summary>
+		/// 鳴り始めた時に呼ばれるコールバック。ループされるたびに呼ばれる(UnityAction)
+		/// </summary>
 		onStart,
+
+		/// <summary>
+		/// 鳴り終えた時に呼ばれるコールバック。ループされるたびに呼ばれる(UnityAction)
+		/// </summary>
 		onComplete,
+
+		/// <summary>
+		/// 完全に鳴り終えた時に呼ばれるコールバック。一度しか呼ばれない(UnityAction)
+		/// </summary>
 		onCompleteAfter,
 	}
 
@@ -931,16 +995,17 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	public enum HashParam_BGM
 	{
 		/// <summary>
-		/// イントロの曲名
+		/// イントロの曲名(SoundName,string)
 		/// </summary>
 		introSoundName,
+
 		/// <summary>
-		/// 音量(float)
+		/// 音量(0.0f-1.0f)(float)
 		/// </summary>
 		volume,
 
 		/// <summary>
-		/// 遅延(float)
+		/// 遅延時間(float)
 		/// </summary>
 		delay,
 
@@ -964,10 +1029,24 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		/// </summary>
 		crossFadeRate,
 
-
+		/// <summary>
+		/// イントロが開始されるタイミングで呼ばれるコールバック(UnityAction)
+		/// </summary>
 		onIntroStart,
+
+		/// <summary>
+		/// イントロが終わったタイミングで呼ばれるコールバック(UnityAction)
+		/// </summary>
 		onIntroComplete,
+
+		/// <summary>
+		/// メイン曲が開始されるタイミングで呼ばれるコールバック(UnityAction)
+		/// </summary>
 		onMainStart,
+
+		/// <summary>
+		/// メイン曲が終わったタイミングで呼ばれるコールバック(UnityAction)
+		/// </summary>
 		onMainComplete,
 	}
 }
