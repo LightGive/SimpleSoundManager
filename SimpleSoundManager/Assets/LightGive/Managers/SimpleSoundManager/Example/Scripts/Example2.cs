@@ -26,9 +26,13 @@ public class Example2 : MonoBehaviour
 	[SerializeField]
 	private Slider m_sliderDelayBgm;
 	[SerializeField]
+	private Slider m_sliderCrossFadeRate;
+	[SerializeField]
 	private Text m_textShowVolume;
 	[SerializeField]
 	private Text m_textShowDelay;
+	[SerializeField]
+	private Text m_textShowCrossFadeRate;
 
 	[SerializeField]
 	private Button m_buttonPlay;
@@ -72,6 +76,9 @@ public class Example2 : MonoBehaviour
 	private void Start()
 	{
 		OnSliderChangeVolume();
+		OnSliderChangeDelay();
+		OnSliderChangeCrossFadeRate();
+
 		m_buttonPlay.gameObject.SetActive(true);
 		m_buttonStop.gameObject.SetActive(true);
 		m_buttonPause.gameObject.SetActive(false);
@@ -112,7 +119,7 @@ public class Example2 : MonoBehaviour
 
 	public void OnSliderChangeVolume()
 	{
-		m_textShowVolume.text = (m_sliderVolume.value * 100.0f).ToString("F1") + "%";
+		m_textShowVolume.text = (m_sliderVolume.value * 100.0f).ToString("0") + " %";
 	}
 
 	public void OnButtonDownPlay()
@@ -135,7 +142,7 @@ public class Example2 : MonoBehaviour
 			ht.Add(SimpleSoundManager.HashParam_BGM.delay, m_sliderDelayBgm.value);
 			ht.Add(SimpleSoundManager.HashParam_BGM.fadeInTime, (m_inputFadeInTime.text == "") ? 0.0f : float.Parse(m_inputFadeInTime.text));
 			ht.Add(SimpleSoundManager.HashParam_BGM.fadeOutTime, (m_inputFadeOutTime.text == "") ? 0.0f : float.Parse(m_inputFadeOutTime.text));
-			//ht.Add(SimpleSoundManager.HashParam_BGM.crossFadeRate,)
+			ht.Add(SimpleSoundManager.HashParam_BGM.crossFadeRate, m_sliderCrossFadeRate.value);
 
 			m_player = SimpleSoundManager.Instance.PlayBGM(selectBgmMainName, ht);
 
@@ -171,6 +178,11 @@ public class Example2 : MonoBehaviour
 	{
 		m_buttonPlay.gameObject.SetActive(true);
 		m_buttonPause.gameObject.SetActive(false);
+	}
+
+	public void OnSliderChangeCrossFadeRate()
+	{
+		m_textShowCrossFadeRate.text = (m_sliderCrossFadeRate.value * 100).ToString("0") + " %";
 	}
 
 	public void OnSliderChangeDelay()
