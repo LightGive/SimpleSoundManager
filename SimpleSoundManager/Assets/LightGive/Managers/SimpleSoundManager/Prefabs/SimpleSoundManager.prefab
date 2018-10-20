@@ -70,9 +70,7 @@ MonoBehaviour:
   m_volumeTotal: 1
   m_volumeSe: 1
   m_volumeBgm: 1
-  m_defaultMinDistance: 1
-  m_defaultMaxDistance: 500
-  m_editorIsFoldSeList: 1
-  m_editorIsFoldBgmList: 1
+  m_editorIsFoldSeList: 0
+  m_editorIsFoldBgmList: 0
   m_isLoopBgm: 1
   m_isChangeToSave: 0
