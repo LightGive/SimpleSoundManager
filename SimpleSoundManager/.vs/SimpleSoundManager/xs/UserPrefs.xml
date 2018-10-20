@@ -14,7 +14,7 @@
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManagerDefine.cs" Line="1" Column="1" />
       <File FileName="Assets/LightGive/Managers/ManagerCreator/ManagerCreator.cs" Line="40" Column="1" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example3.cs" Line="35" Column="107" />
-      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SoundName.cs" Line="14" Column="7" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SoundName.cs" Line="3" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
