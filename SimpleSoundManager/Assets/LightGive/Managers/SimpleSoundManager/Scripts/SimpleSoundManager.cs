@@ -1,6 +1,4 @@
-﻿
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -40,10 +38,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	private float m_volumeSe = DefaultParamVolumeSe;
 	[SerializeField]
 	private float m_volumeBgm = DefaultParamVolumeBgm;
-	[SerializeField]
-	private float m_defaultMinDistance = 1.0f;
-	[SerializeField]
-	private float m_defaultMaxDistance = 500.0f;
 
 	[SerializeField]
 	private bool m_editorIsFoldSeList = false;
@@ -615,32 +609,6 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	//ここからBGM
 
-	/// <summary>
-	/// 全てのBGMを停止させる
-	/// </summary>
-	public void StopBGM()
-	{
-		m_mainBackgroundPlayer.Stop();
-		m_subBackgroundPlayer.Stop();
-	}
-
-	/// <summary>
-	/// BGMをポーズさせる
-	/// </summary>
-	public void PauseBGM()
-	{
-		m_mainBackgroundPlayer.Pause();
-		m_subBackgroundPlayer.Pause();
-	}
-
-	/// <summary>
-	/// ポーズ中のBGMを再開させる
-	/// </summary>
-	public void ResumeBGM()
-	{
-		m_mainBackgroundPlayer.Resume();
-		m_subBackgroundPlayer.Resume();
-	}
 
 	public BackGroundMusicPlayer PlayBGM(string _soundName, Hashtable _args)
 	{
@@ -774,22 +742,28 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	}
 
 
-	/// <summary>
-	/// BGMを再生する
-	/// </summary>
-	/// <returns>再生するBGMプレイヤー</returns>
-	/// <param name="_soundName">再生する曲名</param>
-	public BackGroundMusicPlayer PlayBGM(SoundNameBGM _soundName, bool _isLoop, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onIntroStart = null, UnityAction _onIntroComplete = null, UnityAction _onMainStart = null, UnityAction _onMainComplete = null)
+	public BackGroundMusicPlayer PlayBGM(SoundNameBGM _mainSoundName, bool _isLoop = DefaultParamIsLoop, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onIntroStart = null, UnityAction _onIntroComplete = null, UnityAction _onMainStart = null, UnityAction _onMainComplete = null)
 	{
-		return PlayBGM(_soundName.ToString(), "", _volume, _delay, _isLoop, 0.0f, 0.0f, 0.0f, _onIntroStart, _onIntroComplete, _onMainStart, _onMainComplete);
+		return PlayBGM(_mainSoundName.ToString(), "", _volume, _delay, _isLoop, 0.0f, 0.0f, 0.0f, _onIntroStart, _onIntroComplete, _onMainStart, _onMainComplete);
 	}
 
-	public BackGroundMusicPlayer PlayBGM_FadeInOut(SoundNameBGM _soundName, bool _isLoop, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onIntroStart = null, UnityAction _onIntroComplete = null, UnityAction _onMainStart = null, UnityAction _onMainComplete = null)
+	public BackGroundMusicPlayer PlayBGM_FadeInOut(SoundNameBGM _mainSoundName, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, bool _isLoop = DefaultParamIsLoop, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onIntroStart = null, UnityAction _onIntroComplete = null, UnityAction _onMainStart = null, UnityAction _onMainComplete = null)
 	{
+		return PlayBGM(_mainSoundName.ToString(), "", _volume, _delay, _isLoop, _fadeInTime, _fadeOutTime, _crossFadeRate, _onIntroStart, _onIntroComplete, _onMainStart, _onMainComplete);
+	}
+
+	public BackGroundMusicPlayer PlayBGM_Intro(SoundNameBGM _mainSoundName, SoundNameBGM _introSoundName, bool _isLoop = DefaultParamIsLoop, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onIntroStart = null, UnityAction _onIntroComplete = null, UnityAction _onMainStart = null, UnityAction _onMainComplete = null)
+	{
+		return PlayBGM(_mainSoundName.ToString(), _introSoundName.ToString(), _volume, _delay, _isLoop, 0.0f, 0.0f, 0.0f, _onIntroStart, _onIntroComplete, _onMainStart, _onMainComplete);
+	}
+
+	public BackGroundMusicPlayer PlayBGM_IntroFadeInOut(SoundNameBGM _mainSoundName, SoundNameBGM _introSoundName, float _fadeInTime, float _fadeOutTime, float _crossFadeRate, bool _isLoop = DefaultParamIsLoop, float _volume = DefaultParamVolume, float _delay = DefaultParamDelay, UnityAction _onIntroStart = null, UnityAction _onIntroComplete = null, UnityAction _onMainStart = null, UnityAction _onMainComplete = null)
+	{
+		return PlayBGM(_mainSoundName.ToString(), _introSoundName.ToString(), _volume, _delay, _isLoop, _fadeInTime, _fadeOutTime, _crossFadeRate, _onIntroStart, _onIntroComplete, _onMainStart, _onMainComplete);
 	}
 
 	private BackGroundMusicPlayer PlayBGM(
-		string _soundName,
+		string _mainSoundName,
 		string _introSoundName,
 		float _volume,
 		float _delay,
@@ -818,9 +792,9 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		}
 
 		//音楽ファイルが存在するかの判定
-		if (!m_audioClipDirtBgm.ContainsKey(_soundName))
+		if (!m_audioClipDirtBgm.ContainsKey(_mainSoundName))
 		{
-			Debug.Log("BGM with that name does not exist :" + _soundName);
+			Debug.Log("BGM with that name does not exist :" + _mainSoundName);
 			return null;
 		}
 
@@ -831,7 +805,7 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		_crossFadeRate = 1.0f - Mathf.Clamp01(_crossFadeRate);
 
 		//AudioClip取得
-		mainClip = m_audioClipDirtBgm[_soundName];
+		mainClip = m_audioClipDirtBgm[_mainSoundName];
 
 		//BGM再生部分の作成
 		var isFadeIn = _fadeInTime > 0.0f;
@@ -881,6 +855,32 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 		return m_mainBackgroundPlayer;
 	}
 
+	/// <summary>
+	/// 全てのBGMを停止させる
+	/// </summary>
+	public void StopBGM()
+	{
+		m_mainBackgroundPlayer.Stop();
+		m_subBackgroundPlayer.Stop();
+	}
+
+	/// <summary>
+	/// BGMをポーズさせる
+	/// </summary>
+	public void PauseBGM()
+	{
+		m_mainBackgroundPlayer.Pause();
+		m_subBackgroundPlayer.Pause();
+	}
+
+	/// <summary>
+	/// ポーズ中のBGMを再開させる
+	/// </summary>
+	public void ResumeBGM()
+	{
+		m_mainBackgroundPlayer.Resume();
+		m_subBackgroundPlayer.Resume();
+	}
 
 	/// <summary>
 	/// 音量をロードする

@@ -12,7 +12,9 @@ public class SimpleSoundManagerEditor : Editor
 	private SerializedProperty m_editorIsFoldSeListProp;
 	private SerializedProperty m_editorIsFoldBgmListProp;
 	private SerializedProperty m_editorIsFoldSoundLIstProp;
+	private SerializedProperty m_soundEffectPlayersProp;
 	private SerializedProperty m_sePlayerNumProp;
+	private SerializedProperty m_isChangeToSaveProp;
 	private SerializedProperty m_volumeTotalProp;
 	private SerializedProperty m_volumeSeProp;
 	private SerializedProperty m_volumeBgmProp;
@@ -26,10 +28,12 @@ public class SimpleSoundManagerEditor : Editor
 		m_audioClipListBgmProp = m_serializedObj.FindProperty("audioClipListBgm");
 		m_editorIsFoldSeListProp = m_serializedObj.FindProperty("m_editorIsFoldSeList");
 		m_editorIsFoldBgmListProp = m_serializedObj.FindProperty("m_editorIsFoldBgmList");
+		m_soundEffectPlayersProp = m_serializedObj.FindProperty("m_soundEffectPlayers");
 		m_sePlayerNumProp = m_serializedObj.FindProperty("m_sePlayerNum");
 		m_volumeTotalProp = m_serializedObj.FindProperty("m_volumeTotal");
 		m_volumeSeProp = m_serializedObj.FindProperty("m_volumeSe");
 		m_volumeBgmProp = m_serializedObj.FindProperty("m_volumeBgm");
+		m_isChangeToSaveProp = m_serializedObj.FindProperty("m_isChangeToSave");
 
 
 		List<AudioClip> bgmClipList = new List<AudioClip>();
@@ -90,7 +94,9 @@ public class SimpleSoundManagerEditor : Editor
 
 
 		EditorGUILayout.LabelField("【Other】");
+		EditorGUILayout.PropertyField(m_isChangeToSaveProp);
 		m_sePlayerNumProp.intValue = EditorGUILayout.IntField("SE PlayerCount", m_sePlayerNumProp.intValue);
+
 
 		EditorGUILayout.Space();
 		EditorGUILayout.LabelField("【SoundList】");
@@ -162,6 +168,44 @@ public class SimpleSoundManagerEditor : Editor
 					EditorGUILayout.EndHorizontal();
 				}
 			}
+			EditorGUILayout.EndVertical();
+		}
+
+
+		if (Application.isPlaying)
+		{
+			EditorGUILayout.Space();
+			EditorGUILayout.LabelField("【Debug】");
+
+			//プレイ中に表示する情報
+			EditorGUILayout.BeginVertical(GUI.skin.box);
+
+			Debug.Log(m_soundEffectPlayersProp.arraySize);
+			for (int i = 0; i < m_soundEffectPlayersProp.arraySize; i++)
+			{
+				var playerProp = m_soundEffectPlayersProp.GetArrayElementAtIndex(i);
+				var player = (SoundEffectPlayer)playerProp.objectReferenceValue;
+				//エフェクトのプレイヤーを使用しているかどうかのチェック
+				if (!player.isActive)
+					continue;
+
+				EditorGUILayout.BeginVertical(GUI.skin.box);
+
+				float[] spectrum = new float[256];
+				player.source.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
+				float max = 0.0f;
+				for (int j = 0; j < spectrum.Length; j++)
+				{
+					if (max < spectrum[j]) { max = spectrum[j]; }
+				}
+
+				Rect rect = GUILayoutUtility.GetRect(10, 20);
+				EditorGUI.ProgressBar(rect, Mathf.Clamp01(max / 1.0f), "Player_" + i.ToString("0"));
+
+				//EditorGUILayout.PropertyField(player);
+				EditorGUILayout.EndVertical();
+			}
+
 			EditorGUILayout.EndVertical();
 		}
 
