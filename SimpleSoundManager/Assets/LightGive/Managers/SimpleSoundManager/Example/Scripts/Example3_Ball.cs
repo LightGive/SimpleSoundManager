@@ -15,8 +15,7 @@ public class Example3_Ball : MonoBehaviour
 	{
 		if (rigid.velocity.magnitude < m_playSeMinVelocity)
 			return;
-
-		SimpleSoundManager.Instance.PlaySE_3D(SoundNameSE.Enter, 0.0f, 15.0f, transform.position);
+		SimpleSoundManager.Instance.PlaySE_3D(SoundNameSE.BoundBall, 0.0f, 20.0f, transform.position);
 	}
 
 }
