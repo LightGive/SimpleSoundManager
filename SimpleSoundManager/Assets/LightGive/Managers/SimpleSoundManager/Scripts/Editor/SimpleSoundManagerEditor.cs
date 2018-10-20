@@ -13,6 +13,8 @@ public class SimpleSoundManagerEditor : Editor
 	private SerializedProperty m_editorIsFoldBgmListProp;
 	private SerializedProperty m_editorIsFoldSoundLIstProp;
 	private SerializedProperty m_soundEffectPlayersProp;
+	private SerializedProperty m_seAudioMixerGroupProp;
+	private SerializedProperty m_bgmAudioMixerGroupProp;
 	private SerializedProperty m_sePlayerNumProp;
 	private SerializedProperty m_isChangeToSaveProp;
 	private SerializedProperty m_volumeTotalProp;
@@ -29,6 +31,8 @@ public class SimpleSoundManagerEditor : Editor
 		m_editorIsFoldSeListProp = m_serializedObj.FindProperty("m_editorIsFoldSeList");
 		m_editorIsFoldBgmListProp = m_serializedObj.FindProperty("m_editorIsFoldBgmList");
 		m_soundEffectPlayersProp = m_serializedObj.FindProperty("m_soundEffectPlayers");
+		m_seAudioMixerGroupProp = m_serializedObj.FindProperty("m_seAudioMixerGroup");
+		m_bgmAudioMixerGroupProp = m_serializedObj.FindProperty("m_bgmAudioMixerGroup");
 		m_sePlayerNumProp = m_serializedObj.FindProperty("m_sePlayerNum");
 		m_volumeTotalProp = m_serializedObj.FindProperty("m_volumeTotal");
 		m_volumeSeProp = m_serializedObj.FindProperty("m_volumeSe");
@@ -77,6 +81,7 @@ public class SimpleSoundManagerEditor : Editor
 	public override void OnInspectorGUI()
 	{
 		currentWidth = EditorGUIUtility.currentViewWidth;
+		EditorGUILayout.Space();
 		EditorGUILayout.LabelField("【Volume】");
 		EditorGUILayout.Slider(m_volumeTotalProp, 0.0f, 1.0f, "Total");
 		EditorGUILayout.Slider(m_volumeSeProp, 0.0f, 1.0f, "SE");
@@ -84,9 +89,9 @@ public class SimpleSoundManagerEditor : Editor
 		EditorGUILayout.Space();
 
 		EditorGUILayout.LabelField("【AudioMixerGroup】");
-
-
-
+		EditorGUILayout.PropertyField(m_seAudioMixerGroupProp);
+		EditorGUILayout.PropertyField(m_bgmAudioMixerGroupProp);
+		EditorGUILayout.Space();
 
 		EditorGUILayout.LabelField("【Other】");
 		EditorGUILayout.PropertyField(m_isChangeToSaveProp);

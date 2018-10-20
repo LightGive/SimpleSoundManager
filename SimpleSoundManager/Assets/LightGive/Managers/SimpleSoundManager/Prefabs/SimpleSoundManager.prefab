@@ -66,6 +66,10 @@ MonoBehaviour:
   m_soundEffectPlayers: []
   m_mainBackgroundPlayer: {fileID: 0}
   m_subBackgroundPlayer: {fileID: 0}
+  m_seAudioMixerGroup: {fileID: 243720924480901822, guid: b1a4c6ad367cc4525bedcad8104e8962,
+    type: 2}
+  m_bgmAudioMixerGroup: {fileID: 243404549377513920, guid: b1a4c6ad367cc4525bedcad8104e8962,
+    type: 2}
   m_sePlayerNum: 10
   m_volumeTotal: 1
   m_volumeSe: 1
