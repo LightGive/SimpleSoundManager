@@ -76,16 +76,7 @@ public class SimpleSoundManagerEditor : Editor
 
 	public override void OnInspectorGUI()
 	{
-		base.OnInspectorGUI();
-
-		EditorGUILayout.Space();
-		EditorGUILayout.Space();
-		EditorGUILayout.LabelField("--------------------");
-		EditorGUILayout.LabelField("ここから下がCustomEditor");
-
 		currentWidth = EditorGUIUtility.currentViewWidth;
-
-
 		EditorGUILayout.LabelField("【Volume】");
 		EditorGUILayout.Slider(m_volumeTotalProp, 0.0f, 1.0f, "Total");
 		EditorGUILayout.Slider(m_volumeSeProp, 0.0f, 1.0f, "SE");
@@ -168,44 +159,6 @@ public class SimpleSoundManagerEditor : Editor
 					EditorGUILayout.EndHorizontal();
 				}
 			}
-			EditorGUILayout.EndVertical();
-		}
-
-
-		if (Application.isPlaying)
-		{
-			EditorGUILayout.Space();
-			EditorGUILayout.LabelField("【Debug】");
-
-			//プレイ中に表示する情報
-			EditorGUILayout.BeginVertical(GUI.skin.box);
-
-			Debug.Log(m_soundEffectPlayersProp.arraySize);
-			for (int i = 0; i < m_soundEffectPlayersProp.arraySize; i++)
-			{
-				var playerProp = m_soundEffectPlayersProp.GetArrayElementAtIndex(i);
-				var player = (SoundEffectPlayer)playerProp.objectReferenceValue;
-				//エフェクトのプレイヤーを使用しているかどうかのチェック
-				if (!player.isActive)
-					continue;
-
-				EditorGUILayout.BeginVertical(GUI.skin.box);
-
-				float[] spectrum = new float[256];
-				player.source.GetSpectrumData(spectrum, 0, FFTWindow.Rectangular);
-				float max = 0.0f;
-				for (int j = 0; j < spectrum.Length; j++)
-				{
-					if (max < spectrum[j]) { max = spectrum[j]; }
-				}
-
-				Rect rect = GUILayoutUtility.GetRect(10, 20);
-				EditorGUI.ProgressBar(rect, Mathf.Clamp01(max / 1.0f), "Player_" + i.ToString("0"));
-
-				//EditorGUILayout.PropertyField(player);
-				EditorGUILayout.EndVertical();
-			}
-
 			EditorGUILayout.EndVertical();
 		}
 
