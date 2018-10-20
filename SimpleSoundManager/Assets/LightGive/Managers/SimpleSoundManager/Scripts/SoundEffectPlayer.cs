@@ -86,6 +86,12 @@ public class SoundEffectPlayer : MonoBehaviour
 	public bool isActive { get { return (state != SoundPlayState.Stop); } }
 
 	/// <summary>
+	/// 再生されているかどうか
+	/// </summary>
+	/// <value><c>true</c> if is playing; otherwise, <c>false</c>.</value>
+	public bool isPlaying { get { return (state == SoundPlayState.Playing || state == SoundPlayState.DelayWait); } }
+
+	/// <summary>
 	/// 初期化
 	/// </summary>
 	public void Init()
@@ -171,6 +177,7 @@ public class SoundEffectPlayer : MonoBehaviour
 		//終わるかのチェック
 		if (loopCount <= 0)
 		{
+			state = SoundPlayState.Stop;
 			PlayEnd();
 			m_coroutineMethod = null;
 			yield break;
@@ -192,7 +199,6 @@ public class SoundEffectPlayer : MonoBehaviour
 		{
 			onCompleteAfter.Invoke();
 		}
-		state = SoundPlayState.Stop;
 		ResetPlayer();
 	}
 

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Audio;
 
-[System.Serializable]
 public class BackGroundMusicPlayer : MonoBehaviour
 {
 	public enum SoundPlayState

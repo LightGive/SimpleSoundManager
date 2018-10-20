@@ -94,6 +94,19 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 
 	public bool isPlayingBgm { get { return m_mainBackgroundPlayer.isPlaying; } }
 
+	public bool isPlayingSE
+	{
+		get
+		{
+			for (int i = 0; i < m_soundEffectPlayers.Count; i++)
+			{
+				if (m_soundEffectPlayers[i].isPlaying)
+					return true;
+			}
+			return false;
+		}
+	}
+
 	#endregion
 
 	protected override void Awake()
