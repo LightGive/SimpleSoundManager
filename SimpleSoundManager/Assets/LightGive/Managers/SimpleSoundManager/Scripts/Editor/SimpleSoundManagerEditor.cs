@@ -83,6 +83,10 @@ public class SimpleSoundManagerEditor : Editor
 		EditorGUILayout.Slider(m_volumeBgmProp, 0.0f, 1.0f, "BGM");
 		EditorGUILayout.Space();
 
+		EditorGUILayout.LabelField("【AudioMixerGroup】");
+
+
+
 
 		EditorGUILayout.LabelField("【Other】");
 		EditorGUILayout.PropertyField(m_isChangeToSaveProp);

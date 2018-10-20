@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Audio;
 
 [System.Serializable]
 public class BackGroundMusicPlayer : MonoBehaviour
@@ -90,6 +91,7 @@ public class BackGroundMusicPlayer : MonoBehaviour
 		m_state = SoundPlayState.Stop;
 		m_fadeVolume = 1.0f;
 		m_source = this.gameObject.AddComponent<AudioSource>();
+		m_source.outputAudioMixerGroup = SimpleSoundManager.Instance.bgmAudioMixerGroup;
 		m_source.playOnAwake = false;
 		m_source.loop = false;
 		m_source.spatialBlend = 0.0f;

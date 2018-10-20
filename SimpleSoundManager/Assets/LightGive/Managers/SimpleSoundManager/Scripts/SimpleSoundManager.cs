@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Audio;
 
 public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundManager>
 {
@@ -31,6 +32,10 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	[SerializeField]
 	private BackGroundMusicPlayer m_subBackgroundPlayer;
 	[SerializeField]
+	private AudioMixerGroup m_seAudioMixerGroup;
+	[SerializeField]
+	private AudioMixerGroup m_bgmAudioMixerGroup;
+	[SerializeField]
 	private int m_sePlayerNum = 10;
 	[SerializeField]
 	private float m_volumeTotal = DefaultParamVolumeTotal;
@@ -52,6 +57,10 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	private Dictionary<string, AudioClip> m_audioClipDictSe = new Dictionary<string, AudioClip>();
 	private Dictionary<string, AudioClip> m_audioClipDirtBgm = new Dictionary<string, AudioClip>();
 
+	#region Prop
+
+	public AudioMixerGroup seAudioMixerGroup { get { return m_seAudioMixerGroup; } }
+	public AudioMixerGroup bgmAudioMixerGroup { get { return m_bgmAudioMixerGroup; } }
 
 	public float volumeTotal
 	{
@@ -84,6 +93,8 @@ public class SimpleSoundManager : LightGive.SingletonMonoBehaviour<SimpleSoundMa
 	}
 
 	public bool isPlayingBgm { get { return m_mainBackgroundPlayer.isPlaying; } }
+
+	#endregion
 
 	protected override void Awake()
 	{

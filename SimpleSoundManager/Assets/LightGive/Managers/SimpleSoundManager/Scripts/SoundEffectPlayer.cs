@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 
 [System.Serializable]
@@ -52,7 +53,7 @@ public class SoundEffectPlayer : MonoBehaviour
 	{
 		get
 		{
-			var v = m_volume * SimpleSoundManager.Instance.volumeSe;
+			var v = m_volume * SimpleSoundManager.Instance.volumeSe * SimpleSoundManager.Instance.volumeTotal;
 			if (isFade) { v *= animationCurve.Evaluate(source.time); }
 			return v;
 		}
@@ -91,6 +92,7 @@ public class SoundEffectPlayer : MonoBehaviour
 	{
 		state = SoundPlayState.Stop;
 		m_source = this.gameObject.AddComponent<AudioSource>();
+		m_source.outputAudioMixerGroup = SimpleSoundManager.Instance.seAudioMixerGroup;
 		source.loop = false;
 		source.playOnAwake = false;
 		m_waitTimeCnt = 0.0f;
