@@ -1,23 +1,36 @@
-# AudioManager
-Unityで使えるシンプルなAudioManager<br>
-<br>
-### 実装済み機能<br>
-#### BGM<br>
-・通常再生<br>
-<br>
-#### SE<br>
-・遅延再生<br>
-・音量指定<br>
-・ピッチ指定<br>
-・ループ再生<br>
-・ループ回数指定<br>
-・フェードイン・フェードアウト<br>
-・再生開始時のコールバック<br>
-・再生終了時のコールバック<br>
-<br>
-### 未実装、今後追加、修正する機能<br>
-・イントロとメインのBGMを繋げて再生<br>
-・ループ開始時間指定しての再生<br>
-・軽量化<br>
+# SimpleSoundManager [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)<br>
+Unityで使用できるシンプルなSoundManager<br>
+小規模な開発向けで、基本的な機能は大体揃ってます。<br>
 
+## Update <br>
+ver 1.1.0:Windowsでスクリプト生成時にエラーが出ていたので全体的に修正,音楽ファイルを更新した時EnumがずれることからInspector上でSoundNameSEの値が変わってしまう不具合を修正(2018.09.17)<br>
 
+## Download (UnityPackage)
+[SimpleSoundManager(1.1.0)_IncludedExample]("SimpleSoundManager(1.1.0)_IncludedExample")<br>
+[SimpleSoundManager(1.1.0)_NoExample]("SimpleSoundManager(1.1.0)_NoExample")<br>
+
+## Function
+・オーディオファイルから音楽名のリスト（string,Enum）のスクリプトの自動生成<br>
+・インスペクタ上でのテスト再生<br>
+・ボリューム変更時の自動保存<br>
+<br>
+### 【SE】
+・基本的なPause、Resume<br>
+・ボリューム指定再生<br>
+・フェードイン、フェードアウトの時間指定での再生<br>
+・回数指定のループ再生<br>
+・ピッチ指定の再生<br>
+・再生開始、終了などのタイミングでのコールバック指定<br>
+・座標指定をして3D再生<br>
+・オブジェクトに追従して再生<br>
+<br>
+### 【BGM】
+・基本的なPause、Resume<br>
+・ボリューム指定再生<br>
+・フェードイン、フェードアウトの時間指定での再生<br>
+・クロスフェードの重ねる割合の設定<br>
+・再生開始、終了などのタイミングでのコールバック指定<br>
+・イントロ曲を指定して再生<br>
+
+## Future
+・軽量化
