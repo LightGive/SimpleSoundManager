@@ -3,7 +3,11 @@ Unityで使用できるシンプルなSoundManager<br>
 小規模な開発向けで、基本的な機能は大体揃ってます。<br>
 
 ## Update <br>
-ver 1.1.0:Windowsでスクリプト生成時にエラーが出ていたので全体的に修正,音楽ファイルを更新した時EnumがずれることからInspector上でSoundNameSEの値が変わってしまう不具合を修正(2018.09.17)<br>
+<dl>
+  <dt>ver1.1.0　(2018.09.17)</dt>
+  <dd>・Windowsでスクリプト生成時にエラーが出ていたので全体的に修正</dd>
+  <dd>・音楽ファイルを更新した時EnumがずれることからInspector上でSoundNameSEの値が変わってしまう不具合を修正</dd>
+</dl> 
 
 ## Download (UnityPackage)
 [SimpleSoundManager(1.1.0)_IncludedExample]("SimpleSoundManager(1.1.0)_IncludedExample")<br>
@@ -13,7 +17,7 @@ ver 1.1.0:Windowsでスクリプト生成時にエラーが出ていたので全
 ・オーディオファイルから音楽名のリスト（string,Enum）のスクリプトの自動生成<br>
 ・インスペクタ上でのテスト再生<br>
 ・ボリューム変更時の自動保存<br>
-<br>
+
 ### 【SE】
 ・基本的なPause、Resume<br>
 ・ボリューム指定再生<br>
