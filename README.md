@@ -11,6 +11,9 @@ Unityで使用できるシンプルなSoundManager<br>
   <dd>・SEのフェードイン,アウトの設定した時間が音より長い時の対策</dd>
 </dl> 
 
+## Example <br>
+[Example]("https://lightgive.github.io/MyPage/Examples/SimpleSoundManagerExample/index.html")<br>
+
 ## Download (UnityPackage)
 [SimpleSoundManager(1.1.0)_IncludedExample]()<br>
 [SimpleSoundManager(1.1.0)_NoExample]()<br>
