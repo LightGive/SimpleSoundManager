@@ -12,7 +12,7 @@ Unityで使用できるシンプルなSoundManager<br>
 </dl> 
 
 ## Example <br>
-[Example]("https://lightgive.github.io/MyPage/Examples/SimpleSoundManagerExample/index.html")<br>
+[Example](https://lightgive.github.io/MyPage/Examples/SimpleSoundManagerExample/index.html)<br>
 
 ## Download (UnityPackage)
 [SimpleSoundManager(1.1.0)_IncludedExample]()<br>
