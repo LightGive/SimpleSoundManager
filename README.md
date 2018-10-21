@@ -12,7 +12,9 @@ Unityで使用できるシンプルなSoundManager<br>
 </dl> 
 
 ## Example <br>
-[Example](https://lightgive.github.io/MyPage/Examples/SimpleSoundManagerExample/index.html)<br>
+以下のリンクからWebGLの実行ファイルに移動出来ます。<br>
+どんな機能があるか等の確認ができます。<br>
+[SimpleSoundManager_Example](https://lightgive.github.io/MyPage/Examples/SimpleSoundManagerExample/index.html)<br>
 
 ## Download (UnityPackage)
 [SimpleSoundManager(1.1.0)_IncludedExample]()<br>
