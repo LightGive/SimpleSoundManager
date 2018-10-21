@@ -4,7 +4,7 @@ Unityで使用できるシンプルなSoundManager<br>
 
 ## Update <br>
 <dl>
-  <dt>ver1.1.0　(2018.09.17)</dt>
+  <dt>ver1.1.0　(2018.10.21)</dt>
   <dd>・Windowsでスクリプト生成時にエラーが出ていたので全体的に修正</dd>
   <dd>・音楽ファイルを更新した時Enumの順番がズレてしまうことからInspector上で設定したSoundNameSEの値が変わってしまう不具合を修正</dd>
   <dd>・Android,iOSでの動作確認</dd>
