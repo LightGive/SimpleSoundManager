@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{AFBD8A31-F4FD-E83D-8664-2E9A8123EBCE}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SoundName.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Utility/UIToggleSoundSetting.cs">
     <Files>
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Editor/SimpleSoundManagerEditor.cs" Line="86" Column="52" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SimpleSoundManager.cs" Line="57" Column="38" />
@@ -15,6 +15,10 @@
       <File FileName="Assets/LightGive/Managers/ManagerCreator/ManagerCreator.cs" Line="40" Column="1" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Example/Scripts/Example3.cs" Line="35" Column="107" />
       <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/SoundName.cs" Line="3" Column="48" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Utility/UIDropdownSoundSetting.cs" Line="19" Column="42" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Utility/UIScrollbarSoundSetting.cs" Line="19" Column="42" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Utility/UISliderSoundSetting.cs" Line="19" Column="42" />
+      <File FileName="Assets/LightGive/Managers/SimpleSoundManager/Scripts/Utility/UIToggleSoundSetting.cs" Line="31" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
