@@ -14,9 +14,17 @@ Unity 2018.2.13f1
 </dl> 
 
 ## Example <br>
+### 01.Example_PlaySE_2D
+![Image1](https://66.media.tumblr.com/525e46e5d76428f9633c5b8690a60d9e/tumblr_pgzbflHM8b1u4382eo2_1280.png)<br>
+### 02.Example_PlayBGM
+![Image2](https://66.media.tumblr.com/d3b8c4ebc5469a2a5f920857b7566cbe/tumblr_pgzbflHM8b1u4382eo4_1280.png)<br>
+### 03.Example_PlaySE_3D
+![Image3](https://66.media.tumblr.com/c96060c638d2ab0687d3024f40d508cb/tumblr_pgzbflHM8b1u4382eo3_1280.png)<br>
+### 04.Example_SettingUI_Sound
+![Image4](https://66.media.tumblr.com/ec9e55b87e6d44ef0dfda43aea1a8700/tumblr_pgzbflHM8b1u4382eo1_1280.png)<br>
+<br>
 以下のリンクからWebGLの実行ファイルに移動出来ます。<br>
 どんな機能があるか等の確認ができます。<br>
-<br>
 [SimpleSoundManager_Example](https://lightgive.github.io/MyPage/Examples/SimpleSoundManagerExample/index.html)<br>
 
 ## Download (UnityPackage)
