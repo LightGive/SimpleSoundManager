@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/LightGive/Managers/SimpleSoundManager/Example/Scenes/03.Example_PlaySE_3D.unity
     guid: 60cc01c10a3f8423590b87d014debaed
+  - enabled: 1
+    path: Assets/LightGive/Managers/SimpleSoundManager/Example/Scenes/04.Example_SettingUI_Sound.unity
+    guid: d88b1085ee6b34fa18a09a1693afe3b1
   m_configObjects: {}

@@ -7,6 +7,7 @@
 	public const string SE_ButtonDown = "ButtonDown";
 	public const string SE_Cursor = "Cursor";
 	public const string SE_Helicopter = "Helicopter";
+	public const string SE_typewriter = "typewriter";
 }
 	
 public enum SoundNameBGM
@@ -23,4 +24,5 @@ public enum SoundNameSE
 	ButtonDown = 2,
 	Cursor = 3,
 	Helicopter = 4,
+	typewriter = 5,
 }
