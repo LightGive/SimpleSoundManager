@@ -31,8 +31,8 @@ Unity 2018.2.13f1
 [SimpleSoundManager_Example](https://lightgive.github.io/MyPage/Examples/SimpleSoundManagerExample/index.html)<br>
 
 ## Download (UnityPackage)
-[SimpleSoundManager(1.1.0)_IncludedExample]()<br>
-[SimpleSoundManager(1.1.0)_NoExample]()<br>
+[SimpleSoundManager(1.1.0)_IncludedExample](https://www.dropbox.com/s/kc7gt3unucl54bj/SimpleSoundManager%281.1.0%29_IncludeExample.unitypackage?dl=0)<br>
+[SimpleSoundManager(1.1.0)_NoExample](https://www.dropbox.com/s/n3opf0ynjvhb230/SimpleSoundManager%281.1.0%29_NoExample.unitypackage?dl=0)<br>
 
 ## Function
 ・オーディオファイルから音楽名のリスト（string,Enum）のスクリプトの自動生成<br>
