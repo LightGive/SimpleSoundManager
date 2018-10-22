@@ -1,8 +1,6 @@
 # SimpleSoundManager [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)<br>
 Unityで使用できるシンプルなSoundManager<br>
 小規模な開発向けで、基本的な機能は大体揃ってます。<br>
-## UnityVersion
-Unity 2018.2.13f1
 
 ## Update <br>
 <dl>
@@ -60,4 +58,10 @@ Unity 2018.2.13f1
 ## Future
 ・軽量化<br>
 ・UIのボタンなどを操作した時の音を簡単に設定できるように<br>
-・Timelineに対応
+・Timelineに対応<br>
+
+## UnityVersion
+Unity 2018.2.13f1<br>
+
+## License
+See [LICENSE](/LICENSE).
