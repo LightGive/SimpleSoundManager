@@ -21,7 +21,10 @@ Unity 2018.2.13f1
 ### 03.Example_PlaySE_3D
 ![Image3](https://66.media.tumblr.com/c96060c638d2ab0687d3024f40d508cb/tumblr_pgzbflHM8b1u4382eo3_1280.png)<br>
 ### 04.Example_SettingUI_Sound
-![Image4](https://66.media.tumblr.com/ec9e55b87e6d44ef0dfda43aea1a8700/tumblr_pgzbflHM8b1u4382eo1_1280.png)<br>
+![Image4](https://66.media.tumblr.com/ec9e55b87e6d44ef0dfda43aea1a8700/tumblr_pgzbflHM8b1u4382eo1_1280.png)<br><br>
+### Inspector
+![Image](https://66.media.tumblr.com/09d51d44d99c6536326080189b71bbf9/tumblr_pgzbw7FNBR1u4382eo2_400.png)<br>
+![Image](https://66.media.tumblr.com/4bd875ee5bb2e9f31eed8fa4921d6cda/tumblr_pgzbw7FNBR1u4382eo1_640.png)<br>
 <br>
 以下のリンクからWebGLの実行ファイルに移動出来ます。<br>
 どんな機能があるか等の確認ができます。<br>
