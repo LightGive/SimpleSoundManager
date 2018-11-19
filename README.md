@@ -1,14 +1,14 @@
 # SimpleSoundManager [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)<br>
-Unityで使用できるシンプルなSoundManager<br>
-小規模な開発向けで、基本的な機能は大体揃ってます。<br>
+A simple SoundManager that can be used with Unity.<br>
+For small-scale development, basic functions are almost complete.<br>
 
 ## Update <br>
 <dl>
   <dt>ver1.1.0　(2018.10.21)</dt>
-  <dd>・Windowsでスクリプト生成時にエラーが出ていたので全体的に修正</dd>
-  <dd>・音楽ファイルを更新した時Enumの順番がズレてしまうことからInspector上で設定したSoundNameSEの値が変わってしまう不具合を修正</dd>
-  <dd>・Android,iOSでの動作確認</dd>
-  <dd>・SEのフェードイン,アウトの設定した時間が音より長い時の対策</dd>
+  <dd>・On Windows, there was an error when generating the script, so it was fixed as a whole</dd>
+  <dd>・Fixed a bug that the value of SoundNameSE (enum) set by Inspector will be changed due to enum's order shift in "SoundName.cs" when updating music file.</dd>
+  <dd>・Operation check on Android, iOS</dd>
+  <dd>・When the set time of SE for fade in and out is longer than the sound, the part where fade processing was not working correctly was fixed.</dd>
 </dl> 
 
 ## Example <br>
